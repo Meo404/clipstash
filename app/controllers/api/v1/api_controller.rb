@@ -2,9 +2,7 @@ module Api
   module V1
     class ApiController < ApiController
       include Api::Concerns::ActAsApiRequest
-
       layout false
-      respond_to :json
 
       rescue_from Exception,                           with: :render_error
       rescue_from ActiveRecord::RecordNotFound,        with: :render_not_found
