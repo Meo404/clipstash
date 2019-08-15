@@ -1,8 +1,7 @@
 module Api
   module V1
-    class ApiController < ActionController::Api
+    class ApiController < ActionController::API
       include Api::Concerns::ActAsApiRequest
-      layout false
 
       rescue_from Exception,                           with: :render_error
       rescue_from ActiveRecord::RecordNotFound,        with: :render_not_found
