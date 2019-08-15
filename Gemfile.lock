@@ -44,6 +44,9 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.6.0)
       public_suffix (>= 2.0.2, < 4.0)
+    annotate (2.7.5)
+      activerecord (>= 3.2, < 7.0)
+      rake (>= 10.4, < 13.0)
     archive-zip (0.12.0)
       io-like (~> 0.3.0)
     arel (9.0.0)
@@ -234,6 +237,8 @@ GEM
     shellany (0.0.1)
     shoulda-matchers (4.1.1)
       activesupport (>= 4.2.0)
+    simple_enum (2.3.2)
+      activesupport (>= 4.0.0)
     spring (2.1.0)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
@@ -277,6 +282,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  annotate
   better_errors
   bootsnap (>= 1.1.0)
   byebug
@@ -303,6 +309,7 @@ DEPENDENCIES
   rubocop
   selenium-webdriver
   shoulda-matchers
+  simple_enum
   spring
   spring-commands-rspec
   spring-watcher-listen (~> 2.0.0)

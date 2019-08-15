@@ -10,9 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 2019_08_15_113310) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "subreddits", force: :cascade do |t|
+    t.string "reddit_fullname"
+    t.string "display_name"
+    t.string "display_name_prefixed"
+    t.text "public_description"
+    t.integer "subscribers"
+    t.string "icon_image"
+    t.integer "icon_size", array: true
+    t.string "banner_image"
+    t.integer "banner_size", array: true
+    t.boolean "over18"
+    t.date "created_utc"
+    t.string "url"
+    t.integer "status_cd"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["display_name"], name: "index_subreddits_on_display_name", unique: true
+    t.index ["reddit_fullname"], name: "index_subreddits_on_reddit_fullname", unique: true
+  end
 
 end
