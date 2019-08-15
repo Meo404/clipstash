@@ -22,9 +22,9 @@ ActiveRecord::Schema.define(version: 2019_08_15_113310) do
     t.text "public_description"
     t.integer "subscribers"
     t.string "icon_image"
-    t.string "icon_size"
+    t.integer "icon_size", array: true
     t.string "banner_image"
-    t.string "banner_size"
+    t.integer "banner_size", array: true
     t.boolean "over18"
     t.date "created_utc"
     t.string "url"
