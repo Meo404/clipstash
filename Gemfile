@@ -18,6 +18,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'annotate'
 gem 'webpacker'
 gem 'react-rails'
+gem 'simple_enum'
 
 group :development, :test do
   gem 'factory_bot_rails'

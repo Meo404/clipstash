@@ -21,4 +21,5 @@
 #
 
 class Subreddit < ApplicationRecord
+  as_enum :status, active: 1, inactive: 0
 end

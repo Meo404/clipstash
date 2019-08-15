@@ -237,6 +237,8 @@ GEM
     shellany (0.0.1)
     shoulda-matchers (4.1.1)
       activesupport (>= 4.2.0)
+    simple_enum (2.3.2)
+      activesupport (>= 4.0.0)
     spring (2.1.0)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
@@ -307,6 +309,7 @@ DEPENDENCIES
   rubocop
   selenium-webdriver
   shoulda-matchers
+  simple_enum
   spring
   spring-commands-rspec
   spring-watcher-listen (~> 2.0.0)
