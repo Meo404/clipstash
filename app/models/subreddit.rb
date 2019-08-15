@@ -30,7 +30,6 @@ class Subreddit < ApplicationRecord
   validates :display_name_prefixed, uniqueness: :true, presence: true
   validates :public_description, presence: true
   validates :subscribers, presence: true
-  validates :over18, inclusion: { in: [true, false] }
   validates :created_utc, presence: true
 
   validates_presence_of :icon_size, if: :icon_image?
