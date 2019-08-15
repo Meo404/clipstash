@@ -36,16 +36,16 @@ class Subreddit < ApplicationRecord
   validates_presence_of :icon_size, if: :icon_image?
   validates_presence_of :banner_size, if: :banner_image?
 
-  def icon_image?
-    self.icon_image.present?
-  end
-
-  def banner_image?
-    self.banner_image.present?
-  end
-
   private
     def build_url
       self.url = "https://www.reddit.com/#{self.display_name_prefixed}"
+    end
+
+    def icon_image?
+      self.icon_image.present?
+    end
+
+    def banner_image?
+      self.banner_image.present?
     end
 end
