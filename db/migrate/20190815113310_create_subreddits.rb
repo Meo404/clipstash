@@ -11,7 +11,7 @@ class CreateSubreddits < ActiveRecord::Migration[5.2]
       t.string :banner_image
       t.integer :banner_size, array: true
       t.boolean :over18
-      t.date :created_utc
+      t.timestamp :created_utc
       t.string :url
       t.integer :status_cd
 

@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 2019_08_15_113310) do
     t.string "banner_image"
     t.integer "banner_size", array: true
     t.boolean "over18"
-    t.date "created_utc"
+    t.datetime "created_utc"
     t.string "url"
     t.integer "status_cd"
     t.datetime "created_at", null: false

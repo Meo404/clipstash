@@ -29,5 +29,9 @@ module ProjectFree
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # Load Lib path
+    config.autoload_paths << Rails.root.join("lib")
+    config.eager_load_paths << Rails.root.join("lib")
   end
 end

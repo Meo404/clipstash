@@ -1,7 +1,18 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+# Populate Subreddits
+# Requires Internet / Api Connection
+DISPLAY_NAMES = [
+    'leagueoflegends',
+    'pokemon',
+    'Minecraft',
+    'skyrim',
+    'hearthstone',
+    'GlobalOffensive',
+    'wow',
+    'DotA2',
+    'Fallout',
+    'DestinyTheGame']
+
+DISPLAY_NAMES.each do |display_name|
+  RedditData::CreateSubreddit.call(display_name)
+  puts "Subreddit: #{display_name} was created"
+end
