@@ -8,7 +8,7 @@ module RedditData
       api_session = ReddWrapper::Subreddits.new(@display_name)
       subreddit = api_session.get
 
-      Subreddit.create!(subreddit_params(subreddit))
+      Subreddit.create(subreddit_params(subreddit))
     end
 
     private
