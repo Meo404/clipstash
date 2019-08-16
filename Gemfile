@@ -18,7 +18,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'annotate'
 gem 'webpacker'
 gem 'react-rails'
-gem 'redd'
+gem 'redd', git: 'https://github.com/Meo404/redd.git'
 gem 'simple_enum'
 
 group :development, :test do
