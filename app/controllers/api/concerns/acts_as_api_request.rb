@@ -1,6 +1,6 @@
 module Api
   module Concerns
-    module ActAsApiRequest
+    module ActsAsApiRequest
       extend ActiveSupport::Concern
 
       included do
@@ -11,7 +11,7 @@ module Api
       def check_json_request
         return if request_content_type&.match?(/json/)
 
-        render json: { error: I18n.t("api.errors.invalid_content_type") }, status: :not_acceptable
+        render json: {error: I18n.t("api.errors.invalid_content_type")}, status: :not_acceptable
       end
 
       def skip_session_storage
