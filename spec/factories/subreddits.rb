@@ -9,11 +9,11 @@
 #  public_description    :text
 #  subscribers           :integer
 #  icon_image            :string
-#  icon_size             :string
+#  icon_size             :integer          is an Array
 #  banner_image          :string
-#  banner_size           :string
+#  banner_size           :integer          is an Array
 #  over18                :boolean
-#  created_utc           :date
+#  created_utc           :datetime
 #  url                   :string
 #  status_cd             :integer
 #  created_at            :datetime         not null
