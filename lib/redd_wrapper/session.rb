@@ -4,6 +4,10 @@ module ReddWrapper
       @session = initialize_session
     end
 
+    def from_fullnames(fullnames)
+      @session.from_ids(fullnames)
+    end
+
     private
 
       def initialize_session
