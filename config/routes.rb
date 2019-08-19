@@ -4,7 +4,8 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: 'json' } do
     namespace :v1 do
-      resources :subreddits
+      get 'subreddits', to: 'subreddits#index', as: 'subreddits'
+      get 'subreddits/popular'
     end
   end
 end
