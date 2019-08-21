@@ -11,7 +11,6 @@ import HomeIcon from '@material-ui/icons/Home';
 import WhatshotIcon from '@material-ui/icons/Whatshot';
 
 const drawerWidth = 225;
-
 const useStyles = makeStyles(theme => ({
     list: {
         width: drawerWidth,
@@ -33,7 +32,7 @@ const useStyles = makeStyles(theme => ({
 export default function SideDrawer({mobileMenu, mobileMenuHandler}) {
     const classes = useStyles();
 
-    const mobileDrawer = (
+    const drawerContent = (
         <div className={classes.list} role="presentation">
             <List>
                 <ListItem button key="Home">
@@ -62,7 +61,7 @@ export default function SideDrawer({mobileMenu, mobileMenuHandler}) {
             <Drawer
                 open={mobileMenu}
                 onClose={mobileMenuHandler}>
-                {mobileDrawer}
+                {drawerContent}
             </Drawer>
             <Drawer className={classes.desktopDrawer}
                     variant="permanent"
@@ -70,7 +69,7 @@ export default function SideDrawer({mobileMenu, mobileMenuHandler}) {
                         paper: classes.drawerPaper,
                     }}>
                 <div className={classes.toolbar}/>
-                {mobileDrawer}
+                {drawerContent}
             </Drawer>
         </div>
     );
