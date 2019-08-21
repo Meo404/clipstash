@@ -1,5 +1,6 @@
-import React, {useEffect} from 'react';
-import {makeStyles} from '@material-ui/core/styles';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
@@ -26,36 +27,52 @@ const useStyles = makeStyles(theme => ({
     drawerPaper: {
         zIndex: "-1"
     },
+    subredditImage: {
+        width: "20px",
+        height: "20px"
+    },
     toolbar: theme.mixins.toolbar,
 }));
 
-export default function SideDrawer({mobileMenu, mobileMenuHandler}) {
+export default function SideDrawer({ mobileMenu, mobileMenuHandler }) {
     const classes = useStyles();
+    const [data, setData] = useState({ subreddits: [] });
 
     const drawerContent = (
         <div className={classes.list} role="presentation">
             <List>
                 <ListItem button key="Home">
-                    <ListItemIcon><HomeIcon/></ListItemIcon>
-                    <ListItemText primary="Home"/>
+                    <ListItemIcon><HomeIcon /></ListItemIcon>
+                    <ListItemText primary="Home" />
                 </ListItem>
                 <ListItem button key="Trending">
-                    <ListItemIcon><WhatshotIcon/></ListItemIcon>
-                    <ListItemText primary="Trending"/>
+                    <ListItemIcon><WhatshotIcon /></ListItemIcon>
+                    <ListItemText primary="Trending" />
                 </ListItem>
             </List>
-            <Divider/>
+            <Divider />
             <List>
                 <ListSubheader>Popular Subreddits</ListSubheader>
-                {['r/leagueoflegends', 'r/dota2', 'r/pokemon', 'r/wow', 'r/destiny2game'].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemText primary={text}/>
+                {data.subreddits.map((subreddit, index) => (
+                    <ListItem button key={subreddit.id}>
+                        <ListItemIcon>
+                            <img src={subreddit.attributes.icon_image} className={classes.subredditImage} />
+                        </ListItemIcon>
+                        <ListItemText primary={subreddit.attributes.display_name} />
                     </ListItem>
                 ))}
             </List>
         </div>
     );
 
+    async function fetchData() {
+        const result = await axios('/api/v1/subreddits/popular');
+        setData({ subreddits: result.data.data });
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, []);
     /**
      * First <Drawer> is only for mobile screen size. Else it's hidden
      * Second <Drawer> is for non mobile screen size. On mobile it's hidden
@@ -73,7 +90,7 @@ export default function SideDrawer({mobileMenu, mobileMenuHandler}) {
                 classes={{
                     paper: classes.drawerPaper,
                 }}>
-                <div className={classes.toolbar}/>
+                <div className={classes.toolbar} />
                 {drawerContent}
             </Drawer>
         </div>
