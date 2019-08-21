@@ -21,9 +21,15 @@ const useStyles = makeStyles(theme => ({
     title: {
         flexGrow: 1,
     },
+    desktopButton: {
+        display: 'none',
+        [theme.breakpoints.up('sm')]: {
+            display: 'block',
+        },
+    }
 }));
 
-export default function Navbar() {
+export default function Navbar({ mobileMenuHandler }) {
     const classes = useStyles();
 
     return (
@@ -34,14 +40,15 @@ export default function Navbar() {
                         edge="start"
                         className={classes.menuButton}
                         color="inherit"
-                        aria-label="menu">
+                        aria-label="menu"
+                        onClick={mobileMenuHandler}>
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" className={classes.title}>
                         Project Free
                     </Typography>
-                    <Button color="inherit">LOGIN</Button>
-                    <Button color="inherit">SIGNUP</Button>
+                    <Button color="inherit" className={classes.desktopButton}>LOGIN</Button>
+                    <Button color="inherit" className={classes.desktopButton}>SIGNUP</Button>
                 </Toolbar>
             </AppBar>
         </div>
