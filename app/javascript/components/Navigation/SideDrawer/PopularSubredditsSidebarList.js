@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
+import DefaultIcon from 'images/default_subreddit_icon.png';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -18,22 +19,32 @@ export default function PopularSubredditsList() {
     const classes = useStyles();
     const [data, setData] = useState({ subreddits: [] });
 
-    async function fetchData() {
-        const result = await axios('/api/v1/subreddits/popular');
-        setData({ subreddits: result.data.data });
-    };
-
     useEffect(() => {
         fetchData();
     }, []);
 
+    async function fetchData() {
+        const result = await axios('/api/v1/subreddits/popular');
+        setData({ subreddits: result.data.data });
+    }
+
+    function setIcon(iconImage, displayName) {
+        const icon = iconImage ? iconImage : DefaultIcon;
+        return (
+            <img
+                src={icon}
+                className={classes.subredditImage}
+                alt={displayName + ' subreddit icon'}/>
+        );
+    }
+
     return (
         <List>
             <ListSubheader>Popular Subreddits</ListSubheader>
-            {data.subreddits.map((subreddit, index) => (
+            {data.subreddits.map((subreddit) => (
                 <ListItem button key={subreddit.id}>
                     <ListItemIcon>
-                        <img src={subreddit.attributes.icon_image} className={classes.subredditImage} />
+                        {setIcon(subreddit.attributes.icon_image, subreddit.attributes.display_name)}
                     </ListItemIcon>
                     <ListItemText primary={subreddit.attributes.display_name} />
                 </ListItem>
