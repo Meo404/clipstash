@@ -6,7 +6,7 @@ RSpec.describe Api::V1::SubredditsController, type: :controller do
     10.times { create(:subreddit) }
   end
 
-  describe '#index' do
+  describe 'GET #index' do
     subject { get :index, as: :json }
 
     it { is_expected.to be_successful }
@@ -17,7 +17,7 @@ RSpec.describe Api::V1::SubredditsController, type: :controller do
     end
   end
 
-  describe '#popular' do
+  describe 'GET #popular' do
     subject { get :popular, as: :json }
 
     it { is_expected.to be_successful }

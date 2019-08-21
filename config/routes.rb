@@ -8,4 +8,8 @@ Rails.application.routes.draw do
       get 'subreddits/popular'
     end
   end
+
+  get '*path', to: "home#index", constraints: ->(request) do
+    !request.xhr? && request.format.html?
+  end
 end
