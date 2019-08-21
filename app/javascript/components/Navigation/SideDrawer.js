@@ -56,22 +56,17 @@ export default function SideDrawer({mobileMenu, mobileMenuHandler}) {
         </div>
     );
 
+    /**
+     * First <Drawer> is only for mobile screen size. Else it's hidden
+     * Second <Drawer> is for non mobile screen size. On mobile it's hidden
+     */
     return (
         <div>
-            /**
-             * Mobile Drawer
-             * Hidden on device sizes > sm
-             */
             <Drawer
                 open={mobileMenu}
                 onClose={mobileMenuHandler}>
                 {drawerContent}
             </Drawer>
-            /**
-             * Non-Mobile Drawer
-             * Visible on device sizes > sm
-             * Hidden on device size sm
-             */
             <Drawer
                 className={classes.desktopDrawer}
                 variant="permanent"
