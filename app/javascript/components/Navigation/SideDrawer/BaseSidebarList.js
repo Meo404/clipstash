@@ -1,4 +1,5 @@
 import React from 'react';
+import AppsIcon from '@material-ui/icons/Apps';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -10,12 +11,22 @@ export default function BaseSidebarList() {
     return (
         <List>
             <ListItem button key="Home">
-                <ListItemIcon><HomeIcon /></ListItemIcon>
+                <ListItemIcon>
+                    <HomeIcon />
+                </ListItemIcon>
                 <ListItemText primary="Home" />
             </ListItem>
             <ListItem button key="Trending">
-                <ListItemIcon><WhatshotIcon /></ListItemIcon>
+                <ListItemIcon>
+                    <WhatshotIcon />
+                </ListItemIcon>
                 <ListItemText primary="Trending" />
+            </ListItem>
+            <ListItem button key="Subreddits">
+                <ListItemIcon>
+                    <AppsIcon />
+                </ListItemIcon>
+                <ListItemText primary="Subreddits"/>
             </ListItem>
         </List>
     );

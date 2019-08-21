@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import DefaultIcon from 'images/default_subreddit_icon.png';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -17,7 +17,7 @@ const useStyles = makeStyles({
 
 export default function PopularSubredditsList() {
     const classes = useStyles();
-    const [data, setData] = useState({ subreddits: [] });
+    const [data, setData] = useState({subreddits: []});
 
     useEffect(() => {
         fetchData();
@@ -25,7 +25,7 @@ export default function PopularSubredditsList() {
 
     async function fetchData() {
         const result = await axios('/api/v1/subreddits/popular');
-        setData({ subreddits: result.data.data });
+        setData({subreddits: result.data.data});
     }
 
     function setIcon(iconImage, displayName) {
@@ -46,7 +46,7 @@ export default function PopularSubredditsList() {
                     <ListItemIcon>
                         {setIcon(subreddit.attributes.icon_image, subreddit.attributes.display_name)}
                     </ListItemIcon>
-                    <ListItemText primary={subreddit.attributes.display_name} />
+                    <ListItemText primary={subreddit.attributes.display_name}/>
                 </ListItem>
             ))}
         </List>
