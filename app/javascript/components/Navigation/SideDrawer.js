@@ -58,16 +58,26 @@ export default function SideDrawer({mobileMenu, mobileMenuHandler}) {
 
     return (
         <div>
+            /**
+             * Mobile Drawer
+             * Hidden on device sizes > sm
+             */
             <Drawer
                 open={mobileMenu}
                 onClose={mobileMenuHandler}>
                 {drawerContent}
             </Drawer>
-            <Drawer className={classes.desktopDrawer}
-                    variant="permanent"
-                    classes={{
-                        paper: classes.drawerPaper,
-                    }}>
+            /**
+             * Non-Mobile Drawer
+             * Visible on device sizes > sm
+             * Hidden on device size sm
+             */
+            <Drawer
+                className={classes.desktopDrawer}
+                variant="permanent"
+                classes={{
+                    paper: classes.drawerPaper,
+                }}>
                 <div className={classes.toolbar}/>
                 {drawerContent}
             </Drawer>
