@@ -20,9 +20,9 @@ const useStyles = makeStyles(theme => ({
     },
     title: {
         flexGrow: 1,
-    },
-    desktopButton: {
-        display: 'none',
+        },
+        desktopButton: {
+            display: 'none',
         [theme.breakpoints.up('sm')]: {
             display: 'block',
         },

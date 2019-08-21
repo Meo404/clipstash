@@ -1,19 +1,20 @@
-import React, { useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, {useEffect} from 'react';
+import {makeStyles} from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import HomeIcon from '@material-ui/icons/Home';
+import WhatshotIcon from '@material-ui/icons/Whatshot';
 
-const drawerWidth = 240;
+const drawerWidth = 225;
 
 const useStyles = makeStyles(theme => ({
     list: {
-        width: 250,
+        width: drawerWidth,
     },
     desktopDrawer: {
         width: drawerWidth,
@@ -24,34 +25,32 @@ const useStyles = makeStyles(theme => ({
         },
     },
     drawerPaper: {
-      zIndex: "-1"
+        zIndex: "-1"
     },
     toolbar: theme.mixins.toolbar,
 }));
 
-export default function SideDrawer({ mobileMenu, mobileMenuHandler }) {
+export default function SideDrawer({mobileMenu, mobileMenuHandler}) {
     const classes = useStyles();
 
     const mobileDrawer = (
-        <div
-            className={classes.list}
-            role="presentation"
-            onClick={mobileMenuHandler}
-        >
+        <div className={classes.list} role="presentation">
             <List>
-                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                        <ListItemText primary={text} />
-                    </ListItem>
-                ))}
+                <ListItem button key="Home">
+                    <ListItemIcon><HomeIcon/></ListItemIcon>
+                    <ListItemText primary="Home"/>
+                </ListItem>
+                <ListItem button key="Trending">
+                    <ListItemIcon><WhatshotIcon/></ListItemIcon>
+                    <ListItemText primary="Trending"/>
+                </ListItem>
             </List>
-            <Divider />
+            <Divider/>
             <List>
-                {['All mail', 'Trash', 'Spam'].map((text, index) => (
+                <ListSubheader>Popular Subreddits</ListSubheader>
+                {['r/leagueoflegends', 'r/dota2', 'r/pokemon', 'r/wow', 'r/destiny2game'].map((text, index) => (
                     <ListItem button key={text}>
-                        <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                        <ListItemText primary={text} />
+                        <ListItemText primary={text}/>
                     </ListItem>
                 ))}
             </List>
@@ -70,7 +69,7 @@ export default function SideDrawer({ mobileMenu, mobileMenuHandler }) {
                     classes={{
                         paper: classes.drawerPaper,
                     }}>
-                <div className={classes.toolbar} />
+                <div className={classes.toolbar}/>
                 {mobileDrawer}
             </Drawer>
         </div>
