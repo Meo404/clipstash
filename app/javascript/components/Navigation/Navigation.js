@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import TopNavbar from './TopNavbar';
-import SideDrawer from './SideDrawer';
+import SideDrawer from './SideDrawer/SideDrawer';
 
 export default function Navigation() {
 
