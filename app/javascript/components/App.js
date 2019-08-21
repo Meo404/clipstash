@@ -1,10 +1,11 @@
 import React from "react"
+import Navbar from './Navigation/Navbar';
 
 class App extends React.Component {
   render () {
     return (
       <React.Fragment>
-        <h1>Test</h1>
+        <Navbar />
       </React.Fragment>
     );
   }
