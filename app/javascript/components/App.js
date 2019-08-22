@@ -2,6 +2,7 @@ import React from "react"
 import { createMuiTheme, MuiThemeProvider, makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Navigation from './Navigation/Navigation';
+import SubredditGrid from "./Subreddits/SubredditGrid";
 
 const theme = createMuiTheme({
     palette: {
@@ -20,7 +21,10 @@ const useStyles = makeStyles(theme => ({
     },
     content: {
         flexGrow: 1,
-        padding: theme.spacing(3)
+        padding: theme.spacing(0),
+        [theme.breakpoints.up('md')]: {
+            padding: theme.spacing(3)
+        },
     },
     toolbar: theme.mixins.toolbar,
 }));
@@ -35,6 +39,7 @@ export default function App() {
                 <Navigation />
                 <main className={classes.content}>
                     <div className={classes.toolbar} />
+                    <SubredditGrid />
                 </main>
             </div>
         </MuiThemeProvider>
