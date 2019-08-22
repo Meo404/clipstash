@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -18,14 +18,14 @@ const useStyles = makeStyles({
         padding: 10
     },
     media: {
-        height: 125,
-        backgroundSize: "contain"
+        height: 150,
+        backgroundSize: "contain",
+        backgroundColor: '#E0E0E0'
     }
 });
 
 export default function MediaCard() {
     const classes = useStyles();
-
     const [data, setData] = useState({subreddits: []});
 
     useEffect(() => {
@@ -37,7 +37,7 @@ export default function MediaCard() {
         setData({subreddits: result.data.data});
     }
 
-    function setImage(iconImage, displayName) {
+    function setImage(iconImage) {
         return iconImage ? iconImage : DefaultIcon;
     }
 
@@ -50,8 +50,8 @@ export default function MediaCard() {
                                 <CardActionArea>
                                     <CardMedia
                                         className={classes.media}
-                                        image={setImage(subreddit.attributes.icon_image, subreddit.attributes.display_name)}
-                                        title="Contemplative Reptile"
+                                        image={setImage(subreddit.attributes.icon_image)}
+                                        title={subreddit.attributes.display_name}
                                     />
                                     <CardContent>
                                         <Typography gutterBottom component="h6" noWrap>

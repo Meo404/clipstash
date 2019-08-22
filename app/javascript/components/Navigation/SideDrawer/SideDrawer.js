@@ -39,8 +39,8 @@ export default function SideDrawer({ mobileMenu, mobileMenuHandler }) {
         </div>
     );
     /**
-     * First <Drawer> is only for mobile screen size. Else it's hidden
-     * Second <Drawer> is for non mobile screen size. On mobile it's hidden
+     * First <Drawer> is only for xs and sm screen sizes. Else it's hidden
+     * Second <Drawer> is for screen sizes >= md. Else it's hidden
      */
     return (
         <React.Fragment>
