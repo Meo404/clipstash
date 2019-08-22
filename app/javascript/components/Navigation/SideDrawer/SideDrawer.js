@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
         },
     },
     drawerPaper: {
-        zIndex: "-1"
+        width: drawerWidth,
     },
     subredditImage: {
         width: "20px",
@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function SideDrawer({ mobileMenu, mobileMenuHandler }) {
     const classes = useStyles();
-    
+
     const drawerContent = (
         <div className={classes.list} role="presentation">
             <BaseSidebarList />
@@ -43,7 +43,7 @@ export default function SideDrawer({ mobileMenu, mobileMenuHandler }) {
      * Second <Drawer> is for non mobile screen size. On mobile it's hidden
      */
     return (
-        <div>
+        <React.Fragment>
             <Drawer
                 open={mobileMenu}
                 onClose={mobileMenuHandler}>
@@ -58,6 +58,6 @@ export default function SideDrawer({ mobileMenu, mobileMenuHandler }) {
                 <div className={classes.toolbar} />
                 {drawerContent}
             </Drawer>
-        </div>
+        </React.Fragment>
     );
 }

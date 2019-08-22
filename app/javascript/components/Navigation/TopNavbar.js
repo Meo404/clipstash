@@ -8,8 +8,8 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
 const useStyles = makeStyles(theme => ({
-    root: {
-        flexGrow: 1
+    appBar: {
+        zIndex: theme.zIndex.drawer + 1
     },
     menuButton: {
         marginRight: theme.spacing(2),
@@ -20,21 +20,21 @@ const useStyles = makeStyles(theme => ({
     },
     title: {
         flexGrow: 1,
-        },
-        desktopButton: {
-            display: 'none',
+    },
+    desktopButton: {
+        display: 'none',
         [theme.breakpoints.up('sm')]: {
             display: 'block',
         },
     }
 }));
 
-export default function TopNavbar({ mobileMenuHandler }) {
+export default function TopNavbar({mobileMenuHandler}) {
     const classes = useStyles();
 
     return (
-        <div className={classes.root}>
-            <AppBar position="static">
+        <header>
+            <AppBar position="fixed" className={classes.appBar}>
                 <Toolbar>
                     <IconButton
                         edge="start"
@@ -42,7 +42,7 @@ export default function TopNavbar({ mobileMenuHandler }) {
                         color="inherit"
                         aria-label="menu"
                         onClick={mobileMenuHandler}>
-                        <MenuIcon />
+                        <MenuIcon/>
                     </IconButton>
                     <Typography variant="h6" className={classes.title}>
                         Project Free
@@ -51,6 +51,7 @@ export default function TopNavbar({ mobileMenuHandler }) {
                     <Button color="inherit" className={classes.desktopButton}>SIGNUP</Button>
                 </Toolbar>
             </AppBar>
-        </div>
+        </header>
+
     );
 }
