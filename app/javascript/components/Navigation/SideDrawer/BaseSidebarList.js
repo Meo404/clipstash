@@ -1,8 +1,8 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
-import { NavLink } from 'react-router-dom';
-import { activeNav } from '../NavigationHelpers';
+import {withRouter} from 'react-router-dom';
+import {makeStyles} from '@material-ui/core/styles';
+import {NavLink} from 'react-router-dom';
+import {activeNav} from '../NavigationHelpers';
 import AppsIcon from '@material-ui/icons/Apps';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -15,6 +15,9 @@ const useStyles = makeStyles({
     navLink: {
         textDecoration: 'none',
         color: 'inherit'
+    },
+    activeNav: {
+        backgroundColor: '#ebebeb'
     }
 });
 
@@ -24,12 +27,19 @@ function BaseSidebarList(props) {
 
     return (
         <List>
-            <ListItem button key="Home">
-                <ListItemIcon>
-                    <HomeIcon/>
-                </ListItemIcon>
-                <ListItemText primary="Home"/>
-            </ListItem>
+            <NavLink
+                to="/"
+                className={classes.navLink}>
+                <ListItem
+                    button
+                    key="Home"
+                    className={activeNav('/', currentPath) ? classes.activeNav : ''}>
+                    <ListItemIcon>
+                        <HomeIcon/>
+                    </ListItemIcon>
+                    <ListItemText primary="Home"/>
+                </ListItem>
+            </NavLink>
             <ListItem button key="Trending">
                 <ListItemIcon>
                     <WhatshotIcon/>
@@ -42,8 +52,8 @@ function BaseSidebarList(props) {
                 <ListItem
                     button
                     key="Subreddits"
-                    className={activeNav('/subreddits', currentPath)}
-                    >
+                    className={activeNav('/subreddits', currentPath) ? classes.activeNav : ''}
+                >
                     <ListItemIcon>
                         <AppsIcon/>
                     </ListItemIcon>
