@@ -2,7 +2,7 @@ import React from 'react';
 import {withRouter} from 'react-router-dom';
 import {makeStyles} from '@material-ui/core/styles';
 import {NavLink} from 'react-router-dom';
-import {activeNav} from '../../../utils/NavigationHelpers';
+import {activeNav} from '../../../utils/navigationHelpers';
 import AppsIcon from '@material-ui/icons/Apps';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';

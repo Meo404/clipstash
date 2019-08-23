@@ -4,9 +4,9 @@ import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
-import DefaultIcon from 'images/default_subreddit_icon.png';
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
+import setSubredditImage from '../../utils/setSubredditImage';
 
 const useStyles = makeStyles({
     card: {
@@ -27,17 +27,13 @@ const useStyles = makeStyles({
 export default function SubredditGridItem({subreddit}) {
     const classes = useStyles();
 
-    function setImage(iconImage) {
-        return iconImage ? iconImage : DefaultIcon;
-    }
-
     return (
         <Grid item xs={6} lg={2} md={3} sm={4} className={classes.gridItem} key={subreddit.id}>
             <Card className={classes.card}>
                 <CardActionArea>
                     <CardMedia
                         className={classes.media}
-                        image={setImage(subreddit.attributes.icon_image)}
+                        image={setSubredditImage(subreddit.attributes.icon_image)}
                         title={subreddit.attributes.display_name}
                     />
                     <CardContent>
