@@ -1,4 +1,5 @@
 import React from "react"
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { createMuiTheme, MuiThemeProvider, makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Navigation from './Navigation/Navigation';
@@ -37,14 +38,18 @@ export default function App() {
 
     return (
         <MuiThemeProvider theme={theme}>
-            <div className={classes.root}>
-                <CssBaseline/>
-                <Navigation />
-                <main className={classes.content}>
-                    <div className={classes.toolbar} />
-                    <SubredditGrid />
-                </main>
-            </div>
+            <Router>
+                <div className={classes.root}>
+                    <CssBaseline/>
+                    <Navigation/>
+                    <main className={classes.content}>
+                        <div className={classes.toolbar}/>
+                        <Switch>
+                            <Route path='/subreddits' exact component={SubredditGrid}/>
+                        </Switch>
+                    </main>
+                </div>
+            </Router>
         </MuiThemeProvider>
     )
 }
