@@ -28,7 +28,7 @@ export default function SubredditGridItem({subreddit}) {
     const classes = useStyles();
 
     return (
-        <Grid item xs={6} lg={2} md={3} sm={4} className={classes.gridItem} key={subreddit.id}>
+        <Grid item xs={6} lg={2} md={3} sm={4} className={classes.gridItem}>
             <Card className={classes.card}>
                 <CardActionArea>
                     <CardMedia

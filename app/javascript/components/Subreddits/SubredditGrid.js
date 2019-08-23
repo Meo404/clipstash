@@ -19,7 +19,7 @@ export default function MediaCard() {
         <div>
                 <Grid container spacing={0}>
                     {data.subreddits.map((subreddit) => (
-                        <SubredditGridItem subreddit={subreddit} />
+                        <SubredditGridItem subreddit={subreddit} key={subreddit.id} />
                     ))}
                 </Grid>
         </div>
