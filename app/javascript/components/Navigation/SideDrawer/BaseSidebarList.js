@@ -19,7 +19,8 @@ function BaseSidebarList(props) {
         <List>
             <NavLink
                 to="/"
-                className={classes.navLink}>
+                className={classes.navLink}
+                onClick={props.closeDrawer}>
                 <ListItem
                     button
                     key="Home"
@@ -38,12 +39,12 @@ function BaseSidebarList(props) {
             </ListItem>
             <NavLink
                 to="/subreddits"
-                className={classes.navLink}>
+                className={classes.navLink}
+                onClick={props.closeDrawer}>
                 <ListItem
                     button
                     key="Subreddits"
-                    className={activeNav('/subreddits', currentPath) ? classes.activeNav : ''}
-                >
+                    className={activeNav('/subreddits', currentPath) ? classes.activeNav : ''}>
                     <ListItemIcon>
                         <AppsIcon />
                     </ListItemIcon>

@@ -8,11 +8,15 @@ import PopularSubredditsSidebarList from './PopularSubredditsSidebarList';
 export default function SideDrawer({ mobileMenu, mobileMenuHandler }) {
     const classes = useStyles();
 
+    function closeDrawerHandler() {
+        mobileMenu ? mobileMenuHandler() : null
+    }
+
     const drawerContent = (
         <div className={classes.list} role="presentation">
-            <BaseSidebarList />
+            <BaseSidebarList closeDrawer={closeDrawerHandler} />
             <Divider />
-            <PopularSubredditsSidebarList />
+            <PopularSubredditsSidebarList closeDrawer={closeDrawerHandler} />
         </div>
     );
     /**
