@@ -8,13 +8,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import setSubredditImage from '../../../utils/setSubredditImage';
 
-const useStyles = makeStyles({
-    subredditImage: {
-        width: "20px",
-        height: "20px"
-    }
-});
-
 export default function PopularSubredditsList() {
     const classes = useStyles();
     const [data, setData] = useState({subreddits: []});
@@ -45,3 +38,10 @@ export default function PopularSubredditsList() {
         </List>
     );
 }
+
+const useStyles = makeStyles({
+    subredditImage: {
+        width: "20px",
+        height: "20px"
+    }
+});

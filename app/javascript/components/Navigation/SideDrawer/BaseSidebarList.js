@@ -11,16 +11,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import HomeIcon from '@material-ui/icons/Home';
 import WhatshotIcon from '@material-ui/icons/Whatshot';
 
-const useStyles = makeStyles({
-    navLink: {
-        textDecoration: 'none',
-        color: 'inherit'
-    },
-    activeNav: {
-        backgroundColor: '#ebebeb'
-    }
-});
-
 function BaseSidebarList(props) {
     const classes = useStyles();
     const currentPath = props.location.pathname;
@@ -63,5 +53,15 @@ function BaseSidebarList(props) {
         </List>
     );
 }
+
+const useStyles = makeStyles({
+    navLink: {
+        textDecoration: 'none',
+        color: 'inherit'
+    },
+    activeNav: {
+        backgroundColor: '#ebebeb'
+    }
+});
 
 export default withRouter(BaseSidebarList);

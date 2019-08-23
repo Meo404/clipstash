@@ -5,6 +5,27 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Navigation from './Navigation/Navigation';
 import SubredditGrid from "./Subreddits/SubredditGrid";
 
+export default function App() {
+    const classes = useStyles();
+
+    return (
+        <MuiThemeProvider theme={theme}>
+            <Router>
+                <div className={classes.root}>
+                    <CssBaseline/>
+                    <Navigation/>
+                    <main className={classes.content}>
+                        <div className={classes.toolbar}/>
+                        <Switch>
+                            <Route path='/subreddits' exact component={SubredditGrid}/>
+                        </Switch>
+                    </main>
+                </div>
+            </Router>
+        </MuiThemeProvider>
+    )
+}
+
 const theme = createMuiTheme({
     palette: {
         primary: {
@@ -32,24 +53,3 @@ const useStyles = makeStyles(theme => ({
     },
     toolbar: theme.mixins.toolbar,
 }));
-
-export default function App() {
-    const classes = useStyles();
-
-    return (
-        <MuiThemeProvider theme={theme}>
-            <Router>
-                <div className={classes.root}>
-                    <CssBaseline/>
-                    <Navigation/>
-                    <main className={classes.content}>
-                        <div className={classes.toolbar}/>
-                        <Switch>
-                            <Route path='/subreddits' exact component={SubredditGrid}/>
-                        </Switch>
-                    </main>
-                </div>
-            </Router>
-        </MuiThemeProvider>
-    )
-}
