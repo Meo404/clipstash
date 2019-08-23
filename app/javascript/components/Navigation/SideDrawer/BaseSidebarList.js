@@ -1,8 +1,8 @@
 import React from 'react';
-import {withRouter} from 'react-router-dom';
-import {makeStyles} from '@material-ui/core/styles';
-import {NavLink} from 'react-router-dom';
-import {activeNav} from '../../../utils/navigationHelpers';
+import { withRouter } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
+import { NavLink } from 'react-router-dom';
+import { activeNav } from '../../../utils/navigationHelpers';
 import AppsIcon from '@material-ui/icons/Apps';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -25,16 +25,16 @@ function BaseSidebarList(props) {
                     key="Home"
                     className={activeNav('/', currentPath) ? classes.activeNav : ''}>
                     <ListItemIcon>
-                        <HomeIcon/>
+                        <HomeIcon />
                     </ListItemIcon>
-                    <ListItemText primary="Home"/>
+                    <ListItemText primary="Home" />
                 </ListItem>
             </NavLink>
             <ListItem button key="Trending">
                 <ListItemIcon>
-                    <WhatshotIcon/>
+                    <WhatshotIcon />
                 </ListItemIcon>
-                <ListItemText primary="Trending"/>
+                <ListItemText primary="Trending" />
             </ListItem>
             <NavLink
                 to="/subreddits"
@@ -45,9 +45,9 @@ function BaseSidebarList(props) {
                     className={activeNav('/subreddits', currentPath) ? classes.activeNav : ''}
                 >
                     <ListItemIcon>
-                        <AppsIcon/>
+                        <AppsIcon />
                     </ListItemIcon>
-                    <ListItemText primary="Subreddits"/>
+                    <ListItemText primary="Subreddits" />
                 </ListItem>
             </NavLink>
         </List>
