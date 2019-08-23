@@ -4,8 +4,10 @@ import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
-import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
+import Tooltip from '@material-ui/core/Tooltip';
+import Typography from "@material-ui/core/Typography";
+import PersonIcon from '@material-ui/icons/Person';
 import setSubredditImage from '../../utils/setSubredditImage';
 
 export default function SubredditGridItem({ subreddit }) {
@@ -24,9 +26,14 @@ export default function SubredditGridItem({ subreddit }) {
                         <Typography gutterBottom component="h6" noWrap>
                             {subreddit.attributes.display_name}
                         </Typography>
-                        <Typography variant="body2" color="textSecondary" component="p">
-                            {subreddit.attributes.subscribers} Subscribers
-                        </Typography>
+                        <Tooltip title="Subscribers" placement="bottom-start">
+                            <div className={classes.subscribers}>
+                                <PersonIcon fontSize="small" className={classes.subscriberIcon} />
+                                <Typography variant="body2" color="textSecondary" component="p">
+                                    {subreddit.attributes.subscribers}
+                                </Typography>
+                            </div>
+                        </Tooltip>
                     </CardContent>
                 </CardActionArea>
             </Card>
@@ -47,5 +54,13 @@ const useStyles = makeStyles({
         backgroundSize: "contain",
         backgroundColor: '#E0E0E0',
         padding: 5
+    },
+    subscribers: {
+        display: 'flex',
+        justifyContent: 'flex-start'
+    },
+    subscriberIcon: {
+        marginLeft: '-5px',
+        marginRight: 3
     }
 });
