@@ -20,6 +20,9 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
     },
     content: {
+        maxWidth: 1280,
+        marginLeft: 'auto',
+        marginRight: 'auto',
         flexGrow: 1,
         padding: theme.spacing(0),
         [theme.breakpoints.up('md')]: {

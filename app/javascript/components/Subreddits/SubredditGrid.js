@@ -11,7 +11,7 @@ import axios from "axios";
 
 const useStyles = makeStyles({
     card: {
-        maxWidth: 200,
+        maxWidth: 175,
         margin: "auto"
     },
     gridItem: {
@@ -20,7 +20,8 @@ const useStyles = makeStyles({
     media: {
         height: 150,
         backgroundSize: "contain",
-        backgroundColor: '#E0E0E0'
+        backgroundColor: '#E0E0E0',
+        padding: 5
     }
 });
 
