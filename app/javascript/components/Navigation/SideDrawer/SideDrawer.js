@@ -5,29 +5,6 @@ import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
 import PopularSubredditsSidebarList from './PopularSubredditsSidebarList';
 
-const drawerWidth = 225;
-const useStyles = makeStyles(theme => ({
-    list: {
-        width: drawerWidth,
-    },
-    desktopDrawer: {
-        width: drawerWidth,
-        flexShrink: 0,
-        display: 'none',
-        [theme.breakpoints.up('sm')]: {
-            display: 'block',
-        },
-    },
-    drawerPaper: {
-        width: drawerWidth,
-    },
-    subredditImage: {
-        width: "20px",
-        height: "20px"
-    },
-    toolbar: theme.mixins.toolbar,
-}));
-
 export default function SideDrawer({ mobileMenu, mobileMenuHandler }) {
     const classes = useStyles();
 
@@ -39,8 +16,8 @@ export default function SideDrawer({ mobileMenu, mobileMenuHandler }) {
         </div>
     );
     /**
-     * First <Drawer> is only for mobile screen size. Else it's hidden
-     * Second <Drawer> is for non mobile screen size. On mobile it's hidden
+     * First <Drawer> is only for xs and sm screen sizes. Else it's hidden
+     * Second <Drawer> is for screen sizes >= md. Else it's hidden
      */
     return (
         <React.Fragment>
@@ -61,3 +38,26 @@ export default function SideDrawer({ mobileMenu, mobileMenuHandler }) {
         </React.Fragment>
     );
 }
+
+const drawerWidth = 225;
+const useStyles = makeStyles(theme => ({
+    list: {
+        width: drawerWidth,
+    },
+    desktopDrawer: {
+        width: drawerWidth,
+        flexShrink: 0,
+        display: 'none',
+        [theme.breakpoints.up('md')]: {
+            display: 'block',
+        },
+    },
+    drawerPaper: {
+        width: drawerWidth,
+    },
+    subredditImage: {
+        width: "20px",
+        height: "20px"
+    },
+    toolbar: theme.mixins.toolbar,
+}));

@@ -7,28 +7,6 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
-const useStyles = makeStyles(theme => ({
-    appBar: {
-        zIndex: theme.zIndex.drawer + 1
-    },
-    menuButton: {
-        marginRight: theme.spacing(2),
-        display: 'block',
-        [theme.breakpoints.up('sm')]: {
-            display: 'none',
-        },
-    },
-    title: {
-        flexGrow: 1,
-    },
-    desktopButton: {
-        display: 'none',
-        [theme.breakpoints.up('sm')]: {
-            display: 'block',
-        },
-    }
-}));
-
 export default function TopNavbar({mobileMenuHandler}) {
     const classes = useStyles();
 
@@ -55,3 +33,25 @@ export default function TopNavbar({mobileMenuHandler}) {
 
     );
 }
+
+const useStyles = makeStyles(theme => ({
+    appBar: {
+        zIndex: theme.zIndex.drawer + 1
+    },
+    menuButton: {
+        marginRight: theme.spacing(2),
+        display: 'block',
+        [theme.breakpoints.up('md')]: {
+            display: 'none',
+        },
+    },
+    title: {
+        flexGrow: 1,
+    },
+    desktopButton: {
+        display: 'none',
+        [theme.breakpoints.up('md')]: {
+            display: 'block',
+        },
+    }
+}));

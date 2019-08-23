@@ -1,23 +1,16 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import {makeStyles} from '@material-ui/core/styles';
-import DefaultIcon from 'images/default_subreddit_icon.png';
+import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
-
-const useStyles = makeStyles({
-    subredditImage: {
-        width: "20px",
-        height: "20px"
-    }
-});
+import setSubredditImage from '../../../utils/setSubredditImage';
 
 export default function PopularSubredditsList() {
     const classes = useStyles();
-    const [data, setData] = useState({subreddits: []});
+    const [data, setData] = useState({ subreddits: [] });
 
     useEffect(() => {
         fetchData();
@@ -25,17 +18,7 @@ export default function PopularSubredditsList() {
 
     async function fetchData() {
         const result = await axios('/api/v1/subreddits/popular');
-        setData({subreddits: result.data.data});
-    }
-
-    function setIcon(iconImage, displayName) {
-        const icon = iconImage ? iconImage : DefaultIcon;
-        return (
-            <img
-                src={icon}
-                className={classes.subredditImage}
-                alt={displayName + ' subreddit icon'}/>
-        );
+        setData({ subreddits: result.data.data });
     }
 
     return (
@@ -44,11 +27,21 @@ export default function PopularSubredditsList() {
             {data.subreddits.map((subreddit) => (
                 <ListItem button key={subreddit.id}>
                     <ListItemIcon>
-                        {setIcon(subreddit.attributes.icon_image, subreddit.attributes.display_name)}
+                        <img
+                            src={setSubredditImage(subreddit.attributes.icon_image)}
+                            className={classes.subredditImage}
+                            alt={subreddit.attributes.display_name + ' subreddit icon'} />
                     </ListItemIcon>
-                    <ListItemText primary={subreddit.attributes.display_name}/>
+                    <ListItemText primary={subreddit.attributes.display_name} />
                 </ListItem>
             ))}
         </List>
     );
 }
+
+const useStyles = makeStyles({
+    subredditImage: {
+        width: "20px",
+        height: "20px"
+    }
+});
