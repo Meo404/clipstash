@@ -10,10 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_15_113310) do
+ActiveRecord::Schema.define(version: 2019_08_26_192511) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "submissions", id: false, force: :cascade do |t|
+    t.bigint "subreddit_id"
+    t.string "reddit_fullname"
+    t.string "title"
+    t.string "author"
+    t.string "permalink"
+    t.integer "score"
+    t.float "hot_score", default: 0.0
+    t.integer "comment_count"
+    t.boolean "over18"
+    t.datetime "created_utc"
+    t.string "thumbnail"
+    t.integer "thumbnail_size"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["reddit_fullname"], name: "index_submissions_on_reddit_fullname", unique: true
+    t.index ["subreddit_id"], name: "index_submissions_on_subreddit_id"
+  end
 
   create_table "subreddits", force: :cascade do |t|
     t.string "reddit_fullname"
@@ -35,4 +54,5 @@ ActiveRecord::Schema.define(version: 2019_08_15_113310) do
     t.index ["reddit_fullname"], name: "index_subreddits_on_reddit_fullname", unique: true
   end
 
+  add_foreign_key "submissions", "subreddits"
 end

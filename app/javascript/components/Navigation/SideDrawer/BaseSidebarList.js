@@ -26,7 +26,7 @@ function BaseSidebarList(props) {
                     key="Home"
                     className={activeNav('/', currentPath) ? classes.activeNav : ''}>
                     <ListItemIcon>
-                        <HomeIcon />
+                        <HomeIcon className={activeNav('/', currentPath) ? classes.activeNavIcon : ''} />
                     </ListItemIcon>
                     <ListItemText primary="Home" />
                 </ListItem>
@@ -46,7 +46,7 @@ function BaseSidebarList(props) {
                     key="Subreddits"
                     className={activeNav('/subreddits', currentPath) ? classes.activeNav : ''}>
                     <ListItemIcon>
-                        <AppsIcon />
+                        <AppsIcon className={activeNav('/subreddits', currentPath) ? classes.activeNavIcon : ''} />
                     </ListItemIcon>
                     <ListItemText primary="Subreddits" />
                 </ListItem>
@@ -62,6 +62,9 @@ const useStyles = makeStyles({
     },
     activeNav: {
         backgroundColor: '#ebebeb'
+    },
+    activeNavIcon: {
+        color: '#b71c1c'
     }
 });
 
