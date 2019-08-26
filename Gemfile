@@ -21,6 +21,7 @@ gem 'webpacker'
 gem 'react-rails'
 gem 'redd', git: 'https://github.com/Meo404/redd.git'
 gem 'simple_enum'
+gem 'validate_url'
 
 group :development, :test do
   gem 'factory_bot_rails'
