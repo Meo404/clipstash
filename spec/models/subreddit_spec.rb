@@ -28,6 +28,9 @@
 require 'rails_helper'
 
 describe Subreddit do
+
+  it { should have_many(:submissions) }
+
   describe 'validations' do
     context 'when was created' do
       subject { build :subreddit }
