@@ -42,12 +42,14 @@ describe Medium do
       it { should validate_url_of(:url) }
     end
 
+    context 'when media provider has author_url' do
+      before { allow(subject).to receive(:author_url?).and_return(true) }
+      it { is_expected.to validate_url_of(:author_url) }
+    end
+
     context 'when media provider has meta data' do
       before { allow(subject).to receive(:meta_data?).and_return(true) }
-      it { is_expected.to validate_presence_of(:author) }
-      it { is_expected.to validate_presence_of(:author_url) }
       it { is_expected.to validate_presence_of(:thumbnail) }
-      it { is_expected.to validate_presence_of(:thumbnail_size) }
       it { is_expected.to validate_presence_of(:title) }
       it { is_expected.to validate_url_of(:author_url) }
       it { is_expected.to validate_url_of(:thumbnail) }

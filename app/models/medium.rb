@@ -33,16 +33,17 @@ class Medium < ApplicationRecord
   validates :external_id, presence: true
   validates :url, presence: true, url: true
   validates :size, presence: true
+  validates :author_url, url: true, if: :author_url?
   # These validations only need to run if the associated media provider
   # provides meta data. This is not the case for v.redd.it e.g
-  validates :author_url, :thumbnail, url: true, if: :meta_data?
-  validates_presence_of :author,
-                        :author_url,
-                        :thumbnail,
-                        :thumbnail_size,
+  validates :thumbnail, url: true, if: :meta_data?
+  validates_presence_of :thumbnail,
                         :title, if: :meta_data?
 
   private
+    def author_url?
+      self.author_url.present?
+    end
 
     def meta_data?
       self.media_provider&.has_meta_data
