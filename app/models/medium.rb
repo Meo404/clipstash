@@ -44,8 +44,7 @@ class Medium < ApplicationRecord
 
   private
 
-  def meta_data?
-    self.media_provider&.has_meta_data
-  end
+    def meta_data?
+      self.media_provider&.has_meta_data
+    end
 end
-
