@@ -31,6 +31,7 @@ class Submission < ApplicationRecord
   self.primary_key = :reddit_fullname
 
   belongs_to :subreddit
+  has_one :medium, foreign_key: :submission_fullname
 
   validates :reddit_fullname, presence: true, uniqueness: true
   validates :permalink, presence: true, uniqueness: true
