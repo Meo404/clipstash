@@ -27,7 +27,7 @@ module Submissions
 
       # Upserts Media only
       def import_media
-        Medium.import! @media,
+        Medium.import @media,
                       validate: true,
                       batch_size: 100,
                       on_duplicate_key_ignore: true
