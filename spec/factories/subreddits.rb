@@ -3,21 +3,26 @@
 # Table name: subreddits
 #
 #  id                    :bigint           not null, primary key
-#  reddit_fullname       :string
-#  display_name          :string
-#  display_name_prefixed :string
-#  public_description    :text
-#  subscribers           :integer
-#  icon_image            :string
-#  icon_size             :integer          is an Array
 #  banner_image          :string
 #  banner_size           :integer          is an Array
-#  over18                :boolean
 #  created_utc           :datetime
-#  url                   :string
+#  display_name          :string
+#  display_name_prefixed :string
+#  icon_image            :string
+#  icon_size             :integer          is an Array
+#  over18                :boolean
+#  public_description    :text
+#  reddit_fullname       :string
 #  status_cd             :integer
+#  subscribers           :integer
+#  url                   :string
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
+#
+# Indexes
+#
+#  index_subreddits_on_display_name     (display_name) UNIQUE
+#  index_subreddits_on_reddit_fullname  (reddit_fullname) UNIQUE
 #
 
 FactoryBot.define do
