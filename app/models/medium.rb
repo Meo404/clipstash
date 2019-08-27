@@ -29,4 +29,19 @@
 class Medium < ApplicationRecord
   belongs_to :submission, foreign_key: :submission_fullname
   belongs_to :media_provider
+
+  validates :url, presence: true, url: true
+  validates :size, presence: true
+  # These validations only need to run if the associated media provider
+  # provides meta data. This is not the case for v.redd.it e.g
+  validates_presence_of :author,
+                        :author_url,
+                        :thumbnail,
+                        :thumbnail_size,
+                        :title, if: meta_data?
+
+  private
+    def meta_data?
+      self.media_provider.has_meta_data
+    end
 end
