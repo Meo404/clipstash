@@ -28,6 +28,29 @@
 
 require 'rails_helper'
 
-RSpec.describe Medium, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe Medium do
+
+  it { should belong_to(:submission) }
+  it { should belong_to(:media_provider) }
+
+  describe 'validations' do
+    context 'when was created' do
+      subject { build :medium }
+      it { should validate_presence_of(:external_id) }
+      it { should validate_presence_of(:size) }
+      it { should validate_presence_of(:url) }
+      it { should validate_url_of(:url) }
+    end
+
+    context 'when media provider has meta data' do
+      before { allow(subject).to receive(:meta_data?).and_return(true) }
+      it { is_expected.to validate_presence_of(:author) }
+      it { is_expected.to validate_presence_of(:author_url) }
+      it { is_expected.to validate_presence_of(:thumbnail) }
+      it { is_expected.to validate_presence_of(:thumbnail_size) }
+      it { is_expected.to validate_presence_of(:title) }
+      it { is_expected.to validate_url_of(:author_url) }
+      it { is_expected.to validate_url_of(:thumbnail) }
+    end
+  end
 end

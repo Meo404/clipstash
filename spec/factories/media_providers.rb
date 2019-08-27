@@ -18,5 +18,6 @@ FactoryBot.define do
     url { Faker::Internet.url }
     url_patterns { nil }
     status_cd { 1 }
+    has_meta_data { [true, false].sample }
   end
 end

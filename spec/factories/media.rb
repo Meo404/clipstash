@@ -30,13 +30,13 @@ FactoryBot.define do
   factory :medium do
     submission { nil }
     media_provider { nil }
-    author { "MyString" }
-    author_url { "MyString" }
-    external_id { "MyString" }
-    thumbnail { "MyString" }
-    thumbnail_size { 1 }
-    size { 1 }
-    title { "MyString" }
-    url { "MyString" }
+    author { Faker::Lorem.word }
+    author_url { Faker::Internet.url }
+    external_id { Faker::Alphanumeric.alphanumeric(5) }
+    thumbnail { Faker::Internet.url }
+    thumbnail_size { [200, 200] }
+    size { [1024, 768] }
+    title { Faker::Lorem.sentence }
+    url { Faker::Internet.url }
   end
 end
