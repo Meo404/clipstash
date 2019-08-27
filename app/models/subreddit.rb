@@ -27,6 +27,7 @@
 
 class Subreddit < ApplicationRecord
   as_enum :status, active: 1, inactive: 0
+  has_many :submissions
 
   before_create :build_url
 
