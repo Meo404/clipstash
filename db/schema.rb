@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_26_192511) do
+ActiveRecord::Schema.define(version: 2019_08_27_085739) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "media_providers", force: :cascade do |t|
+    t.string "name"
+    t.string "url"
+    t.string "url_patterns", array: true
+    t.integer "status_cd"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "submissions", id: false, force: :cascade do |t|
     t.bigint "subreddit_id"
@@ -27,7 +36,7 @@ ActiveRecord::Schema.define(version: 2019_08_26_192511) do
     t.boolean "over18"
     t.datetime "created_utc"
     t.string "thumbnail"
-    t.integer "thumbnail_size"
+    t.integer "thumbnail_size", array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["reddit_fullname"], name: "index_submissions_on_reddit_fullname", unique: true

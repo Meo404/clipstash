@@ -2,20 +2,29 @@
 #
 # Table name: submissions
 #
-#  subreddit_id    :bigint
-#  reddit_fullname :string           primary key
-#  title           :string
 #  author          :string
-#  permalink       :string
-#  score           :integer
-#  hot_score       :float            default(0.0)
 #  comment_count   :integer
-#  over18          :boolean
 #  created_utc     :datetime
+#  hot_score       :float            default(0.0)
+#  over18          :boolean
+#  permalink       :string
+#  reddit_fullname :string           primary key
+#  score           :integer
 #  thumbnail       :string
-#  thumbnail_size  :integer
+#  thumbnail_size  :integer          is an Array
+#  title           :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  subreddit_id    :bigint
+#
+# Indexes
+#
+#  index_submissions_on_reddit_fullname  (reddit_fullname) UNIQUE
+#  index_submissions_on_subreddit_id     (subreddit_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (subreddit_id => subreddits.id)
 #
 
 FactoryBot.define do
