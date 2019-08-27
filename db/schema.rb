@@ -10,10 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_27_085739) do
+ActiveRecord::Schema.define(version: 2019_08_27_102922) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "media", force: :cascade do |t|
+    t.bigint "media_provider_id"
+    t.string "submission_fullname"
+    t.string "author"
+    t.string "author_url"
+    t.string "external_id"
+    t.string "thumbnail"
+    t.integer "thumbnail_size", array: true
+    t.integer "size", array: true
+    t.string "title"
+    t.string "url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["media_provider_id"], name: "index_media_on_media_provider_id"
+    t.index ["submission_fullname"], name: "index_media_on_submission_fullname"
+  end
 
   create_table "media_providers", force: :cascade do |t|
     t.string "name"
@@ -63,5 +80,6 @@ ActiveRecord::Schema.define(version: 2019_08_27_085739) do
     t.index ["reddit_fullname"], name: "index_subreddits_on_reddit_fullname", unique: true
   end
 
+  add_foreign_key "media", "media_providers"
   add_foreign_key "submissions", "subreddits"
 end
