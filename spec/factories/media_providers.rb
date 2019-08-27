@@ -2,13 +2,14 @@
 #
 # Table name: media_providers
 #
-#  id           :bigint           not null, primary key
-#  name         :string
-#  status_cd    :integer
-#  url          :string
-#  url_patterns :string           is an Array
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
+#  id            :bigint           not null, primary key
+#  has_meta_data :boolean          default(FALSE)
+#  name          :string
+#  status_cd     :integer
+#  url           :string
+#  url_patterns  :string           is an Array
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
 #
 
 FactoryBot.define do
