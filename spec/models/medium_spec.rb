@@ -30,12 +30,14 @@ require 'rails_helper'
 
 describe Medium do
 
-  it { should belong_to(:submission) }
+  it { should belong_to(:submission).optional }
   it { should belong_to(:media_provider) }
 
   describe 'validations' do
+
+    subject { build :medium }
+
     context 'when was created' do
-      subject { build :medium }
       it { should validate_presence_of(:external_id) }
       it { should validate_presence_of(:size) }
       it { should validate_presence_of(:url) }
@@ -47,11 +49,8 @@ describe Medium do
       it { is_expected.to validate_url_of(:author_url) }
     end
 
-    context 'when media provider has meta data' do
-      before { allow(subject).to receive(:meta_data?).and_return(true) }
-      it { is_expected.to validate_presence_of(:thumbnail) }
-      it { is_expected.to validate_presence_of(:title) }
-      it { is_expected.to validate_url_of(:author_url) }
+    context 'when media provider has thumbnail' do
+      before { allow(subject).to receive(:thumbnail?).and_return(true) }
       it { is_expected.to validate_url_of(:thumbnail) }
     end
   end

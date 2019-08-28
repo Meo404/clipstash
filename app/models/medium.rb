@@ -37,15 +37,12 @@ class Medium < ApplicationRecord
   validates :thumbnail, url: true, if: :thumbnail?
 
   private
+
     def author_url?
       self.author_url.present?
     end
 
     def thumbnail?
       self.thumbnail.present?
-    end
-
-    def meta_data?
-      self.media_provider&.has_meta_data
     end
 end
