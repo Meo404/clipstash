@@ -27,22 +27,22 @@
 #
 
 class Medium < ApplicationRecord
-  belongs_to :submission, required: true, foreign_key: :submission_fullname
   belongs_to :media_provider, required: true
+  belongs_to :submission, optional: true, foreign_key: :submission_fullname
 
   validates :external_id, presence: true
   validates :url, presence: true, url: true
   validates :size, presence: true
   validates :author_url, url: true, if: :author_url?
-  # These validations only need to run if the associated media provider
-  # provides meta data. This is not the case for v.redd.it e.g
-  validates :thumbnail, url: true, if: :meta_data?
-  validates_presence_of :thumbnail,
-                        :title, if: :meta_data?
+  validates :thumbnail, url: true, if: :thumbnail?
 
   private
     def author_url?
       self.author_url.present?
+    end
+
+    def thumbnail?
+      self.thumbnail.present?
     end
 
     def meta_data?

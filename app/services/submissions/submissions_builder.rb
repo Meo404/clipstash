@@ -11,8 +11,14 @@ module Submissions
       submissions, media = [], []
       @search_results.each do |submission|
         next if submission.media.nil?
-        submissions << Submission.new(submission_attributes(submission))
-        media << Medium.new(medium_attributes(submission))
+
+        submission_candidate = Submission.new(submission_attributes(submission))
+        medium_candidate = Medium.new(medium_attributes(submission))
+
+        if submission_candidate.valid? && medium_candidate.valid?
+          submissions << submission_candidate
+          media << medium_candidate
+        end
       end
 
       [submissions, media]
@@ -35,7 +41,8 @@ module Submissions
                 submission.preview[:images][0][:resolutions][2][:width],
                 submission.preview[:images][0][:resolutions][2][:height]
             ],
-            subreddit_id: @subreddit_id
+            subreddit_id: @subreddit_id,
+            candidate_validation: true
         }
       end
 
