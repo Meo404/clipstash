@@ -19,11 +19,9 @@ module RedditData
         all_submissions, all_media = [], []
 
         MediaProvider.actives.each do |media_provider|
-          results = get_results(build_search_query(media_provider.url_patterns))
-          result_submissions = Submissions::SubmissionsBuilder.call(results,
-                                                                    @subreddit.id,
-                                                                    media_provider.id,
-                                                                    media_provider.url_parser_class)
+          search_query = build_search_query(media_provider.url_patterns)
+          results = get_results(search_query)
+          result_submissions = Submissions::SubmissionsBuilder.call(results, @subreddit, media_provider)
 
           all_submissions.push(*result_submissions[0])
           all_media.push(*result_submissions[1])
