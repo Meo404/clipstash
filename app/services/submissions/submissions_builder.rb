@@ -1,4 +1,6 @@
 module Submissions
+  # Class building the actual submissions and associated media
+  # Primarily it will retrieve the API results and loop through them building the candidates
   class SubmissionsBuilder < ApplicationService
     def initialize(search_results, subreddit, media_provider)
       @search_results = search_results
@@ -26,20 +28,30 @@ module Submissions
 
     private
 
+      # Takes one API submission object and builds a new app Submission object out of it
+      # If necessary data is missing within the API record, it will return nil
+      #
+      #   @param submission           Submission object from Redd Gem (Reddit API)
+      #   @return submissio_candidate Submission Object to be inserted/updated
       def build_submission_candidate(submission)
         submission_candidate = Submission.new(submission_attributes(submission))
         submission_candidate.valid? ? submission_candidate : nil
 
-      rescue NoMethodError => e
-        puts "Error building submissions #{submission.name}. Error: #{e}"
+      rescue NoMethodError
+        nil # TODO: Add proper logging
       end
 
+      # Takes one API submission object and builds a new associated Medium object out of it
+      # If necessary data is missing within the API record, it will return nil
+      #
+      #   @param submission           Submission object from Redd Gem (Reddit API)
+      #   @return submissio_candidate Medium Object to be inserted/updated
       def build_medium_candidate(submission)
         medium_candidate = Medium.new(medium_attributes(submission))
         medium_candidate.valid? ? medium_candidate : nil
 
-      rescue NoMethodError => e
-        puts "Error building medium for submission: #{submission.name}. Error: #{e}"
+      rescue NoMethodError
+        nil # TODO: Add proper logging
       end
 
       def submission_attributes(submission)
