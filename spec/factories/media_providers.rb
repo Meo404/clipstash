@@ -17,7 +17,7 @@ FactoryBot.define do
   factory :media_provider do
     name { Faker::Lorem.word }
     url { Faker::Internet.url }
-    url_patterns { nil }
+    url_patterns { ["test.de", "teste.de"] }
     status_cd { 1 }
     has_meta_data { [true, false].sample }
     url_parser_class { ["UrlParser::Youtube", "UrlParser::Twitch"].sample }
