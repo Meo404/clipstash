@@ -2,44 +2,89 @@ namespace :submissions do
 
   desc "Updates submissions for all subreddits for the last day"
   task update_daily: :environment do
-    update_submissions(SearchOptions::TOP_DAILY)
-    update_submissions(SearchOptions::HOT_DAILY)
+    puts "Updating daily Submissions started at: #{DateTime.now.strftime('%F %T %z')}"
+
+    update_submissions(SearchOptions::TOP_DAILY, "TOP")
+    update_submissions(SearchOptions::HOT_DAILY, "HOT")
+
+    puts "Update finished at:  #{DateTime.now.strftime('%F %T %z')}"
+  rescue StandardError => e
+    print_error_message(e)
   end
 
   desc "Updates submissions for all subreddits for the last week"
   task update_weekly: :environment do
-    update_submissions(SearchOptions::TOP_WEEKLY)
-    update_submissions(SearchOptions::HOT_WEEKLY)
+    puts "Updating weekly Submissions started at: #{DateTime.now.strftime('%F %T %z')}"
+
+    update_submissions(SearchOptions::TOP_WEEKLY, "TOP")
+    update_submissions(SearchOptions::HOT_WEEKLY, "HOT")
+
+    puts "Update finished at:  #{DateTime.now.strftime('%F %T %z')}"
+  rescue StandardError => e
+    print_error_message(e)
   end
 
   desc "Updates submissions for all subreddits for the last month"
-  task update_weekly: :environment do
-    update_submissions(SearchOptions::TOP_MONTHLY)
-    update_submissions(SearchOptions::HOT_MONTHLY)
+  task update_monthly: :environment do
+    puts "Updating monthly Submissions started at: #{DateTime.now.strftime('%F %T %z')}"
+
+    update_submissions(SearchOptions::TOP_MONTHLY, "TOP")
+    update_submissions(SearchOptions::HOT_MONTHLY, "HOT")
+
+    puts "Update finished at:  #{DateTime.now.strftime('%F %T %z')}"
+  rescue StandardError => e
+    print_error_message(e)
   end
 
   desc "Updates submissions for all subreddits for the last year"
   task update_yearly: :environment do
-    update_submissions(SearchOptions::TOP_YEARLY)
-    update_submissions(SearchOptions::HOT_YEARLY)
+    puts "Updating yearly Submissions started at: #{DateTime.now.strftime('%F %T %z')}"
+
+    update_submissions(SearchOptions::TOP_YEARLY, "TOP")
+    update_submissions(SearchOptions::HOT_YEARLY, "HOT")
+
+    puts "Update finished at:  #{DateTime.now.strftime('%F %T %z')}"
+  rescue StandardError => e
+    print_error_message(e)
   end
 
   desc "Updates submissions for all subreddits all time"
   task update_alltime: :environment do
-    update_submissions(SearchOptions::TOP_ALLTIME)
-    update_submissions(SearchOptions::HOT_ALLTIME)
+    puts "Updating all-time Submissions started at: #{DateTime.now.strftime('%F %T %z')}"
+
+    update_submissions(SearchOptions::TOP_ALLTIME, "TOP")
+    update_submissions(SearchOptions::HOT_ALLTIME, "HOT")
+
+    puts "Update finished at:  #{DateTime.now.strftime('%F %T %z')}"
+  rescue StandardError => e
+    print_error_message(e)
   end
 
   task update_scores: :environment do
+    puts "Updating Hot Scores started at: #{DateTime.now.strftime('%F %T %z')}"
+
     Submissions::UpdateHotScores.call
+
+    puts "Update finished at:  #{DateTime.now.strftime('%F %T %z')}"
+  rescue StandardError => e
+    print_error_message(e)
   end
 
   private
 
-    def update_submissions(search_options)
+    def update_submissions(search_options, type)
+      puts "Updating #{type} submissions ..."
+
       Subreddit.all.each do |subreddit|
         RedditData::UpdateSubmissions.call(subreddit.id, search_options)
       end
+
+      puts "Done updating #{type} submissions"
+    end
+
+    def print_error_message(error)
+      puts "Update Failed"
+      puts "Reason: #{error}"
     end
 end
 
