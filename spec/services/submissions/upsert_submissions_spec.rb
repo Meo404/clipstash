@@ -16,16 +16,21 @@ describe Submissions::UpsertSubmissions do
   end
 
   it 'inserts all records' do
-    Submissions::UpsertSubmissions.call(@submissions, @media)
-
-    expect(Submission.count).to eq(10)
-    expect(Medium.count).to eq(10)
+    expect {
+      Submissions::UpsertSubmissions.call(@submissions, @media)
+    }.to change { Submission.count }.by(10)
+     .and change { Medium.count }.by(10)
   end
 
-  it 'updates records' do
+  it 'updates submission records' do
     Submissions::UpsertSubmissions.call(@submissions, @media)
-    Submission.first.update_attributes(comment_count: 0)
+    Submission.first.update(comment_count: 0, over18: nil, score: 0, title: 'Test Title')
 
-    expect { Submissions::UpsertSubmissions.call(@submissions, @media) }.to change{ Submission.first.comment_count }
+    expect {
+      Submissions::UpsertSubmissions.call(@submissions, @media)
+    }.to change { Submission.first.comment_count }
+     .and change { Submission.first.over18 }
+     .and change { Submission.first.score }
+     .and change { Submission.first.title }
   end
 end
