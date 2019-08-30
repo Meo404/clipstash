@@ -49,5 +49,11 @@ describe Submission do
       it { should validate_presence_of(:thumbnail_size) }
       it { should validate_url_of(:thumbnail) }
     end
+
+    context 'when candidate_validation is true' do
+      subject { build :submission, candidate_validation: true }
+      it { is_expected.to_not validate_uniqueness_of(:reddit_fullname) }
+      it { is_expected.to_not validate_uniqueness_of(:permalink) }
+    end
   end
 end

@@ -21,10 +21,12 @@ end
 MediaProvider.create(name: "YouTube",
                      url: "https://www.youtube.com",
                      url_patterns: ["youtube.com", "youtu.be"],
+                     url_parser_class: 'UrlParser::Youtube',
                      has_meta_data: true,
                      status: 1)
 MediaProvider.create(name: "Twitch",
                      url: "https://www.twitch.tv",
                      url_patterns: ["clips.twitch.tv"],
+                     url_parser_class: 'UrlParser::Twitch',
                      has_meta_data: true,
                      status: 1)

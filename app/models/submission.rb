@@ -30,11 +30,15 @@
 class Submission < ApplicationRecord
   self.primary_key = :reddit_fullname
 
+  attr_accessor :candidate_validation
+
   belongs_to :subreddit
   has_one :medium, foreign_key: :submission_fullname
 
-  validates :reddit_fullname, presence: true, uniqueness: true
-  validates :permalink, presence: true, uniqueness: true
+  validates_uniqueness_of :reddit_fullname, :permalink, unless: :candidate_validation?
+
+  validates :reddit_fullname, presence: true
+  validates :permalink, presence: true
   validates :author, presence: true
   validates :comment_count, presence: true
   validates :created_utc, presence: true
@@ -46,4 +50,10 @@ class Submission < ApplicationRecord
   def calculate_hot_score
     Submissions::CalculateHotScore.call(created_utc.to_s, score)
   end
+
+  private
+
+    def candidate_validation?
+      candidate_validation
+    end
 end

@@ -4,7 +4,7 @@ class CreateMediaProviders < ActiveRecord::Migration[5.2]
       t.string :name
       t.string :url
       t.string :url_patterns, array: true
-      t.integer :status_cd
+      t.integer :status_cd, default: 0
 
       t.timestamps
     end

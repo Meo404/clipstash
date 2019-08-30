@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_27_103525) do
+ActiveRecord::Schema.define(version: 2019_08_27_202342) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,10 +36,11 @@ ActiveRecord::Schema.define(version: 2019_08_27_103525) do
     t.string "name"
     t.string "url"
     t.string "url_patterns", array: true
-    t.integer "status_cd"
+    t.integer "status_cd", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "has_meta_data", default: false
+    t.string "url_parser_class"
   end
 
   create_table "submissions", id: false, force: :cascade do |t|
