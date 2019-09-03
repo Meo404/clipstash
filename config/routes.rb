@@ -4,8 +4,13 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: 'json' } do
     namespace :v1 do
+      # Subreddits
       get 'subreddits', to: 'subreddits#index', as: 'subreddits'
-      get 'subreddits/popular'
+      get 'popular_subreddits', to: 'subreddits#popular', as: 'popular_subreddits'
+      get 'subreddits/:display_name', to: 'subreddits#show'
+      # Submissions
+      get 'submissions/:display_name', to: 'submissions#by_subreddit'
+      get 'submission/:reddit_fullname', to: 'submissions#show'
     end
   end
 
