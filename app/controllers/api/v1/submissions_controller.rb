@@ -3,12 +3,12 @@ class Api::V1::SubmissionsController < Api::V1::ApiController
 
   def show
     @submission = Submission.find(params[:reddit_fullname])
-    render json: @submission, include: ["subreddit", "medium.media_provider"]
+    render json: @submission, include: ["subreddit", "medium"]
   end
 
   def by_subreddit
     @submissions = Submission.where(subreddit: @subreddit).limit(25)
-    render json: @submissions, each_serializer: SubmissionSnippetSerializer
+    render json: @submissions, include: []
   end
 
   private

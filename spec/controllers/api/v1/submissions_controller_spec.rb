@@ -32,7 +32,7 @@ RSpec.describe Api::V1::SubmissionsController, type: :controller do
       expect(body["submissions"].length).to eq(25)
     end
 
-    it "uses snippet serializer" do
+    it "doesn't show associations" do
       body = JSON.parse(subject.body)
       expect(body["submissions"][0]).not_to have_key("medium")
       expect(body["submissions"][0]).not_to have_key("subreddit")

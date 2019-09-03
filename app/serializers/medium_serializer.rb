@@ -27,10 +27,5 @@
 #
 
 class MediumSerializer < ActiveModel::Serializer
-  belongs_to :media_provider
   attributes :id, :author, :author_url, :size, :thumbnail, :thumbnail_size, :title, :url
-
-  def media_provider
-    object.media_provider.name
-  end
 end
