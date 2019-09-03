@@ -10,7 +10,7 @@ class Api::V1::SubredditsController < Api::V1::ApiController
   end
 
   def show
-    @subreddit = Subreddit.first
+    @subreddit = Subreddit.find_by_display_name(params[:display_name])
     render json: @subreddit
   end
 

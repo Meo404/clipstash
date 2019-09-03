@@ -3,6 +3,7 @@ class SubmissionSnippetSerializer < ActiveModel::Serializer
              :comment_count,
              :created_utc,
              :media_provider,
+             :reddit_fullname,
              :score,
              :title,
              :thumbnail,
