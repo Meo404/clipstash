@@ -19,18 +19,18 @@ export default function SubredditGridItem({ subreddit }) {
                 <CardActionArea>
                     <CardMedia
                         className={classes.media}
-                        image={setSubredditImage(subreddit.attributes.icon_image)}
-                        title={subreddit.attributes.display_name}
+                        image={setSubredditImage(subreddit.icon_image)}
+                        title={subreddit.display_name}
                     />
                     <CardContent>
                         <Typography gutterBottom component="h6" noWrap>
-                            {subreddit.attributes.display_name}
+                            {subreddit.display_name}
                         </Typography>
                         <Tooltip title="Subscribers" placement="bottom-start">
                             <div className={classes.subscribers}>
                                 <PersonIcon fontSize="small" className={classes.subscriberIcon} />
                                 <Typography variant="body2" color="textSecondary" component="p">
-                                    {subreddit.attributes.subscribers}
+                                    {subreddit.subscribers}
                                 </Typography>
                             </div>
                         </Tooltip>

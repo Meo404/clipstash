@@ -18,7 +18,7 @@ export default function PopularSubredditsList() {
 
     async function fetchData() {
         const result = await axios('/api/v1/subreddits/popular');
-        setData({ subreddits: result.data.data });
+        setData({ subreddits: result.data.subreddits });
     }
 
     return (
@@ -28,11 +28,11 @@ export default function PopularSubredditsList() {
                 <ListItem button key={subreddit.id}>
                     <ListItemIcon>
                         <img
-                            src={setSubredditImage(subreddit.attributes.icon_image)}
+                            src={setSubredditImage(subreddit.icon_image)}
                             className={classes.subredditImage}
-                            alt={subreddit.attributes.display_name + ' subreddit icon'} />
+                            alt={subreddit.display_name + ' subreddit icon'} />
                     </ListItemIcon>
-                    <ListItemText primary={subreddit.attributes.display_name} />
+                    <ListItemText primary={subreddit.display_name} />
                 </ListItem>
             ))}
         </List>

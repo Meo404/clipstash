@@ -12,7 +12,7 @@ export default function MediaCard() {
 
     async function fetchData() {
         const result = await axios('/api/v1/subreddits');
-        setData({subreddits: result.data.data});
+        setData({subreddits: result.data.subreddits});
     }
 
     return (
