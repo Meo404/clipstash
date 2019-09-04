@@ -17,7 +17,7 @@ export default function PopularSubredditsList() {
     }, []);
 
     async function fetchData() {
-        const result = await axios('/api/v1/subreddits/popular');
+        const result = await axios('/api/v1/popular_subreddits');
         setData({ subreddits: result.data.subreddits });
     }
 

@@ -2,6 +2,7 @@ module Api
   module V1
     class ApiController < ActionController::API
       include Api::Concerns::ActsAsApiRequest
+      include Api::Concerns::Pagination
 
       rescue_from Exception,                           with: :render_error
       rescue_from ActiveRecord::RecordNotFound,        with: :render_not_found

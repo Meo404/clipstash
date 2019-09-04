@@ -7,11 +7,12 @@ class Api::V1::SubmissionsController < Api::V1::ApiController
   end
 
   def by_subreddit
-    @submissions = Submission.where(subreddit: @subreddit).limit(25)
-    render json: @submissions, include: []
+    @submissions = Submission.where(subreddit: @subreddit).page(params[:page])
+    render json: @submissions, include: [], meta: pagination_dict(@submissions)
   end
 
   private
+
 
     def set_subreddit
       @subreddit = Subreddit.find_by_display_name(params[:display_name])
