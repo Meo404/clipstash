@@ -1,12 +1,13 @@
 class Api::V1::SubredditsController < Api::V1::ApiController
   def index
-    @subreddits = Subreddit.all.order(subscribers: :desc)
+    @subreddits = Subreddit.all.order(subscribers: :desc).page(params[:page]).per(50)
     render json: @subreddits, fields: [:id,
                                        :display_name,
                                        :display_name_prefixed,
                                        :icon_image,
                                        :icon_size,
-                                       :subscribers]
+                                       :subscribers],
+           meta: pagination_dict(@subreddits)
   end
 
   def show
@@ -17,10 +18,10 @@ class Api::V1::SubredditsController < Api::V1::ApiController
   # Lists the top 5 subreddits by subscriber count
   def popular
     @subreddits = Subreddit.order(subscribers: :desc).limit(5)
-    render json: @subreddits,  fields: [:id,
-                                        :display_name,
-                                        :display_name_prefixed,
-                                        :icon_image,
-                                        :icon_size]
+    render json: @subreddits, fields: [:id,
+                                       :display_name,
+                                       :display_name_prefixed,
+                                       :icon_image,
+                                       :icon_size]
   end
 end

@@ -9,11 +9,18 @@ RSpec.describe Api::V1::SubredditsController, type: :controller do
   describe 'GET #index' do
     subject { get :index, as: :json }
 
-
-
     it 'returns valid json' do
       body = JSON.parse(subject.body)
       expect(body['subreddits'].length).to eq(10)
+    end
+
+    it 'has pagination meta data' do
+      body = JSON.parse(subject.body)
+      expect(body['meta']).to have_key("current_page")
+      expect(body['meta']).to have_key("next_page")
+      expect(body['meta']).to have_key("prev_page")
+      expect(body['meta']).to have_key("total_pages")
+      expect(body['meta']).to have_key("total_count")
     end
   end
 

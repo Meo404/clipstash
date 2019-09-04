@@ -27,15 +27,19 @@ RSpec.describe Api::V1::SubmissionsController, type: :controller do
 
     it { is_expected.to be_successful }
 
-    it "returns 25 submissions" do
-      body = JSON.parse(subject.body)
-      expect(body["submissions"].length).to eq(25)
-    end
-
     it "doesn't show associations" do
       body = JSON.parse(subject.body)
       expect(body["submissions"][0]).not_to have_key("medium")
       expect(body["submissions"][0]).not_to have_key("subreddit")
+    end
+
+    it 'has pagination meta data' do
+      body = JSON.parse(subject.body)
+      expect(body['meta']).to have_key("current_page")
+      expect(body['meta']).to have_key("next_page")
+      expect(body['meta']).to have_key("prev_page")
+      expect(body['meta']).to have_key("total_pages")
+      expect(body['meta']).to have_key("total_count")
     end
   end
 end
