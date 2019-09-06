@@ -41,6 +41,9 @@ class Subreddit < ApplicationRecord
   validates_presence_of :icon_size, if: :icon_image?
   validates_presence_of :banner_size, if: :banner_image?
 
+  scope :popular, -> { order(subscribers: :desc) }
+  scope :alphabetically, -> { order(display_name: :asc) }
+
   private
     def build_url
       self.url = "https://www.reddit.com/#{self.display_name_prefixed}"

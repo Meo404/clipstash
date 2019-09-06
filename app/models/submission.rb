@@ -47,8 +47,13 @@ class Submission < ApplicationRecord
   validates :thumbnail, presence: true, url: true
   validates :thumbnail_size, presence: true
 
+  scope :by_subreddit, -> (subreddit_id) { where(subreddit_id: subreddit_id) }
+  scope :has_medium, -> { joins(:medium) }
+  scope :hot, -> { where.not(hot_score: nil).order(hot_score: :desc) }
+  scope :top, -> { order(score: :desc) }
+
   def calculate_hot_score
-    Submissions::CalculateHotScore.call(created_utc.to_s, score)
+    Submissions::CalculateHotScore.call(Time.parse(created_utc.to_s), score)
   end
 
   private

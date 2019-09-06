@@ -28,8 +28,8 @@
 FactoryBot.define do
   factory :subreddit do
     reddit_fullname { "t5_" + Faker::Alphanumeric.alphanumeric(5) }
-    sequence(:display_name) { |n| "#{n}#{Faker::Lorem.word}" }
-    sequence(:display_name_prefixed) { |n| "r/#{n}" + self.display_name }
+    sequence(:display_name) { |n| "#{Faker::Lorem.word}#{n}" }
+    sequence(:display_name_prefixed) { |n| "r/" + self.display_name + "#{n}" }
     public_description { Faker::Lorem.paragraph }
     subscribers { Faker::Number.between(0, 10000000) }
     icon_image { [nil, Faker::Placeholdit.image].sample }
