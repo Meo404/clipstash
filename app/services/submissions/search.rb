@@ -3,7 +3,7 @@ module Submissions
   #
   # Currently it is only used for handling sorting filters within the request. Once a search feature will be
   # implemented, it should be reused for that as well.
-  class SearchSubmissions < ApplicationService
+  class Search < ApplicationService
     def initialize(subreddit_id, sorting_params)
       @subreddit_id = subreddit_id
       @sort_method = sorting_params[:sort] if sorting_params[:sort]
@@ -18,14 +18,15 @@ module Submissions
     private
 
       def hot_submissions
-        Submission.by_subreddit(@subreddit_id).hot
+        Submission.by_subreddit(@subreddit_id).has_medium.hot
       end
 
       def top_submissions
-        Submission.by_subreddit(@subreddit_id).top if @sort_time == "ALL"
+        return Submission.by_subreddit(@subreddit_id).has_medium.top if @sort_time == "all"
 
         Submission
             .by_subreddit(@subreddit_id)
+            .has_medium
             .where("created_utc >= ?", string_to_date(@sort_time))
             .top
       end

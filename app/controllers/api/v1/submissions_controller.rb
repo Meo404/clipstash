@@ -7,7 +7,7 @@ class Api::V1::SubmissionsController < Api::V1::ApiController
   end
 
   def by_subreddit
-    @submissions = Submissions::SearchSubmissions
+    @submissions = Submissions::Search
                        .call(@subreddit.id, sorting_params(params))
                        .page(params[:page])
 
