@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 2019_08_27_202342) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["media_provider_id"], name: "index_media_on_media_provider_id"
-    t.index ["submission_fullname"], name: "index_media_on_submission_fullname"
+    t.index ["submission_fullname"], name: "index_media_on_submission_fullname", unique: true
   end
 
   create_table "media_providers", force: :cascade do |t|

@@ -19,7 +19,7 @@
 # Indexes
 #
 #  index_media_on_media_provider_id    (media_provider_id)
-#  index_media_on_submission_fullname  (submission_fullname)
+#  index_media_on_submission_fullname  (submission_fullname) UNIQUE
 #
 # Foreign Keys
 #

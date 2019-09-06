@@ -2,7 +2,7 @@ class CreateMedia < ActiveRecord::Migration[5.2]
   def change
     create_table :media do |t|
       t.references :media_provider, foreign_key: true
-      t.string :submission_fullname, index: true
+      t.string :submission_fullname
       t.string :author
       t.string :author_url
       t.string :external_id
@@ -14,5 +14,7 @@ class CreateMedia < ActiveRecord::Migration[5.2]
 
       t.timestamps
     end
+
+    add_index :media, :submission_fullname, unique: true
   end
 end
