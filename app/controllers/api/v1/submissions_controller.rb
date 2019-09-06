@@ -7,12 +7,18 @@ class Api::V1::SubmissionsController < Api::V1::ApiController
   end
 
   def by_subreddit
-    @submissions = Submission.where(subreddit: @subreddit).page(params[:page])
+    @submissions = Submissions::SearchSubmissions
+                       .call(@subreddit.id, sorting_params(params))
+                       .page(params[:page])
+
     render json: @submissions, include: [], meta: pagination_dict(@submissions)
   end
 
   private
 
+    def sorting_params(params)
+      params.slice(:sort, :time)
+    end
 
     def set_subreddit
       @subreddit = Subreddit.find_by_display_name(params[:display_name])
