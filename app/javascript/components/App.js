@@ -4,6 +4,7 @@ import { createMuiTheme, MuiThemeProvider, makeStyles } from '@material-ui/core/
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Navigation from './Navigation/Navigation';
 import SubredditGrid from "./Subreddits/SubredditGrid";
+import SubmissionGrid from './Submissions/SubmissionGrid';
 
 export default function App() {
     const classes = useStyles();
@@ -18,6 +19,7 @@ export default function App() {
                         <div className={classes.toolbar}/>
                         <Switch>
                             <Route path='/subreddits' exact component={SubredditGrid}/>
+                            <Route path='/r/:displayName' component={SubmissionGrid}/>
                         </Switch>
                     </main>
                 </div>
