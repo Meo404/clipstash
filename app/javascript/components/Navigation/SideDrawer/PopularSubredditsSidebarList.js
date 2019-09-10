@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import { makeStyles } from '@material-ui/core/styles';
@@ -14,7 +14,7 @@ import { activeNav } from "../../../utils/navigationHelpers";
 function PopularSubredditsList(props) {
     const classes = useStyles();
     const currentPath = props.location.pathname;
-    const [data, setData] = useState({subreddits: []});
+    const [data, setData] = useState({ subreddits: [] });
 
     useEffect(() => {
         fetchData();
@@ -22,7 +22,7 @@ function PopularSubredditsList(props) {
 
     async function fetchData() {
         const result = await axios('/api/v1/popular_subreddits');
-        setData({subreddits: result.data.subreddits});
+        setData({ subreddits: result.data.subreddits });
     }
 
     return (
@@ -41,9 +41,9 @@ function PopularSubredditsList(props) {
                             <img
                                 src={setSubredditImage(subreddit.icon_image)}
                                 className={classes.subredditImage}
-                                alt={subreddit.display_name + ' subreddit icon'}/>
+                                alt={subreddit.display_name + ' subreddit icon'} />
                         </ListItemIcon>
-                        <ListItemText primary={subreddit.display_name}/>
+                        <ListItemText primary={subreddit.display_name} />
                     </ListItem>
                 </NavLink>
             ))}

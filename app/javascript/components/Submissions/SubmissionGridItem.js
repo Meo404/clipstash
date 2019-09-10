@@ -17,7 +17,7 @@ export default function SubmissionGridItem({ submission }) {
     const classes = useStyles();
 
     return (
-        <Grid item xs={12} lg={4} md={6} sm={6} className={classes.gridItem}>
+        <Grid item xs={12} lg={3} md={6} sm={6} className={classes.gridItem}>
             <Card className={classes.card}>
                 <CardActionArea>
                     <CardMedia
@@ -33,6 +33,7 @@ export default function SubmissionGridItem({ submission }) {
                         classes={{ content: classes.mw100 }}
                     >
                     </CardHeader>
+                </CardActionArea>
                     <CardActions disableSpacing className={classes.actions}>
                         <IconButton aria-label="share" size="small">
                             <SwapVertIcon />
@@ -49,7 +50,7 @@ export default function SubmissionGridItem({ submission }) {
                             </IconButton>
                         </div>
                     </CardActions>
-                </CardActionArea>
+
             </Card>
         </Grid>
     );
@@ -57,7 +58,11 @@ export default function SubmissionGridItem({ submission }) {
 
 const useStyles = makeStyles(theme => ({
     card: {
-        maxWidth: 345
+        maxWidth: 345,
+        margin: "auto"
+    },
+    gridItem: {
+        padding: 10
     },
     media: {
         height: 0,
