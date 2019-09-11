@@ -12,6 +12,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import SwapVertIcon from '@material-ui/icons/SwapVert';
 import Grid from "@material-ui/core/Grid";
+import Tooltip from '@material-ui/core/Tooltip';
 
 export default function SubmissionGridItem({ submission }) {
     const classes = useStyles();
@@ -25,14 +26,16 @@ export default function SubmissionGridItem({ submission }) {
                         image={submission.thumbnail}
                         title="Paella dish"
                     />
-                    <CardHeader
-                        title={submission.title}
-                        titleTypographyProps={{ noWrap: true, variant: "h6", classes: { h6: classes.titleText } }}
-                        subheader={"by /u/" + submission.author + " - " + submission.comment_count + " comments"}
-                        subheaderTypographyProps={{ noWrap: true, classes: { body1: classes.subtitleText } }}
-                        classes={{ root: classes.cardHeader, content: classes.mw100 }}
-                    >
-                    </CardHeader>
+                    <Tooltip title={submission.title} placement="top">
+                        <CardHeader
+                            title={submission.title}
+                            titleTypographyProps={{ noWrap: true, variant: "h6", classes: { h6: classes.titleText } }}
+                            subheader={"by /u/" + submission.author + " - " + submission.comment_count + " comments"}
+                            subheaderTypographyProps={{ noWrap: true, classes: { body1: classes.subtitleText } }}
+                            classes={{ root: classes.cardHeader, content: classes.mw100 }}
+                        >
+                        </CardHeader>
+                    </Tooltip>
                 </CardActionArea>
                 <CardActions disableSpacing className={classes.actions}>
                     <Icon size="small">
@@ -59,7 +62,6 @@ export default function SubmissionGridItem({ submission }) {
                         </IconButton>
                     </div>
                 </CardActions>
-
             </Card>
         </Grid>
     );
