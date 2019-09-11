@@ -5,6 +5,7 @@ import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
+import Icon from '@material-ui/core/Icon';
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
@@ -27,18 +28,21 @@ export default function SubmissionGridItem({ submission }) {
                     />
                     <CardHeader
                         title={submission.title}
-                        titleTypographyProps={{ noWrap: true, variant: "h6" }}
-                        subheader={"u/" + submission.author}
+                        titleTypographyProps={{ noWrap: true, variant: "h6", classes: { h6: classes.titleText } }}
+                        subheader={"by /u/" + submission.author + " - " + submission.comment_count + " comments"}
+                        subheaderTypographyProps={{ noWrap: true, classes: { body1: classes.subtitleText } }}
                         className={classes.mw100}
                         classes={{ content: classes.mw100 }}
                     >
                     </CardHeader>
                 </CardActionArea>
                     <CardActions disableSpacing className={classes.actions}>
-                        <IconButton aria-label="share" size="small">
+                        <Icon size="small">
                             <SwapVertIcon />
-                        </IconButton>
-                        <Typography variant="subtitle1" color="textSecondary">
+                        </Icon>
+                        <Typography 
+                            variant="subtitle1" 
+                            color="textSecondary">
                             {submission.score}
                         </Typography>
                         <div style={{ marginLeft: "auto" }}>
@@ -75,12 +79,6 @@ const useStyles = makeStyles(theme => ({
             duration: theme.transitions.duration.shortest
         })
     },
-    expandOpen: {
-        transform: "rotate(180deg)"
-    },
-    avatar: {
-        backgroundColor: red[500]
-    },
     mw100: {
         maxWidth: "100%",
     },
@@ -89,5 +87,11 @@ const useStyles = makeStyles(theme => ({
     },
     actionButton: {
         margin: "0 3px"
+    },
+    titleText: {
+        fontSize: "1.1rem"
+    },
+    subtitleText: {
+        fontSize: "0.85rem"
     }
 }));

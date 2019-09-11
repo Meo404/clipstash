@@ -19,6 +19,7 @@ export default function SubmissionGrid(props) {
     return (
         <div>
             <Grid container spacing={0}>
+                
                 {data.submissions.map((submission) => (
                     <SubmissionGridItem submission={submission} key={submission.reddit_fullname} />
                 ))}
