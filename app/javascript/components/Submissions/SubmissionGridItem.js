@@ -8,7 +8,6 @@ import CardActions from "@material-ui/core/CardActions";
 import Icon from '@material-ui/core/Icon';
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import SwapVertIcon from '@material-ui/icons/SwapVert';
@@ -31,29 +30,35 @@ export default function SubmissionGridItem({ submission }) {
                         titleTypographyProps={{ noWrap: true, variant: "h6", classes: { h6: classes.titleText } }}
                         subheader={"by /u/" + submission.author + " - " + submission.comment_count + " comments"}
                         subheaderTypographyProps={{ noWrap: true, classes: { body1: classes.subtitleText } }}
-                        className={classes.mw100}
-                        classes={{ content: classes.mw100 }}
+                        classes={{ root: classes.cardHeader, content: classes.mw100 }}
                     >
                     </CardHeader>
                 </CardActionArea>
-                    <CardActions disableSpacing className={classes.actions}>
-                        <Icon size="small">
-                            <SwapVertIcon />
-                        </Icon>
-                        <Typography 
-                            variant="subtitle1" 
-                            color="textSecondary">
-                            {submission.score}
-                        </Typography>
-                        <div style={{ marginLeft: "auto" }}>
-                            <IconButton aria-label="add to favorites" size="small" className={classes.actionButton}>
-                                <FavoriteIcon />
-                            </IconButton>
-                            <IconButton aria-label="share" size="small" className={classes.actionButton}>
-                                <ShareIcon />
-                            </IconButton>
-                        </div>
-                    </CardActions>
+                <CardActions disableSpacing className={classes.actions}>
+                    <Icon size="small">
+                        <SwapVertIcon
+                            style={{ marginBottom: 2 }}
+                            classes={{ root: classes.actionButtonIcon }}
+                        />
+                    </Icon>
+                    <Typography
+                        variant="subtitle1"
+                        color="textSecondary"
+                        classes={{ subtitle1: classes.subtitleText }}>
+                        {submission.score}
+                    </Typography>
+                    <div className={classes.cardActionIcons}>
+                        <IconButton
+                            aria-label="add to favorites"
+                            size="small"
+                            className={classes.actionButton}>
+                            <FavoriteIcon classes={{ root: classes.actionButtonIcon }} />
+                        </IconButton>
+                        <IconButton aria-label="share" size="small" className={classes.actionButton}>
+                            <ShareIcon classes={{ root: classes.actionButtonIcon }} />
+                        </IconButton>
+                    </div>
+                </CardActions>
 
             </Card>
         </Grid>
@@ -62,11 +67,25 @@ export default function SubmissionGridItem({ submission }) {
 
 const useStyles = makeStyles(theme => ({
     card: {
-        maxWidth: 345,
-        margin: "auto"
+        maxWidth: 600,
+        margin: "auto",
+        borderRadius: 0,
+        [theme.breakpoints.up('sm')]: {
+            maxWidth: 345,
+            borderRadius: 4
+        },
+    },
+    cardHeader: {
+        padding: "10px 16px"
+    },
+    cardActionIcons: {
+        marginLeft: "auto"
     },
     gridItem: {
-        padding: 10
+        padding: "10px 0px",
+        [theme.breakpoints.up('sm')]: {
+            padding: 10
+        },
     },
     media: {
         height: 0,
@@ -86,12 +105,15 @@ const useStyles = makeStyles(theme => ({
         padding: 10
     },
     actionButton: {
-        margin: "0 3px"
+        margin: "0 3px",
+    },
+    actionButtonIcon: {
+        fontSize: "1.25rem"
     },
     titleText: {
-        fontSize: "1.1rem"
+        fontSize: "1rem"
     },
     subtitleText: {
-        fontSize: "0.85rem"
+        fontSize: "0.8rem"
     }
 }));
