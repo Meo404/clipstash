@@ -27,16 +27,13 @@ export default function SubmissionGridItem({ submission }) {
                         image={submission.thumbnail}
                         title="Paella dish"
                     />
-                    
-                        <CardHeader
-                            title={submission.title}
-                            titleTypographyProps={{ noWrap: true, variant: "h6", classes: { h6: classes.titleText } }}
-                            subheader={"by /u/" + submission.author + " - " + submission.created_date_string}
-                            subheaderTypographyProps={{ noWrap: true, classes: { body1: classes.subtitleText } }}
-                            classes={{ root: classes.cardHeader, content: classes.mw100 }}
-                        >
-                        </CardHeader>
-                    
+                    <CardHeader
+                        title={submission.title}
+                        titleTypographyProps={{ noWrap: true, variant: "h6", classes: { h6: classes.titleText } }}
+                        subheader={"by /u/" + submission.author + " - " + submission.created_date_string}
+                        subheaderTypographyProps={{ noWrap: true, classes: { body1: classes.subtitleText } }}
+                        classes={{ root: classes.cardHeader, content: classes.mw100 }}
+                    />
                 </CardActionArea>
                 <CardActions disableSpacing className={classes.actions}>
                     <Icon size="small">
@@ -48,7 +45,8 @@ export default function SubmissionGridItem({ submission }) {
                     <Typography
                         variant="subtitle1"
                         color="textSecondary"
-                        classes={{ subtitle1: classes.subtitleText }}>
+                        classes={{ subtitle1: classes.subtitleText }}
+                    >
                         {submission.score}
                     </Typography>
                     <Icon size="small">
@@ -60,14 +58,16 @@ export default function SubmissionGridItem({ submission }) {
                     <Typography
                         variant="subtitle1"
                         color="textSecondary"
-                        classes={{ subtitle1: classes.subtitleText }}>
+                        classes={{ subtitle1: classes.subtitleText }}
+                    >
                         {submission.comment_count}
                     </Typography>
                     <div className={classes.cardActionIcons}>
                         <IconButton
                             aria-label="add to favorites"
                             size="small"
-                            className={classes.actionButton}>
+                            className={classes.actionButton}
+                        >
                             <FavoriteIcon classes={{ root: classes.actionButtonIcon }} />
                         </IconButton>
                         <IconButton aria-label="share" size="small" className={classes.actionButton}>

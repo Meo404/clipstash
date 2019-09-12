@@ -43,7 +43,7 @@ export default function SubmissionGrid(props) {
 
     return (
         <MaxWidthContainer>
-            <SubmissionSorting sortMethod={sortMethod} handleSortingChange={handleSortChange}/>
+            <SubmissionSorting sortMethod={sortMethod} handleSortingChange={handleSortChange} />
             <Grid container spacing={0}>
                 {submissions.map((submission) => (
                     <SubmissionGridItem submission={submission} key={submission.reddit_fullname} />

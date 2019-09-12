@@ -17,9 +17,10 @@ export default function SubredditGridItem({ subreddit }) {
     return (
         <Grid item xs={6} lg={2} md={3} sm={4} className={classes.gridItem}>
             <Card className={classes.card}>
-                <Link 
-                to={"/" + subreddit.display_name_prefixed}
-                className={classes.subredditLink}>
+                <Link
+                    to={"/" + subreddit.display_name_prefixed}
+                    className={classes.subredditLink}
+                >
                     <CardActionArea>
                         <CardMedia
                             className={classes.media}

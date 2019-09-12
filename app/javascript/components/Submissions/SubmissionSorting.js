@@ -16,12 +16,12 @@ export default function SubmissionSorting(props) {
                 name="sorting"
                 className={classes.selectEmpty}
             >
-                <MenuItem value={"hot"}>HOT</MenuItem>
-                <MenuItem value={"top_day"}>TOP - Daily</MenuItem>
-                <MenuItem value={"top_week"}>TOP - Weekly</MenuItem>
-                <MenuItem value={"top_month"}>TOP - Monthly</MenuItem>
-                <MenuItem value={"top_year"}>TOP - Yearly</MenuItem>
-                <MenuItem value={"top_all"}>TOP - All</MenuItem>
+                <MenuItem value={"hot"}>Hot</MenuItem>
+                <MenuItem value={"top_day"}>Top - Daily</MenuItem>
+                <MenuItem value={"top_week"}>Top - Weekly</MenuItem>
+                <MenuItem value={"top_month"}>Top - Monthly</MenuItem>
+                <MenuItem value={"top_year"}>Top - Yearly</MenuItem>
+                <MenuItem value={"top_all"}>top_all - All</MenuItem>
             </Select>
             <FormHelperText>Sorting</FormHelperText>
         </FormControl>
@@ -33,8 +33,5 @@ const useStyles = makeStyles(theme => ({
         margin: theme.spacing(1),
         minWidth: 120,
         float: "right"
-    },
-    selectEmpty: {
-        marginTop: theme.spacing(2),
-    },
+    }
 }));
