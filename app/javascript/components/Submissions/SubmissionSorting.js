@@ -21,7 +21,7 @@ export default function SubmissionSorting(props) {
                 <MenuItem value={"top_week"}>Top - Weekly</MenuItem>
                 <MenuItem value={"top_month"}>Top - Monthly</MenuItem>
                 <MenuItem value={"top_year"}>Top - Yearly</MenuItem>
-                <MenuItem value={"top_all"}>top_all - All</MenuItem>
+                <MenuItem value={"top_all"}>Top - All</MenuItem>
             </Select>
             <FormHelperText>Sorting</FormHelperText>
         </FormControl>
