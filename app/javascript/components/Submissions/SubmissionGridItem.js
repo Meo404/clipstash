@@ -9,10 +9,10 @@ import CommentOutlinedIcon from '@material-ui/icons/CommentOutlined';
 import Icon from '@material-ui/core/Icon';
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import Grid from "@material-ui/core/Grid";
 import SwapVerticalCircleOutlinedIcon from '@material-ui/icons/SwapVerticalCircleOutlined';
+import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
 
 export default function SubmissionGridItem({ submission }) {
     const classes = useStyles();
@@ -67,7 +67,7 @@ export default function SubmissionGridItem({ submission }) {
                             size="small"
                             className={classes.actionButton}
                         >
-                            <FavoriteIcon classes={{ root: classes.actionButtonIcon }} />
+                            <FavoriteBorderOutlinedIcon classes={{ root: classes.actionButtonIcon }} />
                         </IconButton>
                         <IconButton aria-label="share" size="small" className={classes.actionButton}>
                             <ShareIcon classes={{ root: classes.actionButtonIcon }} />
