@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useCompare } from '../../utils/customHooks';
 import Grid from "@material-ui/core/Grid";
 import axios from "axios";
 import SubmissionGridItem from "./SubmissionGridItem";
@@ -6,20 +7,34 @@ import SubmissionSorting from './SubmissionSorting';
 import MaxWidthContainer from "../../hoc/MaxWidthContainer";
 
 export default function SubmissionGrid(props) {
-    const [data, setData] = useState({ subreddit: null, submissions: [] });
-    const [sortMethod, setSortMethod] = useState("HOT")
+    const [subreddit, setSubreddit] = useState(null);
+    const [submissions, setSubmissions] = useState([]);
+    const [sortMethod, setSortMethod] = useState("HOT");
+    const didRouteChange = useCompare(props.match.params.displayName);
 
     useEffect(() => {
-        fetchData();
+        fetchSubredditData();
+    }, [props.match.params.displayName])
+
+    useEffect(() => {
+        if (didRouteChange && sortMethod != "HOT") {
+            setSortMethod("HOT");
+        } else {
+            fetchSubmissionData();
+        }   
     }, [props.match.params.displayName, sortMethod]);
 
-    async function fetchData() {
-        const params = buildSearchParams();
-        const submission_result = await axios('/api/v1/submissions/' + props.match.params.displayName, {params: params});
-        const subreddit_result = await axios('/api/v1/subreddits/' + props.match.params.displayName);
-        setData({ subreddit: subreddit_result.data.subreddit, submissions: submission_result.data.submissions });
+    async function fetchSubredditData() {
+        const result = await axios('/api/v1/subreddits/' + props.match.params.displayName);
+        setSubreddit(result.data.subreddit);
     }
-    
+
+    async function fetchSubmissionData() {
+        const params = buildSearchParams();
+        const result = await axios('/api/v1/submissions/' + props.match.params.displayName, {params: params});
+        setSubmissions(result.data.submissions);
+    }
+
     function buildSearchParams() {
         const params = {};
         switch(sortMethod) {
@@ -69,7 +84,7 @@ export default function SubmissionGrid(props) {
         <MaxWidthContainer>
             <SubmissionSorting sortMethod={sortMethod} handleSortingChange={handleSortChange}/>
             <Grid container spacing={0}>
-                {data.submissions.map((submission) => (
+                {submissions.map((submission) => (
                     <SubmissionGridItem submission={submission} key={submission.reddit_fullname} />
                 ))}
             </Grid>
