@@ -5,6 +5,7 @@ import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
+import CommentOutlinedIcon from '@material-ui/icons/CommentOutlined';
 import Icon from '@material-ui/core/Icon';
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
@@ -30,7 +31,7 @@ export default function SubmissionGridItem({ submission }) {
                         <CardHeader
                             title={submission.title}
                             titleTypographyProps={{ noWrap: true, variant: "h6", classes: { h6: classes.titleText } }}
-                            subheader={"by /u/" + submission.author + " - " + submission.comment_count + " comments"}
+                            subheader={"by /u/" + submission.author + " - " + submission.created_date_string}
                             subheaderTypographyProps={{ noWrap: true, classes: { body1: classes.subtitleText } }}
                             classes={{ root: classes.cardHeader, content: classes.mw100 }}
                         >
@@ -49,6 +50,18 @@ export default function SubmissionGridItem({ submission }) {
                         color="textSecondary"
                         classes={{ subtitle1: classes.subtitleText }}>
                         {submission.score}
+                    </Typography>
+                    <Icon size="small">
+                        <CommentOutlinedIcon
+                            style={{ marginBottom: 2 }}
+                            classes={{ root: classes.actionButtonIcon }}
+                        />
+                    </Icon>
+                    <Typography
+                        variant="subtitle1"
+                        color="textSecondary"
+                        classes={{ subtitle1: classes.subtitleText }}>
+                        {submission.comment_count}
                     </Typography>
                     <div className={classes.cardActionIcons}>
                         <IconButton

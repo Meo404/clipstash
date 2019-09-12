@@ -28,12 +28,15 @@
 #
 
 class SubmissionSerializer < ActiveModel::Serializer
+  include ActionView::Helpers::DateHelper
+
   belongs_to :subreddit
   has_one :medium
 
   attributes :author,
              :comment_count,
              :created_utc,
+             :created_date_string,
              :media_provider,
              :reddit_fullname,
              :score,
@@ -43,5 +46,9 @@ class SubmissionSerializer < ActiveModel::Serializer
 
   def media_provider
     object.medium.media_provider.name
+  end
+
+  def created_date_string
+    time_ago_in_words(object.created_utc) + " ago"
   end
 end
