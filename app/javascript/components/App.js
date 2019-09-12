@@ -13,15 +13,12 @@ export default function App() {
         <MuiThemeProvider theme={theme}>
             <Router>
                 <div className={classes.root}>
-                    <CssBaseline/>
-                    <Navigation/>
-                    <main className={classes.content}>
-                        <div className={classes.toolbar}/>
-                        <Switch>
-                            <Route path='/subreddits' exact component={SubredditGrid}/>
-                            <Route path='/r/:displayName' component={SubmissionGrid}/>
-                        </Switch>
-                    </main>
+                    <CssBaseline />
+                    <Navigation />
+                    <Switch>
+                        <Route path='/subreddits' exact component={SubredditGrid} />
+                        <Route path='/r/:displayName' component={SubmissionGrid} />
+                    </Switch>
                 </div>
             </Router>
         </MuiThemeProvider>

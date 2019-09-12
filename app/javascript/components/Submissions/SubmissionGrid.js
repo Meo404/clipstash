@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import axios from "axios";
 import SubmissionGridItem from "./SubmissionGridItem";
+import MaxWidthContainer from "../../hoc/MaxWidthContainer";
 
 export default function SubmissionGrid(props) {
     const [data, setData] = useState({ subreddit: null, submissions: [] });
@@ -17,13 +18,12 @@ export default function SubmissionGrid(props) {
     }
 
     return (
-        <div>
+        <MaxWidthContainer>
             <Grid container spacing={0}>
-                
                 {data.submissions.map((submission) => (
                     <SubmissionGridItem submission={submission} key={submission.reddit_fullname} />
                 ))}
             </Grid>
-        </div>
+        </MaxWidthContainer>
     );
 }
