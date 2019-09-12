@@ -9,71 +9,32 @@ import MaxWidthContainer from "../../hoc/MaxWidthContainer";
 export default function SubmissionGrid(props) {
     const [subreddit, setSubreddit] = useState(null);
     const [submissions, setSubmissions] = useState([]);
-    const [sortMethod, setSortMethod] = useState("HOT");
-    const didRouteChange = useCompare(props.match.params.displayName);
+    const [sortMethod, setSortMethod] = useState("hot");
+
+    const displayName = props.match.params.displayName;
+    const didRouteChange = useCompare(displayName);
 
     useEffect(() => {
         fetchSubredditData();
-    }, [props.match.params.displayName])
+    }, [displayName])
 
     useEffect(() => {
-        if (didRouteChange && sortMethod != "HOT") {
-            setSortMethod("HOT");
+        if (didRouteChange && sortMethod != "hot") {
+            setSortMethod("hot");
         } else {
             fetchSubmissionData();
         }   
-    }, [props.match.params.displayName, sortMethod]);
+    }, [displayName, sortMethod]);
 
     async function fetchSubredditData() {
-        const result = await axios('/api/v1/subreddits/' + props.match.params.displayName);
+        const result = await axios('/api/v1/subreddits/' + displayName);
         setSubreddit(result.data.subreddit);
     }
 
     async function fetchSubmissionData() {
-        const params = buildSearchParams();
-        const result = await axios('/api/v1/submissions/' + props.match.params.displayName, {params: params});
+        const params = { sort: sortMethod };
+        const result = await axios('/api/v1/submissions/' + displayName, { params: params });
         setSubmissions(result.data.submissions);
-    }
-
-    function buildSearchParams() {
-        const params = {};
-        switch(sortMethod) {
-            case "HOT": {
-                params["sort"] = "hot";
-                break;
-            }
-            case "TOP-DAILY": {
-                params["sort"] = "top";
-                params["time"] = "day";
-                break;
-            }
-            case "TOP-WEEKLY": {
-                params["sort"] = "top";
-                params["time"] = "week";
-                break;
-            }
-            case "TOP-MONTHLY": {
-                params["sort"] = "top";
-                params["time"] = "month";
-                break;
-            }
-            case "TOP-YEARLY": {
-                params["sort"] = "top";
-                params["time"] = "year";
-                break;
-            }
-            case "TOP-ALLTIME": {
-                params["sort"] = "top";
-                params["time"] = "all";
-                break;
-            }
-            default: {
-                break;
-            }
-        }
-        
-        console.log(params);
-        return params;
     }
 
     function handleSortChange(event) {

@@ -9,7 +9,7 @@ class Api::V1::SubmissionsController < Api::V1::ApiController
 
   def by_subreddit
     @submissions = Submissions::Search
-                       .call(@subreddit.id, sorting_params(params))
+                       .call(@subreddit.id, params[:sort])
                        .page(params[:page])
                        .per(50)
 
@@ -18,11 +18,8 @@ class Api::V1::SubmissionsController < Api::V1::ApiController
 
   private
 
-    def sorting_params(params)
-      params.slice(:sort, :time)
-    end
-
     def set_subreddit
+      puts params
       @subreddit = Subreddit.find_by_display_name(params[:display_name])
     end
 end

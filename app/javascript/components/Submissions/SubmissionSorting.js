@@ -16,12 +16,12 @@ export default function SubmissionSorting(props) {
                 name="sorting"
                 className={classes.selectEmpty}
             >
-                <MenuItem value={"HOT"}>HOT</MenuItem>
-                <MenuItem value={"TOP-DAILY"}>TOP - Daily</MenuItem>
-                <MenuItem value={"TOP-WEEKLY"}>TOP - Weekly</MenuItem>
-                <MenuItem value={"TOP-MONTHLY"}>TOP - Monthly</MenuItem>
-                <MenuItem value={"TOP-YEARLY"}>TOP - Yearly</MenuItem>
-                <MenuItem value={"TOP-ALLTIME"}>TOP - All</MenuItem>
+                <MenuItem value={"hot"}>HOT</MenuItem>
+                <MenuItem value={"top_day"}>TOP - Daily</MenuItem>
+                <MenuItem value={"top_week"}>TOP - Weekly</MenuItem>
+                <MenuItem value={"top_month"}>TOP - Monthly</MenuItem>
+                <MenuItem value={"top_year"}>TOP - Yearly</MenuItem>
+                <MenuItem value={"top_all"}>TOP - All</MenuItem>
             </Select>
             <FormHelperText>Sorting</FormHelperText>
         </FormControl>
