@@ -11,9 +11,8 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
-import SwapVertIcon from '@material-ui/icons/SwapVert';
 import Grid from "@material-ui/core/Grid";
-import Tooltip from '@material-ui/core/Tooltip';
+import SwapVerticalCircleOutlinedIcon from '@material-ui/icons/SwapVerticalCircleOutlined';
 
 export default function SubmissionGridItem({ submission }) {
     const classes = useStyles();
@@ -37,7 +36,7 @@ export default function SubmissionGridItem({ submission }) {
                 </CardActionArea>
                 <CardActions disableSpacing className={classes.actions}>
                     <Icon size="small">
-                        <SwapVertIcon
+                        <SwapVerticalCircleOutlinedIcon
                             style={{ marginBottom: 2 }}
                             classes={{ root: classes.actionButtonIcon }}
                         />
@@ -129,6 +128,8 @@ const useStyles = makeStyles(theme => ({
         fontSize: "1rem"
     },
     subtitleText: {
-        fontSize: "0.8rem"
+        fontSize: "0.8rem",
+        marginRight: 10,
+        marginTop: 2
     }
 }));
