@@ -26,7 +26,7 @@ export default function SubmissionGridItem({ submission }) {
                         image={submission.thumbnail}
                         title="Paella dish"
                     />
-                    <Tooltip title={submission.title} placement="top">
+                    
                         <CardHeader
                             title={submission.title}
                             titleTypographyProps={{ noWrap: true, variant: "h6", classes: { h6: classes.titleText } }}
@@ -35,7 +35,7 @@ export default function SubmissionGridItem({ submission }) {
                             classes={{ root: classes.cardHeader, content: classes.mw100 }}
                         >
                         </CardHeader>
-                    </Tooltip>
+                    
                 </CardActionArea>
                 <CardActions disableSpacing className={classes.actions}>
                     <Icon size="small">
