@@ -1,41 +1,44 @@
 import React, { useEffect, useState } from "react";
 import { useCompare } from '../../utils/customHooks';
-import Grid from "@material-ui/core/Grid";
 import axios from "axios";
+import Grid from "@material-ui/core/Grid";
 import SubmissionGridItem from "./SubmissionGridItem";
 import SubmissionSorting from './SubmissionSorting';
 import MaxWidthContainer from "../../hoc/MaxWidthContainer";
+import InfiniteScroll from 'react-infinite-scroller';
+
+const INITIAL_STATE = {
+    subreddit: null,
+    submissions: [],
+    sort: 'hot',
+    hasMore: false,
+    page: 1
+}
 
 export default function SubmissionGrid(props) {
-    const [subreddit, setSubreddit] = useState(null);
-    const [submissions, setSubmissions] = useState([]);
-    const [sortMethod, setSortMethod] = useState("hot");
-
     const displayName = props.match.params.displayName;
     const didRouteChange = useCompare(displayName);
 
+    const [sortMethod, setSortMethod] = useState("hot");
+    const [data, setData] = useState(INITIAL_STATE);
+
     useEffect(() => {
-        setSubmissions([]);
-        fetchSubredditData();
+        //fetchSubredditData();
+        setData(INITIAL_STATE);
     }, [displayName])
-
-    useEffect(() => {
-        if (didRouteChange && sortMethod != "hot") {
-            setSortMethod("hot");
-        } else {
-            fetchSubmissionData();
-        }   
-    }, [displayName, sortMethod]);
-
+  
     async function fetchSubredditData() {
         const result = await axios('/api/v1/subreddits/' + displayName);
         setSubreddit(result.data.subreddit);
     }
 
-    async function fetchSubmissionData() {
-        const params = { sort: sortMethod };
+    async function fetchSubmissionsData() {
+        const params = { sort: sortMethod, page: data.page };
         const result = await axios('/api/v1/submissions/' + displayName, { params: params });
-        setSubmissions(result.data.submissions);
+        setData({ 
+            submissions: [...data.submissions, ...result.data.submissions], 
+            page: data.page + 1 
+        })
     }
 
     function handleSortChange(event) {
@@ -45,11 +48,19 @@ export default function SubmissionGrid(props) {
     return (
         <MaxWidthContainer>
             <SubmissionSorting sortMethod={sortMethod} handleSortingChange={handleSortChange} />
-            <Grid container spacing={0}>
-                {submissions.map((submission) => (
-                    <SubmissionGridItem submission={submission} key={submission.reddit_fullname} />
-                ))}
-            </Grid>
+            <InfiniteScroll
+                pageStart={0}
+                initialLoad={true}
+                loadMore={fetchSubmissionsData}
+                hasMore={true || false}
+                loader={<div className="loader" key={0}>Loading ...</div>}
+            >
+                <Grid container spacing={0} > 
+                    {data.submissions.map((submission) => (
+                        <SubmissionGridItem submission={submission} key={submission.reddit_fullname} />
+                    ))}
+                </Grid>
+            </InfiniteScroll>
         </MaxWidthContainer>
     );
 }
