@@ -3,7 +3,9 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { createMuiTheme, MuiThemeProvider, makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Navigation from './Navigation/Navigation';
+import ScrollToTop from '../utils/scrollToTop';
 import SubredditGrid from "./Subreddits/SubredditGrid";
+import SubmissionGrid from './Submissions/SubmissionGrid';
 
 export default function App() {
     const classes = useStyles();
@@ -11,16 +13,16 @@ export default function App() {
     return (
         <MuiThemeProvider theme={theme}>
             <Router>
-                <div className={classes.root}>
-                    <CssBaseline/>
-                    <Navigation/>
-                    <main className={classes.content}>
-                        <div className={classes.toolbar}/>
+                <ScrollToTop>
+                    <div className={classes.root}>
+                        <CssBaseline />
+                        <Navigation />
                         <Switch>
-                            <Route path='/subreddits' exact component={SubredditGrid}/>
+                            <Route path='/subreddits' exact component={SubredditGrid} />
+                            <Route path='/r/:displayName' component={SubmissionGrid} />
                         </Switch>
-                    </main>
-                </div>
+                    </div>
+                </ScrollToTop>
             </Router>
         </MuiThemeProvider>
     )
@@ -42,6 +44,7 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
     },
     content: {
+        width: "100%",
         maxWidth: 1280,
         marginLeft: 'auto',
         marginRight: 'auto',

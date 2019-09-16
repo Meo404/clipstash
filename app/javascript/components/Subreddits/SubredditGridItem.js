@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -16,26 +17,31 @@ export default function SubredditGridItem({ subreddit }) {
     return (
         <Grid item xs={6} lg={2} md={3} sm={4} className={classes.gridItem}>
             <Card className={classes.card}>
-                <CardActionArea>
-                    <CardMedia
-                        className={classes.media}
-                        image={setSubredditImage(subreddit.icon_image)}
-                        title={subreddit.display_name}
-                    />
-                    <CardContent>
-                        <Typography gutterBottom component="h6" noWrap>
-                            {subreddit.display_name}
-                        </Typography>
-                        <Tooltip title="Subscribers" placement="bottom-start">
-                            <div className={classes.subscribers}>
-                                <PersonIcon fontSize="small" className={classes.subscriberIcon} />
-                                <Typography variant="body2" color="textSecondary" component="p">
-                                    {subreddit.subscribers}
-                                </Typography>
-                            </div>
-                        </Tooltip>
-                    </CardContent>
-                </CardActionArea>
+                <Link
+                    to={"/" + subreddit.display_name_prefixed}
+                    className={classes.subredditLink}
+                >
+                    <CardActionArea>
+                        <CardMedia
+                            className={classes.media}
+                            image={setSubredditImage(subreddit.icon_image)}
+                            title={subreddit.display_name}
+                        />
+                        <CardContent>
+                            <Typography gutterBottom component="h6" noWrap>
+                                {subreddit.display_name}
+                            </Typography>
+                            <Tooltip title="Subscribers" placement="bottom-start">
+                                <div className={classes.subscribers}>
+                                    <PersonIcon fontSize="small" className={classes.subscriberIcon} />
+                                    <Typography variant="body2" color="textSecondary" component="p">
+                                        {subreddit.subscribers}
+                                    </Typography>
+                                </div>
+                            </Tooltip>
+                        </CardContent>
+                    </CardActionArea>
+                </Link>
             </Card>
         </Grid>
     );
@@ -62,5 +68,9 @@ const useStyles = makeStyles({
     subscriberIcon: {
         marginLeft: '-5px',
         marginRight: 3
+    },
+    subredditLink: {
+        textDecoration: 'none',
+        color: 'inherit'
     }
 });
