@@ -6,6 +6,8 @@ import SubmissionGridItem from "./SubmissionGridItem";
 import SubmissionSorting from './SubmissionSorting';
 import MaxWidthContainer from "../../hoc/MaxWidthContainer";
 import InfiniteScroll from 'react-infinite-scroller';
+import LoadingIndicator from '../UI/LoadingIndicator';
+import SelectInput from "@material-ui/core/Select/SelectInput";
 
 const INITIAL_STATE = {
     subreddit: null,
@@ -17,7 +19,6 @@ const INITIAL_STATE = {
 
 export default function SubmissionGrid(props) {
     const displayName = props.match.params.displayName;
-    const didRouteChange = useCompare(displayName);
 
     const [sortMethod, setSortMethod] = useState("hot");
     const [data, setData] = useState(INITIAL_STATE);
@@ -53,7 +54,7 @@ export default function SubmissionGrid(props) {
                 initialLoad={true}
                 loadMore={fetchSubmissionsData}
                 hasMore={true || false}
-                loader={<div className="loader" key={0}>Loading ...</div>}
+                loader={<LoadingIndicator key='loadingIndicator'/>}
             >
                 <Grid container spacing={0} > 
                     {data.submissions.map((submission) => (
