@@ -10,7 +10,7 @@ import LoadingIndicator from '../UI/LoadingIndicator';
 const INITIAL_STATE = {
     subreddit: null,
     submissions: [],
-    hasMore: false,
+    hasMore: true,
     page: 1
 }
 
@@ -38,10 +38,12 @@ export default function SubmissionGrid(props) {
     async function fetchSubmissionsData() {
         const params = { sort: sortMethod, page: data.page };
         const result = await axios('/api/v1/submissions/' + displayName, { params: params });
-        setData({ 
-            submissions: [...data.submissions, ...result.data.submissions], 
-            page: data.page + 1 
-        })
+        const newData = {
+            submissions: [...data.submissions, ...result.data.submissions],
+            page: data.page + 1,
+            hasMore: result.data.meta.next_page != null
+        }
+        setData(newData);
     }
 
     function handleSortChange(event) {
@@ -54,7 +56,7 @@ export default function SubmissionGrid(props) {
             <InfiniteScroll
                 initialLoad={true}
                 loadMore={fetchSubmissionsData}
-                hasMore={true || false}
+                hasMore={data.hasMore}
                 loader={<LoadingIndicator key='loadingIndicator'/>}
             >
                 <Grid container spacing={0} > 
