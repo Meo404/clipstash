@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useCompare } from '../../utils/customHooks';
 import axios from "axios";
 import Grid from "@material-ui/core/Grid";
 import SubmissionGridItem from "./SubmissionGridItem";
@@ -7,30 +6,33 @@ import SubmissionSorting from './SubmissionSorting';
 import MaxWidthContainer from "../../hoc/MaxWidthContainer";
 import InfiniteScroll from 'react-infinite-scroller';
 import LoadingIndicator from '../UI/LoadingIndicator';
-import SelectInput from "@material-ui/core/Select/SelectInput";
 
 const INITIAL_STATE = {
     subreddit: null,
     submissions: [],
-    sort: 'hot',
     hasMore: false,
     page: 1
 }
 
 export default function SubmissionGrid(props) {
+    const [data, setData] = useState(INITIAL_STATE);
+    const [sortMethod, setSortMethod] = useState('hot');
     const displayName = props.match.params.displayName;
 
-    const [sortMethod, setSortMethod] = useState("hot");
-    const [data, setData] = useState(INITIAL_STATE);
+    useEffect(() => {
+        setData(INITIAL_STATE);
+    }, [sortMethod])
 
     useEffect(() => {
-        //fetchSubredditData();
-        setData(INITIAL_STATE);
+        const subreddit = fetchSubredditData();
+
+        setSortMethod('hot');
+        setData(Object.assign(INITIAL_STATE, { subreddit: subreddit }));
     }, [displayName])
   
     async function fetchSubredditData() {
         const result = await axios('/api/v1/subreddits/' + displayName);
-        setSubreddit(result.data.subreddit);
+        return result.data.subreddit;
     }
 
     async function fetchSubmissionsData() {
@@ -43,14 +45,13 @@ export default function SubmissionGrid(props) {
     }
 
     function handleSortChange(event) {
-        setSortMethod(event.target.value);
+        setSortMethod(event.target.value)
     }
 
     return (
         <MaxWidthContainer>
             <SubmissionSorting sortMethod={sortMethod} handleSortingChange={handleSortChange} />
             <InfiniteScroll
-                pageStart={0}
                 initialLoad={true}
                 loadMore={fetchSubmissionsData}
                 hasMore={true || false}
