@@ -58,6 +58,7 @@ const useStyles = makeStyles(theme => ({
     },
     drawerPaper: {
         width: drawerWidth,
+        overflow: 'hidden'
     },
     subredditImage: {
         width: "20px",
