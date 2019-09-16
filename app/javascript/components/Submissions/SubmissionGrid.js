@@ -15,6 +15,7 @@ export default function SubmissionGrid(props) {
     const didRouteChange = useCompare(displayName);
 
     useEffect(() => {
+        setSubmissions([]);
         fetchSubredditData();
     }, [displayName])
 
