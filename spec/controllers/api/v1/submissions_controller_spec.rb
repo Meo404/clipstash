@@ -4,10 +4,10 @@ RSpec.describe Api::V1::SubmissionsController, type: :controller do
   before(:each) do
     request.headers["accept"] = 'application/json'
 
+    @subreddit = create(:subreddit)
     media_provider = create(:media_provider)
-    subreddit = create(:subreddit)
     30.times do
-      submission = create(:submission, subreddit: subreddit)
+      submission = create(:submission, subreddit: @subreddit)
       create(:medium, submission: submission, media_provider: media_provider)
     end
   end
@@ -22,8 +22,8 @@ RSpec.describe Api::V1::SubmissionsController, type: :controller do
     end
   end
 
-  describe 'GET #by:subreddit' do
-    subject { get :by_subreddit, params: { display_name: Subreddit.first.display_name } , as: :json }
+  describe 'GET #by_subreddit' do
+    subject { get :by_subreddit, params: { display_name: @subreddit.display_name } , as: :json }
 
     it { is_expected.to be_successful }
 
