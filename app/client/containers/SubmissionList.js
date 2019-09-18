@@ -12,7 +12,7 @@ const INITIAL_STATE = {
     submissions: [],
     hasMore: true,
     page: 1
-}
+};
 
 export default function SubmissionList(props) {
     const [data, setData] = useState(INITIAL_STATE);
@@ -21,14 +21,14 @@ export default function SubmissionList(props) {
 
     useEffect(() => {
         setData(INITIAL_STATE);
-    }, [sortMethod])
+    }, [sortMethod]);
 
     useEffect(() => {
         const subreddit = fetchSubredditData();
 
         setSortMethod('hot');
         setData(Object.assign(INITIAL_STATE, { subreddit: subreddit }));
-    }, [displayName])
+    }, [displayName]);
   
     async function fetchSubredditData() {
         const result = await axios('/api/v1/subreddits/' + displayName);
@@ -42,7 +42,7 @@ export default function SubmissionList(props) {
             submissions: [...data.submissions, ...result.data.submissions],
             page: data.page + 1,
             hasMore: result.data.meta.next_page != null
-        }
+        };
         setData(newData);
     }
 

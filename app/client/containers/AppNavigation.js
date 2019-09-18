@@ -6,7 +6,7 @@ import TopNavbar from 'components/Navigation/TopNavbar';
 
 
 export default function Navigation() {
-    const [popularSubreddits, setPopularSubreddits] = useState([])
+    const [popularSubreddits, setPopularSubreddits] = useState([]);
     const [mobileMenu, setMobileMenu] = useState(false);
 
     useEffect(() => {
