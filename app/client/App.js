@@ -1,6 +1,8 @@
 import React from "react"
 import { makeStyles } from '@material-ui/core/styles';
+import { Route, Switch } from "react-router-dom";
 import AppNavigation from 'containers/AppNavigation';
+import SubredditList from 'containers/SubredditList';
 
 export default function App() {
     const classes = useStyles();
@@ -8,6 +10,9 @@ export default function App() {
     return (
         <div className={classes.root}>
             <AppNavigation />
+            <Switch>
+                <Route path='/subreddits' exact component={SubredditList} />
+            </Switch>
         </div>
     )
 }

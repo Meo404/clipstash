@@ -2,8 +2,8 @@ import React from 'react';
 import { activeNav } from "utils/navigationHelper";
 import { NavLink } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
+import { setSubredditImage } from 'utils/subredditHelper';
 import { withRouter } from 'react-router-dom';
-import DefaultIcon from 'images/default_subreddit_icon.png';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -14,10 +14,6 @@ function PopularSubredditsList(props) {
     const { location, subreddits } = props;
     const classes = useStyles();
     const currentPath = location.pathname;
-
-    function setSubredditImage(iconImage) {
-        return iconImage ? iconImage : DefaultIcon;
-    }
     
     return (
         <List>
