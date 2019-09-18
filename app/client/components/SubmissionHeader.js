@@ -1,19 +1,20 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 
-export default function SubmissionSorting(props) {
+export default function SubmissionHeader(props) {
+    const { handleSortingChange, sortMethod } = props;
     const classes = useStyles();
 
     return (
         <FormControl className={classes.formControl}>
             <Select
-                value={props.sortMethod}
-                onChange={props.handleSortingChange}
-                name="sorting"
+                name="sorting"  
+                value={sortMethod}
+                onChange={handleSortingChange}
                 className={classes.selectEmpty}
             >
                 <MenuItem value={"hot"}>Hot</MenuItem>

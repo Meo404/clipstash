@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Grid from "@material-ui/core/Grid";
-import SubmissionGridItem from "./SubmissionGridItem";
-import SubmissionSorting from './SubmissionSorting';
-import MaxWidthContainer from "../../hoc/MaxWidthContainer";
 import InfiniteScroll from 'react-infinite-scroller';
-import LoadingIndicator from '../UI/LoadingIndicator';
+import LoadingIndicator from 'components/UI/LoadingIndicator';
+import MaxWidthContainer from "components/UI/MaxWidthContainer";
+import Submission from "components/Submission";
+import SubmissionHeader from 'components/SubmissionHeader';
 
 const INITIAL_STATE = {
     subreddit: null,
@@ -14,7 +14,7 @@ const INITIAL_STATE = {
     page: 1
 }
 
-export default function SubmissionGrid(props) {
+export default function SubmissionList(props) {
     const [data, setData] = useState(INITIAL_STATE);
     const [sortMethod, setSortMethod] = useState('hot');
     const displayName = props.match.params.displayName;
@@ -52,7 +52,10 @@ export default function SubmissionGrid(props) {
 
     return (
         <MaxWidthContainer>
-            <SubmissionSorting sortMethod={sortMethod} handleSortingChange={handleSortChange} />
+            <SubmissionHeader 
+                sortMethod={sortMethod} 
+                handleSortingChange={handleSortChange} 
+            />
             <InfiniteScroll
                 initialLoad={true}
                 loadMore={fetchSubmissionsData}
@@ -61,7 +64,7 @@ export default function SubmissionGrid(props) {
             >
                 <Grid container spacing={0} > 
                     {data.submissions.map((submission) => (
-                        <SubmissionGridItem submission={submission} key={submission.reddit_fullname} />
+                        <Submission submission={submission} key={submission.reddit_fullname} />
                     ))}
                 </Grid>
             </InfiniteScroll>

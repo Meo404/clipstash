@@ -14,7 +14,7 @@ import Grid from "@material-ui/core/Grid";
 import SwapVerticalCircleOutlinedIcon from '@material-ui/icons/SwapVerticalCircleOutlined';
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
 
-export default function SubmissionGridItem({ submission }) {
+export default function Submissions({ submission }) {
     const classes = useStyles();
 
     return (

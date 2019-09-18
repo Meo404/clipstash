@@ -2,6 +2,7 @@ import React from "react"
 import { makeStyles } from '@material-ui/core/styles';
 import { Route, Switch } from "react-router-dom";
 import AppNavigation from 'containers/AppNavigation';
+import SubmissionList from 'containers/SubmissionList';
 import SubredditList from 'containers/SubredditList';
 
 export default function App() {
@@ -12,6 +13,7 @@ export default function App() {
             <AppNavigation />
             <Switch>
                 <Route path='/subreddits' exact component={SubredditList} />
+                <Route path='/r/:displayName' component={SubmissionList} />
             </Switch>
         </div>
     )
