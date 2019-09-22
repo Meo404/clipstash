@@ -4,7 +4,7 @@ import axios from 'axios';
 const withErrorHandler = (WrappedComponent) => {
     return props => {
         const responseInterceptor = axios.interceptors.response.use(
-            response => res,
+            response => response,
             error => {
                 console.log(error);
             }
