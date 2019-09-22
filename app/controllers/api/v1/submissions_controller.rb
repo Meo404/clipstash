@@ -19,7 +19,6 @@ class Api::V1::SubmissionsController < Api::V1::ApiController
   private
 
     def set_subreddit
-      puts params
-      @subreddit = Subreddit.find_by_display_name(params[:display_name])
+      @subreddit = Subreddit.find_by_display_name!(params[:display_name])
     end
 end

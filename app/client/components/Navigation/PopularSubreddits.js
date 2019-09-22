@@ -1,34 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import { withRouter } from 'react-router-dom';
-import axios from 'axios';
+import React from 'react';
+import { activeNav } from "utils/navigationHelper";
+import { NavLink } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
+import { setSubredditImage } from 'utils/subredditHelper';
+import { withRouter } from 'react-router-dom';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
-import setSubredditImage from '../../../utils/setSubredditImage';
-import { NavLink } from "react-router-dom";
-import { activeNav } from "../../../utils/navigationHelpers";
 
 function PopularSubredditsList(props) {
+    const { location, subreddits } = props;
     const classes = useStyles();
-    const currentPath = props.location.pathname;
-    const [data, setData] = useState({ subreddits: [] });
-
-    useEffect(() => {
-        fetchData();
-    }, []);
-
-    async function fetchData() {
-        const result = await axios('/api/v1/popular_subreddits');
-        setData({ subreddits: result.data.subreddits });
-    }
-
+    const currentPath = location.pathname;
+    
     return (
         <List>
             <ListSubheader>Popular Subreddits</ListSubheader>
-            {data.subreddits.map((subreddit) => (
+            {subreddits.map((subreddit) => (
                 <NavLink
                     to={"/" + subreddit.display_name_prefixed}
                     className={classes.navLink}

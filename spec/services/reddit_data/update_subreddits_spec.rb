@@ -4,6 +4,7 @@ require "rails_helper"
 # Should possibly be mocked in the future
 describe RedditData::UpdateSubreddits do
   before(:each) do
+    Subreddit.delete_all # workaround as database cleaning seems to not work properly
     RedditData::CreateSubreddit.call('leagueoflegends')
     RedditData::CreateSubreddit.call('pokemon')
     RedditData::CreateSubreddit.call('wow')

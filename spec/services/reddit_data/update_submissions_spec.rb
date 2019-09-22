@@ -5,6 +5,7 @@ require "rails_helper"
 describe RedditData::UpdateSubmissions do
   before(:each) do
     RedditData::CreateSubreddit.call('leagueoflegends')
+
     create(:media_provider,
            name: "YouTube",
            url: "https://www.youtube.com",
@@ -15,9 +16,13 @@ describe RedditData::UpdateSubmissions do
   end
 
   it 'should update submissions' do
+    subreddit = Subreddit.find_by_display_name('leagueoflegends')
+
     expect {
-      RedditData::UpdateSubmissions.call(Subreddit.first.id, SearchOptions::HOT_DAILY)
+      RedditData::UpdateSubmissions.call(subreddit.id, SearchOptions::HOT_DAILY)
     }.to change { Submission.count }
      .and change { Medium.count }
-  end
+    end
 end
+
+

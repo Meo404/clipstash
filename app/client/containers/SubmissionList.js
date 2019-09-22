@@ -1,34 +1,34 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Grid from "@material-ui/core/Grid";
-import SubmissionGridItem from "./SubmissionGridItem";
-import SubmissionSorting from './SubmissionSorting';
-import MaxWidthContainer from "../../hoc/MaxWidthContainer";
 import InfiniteScroll from 'react-infinite-scroller';
-import LoadingIndicator from '../UI/LoadingIndicator';
+import LoadingIndicator from 'components/UI/LoadingIndicator';
+import MaxWidthContainer from "components/UI/MaxWidthContainer";
+import Submission from "components/Submission";
+import SubmissionHeader from 'components/SubmissionHeader';
 
 const INITIAL_STATE = {
     subreddit: null,
     submissions: [],
     hasMore: true,
     page: 1
-}
+};
 
-export default function SubmissionGrid(props) {
+export default function SubmissionList(props) {
     const [data, setData] = useState(INITIAL_STATE);
     const [sortMethod, setSortMethod] = useState('hot');
     const displayName = props.match.params.displayName;
 
     useEffect(() => {
         setData(INITIAL_STATE);
-    }, [sortMethod])
+    }, [sortMethod]);
 
     useEffect(() => {
         const subreddit = fetchSubredditData();
 
         setSortMethod('hot');
         setData(Object.assign(INITIAL_STATE, { subreddit: subreddit }));
-    }, [displayName])
+    }, [displayName]);
   
     async function fetchSubredditData() {
         const result = await axios('/api/v1/subreddits/' + displayName);
@@ -42,7 +42,7 @@ export default function SubmissionGrid(props) {
             submissions: [...data.submissions, ...result.data.submissions],
             page: data.page + 1,
             hasMore: result.data.meta.next_page != null
-        }
+        };
         setData(newData);
     }
 
@@ -52,7 +52,10 @@ export default function SubmissionGrid(props) {
 
     return (
         <MaxWidthContainer>
-            <SubmissionSorting sortMethod={sortMethod} handleSortingChange={handleSortChange} />
+            <SubmissionHeader 
+                sortMethod={sortMethod} 
+                handleSortingChange={handleSortChange} 
+            />
             <InfiniteScroll
                 initialLoad={true}
                 loadMore={fetchSubmissionsData}
@@ -61,7 +64,7 @@ export default function SubmissionGrid(props) {
             >
                 <Grid container spacing={0} > 
                     {data.submissions.map((submission) => (
-                        <SubmissionGridItem submission={submission} key={submission.reddit_fullname} />
+                        <Submission submission={submission} key={submission.reddit_fullname} />
                     ))}
                 </Grid>
             </InfiniteScroll>

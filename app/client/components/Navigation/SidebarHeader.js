@@ -2,29 +2,32 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { NavLink } from 'react-router-dom';
-import { activeNav } from '../../../utils/navigationHelpers';
+import { activeNav } from 'utils/navigationHelper';
 import AppsIcon from '@material-ui/icons/Apps';
+import HomeIcon from '@material-ui/icons/Home';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import HomeIcon from '@material-ui/icons/Home';
 import WhatshotIcon from '@material-ui/icons/Whatshot';
 
-function BaseSidebarList(props) {
+function SidebarContent(props) {
+    const { closeDrawer, location } = props;
     const classes = useStyles();
-    const currentPath = props.location.pathname;
+    const currentPath = location.pathname;
 
     return (
         <List>
             <NavLink
                 to="/"
                 className={classes.navLink}
-                onClick={props.closeDrawer}>
+                onClick={closeDrawer}
+            >
                 <ListItem
                     button
                     key="Home"
-                    className={activeNav('/', currentPath) ? classes.activeNav : ''}>
+                    className={activeNav('/', currentPath) ? classes.activeNav : ''}
+                >
                     <ListItemIcon>
                         <HomeIcon className={activeNav('/', currentPath) ? classes.activeNavIcon : ''} />
                     </ListItemIcon>
@@ -40,11 +43,13 @@ function BaseSidebarList(props) {
             <NavLink
                 to="/subreddits"
                 className={classes.navLink}
-                onClick={props.closeDrawer}>
+                onClick={closeDrawer}
+            >
                 <ListItem
                     button
                     key="Subreddits"
-                    className={activeNav('/subreddits', currentPath) ? classes.activeNav : ''}>
+                    className={activeNav('/subreddits', currentPath) ? classes.activeNav : ''}
+                >
                     <ListItemIcon>
                         <AppsIcon className={activeNav('/subreddits', currentPath) ? classes.activeNavIcon : ''} />
                     </ListItemIcon>
@@ -68,4 +73,4 @@ const useStyles = makeStyles({
     }
 });
 
-export default withRouter(BaseSidebarList);
+export default withRouter(SidebarContent);

@@ -1,21 +1,25 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 import { makeStyles } from "@material-ui/core/styles";
+import { setSubredditImage } from 'utils/subredditHelper';
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Grid from "@material-ui/core/Grid";
+import PersonIcon from '@material-ui/icons/Person';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from "@material-ui/core/Typography";
-import PersonIcon from '@material-ui/icons/Person';
-import setSubredditImage from '../../utils/setSubredditImage';
 
-export default function SubredditGridItem({ subreddit }) {
+export default function Subreddit({ subreddit }) {
     const classes = useStyles();
 
     return (
-        <Grid item xs={6} lg={2} md={3} sm={4} className={classes.gridItem}>
+        <Grid 
+            item 
+            xs={6} sm={4} md={3} lg={2}
+            className={classes.gridItem}
+        >
             <Card className={classes.card}>
                 <Link
                     to={"/" + subreddit.display_name_prefixed}

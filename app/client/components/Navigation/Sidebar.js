@@ -1,22 +1,27 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import BaseSidebarList from './BaseSidebarList';
-import Drawer from '@material-ui/core/Drawer';
 import Divider from '@material-ui/core/Divider';
-import PopularSubredditsSidebarList from './PopularSubredditsSidebarList';
+import Drawer from '@material-ui/core/Drawer';
+import SidebarHeader from './SidebarHeader';
+import PopularSubreddits from './PopularSubreddits';
 
-export default function SideDrawer({ mobileMenu, mobileMenuHandler }) {
+export default function Sidebar(props) {
+    const { 
+        mobileMenu, 
+        mobileMenuHandler, 
+        popularSubreddits 
+    } = props;
     const classes = useStyles();
 
     function closeDrawerHandler() {
         mobileMenu ? mobileMenuHandler() : null
     }
 
-    const drawerContent = (
+    const sideBarContent = (
         <div className={classes.list} role="presentation">
-            <BaseSidebarList closeDrawer={closeDrawerHandler} />
+            <SidebarHeader closeDrawer={closeDrawerHandler} />
             <Divider />
-            <PopularSubredditsSidebarList closeDrawer={closeDrawerHandler} />
+            <PopularSubreddits subreddits={popularSubreddits} />
         </div>
     );
     /**
@@ -25,19 +30,21 @@ export default function SideDrawer({ mobileMenu, mobileMenuHandler }) {
      */
     return (
         <React.Fragment>
-            <Drawer
-                open={mobileMenu}
-                onClose={mobileMenuHandler}>
-                {drawerContent}
+            <Drawer 
+                open={mobileMenu} 
+                onClose={mobileMenuHandler}
+            >
+                {sideBarContent}
             </Drawer>
             <Drawer
                 className={classes.desktopDrawer}
                 variant="permanent"
                 classes={{
                     paper: classes.drawerPaper,
-                }}>
+                }}
+            >
                 <div className={classes.toolbar} />
-                {drawerContent}
+                {sideBarContent}
             </Drawer>
         </React.Fragment>
     );
@@ -59,10 +66,6 @@ const useStyles = makeStyles(theme => ({
     drawerPaper: {
         width: drawerWidth,
         overflow: 'hidden'
-    },
-    subredditImage: {
-        width: "20px",
-        height: "20px"
     },
     toolbar: theme.mixins.toolbar,
 }));
