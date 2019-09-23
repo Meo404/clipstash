@@ -11,7 +11,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
 
 function PopularSubredditsList(props) {
-    const { location, subreddits } = props;
+    const { location, subreddits, closeDrawer } = props;
     const classes = useStyles();
     const currentPath = location.pathname;
     
@@ -22,7 +22,7 @@ function PopularSubredditsList(props) {
                 <NavLink
                     to={"/" + subreddit.display_name_prefixed}
                     className={classes.navLink}
-                    onClick={props.closeDrawer}
+                    onClick={closeDrawer}
                     key={subreddit.id}>
                     <ListItem
                         button

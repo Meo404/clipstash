@@ -21,7 +21,10 @@ export default function Sidebar(props) {
         <div className={classes.list} role="presentation">
             <SidebarHeader closeDrawer={closeDrawerHandler} />
             <Divider />
-            <PopularSubreddits subreddits={popularSubreddits} />
+            <PopularSubreddits 
+                subreddits={popularSubreddits}
+                closeDrawer={closeDrawerHandler} 
+            />
         </div>
     );
     /**
