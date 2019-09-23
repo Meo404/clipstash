@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import axios from "axios";
 import Grid from "@material-ui/core/Grid";
 import LoadingIndicator from 'components/UI/LoadingIndicator';
@@ -19,17 +20,22 @@ export default function SubredditList() {
 
     let loadingIndicator = null;
     if (data.isLoading) {
-        loadingIndicator = <LoadingIndicator key='loadingIndicator'/>
+        loadingIndicator = <LoadingIndicator key='loadingIndicator' />
     }
 
     return (
-        <MaxWidthContainer>
+        <React.Fragment>
+            <Helmet>
+                <title>All Subreddits</title>
+            </Helmet>
+            <MaxWidthContainer>
                 {loadingIndicator}
                 <Grid container spacing={0}>
                     {data.subreddits.map((subreddit) => (
                         <Subreddit subreddit={subreddit} key={subreddit.id} />
                     ))}
                 </Grid>
-        </MaxWidthContainer>
+            </MaxWidthContainer>
+        </React.Fragment>
     );
 }
