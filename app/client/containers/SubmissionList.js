@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import axios from "axios";
 import Grid from "@material-ui/core/Grid";
 import InfiniteScroll from 'react-infinite-scroller';
@@ -56,24 +57,30 @@ function SubmissionList(props) {
     }
 
     return (
-        <MaxWidthContainer>
-            <SubmissionHeader
-                sortMethod={sortMethod}
-                handleSortingChange={handleSortChange}
-            />
-            <InfiniteScroll
-                initialLoad={true}
-                loadMore={fetchSubmissionsData}
-                hasMore={data.hasMore}
-                loader={<LoadingIndicator key='loadingIndicator' />}
-            >
-                <Grid container spacing={0} >
-                    {data.submissions.map((submission) => (
-                        <Submission submission={submission} key={submission.reddit_fullname} />
-                    ))}
-                </Grid>
-            </InfiniteScroll>
-        </MaxWidthContainer>
+        <React.Fragment>
+            <Helmet>
+                <title>{displayName}</title>
+            </Helmet>
+            <MaxWidthContainer>
+                <SubmissionHeader
+                    sortMethod={sortMethod}
+                    handleSortingChange={handleSortChange}
+                />
+                <InfiniteScroll
+                    initialLoad={true}
+                    loadMore={fetchSubmissionsData}
+                    hasMore={data.hasMore}
+                    loader={<LoadingIndicator key='loadingIndicator' />}
+                >
+                    <Grid container spacing={0} >
+                        {data.submissions.map((submission) => (
+                            <Submission submission={submission} key={submission.reddit_fullname} />
+                        ))}
+                    </Grid>
+                </InfiniteScroll>
+            </MaxWidthContainer>
+        </React.Fragment>
+
     );
 }
 
