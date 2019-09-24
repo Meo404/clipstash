@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import axios from "axios";
 import Grid from "@material-ui/core/Grid";
 import InfiniteScroll from 'react-infinite-scroller';
