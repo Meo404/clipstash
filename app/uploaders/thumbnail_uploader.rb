@@ -11,7 +11,8 @@ class ThumbnailUploader < Shrine
       ImageProcessing::MiniMagick
           .source(original)
           .saver(quality: 92)
-          .resize_to_limit!(480, 360)
+          .resize_to_limit(480, 360, sharpen: false)
+          .call
     end
   end
 end
