@@ -11,8 +11,8 @@ class CreateSubmissions < ActiveRecord::Migration[5.2]
       t.integer :comment_count
       t.boolean :over18
       t.datetime :created_utc
-      t.string :thumbnail
-      t.integer :thumbnail_size, array: true
+      t.string :reddit_thumbnail
+      t.integer :reddit_thumbnail_size, array: true
 
       t.timestamps
     end

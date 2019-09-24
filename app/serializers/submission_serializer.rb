@@ -2,20 +2,21 @@
 #
 # Table name: submissions
 #
-#  author          :string
-#  comment_count   :integer
-#  created_utc     :datetime
-#  hot_score       :float            default(0.0)
-#  over18          :boolean
-#  permalink       :string
-#  reddit_fullname :string           primary key
-#  score           :integer
-#  thumbnail       :string
-#  thumbnail_size  :integer          is an Array
-#  title           :string
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  subreddit_id    :bigint
+#  author                :string
+#  comment_count         :integer
+#  created_utc           :datetime
+#  hot_score             :float            default(0.0)
+#  over18                :boolean
+#  permalink             :string
+#  reddit_fullname       :string           primary key
+#  reddit_thumbnail      :string
+#  reddit_thumbnail_size :integer          is an Array
+#  score                 :integer
+#  thumbnail_data        :text
+#  title                 :string
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  subreddit_id          :bigint
 #
 # Indexes
 #
@@ -46,6 +47,14 @@ class SubmissionSerializer < ActiveModel::Serializer
 
   def media_provider
     object.medium.media_provider.name
+  end
+
+  def thumbnail
+    object.thumbnail_url
+  end
+
+  def thumbnail_size
+    [object.thumbnail.metadata["width"], object.thumbnail.metadata["height"]]
   end
 
   def created_date_string

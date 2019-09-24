@@ -2,20 +2,21 @@
 #
 # Table name: submissions
 #
-#  author          :string
-#  comment_count   :integer
-#  created_utc     :datetime
-#  hot_score       :float            default(0.0)
-#  over18          :boolean
-#  permalink       :string
-#  reddit_fullname :string           primary key
-#  score           :integer
-#  thumbnail       :string
-#  thumbnail_size  :integer          is an Array
-#  title           :string
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  subreddit_id    :bigint
+#  author                :string
+#  comment_count         :integer
+#  created_utc           :datetime
+#  hot_score             :float            default(0.0)
+#  over18                :boolean
+#  permalink             :string
+#  reddit_fullname       :string           primary key
+#  reddit_thumbnail      :string
+#  reddit_thumbnail_size :integer          is an Array
+#  score                 :integer
+#  thumbnail_data        :text
+#  title                 :string
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  subreddit_id          :bigint
 #
 # Indexes
 #
@@ -45,9 +46,9 @@ describe Submission do
       it { should validate_presence_of(:permalink) }
       it { should validate_presence_of(:score) }
       it { should validate_presence_of(:title) }
-      it { should validate_presence_of(:thumbnail) }
-      it { should validate_presence_of(:thumbnail_size) }
-      it { should validate_url_of(:thumbnail) }
+      it { should validate_presence_of(:reddit_thumbnail) }
+      it { should validate_presence_of(:reddit_thumbnail_size) }
+      it { should validate_url_of(:reddit_thumbnail) }
     end
 
     context 'when candidate_validation is true' do

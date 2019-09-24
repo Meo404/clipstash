@@ -2,20 +2,21 @@
 #
 # Table name: submissions
 #
-#  author          :string
-#  comment_count   :integer
-#  created_utc     :datetime
-#  hot_score       :float            default(0.0)
-#  over18          :boolean
-#  permalink       :string
-#  reddit_fullname :string           primary key
-#  score           :integer
-#  thumbnail       :string
-#  thumbnail_size  :integer          is an Array
-#  title           :string
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  subreddit_id    :bigint
+#  author                :string
+#  comment_count         :integer
+#  created_utc           :datetime
+#  hot_score             :float            default(0.0)
+#  over18                :boolean
+#  permalink             :string
+#  reddit_fullname       :string           primary key
+#  reddit_thumbnail      :string
+#  reddit_thumbnail_size :integer          is an Array
+#  score                 :integer
+#  thumbnail_data        :text
+#  title                 :string
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  subreddit_id          :bigint
 #
 # Indexes
 #
@@ -38,7 +39,7 @@ FactoryBot.define do
     comment_count { Faker::Number.between(0, 10000000) }
     over18 { Faker::Boolean.boolean }
     created_utc { Faker::Time.between(DateTime.now - 100, DateTime.now) }
-    thumbnail { Faker::Placeholdit.image }
-    thumbnail_size { [320 , 280] }
+    reddit_thumbnail { Faker::Placeholdit.image }
+    reddit_thumbnail_size { [320 , 280] }
   end
 end

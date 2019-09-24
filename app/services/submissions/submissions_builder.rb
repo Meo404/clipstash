@@ -64,10 +64,10 @@ module Submissions
             over18: submission.over_18?,
             score: submission.score,
             title: submission.title,
-            thumbnail: submission.preview[:images][0][:resolutions][2][:url],
-            thumbnail_size: [
-                submission.preview[:images][0][:resolutions][2][:width],
-                submission.preview[:images][0][:resolutions][2][:height]
+            reddit_thumbnail: submission.preview[:images][0][:source][:url],
+            reddit_thumbnail_size: [
+                submission.preview[:images][0][:source][:width],
+                submission.preview[:images][0][:source][:height]
             ],
             subreddit: @subreddit,
             candidate_validation: true
