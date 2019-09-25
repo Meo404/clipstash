@@ -13,12 +13,12 @@ RSpec.describe Api::V1::SubmissionsController, type: :controller do
   end
 
   describe 'GET #show' do
-    subject { get :show, params: { reddit_fullname: Submission.first.reddit_fullname } , as: :json }
+    subject { get :show, params: { slug: Submission.first.slug } , as: :json }
 
     it { is_expected.to be_successful }
 
     it "returns the correct submission" do
-      expect(JSON.parse(subject.body)["submission"]["reddit_fullname"]).to eq(Submission.first.reddit_fullname)
+      expect(JSON.parse(subject.body)["submission"]["slug"]).to eq(Submission.first.slug)
     end
   end
 
