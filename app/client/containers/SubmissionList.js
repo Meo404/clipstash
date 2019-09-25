@@ -56,6 +56,10 @@ function SubmissionList(props) {
         setSortMethod(event.target.value)
     }
 
+    function handleSubmissionClick(slug) {
+        props.history.push('/submission/' + slug);
+    }
+
     return (
         <React.Fragment>
             <Helmet>
@@ -74,7 +78,10 @@ function SubmissionList(props) {
                 >
                     <Grid container spacing={0} >
                         {data.submissions.map((submission) => (
-                            <SubmissionListCard submission={submission} key={submission.reddit_fullname} />
+                            <SubmissionListCard 
+                                submission={submission} 
+                                key={submission.reddit_fullname}
+                                clickHandler={handleSubmissionClick} />
                         ))}
                     </Grid>
                 </InfiniteScroll>

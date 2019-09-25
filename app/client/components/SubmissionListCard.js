@@ -14,13 +14,13 @@ import Grid from "@material-ui/core/Grid";
 import SwapVerticalCircleOutlinedIcon from '@material-ui/icons/SwapVerticalCircleOutlined';
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
 
-export default function SubmissionListCard({ submission }) {
+export default function SubmissionListCard({ submission, clickHandler }) {
     const classes = useStyles();
 
     return (
         <Grid item xs={12} lg={3} md={6} sm={6} className={classes.gridItem}>
             <Card className={classes.card}>
-                <CardActionArea>
+                <CardActionArea onClick={() => clickHandler(submission.slug)}> 
                     <CardMedia
                         className={classes.media}
                         image={submission.thumbnail}
