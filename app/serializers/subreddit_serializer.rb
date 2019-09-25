@@ -8,6 +8,7 @@
 #  created_utc           :datetime
 #  display_name          :string
 #  display_name_prefixed :string
+#  icon_data             :text
 #  icon_image            :string
 #  icon_size             :integer          is an Array
 #  over18                :boolean
@@ -32,9 +33,33 @@ class SubredditSerializer < ActiveModel::Serializer
              :display_name_prefixed,
              :public_description,
              :subscribers,
-             :icon_image,
+             :icon,
              :icon_size,
-             :banner_image,
+             :banner,
              :banner_size,
              :url
+
+  def icon
+    object.icon.nil? ? object.reddit_icon : object.icon_url
+  end
+
+  def icon_size
+    if object.icon.nil?
+      object.reddit_icon_size
+    else
+      [object.icon.metadata["width"], object.icon.metadata["height"]]
+    end
+  end
+
+  def banner
+    object.banner.nil? ? object.reddit_banner : object.banner_url
+  end
+
+  def banner_size
+    if object.banner.nil?
+      object.reddit_banner_size
+    else
+      [object.banner.metadata["width"], object.banner.metadata["height"]]
+    end
+  end
 end

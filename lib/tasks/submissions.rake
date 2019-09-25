@@ -73,7 +73,7 @@ namespace :submissions do
   task attach_thumbnails: :environment do
     puts "Attaching thumbnails started at: #{DateTime.now.strftime('%F %T %z')}"
 
-    Submissions::AttachThumbnails.call
+    Images::AttachSubmissionThumbnails.call
 
     puts "Attaching thumbnails finished at:  #{DateTime.now.strftime('%F %T %z')}"
   rescue StandardError => e

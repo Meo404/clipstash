@@ -8,6 +8,7 @@
 #  created_utc           :datetime
 #  display_name          :string
 #  display_name_prefixed :string
+#  icon_data             :text
 #  icon_image            :string
 #  icon_size             :integer          is an Array
 #  over18                :boolean
@@ -46,12 +47,12 @@ describe Subreddit do
 
     context 'when it has icon_image' do
       before { allow(subject).to receive(:icon_image?).and_return(true) }
-      it { is_expected.to validate_presence_of(:icon_size) }
+      it { is_expected.to validate_presence_of(:reddit_icon_size) }
     end
 
     context 'when it has banner_image' do
       before { allow(subject).to receive(:banner_image?).and_return(true) }
-      it { is_expected.to validate_presence_of(:banner_size) }
+      it { is_expected.to validate_presence_of(:reddit_banner_size) }
     end
   end
 

@@ -36,10 +36,10 @@ module RedditData
             display_name_prefixed: subreddit.display_name_prefixed,
             public_description: subreddit.public_description,
             subscribers: subreddit.subscribers,
-            icon_image: subreddit.icon_image,
-            icon_size: subreddit.icon_size,
-            banner_image: subreddit.banner_image,
-            banner_size: subreddit.banner_size,
+            reddit_icon: subreddit.icon_image,
+            reddit_icon_size: subreddit.icon_size,
+            reddit_banner: subreddit.banner_image,
+            reddit_banner_size: subreddit.banner_size,
             over18: subreddit.over_18?,
         }
       end

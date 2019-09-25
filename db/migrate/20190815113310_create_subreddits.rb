@@ -6,10 +6,10 @@ class CreateSubreddits < ActiveRecord::Migration[5.2]
       t.string :display_name_prefixed
       t.text :public_description
       t.integer :subscribers
-      t.string :icon_image
-      t.integer :icon_size, array: true
-      t.string :banner_image
-      t.integer :banner_size, array: true
+      t.string :reddit_icon
+      t.integer :reddit_icon_size, array: true
+      t.string :reddit_banner
+      t.integer :reddit_banner_size, array: true
       t.boolean :over18
       t.timestamp :created_utc
       t.string :url
