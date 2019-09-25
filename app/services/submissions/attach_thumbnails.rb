@@ -6,6 +6,9 @@ module Submissions
         submission.thumbnail_remote_url = submission.reddit_thumbnail
         submission.save
       end
+
+      # Clean shrine cache afterwards as it doesn't happen automatically
+      Shrine.storages[:cache].clear!
     end
   end
 end
