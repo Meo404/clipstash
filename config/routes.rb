@@ -10,7 +10,7 @@ Rails.application.routes.draw do
       get 'subreddits/:display_name', to: 'subreddits#show'
       # Submissions
       get 'submissions/:display_name', to: 'submissions#by_subreddit'
-      get 'submission/:reddit_fullname', to: 'submissions#show'
+      get 'submission/:slug', to: 'submissions#show'
     end
   end
 

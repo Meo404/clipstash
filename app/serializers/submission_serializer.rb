@@ -12,6 +12,7 @@
 #  reddit_thumbnail      :string
 #  reddit_thumbnail_size :integer          is an Array
 #  score                 :integer
+#  slug                  :string
 #  thumbnail_data        :text
 #  title                 :string
 #  created_at            :datetime         not null
@@ -21,6 +22,7 @@
 # Indexes
 #
 #  index_submissions_on_reddit_fullname  (reddit_fullname) UNIQUE
+#  index_submissions_on_slug             (slug) UNIQUE
 #  index_submissions_on_subreddit_id     (subreddit_id)
 #
 # Foreign Keys
@@ -40,6 +42,7 @@ class SubmissionSerializer < ActiveModel::Serializer
              :created_date_string,
              :media_provider,
              :reddit_fullname,
+             :slug,
              :score,
              :title,
              :thumbnail,
