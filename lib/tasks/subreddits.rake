@@ -18,4 +18,12 @@ namespace :subreddits do
   rescue
     puts "Something went wrong updating subreddits"
   end
+
+  desc "Attach subreddit images"
+  task attach_images: :environment do
+    Images::AttachSubredditImages.call
+
+  rescue
+    puts "Something went wrong attaching images"
+  end
 end

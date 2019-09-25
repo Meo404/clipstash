@@ -5,7 +5,7 @@ class Api::V1::SubredditsController < Api::V1::ApiController
     render json: @subreddits, fields: [:id,
                                        :display_name,
                                        :display_name_prefixed,
-                                       :icon_image,
+                                       :icon,
                                        :icon_size,
                                        :subscribers],
            meta: pagination_dict(@subreddits)
@@ -23,7 +23,7 @@ class Api::V1::SubredditsController < Api::V1::ApiController
     render json: @subreddits, fields: [:id,
                                        :display_name,
                                        :display_name_prefixed,
-                                       :icon_image,
+                                       :icon,
                                        :icon_size]
   end
 

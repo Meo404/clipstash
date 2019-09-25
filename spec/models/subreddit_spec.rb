@@ -3,16 +3,18 @@
 # Table name: subreddits
 #
 #  id                    :bigint           not null, primary key
-#  banner_image          :string
-#  banner_size           :integer          is an Array
+#  banner_data           :text
 #  created_utc           :datetime
 #  display_name          :string
 #  display_name_prefixed :string
-#  icon_image            :string
-#  icon_size             :integer          is an Array
+#  icon_data             :text
 #  over18                :boolean
 #  public_description    :text
+#  reddit_banner         :string
+#  reddit_banner_size    :integer          is an Array
 #  reddit_fullname       :string
+#  reddit_icon           :string
+#  reddit_icon_size      :integer          is an Array
 #  status_cd             :integer
 #  subscribers           :integer
 #  url                   :string
@@ -46,12 +48,12 @@ describe Subreddit do
 
     context 'when it has icon_image' do
       before { allow(subject).to receive(:icon_image?).and_return(true) }
-      it { is_expected.to validate_presence_of(:icon_size) }
+      it { is_expected.to validate_presence_of(:reddit_icon_size) }
     end
 
     context 'when it has banner_image' do
       before { allow(subject).to receive(:banner_image?).and_return(true) }
-      it { is_expected.to validate_presence_of(:banner_size) }
+      it { is_expected.to validate_presence_of(:reddit_banner_size) }
     end
   end
 

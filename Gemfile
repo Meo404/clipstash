@@ -24,6 +24,9 @@ gem 'redd', git: 'https://github.com/Meo404/redd.git'
 gem 'simple_enum'
 gem 'validate_url'
 gem 'kaminari'
+gem "shrine"
+gem "image_processing", "~> 1.0"
+gem "aws-sdk-s3", "~> 1.2"
 
 group :development, :test do
   gem 'factory_bot_rails'

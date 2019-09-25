@@ -3,16 +3,18 @@
 # Table name: subreddits
 #
 #  id                    :bigint           not null, primary key
-#  banner_image          :string
-#  banner_size           :integer          is an Array
+#  banner_data           :text
 #  created_utc           :datetime
 #  display_name          :string
 #  display_name_prefixed :string
-#  icon_image            :string
-#  icon_size             :integer          is an Array
+#  icon_data             :text
 #  over18                :boolean
 #  public_description    :text
+#  reddit_banner         :string
+#  reddit_banner_size    :integer          is an Array
 #  reddit_fullname       :string
+#  reddit_icon           :string
+#  reddit_icon_size      :integer          is an Array
 #  status_cd             :integer
 #  subscribers           :integer
 #  url                   :string
@@ -32,10 +34,10 @@ FactoryBot.define do
     sequence(:display_name_prefixed) { |n| "r/" + self.display_name + "#{n}" }
     public_description { Faker::Lorem.paragraph }
     subscribers { Faker::Number.between(0, 10000000) }
-    icon_image { [nil, Faker::Placeholdit.image].sample }
-    icon_size { [250 , 250] }
-    banner_image { [nil, Faker::Placeholdit.image].sample }
-    banner_size { [1280, 720] }
+    reddit_icon { [nil, Faker::Placeholdit.image].sample }
+    reddit_icon_size { [250 , 250] }
+    reddit_banner { [nil, Faker::Placeholdit.image].sample }
+    reddit_banner_size { [1280, 720] }
     over18 { [true, false].sample }
     created_utc { Faker::Time.between(DateTime.now - 100, DateTime.now) }
     url { "http://www.reddit.com/" + self.display_name_prefixed }

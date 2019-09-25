@@ -3,16 +3,18 @@
 # Table name: subreddits
 #
 #  id                    :bigint           not null, primary key
-#  banner_image          :string
-#  banner_size           :integer          is an Array
+#  banner_data           :text
 #  created_utc           :datetime
 #  display_name          :string
 #  display_name_prefixed :string
-#  icon_image            :string
-#  icon_size             :integer          is an Array
+#  icon_data             :text
 #  over18                :boolean
 #  public_description    :text
+#  reddit_banner         :string
+#  reddit_banner_size    :integer          is an Array
 #  reddit_fullname       :string
+#  reddit_icon           :string
+#  reddit_icon_size      :integer          is an Array
 #  status_cd             :integer
 #  subscribers           :integer
 #  url                   :string
@@ -26,7 +28,10 @@
 #
 
 class Subreddit < ApplicationRecord
-  as_enum :status, active: 1, inactive: 0
+  include DefaultImageUploader[:icon]
+  include DefaultImageUploader[:banner]
+
+  as_enum :status, active: 1, inacteive: 0
   has_many :submissions
 
   before_create :build_url
@@ -38,8 +43,8 @@ class Subreddit < ApplicationRecord
   validates :subscribers, presence: true
   validates :created_utc, presence: true
 
-  validates_presence_of :icon_size, if: :icon_image?
-  validates_presence_of :banner_size, if: :banner_image?
+  validates_presence_of :reddit_icon_size, if: :icon_image?
+  validates_presence_of :reddit_banner_size, if: :banner_image?
 
   scope :popular, -> { order(subscribers: :desc) }
   scope :alphabetically, -> { order(display_name: :asc) }
@@ -50,10 +55,10 @@ class Subreddit < ApplicationRecord
     end
 
     def icon_image?
-      self.icon_image.present?
+      self.reddit_icon.present?
     end
 
     def banner_image?
-      self.banner_image.present?
+      self.reddit_banner.present?
     end
 end

@@ -28,7 +28,7 @@ export default function Subreddit({ subreddit }) {
                     <CardActionArea>
                         <CardMedia
                             className={classes.media}
-                            image={setSubredditImage(subreddit.icon_image)}
+                            image={setSubredditImage(subreddit.icon)}
                             title={subreddit.display_name}
                         />
                         <CardContent>

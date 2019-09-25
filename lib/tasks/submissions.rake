@@ -70,6 +70,16 @@ namespace :submissions do
     print_error_message(e)
   end
 
+  task attach_thumbnails: :environment do
+    puts "Attaching thumbnails started at: #{DateTime.now.strftime('%F %T %z')}"
+
+    Images::AttachSubmissionThumbnails.call
+
+    puts "Attaching thumbnails finished at:  #{DateTime.now.strftime('%F %T %z')}"
+  rescue StandardError => e
+    print_error_message(e)
+  end
+
   private
 
     def update_submissions(search_options, type)

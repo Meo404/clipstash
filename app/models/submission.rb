@@ -2,20 +2,21 @@
 #
 # Table name: submissions
 #
-#  author          :string
-#  comment_count   :integer
-#  created_utc     :datetime
-#  hot_score       :float            default(0.0)
-#  over18          :boolean
-#  permalink       :string
-#  reddit_fullname :string           primary key
-#  score           :integer
-#  thumbnail       :string
-#  thumbnail_size  :integer          is an Array
-#  title           :string
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  subreddit_id    :bigint
+#  author                :string
+#  comment_count         :integer
+#  created_utc           :datetime
+#  hot_score             :float            default(0.0)
+#  over18                :boolean
+#  permalink             :string
+#  reddit_fullname       :string           primary key
+#  reddit_thumbnail      :string
+#  reddit_thumbnail_size :integer          is an Array
+#  score                 :integer
+#  thumbnail_data        :text
+#  title                 :string
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  subreddit_id          :bigint
 #
 # Indexes
 #
@@ -28,8 +29,9 @@
 #
 
 class Submission < ApplicationRecord
-  self.primary_key = :reddit_fullname
+  include ThumbnailUploader[:thumbnail]
 
+  self.primary_key = :reddit_fullname
   attr_accessor :candidate_validation
 
   belongs_to :subreddit
@@ -44,8 +46,8 @@ class Submission < ApplicationRecord
   validates :created_utc, presence: true
   validates :score, presence: true
   validates :title, presence: true
-  validates :thumbnail, presence: true, url: true
-  validates :thumbnail_size, presence: true
+  validates :reddit_thumbnail, presence: true, url: true
+  validates :reddit_thumbnail_size, presence: true
 
   scope :by_subreddit, -> (subreddit_id) { where(subreddit_id: subreddit_id) }
   scope :has_medium, -> { joins(:medium) }

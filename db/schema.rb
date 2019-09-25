@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_27_202342) do
+ActiveRecord::Schema.define(version: 2019_09_25_085415) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,10 +54,11 @@ ActiveRecord::Schema.define(version: 2019_08_27_202342) do
     t.integer "comment_count"
     t.boolean "over18"
     t.datetime "created_utc"
-    t.string "thumbnail"
-    t.integer "thumbnail_size", array: true
+    t.string "reddit_thumbnail"
+    t.integer "reddit_thumbnail_size", array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "thumbnail_data"
     t.index ["reddit_fullname"], name: "index_submissions_on_reddit_fullname", unique: true
     t.index ["subreddit_id"], name: "index_submissions_on_subreddit_id"
   end
@@ -68,16 +69,18 @@ ActiveRecord::Schema.define(version: 2019_08_27_202342) do
     t.string "display_name_prefixed"
     t.text "public_description"
     t.integer "subscribers"
-    t.string "icon_image"
-    t.integer "icon_size", array: true
-    t.string "banner_image"
-    t.integer "banner_size", array: true
+    t.string "reddit_icon"
+    t.integer "reddit_icon_size", array: true
+    t.string "reddit_banner"
+    t.integer "reddit_banner_size", array: true
     t.boolean "over18"
     t.datetime "created_utc"
     t.string "url"
     t.integer "status_cd"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "icon_data"
+    t.text "banner_data"
     t.index ["display_name"], name: "index_subreddits_on_display_name", unique: true
     t.index ["reddit_fullname"], name: "index_subreddits_on_reddit_fullname", unique: true
   end

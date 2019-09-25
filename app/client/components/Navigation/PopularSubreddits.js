@@ -29,7 +29,7 @@ function PopularSubredditsList(props) {
                         className={activeNav(`/${subreddit.display_name_prefixed}`, currentPath) ? classes.activeNav : ''}>
                         <ListItemIcon>
                             <img
-                                src={setSubredditImage(subreddit.icon_image)}
+                                src={setSubredditImage(subreddit.icon)}
                                 className={classes.subredditImage}
                                 alt={subreddit.display_name + ' subreddit icon'} />
                         </ListItemIcon>
