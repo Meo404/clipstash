@@ -2,7 +2,7 @@ class Api::V1::SubmissionsController < Api::V1::ApiController
   before_action :set_subreddit, only: :by_subreddit
 
   def show
-    @submission = Submission.find(params[:reddit_fullname])
+    @submission = Submission.friendly.find(params[:slug])
 
     render json: @submission, include: ["subreddit", "medium"]
   end

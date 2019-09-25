@@ -80,6 +80,13 @@ namespace :submissions do
     print_error_message(e)
   end
 
+  task create_slugs: :environment do
+    Submission.where(slug: nil).each(&:save)
+
+  rescue StandardError => e
+    print_error_message(e)
+  end
+
   private
 
     def update_submissions(search_options, type)

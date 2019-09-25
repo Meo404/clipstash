@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_25_085415) do
+ActiveRecord::Schema.define(version: 2019_09_25_184329) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,7 +59,9 @@ ActiveRecord::Schema.define(version: 2019_09_25_085415) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "thumbnail_data"
+    t.string "slug"
     t.index ["reddit_fullname"], name: "index_submissions_on_reddit_fullname", unique: true
+    t.index ["slug"], name: "index_submissions_on_slug", unique: true
     t.index ["subreddit_id"], name: "index_submissions_on_subreddit_id"
   end
 

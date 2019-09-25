@@ -12,6 +12,7 @@
 #  reddit_thumbnail      :string
 #  reddit_thumbnail_size :integer          is an Array
 #  score                 :integer
+#  slug                  :string
 #  thumbnail_data        :text
 #  title                 :string
 #  created_at            :datetime         not null
@@ -21,6 +22,7 @@
 # Indexes
 #
 #  index_submissions_on_reddit_fullname  (reddit_fullname) UNIQUE
+#  index_submissions_on_slug             (slug) UNIQUE
 #  index_submissions_on_subreddit_id     (subreddit_id)
 #
 # Foreign Keys
@@ -30,8 +32,11 @@
 
 class Submission < ApplicationRecord
   include ThumbnailUploader[:thumbnail]
+  extend FriendlyId
 
   self.primary_key = :reddit_fullname
+  friendly_id :title, use: :slugged
+
   attr_accessor :candidate_validation
 
   belongs_to :subreddit

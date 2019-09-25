@@ -133,6 +133,8 @@ GEM
     ffi (1.11.1)
     ffi (1.11.1-x64-mingw32)
     formatador (0.2.5)
+    friendly_id (5.2.5)
+      activerecord (>= 4.0.0)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     guard (2.15.0)
@@ -379,6 +381,7 @@ DEPENDENCIES
   database_cleaner
   factory_bot_rails
   faker
+  friendly_id (~> 5.2.4)
   guard-rails
   guard-rspec
   image_processing (~> 1.0)
