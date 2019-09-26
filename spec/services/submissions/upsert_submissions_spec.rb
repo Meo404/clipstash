@@ -18,7 +18,7 @@ describe Submissions::UpsertSubmissions do
   it 'inserts all records' do
     expect {
       Submissions::UpsertSubmissions.call(@submissions, @media)
-    }.to change { Submission.count }.by(@submissions.uniq { |s| s.slug }.size)
+    }.to change { Submission.count }.by(10)
      .and change { Medium.count }.by(10)
   end
 

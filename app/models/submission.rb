@@ -35,7 +35,7 @@ class Submission < ApplicationRecord
   extend FriendlyId
 
   self.primary_key = :reddit_fullname
-  friendly_id :title, use: :slugged
+  friendly_id :slug_base, use: :slugged
 
   attr_accessor :candidate_validation
 
@@ -61,6 +61,18 @@ class Submission < ApplicationRecord
 
   def calculate_hot_score
     Submissions::CalculateHotScore.call(Time.parse(created_utc.to_s), score)
+  end
+
+  # Ensures uniqueness of the slug preventing problems when using PSQL upsert
+  def slug_base
+    slug_base_string = "#{reddit_fullname}-#{title}"
+    slug_base_string[3..-1]
+  end
+
+  # FriendlyIds slug_limit is not working properly.
+  # Thus this is used as a workaround to limit slugs to 75 characters
+  def normalize_friendly_id(string)
+    super[0..74]
   end
 
   private
