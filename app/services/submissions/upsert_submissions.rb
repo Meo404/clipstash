@@ -18,9 +18,6 @@ module Submissions
     private
       # Upsert Submissions only
       def import_submissions
-        # Necessary for friendlyId to work properly with mass importing
-        @submissions = @submissions.uniq { |s| s.slug }
-
         Submission.import @submissions,
                           validate: true,
                           batch_size: 100,
