@@ -28,5 +28,5 @@
 #
 
 class MediumSerializer < ActiveModel::Serializer
-  attributes :id, :author, :author_url, :size, :thumbnail, :thumbnail_size, :title, :url
+  attributes :id, :author, :author_url, :size, :thumbnail, :thumbnail_size, :title, :url, :embed_url
 end
