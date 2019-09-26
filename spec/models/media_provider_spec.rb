@@ -3,6 +3,7 @@
 # Table name: media_providers
 #
 #  id               :bigint           not null, primary key
+#  base_embed_url   :string
 #  has_meta_data    :boolean          default(FALSE)
 #  name             :string
 #  status_cd        :integer          default(0)
@@ -21,9 +22,11 @@ describe MediaProvider do
       subject { build :media_provider }
       it { should validate_uniqueness_of(:name) }
       it { should validate_presence_of(:name) }
+      it { should validate_presence_of(:base_embed_url) }
       it { should validate_presence_of(:url) }
       it { should validate_presence_of(:url_patterns) }
       it { should validate_presence_of(:url_parser_class) }
+      it { should validate_url_of(:base_embed_url) }
       it { should validate_url_of(:url) }
     end
   end

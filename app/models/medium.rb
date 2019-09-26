@@ -5,6 +5,7 @@
 #  id                  :bigint           not null, primary key
 #  author              :string
 #  author_url          :string
+#  embed_url           :string
 #  size                :integer          is an Array
 #  submission_fullname :string
 #  thumbnail           :string
@@ -32,6 +33,7 @@ class Medium < ApplicationRecord
 
   validates :external_id, presence: true
   validates :url, presence: true, url: true
+  validates :embed_url, presence: true, url: true
   validates :size, presence: true
   validates :author_url, url: true, if: :author_url?
   validates :thumbnail, url: true, if: :thumbnail?

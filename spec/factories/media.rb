@@ -5,6 +5,7 @@
 #  id                  :bigint           not null, primary key
 #  author              :string
 #  author_url          :string
+#  embed_url           :string
 #  size                :integer          is an Array
 #  submission_fullname :string
 #  thumbnail           :string

@@ -76,6 +76,8 @@ module Submissions
 
       # TODO: Add proper handling for v.reddit.com
       def medium_attributes(submission)
+        external_id = @media_provider.url_parser_class.constantize.call(submission.url)
+
         {
             author: submission.media[:oembed][:author_name],
             author_url: submission.media[:oembed][:author_url],
@@ -90,9 +92,10 @@ module Submissions
             ],
             title: submission.media[:oembed][:title],
             url: submission.url,
+            embed_url: @media_provider.base_embed_url + external_id,
             media_provider: @media_provider,
             submission_fullname: submission.name,
-            external_id: @url_parser_class.call(submission.url)
+            external_id: external_id
         }
       end
   end

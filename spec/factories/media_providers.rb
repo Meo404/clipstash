@@ -3,6 +3,7 @@
 # Table name: media_providers
 #
 #  id               :bigint           not null, primary key
+#  base_embed_url   :string
 #  has_meta_data    :boolean          default(FALSE)
 #  name             :string
 #  status_cd        :integer          default(0)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_25_184329) do
+ActiveRecord::Schema.define(version: 2019_09_26_204604) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 2019_09_25_184329) do
     t.string "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "embed_url"
     t.index ["media_provider_id"], name: "index_media_on_media_provider_id"
     t.index ["submission_fullname"], name: "index_media_on_submission_fullname", unique: true
   end
@@ -41,6 +42,7 @@ ActiveRecord::Schema.define(version: 2019_09_25_184329) do
     t.datetime "updated_at", null: false
     t.boolean "has_meta_data", default: false
     t.string "url_parser_class"
+    t.string "base_embed_url"
   end
 
   create_table "submissions", id: false, force: :cascade do |t|
