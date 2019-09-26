@@ -6,7 +6,6 @@ module Submissions
       @search_results = search_results
       @subreddit = subreddit
       @media_provider = media_provider
-      @url_parser_class = media_provider.url_parser_class.constantize
     end
 
     def call
