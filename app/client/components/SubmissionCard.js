@@ -24,8 +24,9 @@ export default function SubmissionListCard({ submission }) {
                     <CardMedia
                         className={classes.media}
                         component="iframe"
-                        src={submission.medium.embed_url}
+                        src={submission.medium.embed_url + '?autoplay=1'}
                         allowFullScreen
+                        frameBorder={0}
                     />
                     <CardHeader
                         title={submission.title}
@@ -103,7 +104,6 @@ const useStyles = makeStyles(theme => ({
         },
     },
     media: {
-        border: 0,
         height: 250,
         [theme.breakpoints.up('sm')]: {
             height: 350,
@@ -125,14 +125,15 @@ const useStyles = makeStyles(theme => ({
         margin: "0 3px",
     },
     actionButtonIcon: {
-        fontSize: "1.25rem"
+        fontSize: "1.5rem"
     },
     titleText: {
-        fontSize: "1rem"
+        fontSize: "1.2rem"
     },
     subtitleText: {
-        fontSize: "0.8rem",
+        fontSize: "0.9rem",
         marginRight: 10,
+        marginLeft: 5,
         marginTop: 2
     }
 }));
