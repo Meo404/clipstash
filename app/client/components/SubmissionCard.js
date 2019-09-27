@@ -47,6 +47,7 @@ export default function SubmissionListCard({ submission }) {
                         variant="subtitle1"
                         color="textSecondary"
                         classes={{ subtitle1: classes.subtitleText }}
+                        className={classes.ml5}
                     >
                         {submission.score}
                     </Typography>
@@ -60,6 +61,7 @@ export default function SubmissionListCard({ submission }) {
                         variant="subtitle1"
                         color="textSecondary"
                         classes={{ subtitle1: classes.subtitleText }}
+                        className={classes.ml5}
                     >
                         {submission.comment_count}
                     </Typography>
@@ -118,6 +120,9 @@ const useStyles = makeStyles(theme => ({
     mw100: {
         maxWidth: "100%",
     },
+    ml5: {
+        marginLeft: 5,
+    },
     actions: {
         padding: 10
     },
@@ -125,15 +130,23 @@ const useStyles = makeStyles(theme => ({
         margin: "0 3px",
     },
     actionButtonIcon: {
-        fontSize: "1.5rem"
+        fontSize: "1.25rem",
+        [theme.breakpoints.up('sm')]: {
+            fontSize: "1.5rem",
+        },
     },
     titleText: {
-        fontSize: "1.2rem"
+        fontSize: "1rem",
+        [theme.breakpoints.up('md')]: {
+            fontSize: "1.2rem",
+        },
     },
     subtitleText: {
-        fontSize: "0.9rem",
+        fontSize: "0.8rem",
+        [theme.breakpoints.up('md')]: {
+            fontSize: "0.9rem",
+        },
         marginRight: 10,
-        marginLeft: 5,
         marginTop: 2
     }
 }));
