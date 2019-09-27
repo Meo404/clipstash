@@ -5,6 +5,7 @@
 #  id                  :bigint           not null, primary key
 #  author              :string
 #  author_url          :string
+#  embed_url           :string
 #  size                :integer          is an Array
 #  submission_fullname :string
 #  thumbnail           :string
@@ -41,7 +42,9 @@ describe Medium do
       it { should validate_presence_of(:external_id) }
       it { should validate_presence_of(:size) }
       it { should validate_presence_of(:url) }
+      it { should validate_presence_of(:embed_url) }
       it { should validate_url_of(:url) }
+      it { should validate_url_of(:embed_url) }
     end
 
     context 'when media provider has author_url' do

@@ -5,6 +5,7 @@
 #  id                  :bigint           not null, primary key
 #  author              :string
 #  author_url          :string
+#  embed_url           :string
 #  size                :integer          is an Array
 #  submission_fullname :string
 #  thumbnail           :string
@@ -27,5 +28,5 @@
 #
 
 class MediumSerializer < ActiveModel::Serializer
-  attributes :id, :author, :author_url, :size, :thumbnail, :thumbnail_size, :title, :url
+  attributes :id, :author, :author_url, :size, :thumbnail, :thumbnail_size, :title, :url, :embed_url
 end

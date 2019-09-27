@@ -3,6 +3,7 @@
 # Table name: media_providers
 #
 #  id               :bigint           not null, primary key
+#  base_embed_url   :string
 #  has_meta_data    :boolean          default(FALSE)
 #  name             :string
 #  status_cd        :integer          default(0)
@@ -17,6 +18,7 @@ class MediaProvider < ApplicationRecord
   as_enum :status, inactive: 0, active: 1
 
   validates :name, presence: true, uniqueness: true
+  validates :base_embed_url, presence: true, url: true
   validates :url, presence: true, url: true
   validates :url_patterns, presence: true
   validates :url_parser_class, presence: true

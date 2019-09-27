@@ -22,11 +22,13 @@ MediaProvider.create(name: "YouTube",
                      url: "https://www.youtube.com",
                      url_patterns: ["youtube.com", "youtu.be"],
                      url_parser_class: 'UrlParser::Youtube',
+                     base_embed_url: 'https://www.youtube.com/embed/',
                      has_meta_data: true,
                      status: 1)
 MediaProvider.create(name: "Twitch",
                      url: "https://www.twitch.tv",
                      url_patterns: ["clips.twitch.tv"],
                      url_parser_class: 'UrlParser::Twitch',
+                     base_embed_url: 'https://clips.twitch.tv/embed?clip=',
                      has_meta_data: true,
                      status: 1)
