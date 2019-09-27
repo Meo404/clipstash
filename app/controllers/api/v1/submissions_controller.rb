@@ -9,7 +9,7 @@ class Api::V1::SubmissionsController < Api::V1::ApiController
 
   def by_subreddit
     @submissions = Submissions::Search
-                       .call(@subreddit.id, params[:sort])
+                       .call(@subreddit.id, params[:sort], params[:after_score])
                        .page(params[:page])
                        .per(40)
 

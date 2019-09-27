@@ -6,9 +6,10 @@ module Submissions
   class Search < ApplicationService
     VALID_SORT_PARAMS = ["hot", "top_day", "top_week", "top_month", "top_year", "top_all"].freeze
 
-    def initialize(subreddit_id, sort_param)
+    def initialize(subreddit_id, sort_param, after_score = nil)
       @subreddit_id = subreddit_id
       @sort_param = sort_param
+      @after_score = after_score
     end
 
     def call
@@ -19,16 +20,30 @@ module Submissions
     private
 
       def hot_submissions
-        Submission.by_subreddit(@subreddit_id).has_medium.hot
+        puts @after_score
+        return Submission.by_subreddit(@subreddit_id).has_medium.hot if @after_score.nil?
+        Submission.by_subreddit(@subreddit_id).has_medium.where("hot_score < ?", @after_score.to_f.round_down(3)).hot
       end
 
       def top_submissions
-        return Submission.by_subreddit(@subreddit_id).has_medium.top if @sort_param == "top_all"
+        if @sort_param == "top_all"
+          return Submission.by_subreddit(@subreddit_id).has_medium.top if @after_score.nil?
+          return Submission.by_subreddit(@subreddit_id).has_medium.where("score < ?", @after_score.to_i).top
+        end
+
+        if @after_score.nil?
+          return Submission
+                     .by_subreddit(@subreddit_id)
+                     .has_medium
+                     .where("created_utc >= ?", extract_date(@sort_param))
+                     .top
+        end
 
         Submission
             .by_subreddit(@subreddit_id)
             .has_medium
             .where("created_utc >= ?", extract_date(@sort_param))
+            .where("score < ?", @after_score.to_i)
             .top
       end
 
