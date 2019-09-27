@@ -106,13 +106,13 @@ const useStyles = makeStyles(theme => ({
         border: 0,
         height: 250,
         [theme.breakpoints.up('sm')]: {
-            height: 400,
+            height: 350,
         },
         [theme.breakpoints.up('md')]: {
-            height: 500,
+            height: 450,
         },
         [theme.breakpoints.up('lg')]: {
-            height: 600,
+            height: 550,
         },
     },
     expand: {
