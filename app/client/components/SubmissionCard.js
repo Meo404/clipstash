@@ -115,13 +115,6 @@ const useStyles = makeStyles(theme => ({
             height: 550,
         },
     },
-    expand: {
-        transform: "rotate(0deg)",
-        marginLeft: "auto",
-        transition: theme.transitions.create("transform", {
-            duration: theme.transitions.duration.shortest
-        })
-    },
     mw100: {
         maxWidth: "100%",
     },
