@@ -57,7 +57,10 @@ function SubmissionList(props) {
     }
 
     function handleSubmissionClick(slug) {
-        props.history.push('/submission/' + slug);
+        props.history.push({
+            pathname: '/submission/' + slug,
+            state: { sortMethod: sortMethod }
+        });
     }
 
     return (

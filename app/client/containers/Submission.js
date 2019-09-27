@@ -7,9 +7,12 @@ import MaxWidthContainer from "components/UI/MaxWidthContainer";
 import SubmissionCard from 'components/SubmissionCard';
 import withErrorHandler from "hoc/withErrorHandler";
 
+const DEFAULT_SORT_METHOD = 'hot';
+
 function Submission(props) {
     const [data, setData] = useState({ submission: null, isLoading: true });
     const slug = props.match.params.slug;
+    const relatedSortMethod = setRelatedSortMethod();
 
     useEffect(() => {
         setData({ submission: null, isLoading: true })
@@ -19,6 +22,14 @@ function Submission(props) {
     async function fetchData() {
         const result = await axios('/api/v1/submission/' + slug);
         setData({ submission: result.data.submission, isLoading: false });
+    }
+
+    function setRelatedSortMethod() {
+        if (props.location.state && props.location.state.sortMethod) {
+            return props.location.state.sortMethod;
+        }
+       
+        return DEFAULT_SORT_METHOD;
     }
 
     let title = '';

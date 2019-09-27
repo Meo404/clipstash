@@ -40,6 +40,7 @@ class SubmissionSerializer < ActiveModel::Serializer
              :comment_count,
              :created_utc,
              :created_date_string,
+             :hot_score,
              :media_provider,
              :reddit_fullname,
              :slug,
