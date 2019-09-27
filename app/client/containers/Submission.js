@@ -4,6 +4,7 @@ import axios from "axios";
 import Grid from "@material-ui/core/Grid";
 import LoadingIndicator from 'components/UI/LoadingIndicator';
 import MaxWidthContainer from "components/UI/MaxWidthContainer";
+import SubmissionCard from 'components/SubmissionCard';
 import withErrorHandler from "hoc/withErrorHandler";
 
 function Submission(props) {
@@ -31,7 +32,7 @@ function Submission(props) {
     } else {
         content = (
             <Grid>
-                {title}
+                <SubmissionCard submission={data.submission} />
             </Grid>
         )
     }
