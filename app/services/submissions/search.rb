@@ -20,7 +20,6 @@ module Submissions
     private
 
       def hot_submissions
-        puts @after_score
         return Submission.by_subreddit(@subreddit_id).has_medium.hot if @after_score.nil?
         Submission.by_subreddit(@subreddit_id).has_medium.where("hot_score < ?", @after_score.to_f.round_down(3)).hot
       end

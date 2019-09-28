@@ -4,6 +4,7 @@ import axios from "axios";
 import Grid from "@material-ui/core/Grid";
 import LoadingIndicator from 'components/UI/LoadingIndicator';
 import MaxWidthContainer from "components/UI/MaxWidthContainer";
+import RelatedSubmissionsList from "./RelatedSubmissionsList";
 import SubmissionCard from 'components/SubmissionCard';
 import withErrorHandler from "hoc/withErrorHandler";
 
@@ -32,6 +33,10 @@ function Submission(props) {
         return DEFAULT_SORT_METHOD;
     }
 
+    function getAfterScore() {
+        return relatedSortMethod === 'hot' ? data.submission.hot_score : data.submission.score
+    }
+
     let title = '';
     if (data.submission != null) {
         title = data.submission.title
@@ -44,6 +49,11 @@ function Submission(props) {
         content = (
             <Grid>
                 <SubmissionCard submission={data.submission} />
+                <RelatedSubmissionsList 
+                    displayName={data.submission.subreddit.display_name}
+                    sortMethod={relatedSortMethod}
+                    afterScore={getAfterScore()} 
+            />
             </Grid>
         )
     }
