@@ -15,6 +15,9 @@ function Submission(props) {
     const slug = props.match.params.slug;
     const relatedSortMethod = setRelatedSortMethod();
 
+    let title = '';
+    let content;
+
     useEffect(() => {
         setData({ submission: null, isLoading: true })
         fetchData();
@@ -37,12 +40,10 @@ function Submission(props) {
         return relatedSortMethod === 'hot' ? data.submission.hot_score : data.submission.score
     }
 
-    let title = '';
     if (data.submission != null) {
         title = data.submission.title
     }
 
-    let content;
     if (data.isLoading) {
         content = <LoadingIndicator key='loadingIndicator' />;
     } else {
