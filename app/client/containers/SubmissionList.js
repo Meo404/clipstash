@@ -17,9 +17,10 @@ const INITIAL_STATE = {
 };
 
 function SubmissionList(props) {
+    const { match } = props;
     const [data, setData] = useState(INITIAL_STATE);
     const [sortMethod, setSortMethod] = useState('hot');
-    const displayName = props.match.params.displayName;
+    const displayName = match.params.displayName;
 
     useEffect(() => {
         setData(INITIAL_STATE);

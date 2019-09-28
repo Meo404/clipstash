@@ -11,8 +11,9 @@ import withErrorHandler from "hoc/withErrorHandler";
 const DEFAULT_SORT_METHOD = 'hot';
 
 function Submission(props) {
+    const { match, location } = props;
     const [data, setData] = useState({ submission: null, isLoading: true });
-    const slug = props.match.params.slug;
+    const slug = match.params.slug;
     const relatedSortMethod = setRelatedSortMethod();
 
     let title = '';
@@ -29,8 +30,8 @@ function Submission(props) {
     }
 
     function setRelatedSortMethod() {
-        if (props.location.state && props.location.state.sortMethod) {
-            return props.location.state.sortMethod;
+        if (location.state && location.state.sortMethod) {
+            return location.state.sortMethod;
         }
        
         return DEFAULT_SORT_METHOD;
