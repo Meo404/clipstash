@@ -21,12 +21,12 @@ export default function SubmissionCardLinks({ submission }) {
         let icon, buttonClass = null;
 
         if (submission.media_provider === 'YouTube') {
-            buttonClass = classes.YoutubeButton;
+            buttonClass = classes.youtubeButton;
             icon = <YoutubeIcon className={classes.brandIcon} />;
         }
 
         if (submission.media_provider === 'Twitch') {
-            buttonClass = classes.TwitchButton;
+            buttonClass = classes.twitchButton;
             icon = <TwitchIcon className={classes.brandIcon} />
         }
 
@@ -35,7 +35,6 @@ export default function SubmissionCardLinks({ submission }) {
                 <Button
                     variant="contained"
                     size="small"
-                    style={{ marginRight: 10 }}
                     className={buttonClass}
                     onClick={openMediaProviderLink}
                  >
@@ -51,7 +50,7 @@ export default function SubmissionCardLinks({ submission }) {
             <Button
                 variant="contained"
                 size="small"
-                className={classes.RedditButton}
+                className={classes.redditButton}
                 onClick={openRedditLink}
             >
                 <RedditIcon className={classes.brandIcon} />
@@ -66,18 +65,18 @@ const useStyles = makeStyles({
     brandIcon: {
         marginRight: 10,
     },
-    YoutubeButton: {
+    redditButton: {
+        marginRight: 10,
+        marginLeft: "auto"
+    },
+    youtubeButton: {
         marginRight: 10,
         backgroundColor: "#ff0000",
         color: "#FFF"
     },
-    TwitchButton: {
+    twitchButton: {
         marginRight: 10,
         backgroundColor: "#6441a5",
         color: "#FFF"
-    },
-    RedditButton: {
-        marginRight: 10,
-        marginLeft: "auto"
-    },
+    }
 });
