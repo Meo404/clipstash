@@ -42,6 +42,7 @@ class SubmissionSerializer < ActiveModel::Serializer
              :created_date_string,
              :hot_score,
              :media_provider,
+             :permalink,
              :reddit_fullname,
              :slug,
              :score,

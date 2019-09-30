@@ -6,6 +6,7 @@ import LoadingIndicator from 'components/UI/LoadingIndicator';
 import MaxWidthContainer from "components/UI/MaxWidthContainer";
 import RelatedSubmissionsList from "./RelatedSubmissionsList";
 import SubmissionCard from 'components/SubmissionCard';
+import SubmissionCardLinks from 'components/SubmissionCardLinks';
 import withErrorHandler from "hoc/withErrorHandler";
 
 const DEFAULT_SORT_METHOD = 'hot';
@@ -51,6 +52,7 @@ function Submission(props) {
         content = (
             <Grid>
                 <SubmissionCard submission={data.submission} />
+                <SubmissionCardLinks submission={data.submission} />
                 <RelatedSubmissionsList 
                     displayName={data.submission.subreddit.display_name}
                     sortMethod={relatedSortMethod}
