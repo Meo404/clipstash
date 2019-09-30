@@ -5,7 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import InfiniteScroll from 'react-infinite-scroller';
 import LoadingIndicator from 'components/UI/LoadingIndicator';
 import MaxWidthContainer from "components/UI/MaxWidthContainer";
-import Submission from "components/Submission";
+import SubmissionListCard from "components/SubmissionListCard";
 import SubmissionHeader from 'components/SubmissionHeader';
 import withErrorHandler from 'hoc/withErrorHandler';
 
@@ -17,9 +17,10 @@ const INITIAL_STATE = {
 };
 
 function SubmissionList(props) {
+    const { match } = props;
     const [data, setData] = useState(INITIAL_STATE);
     const [sortMethod, setSortMethod] = useState('hot');
-    const displayName = props.match.params.displayName;
+    const displayName = match.params.displayName;
 
     useEffect(() => {
         setData(INITIAL_STATE);
@@ -56,6 +57,13 @@ function SubmissionList(props) {
         setSortMethod(event.target.value)
     }
 
+    function handleSubmissionClick(slug) {
+        props.history.push({
+            pathname: '/submission/' + slug,
+            state: { sortMethod: sortMethod }
+        });
+    }
+
     return (
         <React.Fragment>
             <Helmet>
@@ -74,7 +82,10 @@ function SubmissionList(props) {
                 >
                     <Grid container spacing={0} >
                         {data.submissions.map((submission) => (
-                            <Submission submission={submission} key={submission.reddit_fullname} />
+                            <SubmissionListCard 
+                                submission={submission} 
+                                key={submission.reddit_fullname}
+                                clickHandler={handleSubmissionClick} />
                         ))}
                     </Grid>
                 </InfiniteScroll>

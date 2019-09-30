@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Route, Switch } from "react-router-dom";
 import AppNavigation from 'containers/AppNavigation';
 import NotFound from 'components/NotFound';
+import Submission from 'containers/Submission';
 import SubmissionList from 'containers/SubmissionList';
 import SubredditList from 'containers/SubredditList';
 
@@ -15,6 +16,7 @@ export default function App() {
             <Switch>
                 <Route path='/subreddits' exact component={SubredditList} />
                 <Route path='/r/:displayName' component={SubmissionList} />
+                <Route path='/submission/:slug' component={Submission} />
                 <Route component={NotFound} />
             </Switch>
         </div>

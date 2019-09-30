@@ -14,17 +14,19 @@ import Grid from "@material-ui/core/Grid";
 import SwapVerticalCircleOutlinedIcon from '@material-ui/icons/SwapVerticalCircleOutlined';
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
 
-export default function Submissions({ submission }) {
+export default function SubmissionListCard({ submission }) {
     const classes = useStyles();
 
     return (
-        <Grid item xs={12} lg={3} md={6} sm={6} className={classes.gridItem}>
+        <Grid item xs={12} lg={12} md={12} sm={12} className={classes.gridItem}>
             <Card className={classes.card}>
-                <CardActionArea>
+                <CardActionArea> 
                     <CardMedia
                         className={classes.media}
-                        image={submission.thumbnail}
-                        title="Paella dish"
+                        component="iframe"
+                        src={submission.medium.embed_url + '?autoplay=1'}
+                        allowFullScreen
+                        frameBorder={0}
                     />
                     <CardHeader
                         title={submission.title}
@@ -45,6 +47,7 @@ export default function Submissions({ submission }) {
                         variant="subtitle1"
                         color="textSecondary"
                         classes={{ subtitle1: classes.subtitleText }}
+                        className={classes.ml5}
                     >
                         {submission.score}
                     </Typography>
@@ -58,6 +61,7 @@ export default function Submissions({ submission }) {
                         variant="subtitle1"
                         color="textSecondary"
                         classes={{ subtitle1: classes.subtitleText }}
+                        className={classes.ml5}
                     >
                         {submission.comment_count}
                     </Typography>
@@ -81,11 +85,11 @@ export default function Submissions({ submission }) {
 
 const useStyles = makeStyles(theme => ({
     card: {
-        maxWidth: 600,
+        maxWidth: "100%",
         margin: "auto",
         borderRadius: 0,
         [theme.breakpoints.up('sm')]: {
-            maxWidth: 345,
+            maxWidth: "100%",
             borderRadius: 4
         },
     },
@@ -102,18 +106,22 @@ const useStyles = makeStyles(theme => ({
         },
     },
     media: {
-        height: 0,
-        paddingTop: "56.25%" // 16:9
-    },
-    expand: {
-        transform: "rotate(0deg)",
-        marginLeft: "auto",
-        transition: theme.transitions.create("transform", {
-            duration: theme.transitions.duration.shortest
-        })
+        height: 250,
+        [theme.breakpoints.up('sm')]: {
+            height: 350,
+        },
+        [theme.breakpoints.up('md')]: {
+            height: 450,
+        },
+        [theme.breakpoints.up('lg')]: {
+            height: 550,
+        },
     },
     mw100: {
         maxWidth: "100%",
+    },
+    ml5: {
+        marginLeft: 5,
     },
     actions: {
         padding: 10
@@ -122,13 +130,22 @@ const useStyles = makeStyles(theme => ({
         margin: "0 3px",
     },
     actionButtonIcon: {
-        fontSize: "1.25rem"
+        fontSize: "1.25rem",
+        [theme.breakpoints.up('sm')]: {
+            fontSize: "1.5rem",
+        },
     },
     titleText: {
-        fontSize: "1rem"
+        fontSize: "1rem",
+        [theme.breakpoints.up('md')]: {
+            fontSize: "1.2rem",
+        },
     },
     subtitleText: {
         fontSize: "0.8rem",
+        [theme.breakpoints.up('md')]: {
+            fontSize: "0.9rem",
+        },
         marginRight: 10,
         marginTop: 2
     }
