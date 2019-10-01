@@ -72,11 +72,17 @@ const useStyles = makeStyles({
     youtubeButton: {
         marginRight: 10,
         backgroundColor: "#ff0000",
+        '&:hover': {
+            background: "#cc0000",
+         },
         color: "#FFF"
     },
     twitchButton: {
         marginRight: 10,
         backgroundColor: "#6441a5",
+        '&:hover': {
+            background: "#503484",
+         },
         color: "#FFF"
     }
 });
