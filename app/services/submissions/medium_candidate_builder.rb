@@ -1,5 +1,5 @@
 module Submissions
-  # Takes one API submission object and builds a new app Submission object out of it
+  # Takes one API submission object and builds a new app Medium object out of it
   # If necessary data is missing within the API record, it will return nil
   class MediumCandidateBuilder < ApplicationService
     def initialize(submission, media_provider)
@@ -32,19 +32,21 @@ module Submissions
       end
 
       def medium_attributes(external_id)
+        medium = @submission.media[:oembed]
+
         {
-            author: @submission.media[:oembed][:author_name],
-            author_url: @submission.media[:oembed][:author_url],
-            thumbnail: @submission.media[:oembed][:thumbnail_url],
+            author: medium[:author_name],
+            author_url: medium[:author_url],
+            thumbnail: medium[:thumbnail_url],
             thumbnail_size: [
-                @submission.media[:oembed][:thumbnail_width],
-                @submission.media[:oembed][:thumbnail_height]
+                medium[:thumbnail_width],
+                medium[:thumbnail_height]
             ],
             size: [
-                @submission.media[:oembed][:width],
-                @submission.media[:oembed][:height]
+                medium[:width],
+                medium[:height]
             ],
-            title: @submission.media[:oembed][:title],
+            title: medium[:title],
             url: @submission.url,
             embed_url: @media_provider.base_embed_url + external_id,
             media_provider: @media_provider,
@@ -54,21 +56,25 @@ module Submissions
       end
 
       def reddit_medium_attributes(external_id)
+        author_name = @submission.author.name
+        medium      = @submission.media[:reddit_video]
+        thumbnail   = @submission.preview[:images][0][:source]
+
         {
-            author: @submission.author.name,
-            author_url: @media_provider.url + "/u/#{@submission.author.name}",
-            thumbnail: @submission.preview[:images][0][:source][:url],
+            author: author_name,
+            author_url: @media_provider.url + "/u/#{author_name}",
+            thumbnail: thumbnail[:url],
             thumbnail_size: [
-                @submission.preview[:images][0][:source][:width],
-                @submission.preview[:images][0][:source][:height]
+                thumbnail[:width],
+                thumbnail[:height]
             ],
             size: [
-                @submission.media[:reddit_video][:width],
-                @submission.media[:reddit_video][:height]
+                medium[:width],
+                medium[:height]
             ],
             title: @submission.title,
             url: @submission.url,
-            embed_url: @media_provider.base_embed_url + external_id + "/DASH_720",
+            embed_url: medium[:fallback_url],
             media_provider: @media_provider,
             submission_fullname: @submission.name,
             external_id: external_id
