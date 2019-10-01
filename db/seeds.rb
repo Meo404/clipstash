@@ -32,3 +32,10 @@ MediaProvider.create(name: "Twitch",
                      base_embed_url: 'https://clips.twitch.tv/embed?clip=',
                      has_meta_data: true,
                      status: 1)
+MediaProvider.create(name: "Reddit",
+                     url: "https://www.reddit.com",
+                     url_patterns: ["v.redd.it"],
+                     url_parser_class: 'UrlParser::Reddit',
+                     base_embed_url: 'https://v.redd.it/',
+                     has_meta_data: true,
+                     status: 0)

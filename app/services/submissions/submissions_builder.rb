@@ -14,7 +14,7 @@ module Submissions
         next if submission.media.nil?
 
         submission_candidate = build_submission_candidate(submission)
-        medium_candidate = build_medium_candidate(submission)
+        medium_candidate = Submissions::MediumCandidateBuilder.call(submission, @media_provider)
 
         if submission_candidate.present? && medium_candidate.present?
           submissions << submission_candidate
@@ -40,19 +40,6 @@ module Submissions
         nil # TODO: Add proper logging
       end
 
-      # Takes one API submission object and builds a new associated Medium object out of it
-      # If necessary data is missing within the API record, it will return nil
-      #
-      #   @param submission           Submission object from Redd Gem (Reddit API)
-      #   @return submissio_candidate Medium Object to be inserted/updated
-      def build_medium_candidate(submission)
-        medium_candidate = Medium.new(medium_attributes(submission))
-        medium_candidate.valid? ? medium_candidate : nil
-
-      rescue NoMethodError
-        nil # TODO: Add proper logging
-      end
-
       def submission_attributes(submission)
         {
             author: submission.author.name, # Not correctly referenced with 'redd' needs extra work
@@ -70,31 +57,6 @@ module Submissions
             ],
             subreddit: @subreddit,
             candidate_validation: true
-        }
-      end
-
-      # TODO: Add proper handling for v.reddit.com
-      def medium_attributes(submission)
-        external_id = @media_provider.url_parser_class.constantize.call(submission.url)
-
-        {
-            author: submission.media[:oembed][:author_name],
-            author_url: submission.media[:oembed][:author_url],
-            thumbnail: submission.media[:oembed][:thumbnail_url],
-            thumbnail_size: [
-                submission.media[:oembed][:thumbnail_width],
-                submission.media[:oembed][:thumbnail_height]
-            ],
-            size: [
-                submission.media[:oembed][:width],
-                submission.media[:oembed][:height]
-            ],
-            title: submission.media[:oembed][:title],
-            url: submission.url,
-            embed_url: @media_provider.base_embed_url + external_id,
-            media_provider: @media_provider,
-            submission_fullname: submission.name,
-            external_id: external_id
         }
       end
   end
