@@ -17,24 +17,20 @@ RSpec.describe Api::V1::SubredditsController, type: :controller do
 
     it 'returns valid json' do
       body = JSON.parse(subject.body)
-
       expect(body['subreddits'].length).to eq(50)
     end
 
     it 'has pagination meta data' do
       body = JSON.parse(subject.body)
+      expected_keys = %w(current_page next_page prev_page total_pages total_count)
 
-      expect(body['meta']).to have_key("current_page")
-      expect(body['meta']).to have_key("next_page")
-      expect(body['meta']).to have_key("prev_page")
-      expect(body['meta']).to have_key("total_pages")
-      expect(body['meta']).to have_key("total_count")
+      expect(body['meta'].keys).to eq(expected_keys)
     end
 
     subject { get :index, params: { sort: 'name' }, as: :json }
     it 'returns sorted results' do
-      expected_result = Subreddit.order(display_name: :asc).first.display_name
       body = JSON.parse(subject.body)
+      expected_result = Subreddit.order(display_name: :asc).first.display_name
 
       expect(body['subreddits'][0]['display_name']).to eq(expected_result)
     end
@@ -46,7 +42,8 @@ RSpec.describe Api::V1::SubredditsController, type: :controller do
     it { is_expected.to be_successful }
 
     it "returns the correct subreddit" do
-      expect(JSON.parse(subject.body)["subreddit"]["display_name"]).to eq(Subreddit.first.display_name)
+      body = JSON.parse(subject.body)
+      expect(body["subreddit"]["display_name"]).to eq(Subreddit.first.display_name)
     end
   end
 

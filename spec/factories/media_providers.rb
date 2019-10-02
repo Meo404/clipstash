@@ -22,5 +22,6 @@ FactoryBot.define do
     status_cd { 1 }
     has_meta_data { [true, false].sample }
     url_parser_class { ["UrlParser::Youtube", "UrlParser::Twitch"].sample }
+    base_embed_url { Faker::Internet.url }
   end
 end
