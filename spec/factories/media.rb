@@ -39,5 +39,6 @@ FactoryBot.define do
     size { [1024, 768] }
     title { Faker::Lorem.sentence }
     url { Faker::Internet.url }
+    embed_url { Faker::Internet.url }
   end
 end
