@@ -48,6 +48,7 @@ class RecommendedSubredditSerializer < ActiveModel::Serializer
   end
 
   def submissions
-    Submission.hot.where(subreddit_id: object.id).limit(4)
+    submissions = Submission.hot.where(subreddit_id: object.id).limit(4)
+    ActiveModel::Serializer::CollectionSerializer.new(submissions).as_json
   end
 end

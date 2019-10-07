@@ -12,7 +12,7 @@ function Home(props) {
     const [submissions, setSubmissions] = useState({ submissions: [], isLoading: true });
     const [subreddits, setSubreddits] = useState([]);
 
-    let recommendedSubmissions, recommendedSubreddits;
+    let recommendedSubmissions;
 
     useEffect(() => {
         fetchRecommendedSubmissions();
@@ -38,12 +38,9 @@ function Home(props) {
     } else {
         recommendedSubmissions = (
             <React.Fragment>
-                <Typography
-                    variant="h6"
-                    style={{ padding: 10 }}
-                >
+                <Typography variant="h6"style={{ padding: 10 }}>
                     Recommended Videos
-            </Typography>
+                </Typography>
                 <SubmissionList
                     submissions={submissions.submissions}
                     searchState={{}}
@@ -56,9 +53,16 @@ function Home(props) {
     return (
         <MaxWidthContainer>
             {recommendedSubmissions}
-
             {subreddits.map((subreddit) => (
-                <h1>{subreddit.display_name}</h1>
+                <React.Fragment key={subreddit.id}>
+                    <Typography variant="h6" style={{ padding: 10 }}>
+                        Recommended from {subreddit.display_name_prefixed}
+                    </Typography>
+                    <SubmissionList
+                        submissions={subreddit.submissions}
+                        history={history}
+                    />
+                </React.Fragment>
             ))}
         </MaxWidthContainer>
     );
