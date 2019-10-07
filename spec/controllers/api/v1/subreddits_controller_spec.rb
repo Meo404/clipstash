@@ -33,13 +33,31 @@ RSpec.describe Api::V1::SubredditsController, type: :controller do
   end
 
   describe 'GET #show' do
-    subject { get :show, params: { display_name: Subreddit.first.display_name } , as: :json }
+    subject { get :show, params: { display_name: Subreddit.first.display_name }, as: :json }
 
     it { is_expected.to be_successful }
 
     it "returns the correct subreddit" do
       body = JSON.parse(subject.body)
       expect(body["subreddit"]["display_name"]).to eq(Subreddit.first.display_name)
+    end
+  end
+
+  describe 'GET #recommended' do
+    subject { get :recommended, as: :json }
+
+    it { is_expected.to be_successful }
+
+    it 'returns valid json' do
+      body = JSON.parse(subject.body)
+      expect(body["subreddits"].length).to eq(5)
+    end
+
+    it 'includes submissions' do
+      body = JSON.parse(subject.body)
+      body["subreddits"].each do |s|
+        expect(s).to have_key("submissions")
+      end
     end
   end
 
