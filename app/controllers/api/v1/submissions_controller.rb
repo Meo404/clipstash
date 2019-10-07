@@ -5,8 +5,14 @@ class Api::V1::SubmissionsController < Api::V1::ApiController
 
   def show
     @submission = Submission.friendly.find(params[:slug])
-
     render json: @submission, include: ["subreddit", "medium"]
+  end
+
+  # Returns recommended submissions
+  # For now it will only return the top 8 ones by hot_score. In the future it should be more personalized
+  def recommended
+    @submission = Submission.hot.limit(8)
+    render json: @submission, include: []
   end
 
   def by_subreddit

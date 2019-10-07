@@ -13,6 +13,8 @@ RSpec.describe Api::V1::SubredditsController, type: :controller do
   end
 
   describe 'GET #index' do
+    include_examples "pagination examples"
+
     subject { get :index, as: :json }
 
     it 'returns valid json' do
@@ -20,14 +22,8 @@ RSpec.describe Api::V1::SubredditsController, type: :controller do
       expect(body['subreddits'].length).to eq(50)
     end
 
-    it 'has pagination meta data' do
-      body = JSON.parse(subject.body)
-      expected_keys = %w(current_page next_page prev_page total_pages total_count)
-
-      expect(body['meta'].keys).to eq(expected_keys)
-    end
-
     subject { get :index, params: { sort: 'name' }, as: :json }
+
     it 'returns sorted results' do
       body = JSON.parse(subject.body)
       expected_result = Subreddit.order(display_name: :asc).first.display_name
