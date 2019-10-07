@@ -14,13 +14,9 @@ RSpec.describe Api::V1::SubredditsController, type: :controller do
 
   describe 'GET #index' do
     include_examples "pagination examples"
+    include_examples "result key length", "subreddits", 50
 
     subject { get :index, as: :json }
-
-    it 'returns valid json' do
-      body = JSON.parse(subject.body)
-      expect(body['subreddits'].length).to eq(50)
-    end
 
     subject { get :index, params: { sort: 'name' }, as: :json }
 
@@ -44,14 +40,11 @@ RSpec.describe Api::V1::SubredditsController, type: :controller do
   end
 
   describe 'GET #recommended' do
+    include_examples "result key length", "subreddits", 5
+
     subject { get :recommended, as: :json }
 
     it { is_expected.to be_successful }
-
-    it 'returns valid json' do
-      body = JSON.parse(subject.body)
-      expect(body["subreddits"].length).to eq(5)
-    end
 
     it 'includes submissions' do
       body = JSON.parse(subject.body)
@@ -62,14 +55,11 @@ RSpec.describe Api::V1::SubredditsController, type: :controller do
   end
 
   describe 'GET #popular' do
+    include_examples "result key length", "subreddits", 5
+
     subject { get :popular, as: :json }
 
     it { is_expected.to be_successful }
-
-    it 'returns valid json' do
-      body = JSON.parse(subject.body)
-      expect(body['subreddits'].length).to eq(5)
-    end
 
     it 'lists top 5 subreddits sorted by subscribers' do
       body = JSON.parse(subject.body)

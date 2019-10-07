@@ -6,3 +6,10 @@ RSpec.shared_examples "pagination examples" do
     expect(body['meta'].keys).to eq(expected_keys)
   end
 end
+
+RSpec.shared_examples "result key length" do |key, size|
+  it 'returns valid json' do
+    body = JSON.parse(subject.body)
+    expect(body[key.to_s].length).to eq(size)
+  end
+end
