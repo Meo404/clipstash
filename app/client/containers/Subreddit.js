@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import axios from "axios";
-import Grid from "@material-ui/core/Grid";
 import InfiniteScroll from 'react-infinite-scroller';
 import LoadingIndicator from 'components/UI/LoadingIndicator';
 import MaxWidthContainer from "components/UI/MaxWidthContainer";
-import SubmissionListCard from "components/SubmissionListCard";
 import SubmissionHeader from 'components/SubmissionHeader';
 import withErrorHandler from 'hoc/withErrorHandler';
+import SubmissionList from "../components/SubmissionList";
 
 const INITIAL_STATE = {
     subreddit: null,
@@ -16,8 +15,8 @@ const INITIAL_STATE = {
     page: 1
 };
 
-function SubmissionList(props) {
-    const { match } = props;
+function Subreddit(props) {
+    const { history, match } = props;
     const [data, setData] = useState(INITIAL_STATE);
     const [sortMethod, setSortMethod] = useState('hot');
     const displayName = match.params.displayName;
@@ -57,13 +56,6 @@ function SubmissionList(props) {
         setSortMethod(event.target.value)
     }
 
-    function handleSubmissionClick(slug) {
-        props.history.push({
-            pathname: '/submission/' + slug,
-            state: { sortMethod: sortMethod }
-        });
-    }
-
     return (
         <React.Fragment>
             <Helmet>
@@ -80,14 +72,11 @@ function SubmissionList(props) {
                     hasMore={data.hasMore}
                     loader={<LoadingIndicator key='loadingIndicator' />}
                 >
-                    <Grid container spacing={0} >
-                        {data.submissions.map((submission) => (
-                            <SubmissionListCard 
-                                submission={submission} 
-                                key={submission.reddit_fullname}
-                                clickHandler={handleSubmissionClick} />
-                        ))}
-                    </Grid>
+                    <SubmissionList
+                        submissions={data.submissions}
+                        searchState={{ sortMethod: sortMethod }}
+                        history={history} 
+                    />
                 </InfiniteScroll>
             </MaxWidthContainer>
         </React.Fragment>
@@ -95,4 +84,4 @@ function SubmissionList(props) {
     );
 }
 
-export default withErrorHandler(SubmissionList);
+export default withErrorHandler(Subreddit);
