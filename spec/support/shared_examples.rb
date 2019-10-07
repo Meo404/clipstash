@@ -7,9 +7,9 @@ RSpec.shared_examples "pagination examples" do
   end
 end
 
-RSpec.shared_examples "result key length" do |key, size|
-  it 'returns valid json' do
+RSpec.shared_examples "result key length" do |key, length|
+  it "returns #{length} #{key}" do
     body = JSON.parse(subject.body)
-    expect(body[key.to_s].length).to eq(size)
+    expect(body[key.to_s].length).to eq(length)
   end
 end
