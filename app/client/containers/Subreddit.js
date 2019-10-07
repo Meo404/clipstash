@@ -16,7 +16,7 @@ const INITIAL_STATE = {
     page: 1
 };
 
-function SubmissionList(props) {
+function Subreddit(props) {
     const { match } = props;
     const [data, setData] = useState(INITIAL_STATE);
     const [sortMethod, setSortMethod] = useState('hot');
@@ -95,4 +95,4 @@ function SubmissionList(props) {
     );
 }
 
-export default withErrorHandler(SubmissionList);
+export default withErrorHandler(Subreddit);

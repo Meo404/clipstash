@@ -4,7 +4,7 @@ import axios from "axios";
 import Grid from "@material-ui/core/Grid";
 import LoadingIndicator from 'components/UI/LoadingIndicator';
 import MaxWidthContainer from "components/UI/MaxWidthContainer";
-import Subreddit from 'components/Subreddit.js';
+import SubredditCard from 'components/SubredditCard';
 
 export default function SubredditList() {
     const [data, setData] = useState({ subreddits: [], isLoading: true });
@@ -32,7 +32,7 @@ export default function SubredditList() {
                 {loadingIndicator}
                 <Grid container spacing={0}>
                     {data.subreddits.map((subreddit) => (
-                        <Subreddit subreddit={subreddit} key={subreddit.id} />
+                        <SubredditCard subreddit={subreddit} key={subreddit.id} />
                     ))}
                 </Grid>
             </MaxWidthContainer>

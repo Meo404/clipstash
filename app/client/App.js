@@ -4,7 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import AppNavigation from 'containers/AppNavigation';
 import NotFound from 'components/NotFound';
 import Submission from 'containers/Submission';
-import SubmissionList from 'containers/SubmissionList';
+import Subreddit from 'containers/Subreddit';
 import SubredditList from 'containers/SubredditList';
 
 export default function App() {
@@ -15,7 +15,7 @@ export default function App() {
             <AppNavigation />
             <Switch>
                 <Route path='/subreddits' exact component={SubredditList} />
-                <Route path='/r/:displayName' component={SubmissionList} />
+                <Route path='/r/:displayName' component={Subreddit} />
                 <Route path='/submission/:slug' component={Submission} />
                 <Route component={NotFound} />
             </Switch>

@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { withRouter } from 'react-router-dom';
 import axios from "axios";
-import Grid from "@material-ui/core/Grid";
 import LoadingIndicator from 'components/UI/LoadingIndicator';
-import SubmissionListCard from "components/SubmissionListCard";
 import Typography from "@material-ui/core/Typography";
 import withErrorHandler from "hoc/withErrorHandler";
+import SubmissionList from "../components/SubmissionList";
 
 function RelatedSubmissionsList(props) {
     const {
@@ -26,29 +25,19 @@ function RelatedSubmissionsList(props) {
         const params = { sort: sortMethod, after_score: afterScore, max_results: 8 };
         const result = await axios('/api/v1/submissions/' + displayName, { params: params });
         if (result) {
-            setData({submissions: result.data.submissions, isLoading: false});
+            setData({ submissions: result.data.submissions, isLoading: false });
         }
-    }
-
-    function handleSubmissionClick(slug) {
-        history.push({
-            pathname: '/submission/' + slug,
-            state: { sortMethod: sortMethod }
-        });
     }
 
     if (data.isLoading) {
         content = <LoadingIndicator key='loadingIndicator' />;
     } else {
         content = (
-            <Grid container spacing={0} >
-                {data.submissions.map((submission) => (
-                    <SubmissionListCard
-                        submission={submission}
-                        key={submission.reddit_fullname}
-                        clickHandler={handleSubmissionClick} />
-                ))}
-            </Grid>
+            <SubmissionList 
+                submissions={data.submissions}
+                searchState={{ sortMethod: sortMethod }}
+                history={history} 
+            />
         )
     }
 

@@ -11,7 +11,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from "@material-ui/core/Typography";
 
-export default function Subreddit({ subreddit }) {
+export default function SubredditCard({ subreddit }) {
     const classes = useStyles();
 
     return (
