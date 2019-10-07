@@ -15,29 +15,21 @@ RSpec.describe Api::V1::SubredditsController, type: :controller do
   describe 'GET #index' do
     subject { get :index, as: :json }
 
-    it 'returns valid json' do
-      body = JSON.parse(subject.body)
-      expect(body['subreddits'].length).to eq(50)
-    end
-
-    it 'has pagination meta data' do
-      body = JSON.parse(subject.body)
-      expected_keys = %w(current_page next_page prev_page total_pages total_count)
-
-      expect(body['meta'].keys).to eq(expected_keys)
-    end
-
     subject { get :index, params: { sort: 'name' }, as: :json }
+
     it 'returns sorted results' do
       body = JSON.parse(subject.body)
       expected_result = Subreddit.order(display_name: :asc).first.display_name
 
       expect(body['subreddits'][0]['display_name']).to eq(expected_result)
     end
+
+    include_examples "result key length", "subreddits", 50
+    include_examples "pagination examples"
   end
 
   describe 'GET #show' do
-    subject { get :show, params: { display_name: Subreddit.first.display_name } , as: :json }
+    subject { get :show, params: { display_name: Subreddit.first.display_name }, as: :json }
 
     it { is_expected.to be_successful }
 
@@ -47,15 +39,25 @@ RSpec.describe Api::V1::SubredditsController, type: :controller do
     end
   end
 
+  describe 'GET #recommended' do
+    subject { get :recommended, as: :json }
+
+    it { is_expected.to be_successful }
+
+    it 'includes submissions' do
+      body = JSON.parse(subject.body)
+      body["subreddits"].each do |s|
+        expect(s).to have_key("submissions")
+      end
+    end
+
+    include_examples "result key length", "subreddits", 5
+  end
+
   describe 'GET #popular' do
     subject { get :popular, as: :json }
 
     it { is_expected.to be_successful }
-
-    it 'returns valid json' do
-      body = JSON.parse(subject.body)
-      expect(body['subreddits'].length).to eq(5)
-    end
 
     it 'lists top 5 subreddits sorted by subscribers' do
       body = JSON.parse(subject.body)

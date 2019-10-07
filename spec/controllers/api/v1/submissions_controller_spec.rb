@@ -22,7 +22,23 @@ RSpec.describe Api::V1::SubmissionsController, type: :controller do
     end
   end
 
+  describe 'GET #recommended' do
+    subject { get :recommended, as: :json }
+
+    it { is_expected.to be_successful }
+
+    it "returns top 8 submissions by hot_score" do
+      body = JSON.parse(subject.body)
+      expected_submissions = Submission.hot.limit(8).map(&:reddit_fullname)
+      actual_submissions = body['submissions'].map { |d| d["reddit_fullname"] }
+
+      expect(actual_submissions).to eq(expected_submissions)
+    end
+  end
+
   describe 'GET #by_subreddit' do
+    include_examples "pagination examples"
+
     subject { get :by_subreddit, params: { display_name: @subreddit.display_name } , as: :json }
 
     it { is_expected.to be_successful }
@@ -31,15 +47,6 @@ RSpec.describe Api::V1::SubmissionsController, type: :controller do
       body = JSON.parse(subject.body)
       expect(body["submissions"][0]).not_to have_key("medium")
       expect(body["submissions"][0]).not_to have_key("subreddit")
-    end
-
-    it 'has pagination meta data' do
-      body = JSON.parse(subject.body)
-      expect(body['meta']).to have_key("current_page")
-      expect(body['meta']).to have_key("next_page")
-      expect(body['meta']).to have_key("prev_page")
-      expect(body['meta']).to have_key("total_pages")
-      expect(body['meta']).to have_key("total_count")
     end
   end
 end
