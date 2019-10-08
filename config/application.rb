@@ -33,5 +33,8 @@ module ProjectFree
     # Load Lib path
     config.autoload_paths << Rails.root.join("lib")
     config.eager_load_paths << Rails.root.join("lib")
+
+    # Add api config
+    config.api_config = config_for(:api_config)
   end
 end

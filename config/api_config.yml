@@ -1,0 +1,29 @@
+default: &default
+  submissions:
+    recommended:
+      max_results: 100
+      default_results: 8
+    by_subreddit:
+      max_results: 100
+      default_results: 40
+
+  subreddits:
+    index:
+      max_results: 100
+      default_results: 50
+    recommended:
+      max_results: 100
+      default_results: 5
+    popular:
+      max_results: 100
+      default_results: 5
+
+
+production:
+  <<: *default
+
+development:
+  <<: *default
+
+test:
+  <<: *default
