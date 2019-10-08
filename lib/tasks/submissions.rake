@@ -94,6 +94,8 @@ namespace :submissions do
 
       Subreddit.all.each do |subreddit|
         RedditData::UpdateSubmissions.call(subreddit.id, search_options)
+      rescue
+        next
       end
 
       puts "Done updating #{type} submissions"
