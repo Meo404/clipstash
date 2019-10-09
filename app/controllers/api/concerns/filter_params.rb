@@ -8,7 +8,6 @@ module Api
       # Adapts the max_result filters param based on config/api_config.yml
       # Controller and Action name need to be properly defined there.
       def set_max_results
-        puts controller_name
         config = API_CONFIG[controller_name][action_name]
         max_results = params[:max_results]
 

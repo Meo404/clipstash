@@ -31,7 +31,7 @@ class Subreddit < ApplicationRecord
   include DefaultImageUploader[:icon]
   include DefaultImageUploader[:banner]
 
-  as_enum :status, active: 1, inacteive: 0
+  as_enum :status, active: 1, inactive: 0
   has_many :submissions
 
   before_create :build_url
