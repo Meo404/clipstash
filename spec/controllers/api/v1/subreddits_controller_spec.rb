@@ -3,14 +3,11 @@ require 'rails_helper'
 RSpec.describe Api::V1::SubredditsController, type: :controller do
   API_CONFIG = Rails.configuration.api_config
 
-  before(:all) do
-    DatabaseCleaner.clean_with :truncation
+  before(:each) do
     100.times do |n|
       create(:subreddit)
     end
-  end
 
-  before(:each) do
     request.headers["accept"] = 'application/json'
   end
 

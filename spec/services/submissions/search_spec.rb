@@ -1,7 +1,7 @@
 require "rails_helper"
 
 describe Submissions::Search do
-  before :each do
+  before(:each) do
     @submissions, @media = [], []
     subreddit = create(:subreddit)
     media_provider = create(:media_provider)
