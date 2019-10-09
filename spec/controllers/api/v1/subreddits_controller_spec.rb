@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::SubredditsController, type: :controller do
+  API_CONFIG = Rails.configuration.api_config
+
   before(:all) do
     DatabaseCleaner.clean_with :truncation
     100.times do |n|
@@ -10,6 +12,10 @@ RSpec.describe Api::V1::SubredditsController, type: :controller do
 
   before(:each) do
     request.headers["accept"] = 'application/json'
+  end
+
+  describe 'includes FilterParamsConcern' do
+    it { expect(Api::V1::SubmissionsController.ancestors.include? Api::Concerns::FilterParams).to eq(true) }
   end
 
   describe 'GET #index' do
@@ -24,7 +30,8 @@ RSpec.describe Api::V1::SubredditsController, type: :controller do
       expect(body['subreddits'][0]['display_name']).to eq(expected_result)
     end
 
-    include_examples "result key length", "subreddits", 50
+    include_examples "result key length",
+                     "subreddits", API_CONFIG["subreddits"]["index"]["default_results"]
     include_examples "pagination examples"
   end
 
@@ -51,7 +58,9 @@ RSpec.describe Api::V1::SubredditsController, type: :controller do
       end
     end
 
-    include_examples "result key length", "subreddits", 5
+    include_examples "result key length",
+                     "subreddits", API_CONFIG["subreddits"]["recommended"]["default_results"]
+    include_examples "pagination examples"
   end
 
   describe 'GET #popular' do
@@ -66,5 +75,9 @@ RSpec.describe Api::V1::SubredditsController, type: :controller do
 
       expect(actual_subreddit_ids).to eq(expected_subreddit_ids)
     end
+
+    include_examples "result key length",
+                     "subreddits", API_CONFIG["subreddits"]["popular"]["default_results"]
+    include_examples "pagination examples"
   end
 end
