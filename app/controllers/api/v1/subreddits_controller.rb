@@ -1,13 +1,20 @@
+# frozen_string_literal: true
+
 class Api::V1::SubredditsController < Api::V1::ApiController
+  include Api::Concerns::FilterParams
+
+  before_action :set_max_results, only: [:index, :recommended, :popular]
+
   def index
-    @subreddits = sorted_subreddits.page(params[:page]).per(50)
-    render json: @subreddits, fields: [:id,
+    subreddits = sorted_subreddits.page(params[:page]).per(params[:max_results])
+
+    render json: subreddits, fields: [:id,
                                        :display_name,
                                        :display_name_prefixed,
                                        :icon,
                                        :icon_size,
                                        :subscribers],
-           meta: pagination_dict(@subreddits)
+           meta: pagination_dict(subreddits)
   end
 
   def show
@@ -18,17 +25,19 @@ class Api::V1::SubredditsController < Api::V1::ApiController
   # Returns recommended subreddits and their top submissions.
   # For now it will only return the top 5 ones by subscriber count. In the future it should be more personalized
   def recommended
-    @subreddits = Subreddit.popular.limit(5)
-    render json: @subreddits, each_serializer: RecommendedSubredditSerializer
+    subreddits = Subreddit.popular.page(params[:page]).per(params[:max_results])
+    render json: subreddits, each_serializer: RecommendedSubredditSerializer, meta: pagination_dict(subreddits)
   end
 
   def popular
-    @subreddits = Subreddit.popular.limit(5)
-    render json: @subreddits, fields: [:id,
-                                       :display_name,
-                                       :display_name_prefixed,
-                                       :icon,
-                                       :icon_size]
+    subreddits = Subreddit.popular.page(params[:page]).per(params[:max_results])
+
+    render json: subreddits, fields: [:id,
+                                      :display_name,
+                                      :display_name_prefixed,
+                                      :icon,
+                                      :icon_size],
+           meta: pagination_dict(subreddits)
   end
 
   private
