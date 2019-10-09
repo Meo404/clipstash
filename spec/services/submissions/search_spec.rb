@@ -66,7 +66,7 @@ describe Submissions::Search do
         expected_result = Submission
                               .by_subreddit(@subreddit.id)
                               .has_medium
-                              .where("created_utc >= ?", date)
+                              .created_after(date)
                               .top
 
         expect(Submissions::Search.call(@subreddit.id, "top_year", nil).to_a).to eq(expected_result.to_a)
@@ -79,7 +79,7 @@ describe Submissions::Search do
         expected_result = Submission
                               .by_subreddit(@subreddit.id)
                               .has_medium
-                              .where("created_utc >= ?", date)
+                              .created_after(date)
                               .where("score < ?", score.to_i)
                               .top
 
@@ -96,7 +96,7 @@ describe Submissions::Search do
         expected_result = Submission
                               .by_subreddit(@subreddit.id)
                               .has_medium
-                              .where("created_utc >= ?", date)
+                              .created_after(date)
                               .top
 
         expect(Submissions::Search.call(@subreddit.id, "top_month", nil).to_a).to eq(expected_result.to_a)
@@ -109,7 +109,7 @@ describe Submissions::Search do
         expected_result = Submission
                               .by_subreddit(@subreddit.id)
                               .has_medium
-                              .where("created_utc >= ?", date)
+                              .created_after(date)
                               .where("score < ?", score.to_i)
                               .top
 
@@ -126,7 +126,7 @@ describe Submissions::Search do
         expected_result = Submission
                               .by_subreddit(@subreddit.id)
                               .has_medium
-                              .where("created_utc >= ?", date)
+                              .created_after(date)
                               .top
 
         expect(Submissions::Search.call(@subreddit.id, "top_week", nil).to_a).to eq(expected_result.to_a)
@@ -139,7 +139,7 @@ describe Submissions::Search do
         expected_result = Submission
                               .by_subreddit(@subreddit.id)
                               .has_medium
-                              .where("created_utc >= ?", date)
+                              .created_after(date)
                               .where("score < ?", score.to_i)
                               .top
 
@@ -156,7 +156,7 @@ describe Submissions::Search do
         expected_result = Submission
                               .by_subreddit(@subreddit.id)
                               .has_medium
-                              .where("created_utc >= ?", date)
+                              .created_after(date)
                               .top
 
         expect(Submissions::Search.call(@subreddit.id, "top_day", nil).to_a).to eq(expected_result.to_a)
@@ -169,7 +169,7 @@ describe Submissions::Search do
         expected_result = Submission
                               .by_subreddit(@subreddit.id)
                               .has_medium
-                              .where("created_utc >= ?", date)
+                              .created_after(date)
                               .where("score < ?", score.to_i)
                               .top
 

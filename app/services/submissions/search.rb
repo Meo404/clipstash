@@ -19,31 +19,29 @@ module Submissions
 
     private
 
+      # Already applies common filters necessary
+      #  by_subreddit(@subreddit_id)
+      #  has_medium
+      def filtered_submissions
+        Submission.by_subreddit(@subreddit_id).has_medium
+      end
+
       def hot_submissions
-        return Submission.by_subreddit(@subreddit_id).has_medium.hot if @after_score.nil?
-        Submission.by_subreddit(@subreddit_id).has_medium.where("hot_score < ?", @after_score.to_f.round_down(3)).hot
+        return filtered_submissions.hot if @after_score.blank?
+        filtered_submissions.where("hot_score < ?", @after_score.to_f.round_down(3)).hot
       end
 
       def top_submissions
         if @sort_param == "top_all"
-          return Submission.by_subreddit(@subreddit_id).has_medium.top if @after_score.nil?
-          return Submission.by_subreddit(@subreddit_id).has_medium.where("score < ?", @after_score.to_i).top
+          return filtered_submissions.top if @after_score.blank?
+          return filtered_submissions.where("score < ?", @after_score.to_i).top
         end
 
         if @after_score.nil?
-          return Submission
-                     .by_subreddit(@subreddit_id)
-                     .has_medium
-                     .where("created_utc >= ?", extract_date(@sort_param))
-                     .top
+          return filtered_submissions.created_after(extract_date(@sort_param)).top
         end
 
-        Submission
-            .by_subreddit(@subreddit_id)
-            .has_medium
-            .where("created_utc >= ?", extract_date(@sort_param))
-            .where("score < ?", @after_score.to_i)
-            .top
+        filtered_submissions.created_after(extract_date(@sort_param)).where("score < ?", @after_score.to_i).top
       end
 
       def extract_date(sort_param)

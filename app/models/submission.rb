@@ -54,6 +54,7 @@ class Submission < ApplicationRecord
   validates :reddit_thumbnail, presence: true, url: true
   validates :reddit_thumbnail_size, presence: true
 
+  scope :created_after, -> (date) { where("created_utc >= ?", date) }
   scope :by_subreddit, -> (subreddit_id) { where(subreddit_id: subreddit_id) }
   scope :has_medium, -> { joins(:medium) }
   scope :hot, -> { where.not(hot_score: nil).order(hot_score: :desc) }
