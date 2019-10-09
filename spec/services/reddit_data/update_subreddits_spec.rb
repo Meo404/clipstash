@@ -4,17 +4,12 @@ require "rails_helper"
 # Should possibly be mocked in the future
 describe RedditData::UpdateSubreddits do
   before(:each) do
-    Subreddit.delete_all # workaround as database cleaning seems to not work properly
-    RedditData::CreateSubreddit.call('leagueoflegends')
-    RedditData::CreateSubreddit.call('pokemon')
-    RedditData::CreateSubreddit.call('wow')
-    Subreddit.update_all(subscribers: 0)
+    create(:subreddit, reddit_fullname: "t5_2rfxx", display_name: "leagueoflegends", subscribers: 0)
+    create(:subreddit, reddit_fullname: "t5_2qmeb", display_name: "pokemon", subscribers: 0)
   end
 
-  it 'should update all subreddits' do
-    RedditData::UpdateSubreddits.call
-    expect(Subreddit.find_by_display_name('leagueoflegends').subscribers).to be > 0
-    expect(Subreddit.find_by_display_name('pokemon').subscribers).to be > 0
-    expect(Subreddit.find_by_display_name('wow').subscribers).to be > 0
+  it "should update all subreddits" do
+    expect { RedditData::UpdateSubreddits.call }.to change { Subreddit.first.subscribers }
+                                                .and change { Subreddit.last.subscribers }
   end
 end
