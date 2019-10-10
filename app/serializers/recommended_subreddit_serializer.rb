@@ -36,15 +36,11 @@ class RecommendedSubredditSerializer < ActiveModel::Serializer
              :submissions
 
   def icon
-    object.icon.nil? ? object.reddit_icon : object.icon_url
+    object.icon_image
   end
 
   def icon_size
-    if object.icon.nil?
-      object.reddit_icon_size
-    else
-      [object.icon.metadata["width"], object.icon.metadata["height"]]
-    end
+    object.icon_image_size
   end
 
   def submissions

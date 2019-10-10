@@ -37,7 +37,7 @@ module Submissions
           return filtered_submissions.where("score < ?", @after_score.to_i).top
         end
 
-        if @after_score.nil?
+        if @after_score.blank?
           return filtered_submissions.created_after(extract_date(@sort_param)).top
         end
 
