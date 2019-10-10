@@ -1,15 +1,13 @@
-# Commented out for performance reasons
+require "rails_helper"
 
-# require "rails_helper"
-#
-# describe Images::AttachSubmissionThumbnails do
-#   before :each do
-#     subreddit = create(:subreddit)
-#     @submission = create(:submission, subreddit: subreddit)
-#   end
-#
-#   it "is expected to attach thumbnail images" do
-#     Images::AttachSubmissionThumbnails.call
-#     expect(Submission.find(@submission.reddit_fullname).thumbnail_data).to_not be(nil)
-#   end
-# end
+describe Images::AttachSubmissionThumbnails do
+  before :each do
+    create(:subreddit)
+    create(:submission, subreddit: Subreddit.first, reddit_thumbnail: "https://dummyimage.com/300x300")
+    Images::AttachSubmissionThumbnails.call
+  end
+
+  it "is expected to attach thumbnail images" do
+    expect(Submission.first.thumbnail_data).to_not be(nil)
+  end
+end

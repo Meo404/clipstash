@@ -32,6 +32,7 @@ gem 'friendly_id', '~> 5.2.4'
 group :development, :test do
   gem 'factory_bot_rails'
   gem 'faker'
+  gem 'fuubar'
   gem 'pry'
   gem 'rb-readline'
   gem 'rspec-rails'
@@ -56,13 +57,6 @@ group :development do
 end
 
 group :test do
-  # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '>= 2.15'
-  gem 'selenium-webdriver'
-  # Easy installation and use of chromedriver to run system tests with Chrome
-  gem 'chromedriver-helper'
-  gem 'database_cleaner'
-  gem 'rails-controller-testing'
   gem 'shoulda-matchers'
 end
 

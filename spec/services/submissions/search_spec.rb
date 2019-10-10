@@ -1,89 +1,180 @@
 require "rails_helper"
 
 describe Submissions::Search do
-  before :each do
-    @submissions, @media = [], []
-    subreddit = create(:subreddit)
+  before(:each) do
+    @subreddit = create(:subreddit)
     media_provider = create(:media_provider)
 
-    100.times do
-      submission = Submission.new(attributes_for(:submission).merge({ subreddit: subreddit }))
-      medium = Medium.new(attributes_for(:medium).merge({ submission: submission, media_provider: media_provider }))
-
-      @submissions << submission
-      @media << medium
-    end
-
-    Submissions::UpsertSubmissions.call(@submissions, @media)
-    Submissions::UpdateHotScores.call
-  end
-
-  context 'sort order' do
-    it 'sorts by hot by default' do
-      expected_result = Submission.where(subreddit: Subreddit.first).joins(:medium).order(hot_score: :desc)
-      expect(Submissions::Search.call(Subreddit.first.id, {})).to match_array(expected_result)
-    end
-
-    it 'sorts by top weekly without time param' do
-      expected_result = Submission
-                            .where(subreddit: Subreddit.first)
-                            .joins(:medium)
-                            .where("created_utc >= ?", 1.week.ago.in_time_zone("UTC"))
-                            .order(score: :desc)
-
-      expect(Submissions::Search.call(Subreddit.first.id, { sort: "top" })).to match_array(expected_result)
+    10.times do
+      submission = create(:submission, subreddit: @subreddit)
+      create(:medium, submission: submission, media_provider: media_provider)
     end
   end
 
-  context 'sort time' do
-    it 'sorts by top daily' do
-      expected_result = Submission
-                            .where(subreddit: Subreddit.first)
-                            .joins(:medium)
-                            .where("created_utc >= ?", 1.day.ago.in_time_zone("UTC"))
-                            .order(score: :desc)
-
-      expect(Submissions::Search.call(Subreddit.first.id, { sort: "top", time: "day" })).to match_array(expected_result)
-    end
-
-    it 'sorts by top weekly' do
-      expected_result = Submission
-                            .where(subreddit: Subreddit.first)
-                            .joins(:medium)
-                            .where("created_utc >= ?", 1.week.ago.in_time_zone("UTC"))
-                            .order(score: :desc)
-
-      expect(Submissions::Search.call(Subreddit.first.id, { sort: "top", time: "week" })).to match_array(expected_result)
-    end
-
-    it 'sorts by top monthly' do
-      expected_result = Submission
-                            .where(subreddit: Subreddit.first)
-                            .joins(:medium)
-                            .where("created_utc >= ?", 1.month.ago.in_time_zone("UTC"))
-                            .order(score: :desc)
-
-      expect(Submissions::Search.call(Subreddit.first.id, { sort: "top", time: "month" })).to match_array(expected_result)
-    end
-
-    it 'sorts by top yearly' do
-      expected_result = Submission
-                            .where(subreddit: Subreddit.first)
-                            .joins(:medium)
-                            .where("created_utc >= ?", 1.year.ago.in_time_zone("UTC"))
-                            .order(score: :desc)
-
-      expect(Submissions::Search.call(Subreddit.first.id, { sort: "top", time: "year" })).to match_array(expected_result)
-    end
-
-    it 'sorts by top alltime' do
-      expected_result = Submission
-                            .where(subreddit: Subreddit.first)
-                            .joins(:medium)
-                            .order(score: :desc)
-
-      expect(Submissions::Search.call(Subreddit.first.id, { sort: "top", time: "all" })).to match_array(expected_result)
+  context "when no sorting is provided" do
+    it "uses hot sorting" do
+      expected_result = Submissions::Search.call(@subreddit.id, "hot", nil)
+      expect(Submissions::Search.call(@subreddit.id, nil, nil)).to eq(expected_result)
     end
   end
 
+  context "when hot sorting" do
+    context "when no after score is provided" do
+      it "returns all submissions by hot score" do
+        expected_result = Submission.by_subreddit(@subreddit.id).has_medium.hot
+        expect(Submissions::Search.call(@subreddit.id, "hot", nil)).to eq(expected_result)
+      end
+    end
+
+    context "when after score is provided" do
+      it "returns all submissions having a lower hot score" do
+        after_score = Submission.first.hot_score
+        expected_result = Submission
+                              .by_subreddit(@subreddit.id)
+                              .has_medium
+                              .where("hot_score < ?", after_score.to_f.round_down(3))
+                              .hot
+
+        expect(Submissions::Search.call(@subreddit.id, "hot", after_score)).to eq(expected_result)
+      end
+    end
+  end
+
+  context "when searching with top_all sorting" do
+    context "when no after score is provided" do
+      it "returns all submissions sorted by score" do
+        expected_result = Submission.by_subreddit(@subreddit.id).has_medium.top
+        expect(Submissions::Search.call(@subreddit.id, "top_all", nil)).to eq(expected_result)
+      end
+    end
+
+    context "when after score is provided" do
+      it "returns all submissions having a lower score" do
+        score = Submission.first.score
+        expected_result = Submission.by_subreddit(@subreddit.id).has_medium.where("score < ?", score.to_i).top
+
+        expect(Submissions::Search.call(@subreddit.id, "top_all", score)).to eq(expected_result)
+      end
+    end
+  end
+
+  context "when searching with top_year sorting" do
+    let(:date) { 1.year.ago.in_time_zone("UTC") }
+
+    context "when no after score is provided" do
+      it "returns all submissions of the last year sorted by score" do
+        expected_result = Submission
+                              .by_subreddit(@subreddit.id)
+                              .has_medium
+                              .created_after(date)
+                              .top
+
+        expect(Submissions::Search.call(@subreddit.id, "top_year", nil).to_a).to eq(expected_result.to_a)
+      end
+    end
+
+    context "when after score is provided" do
+      it "returns all submissions of the last year having a lower score" do
+        score = Submission.first.score
+        expected_result = Submission
+                              .by_subreddit(@subreddit.id)
+                              .has_medium
+                              .created_after(date)
+                              .where("score < ?", score.to_i)
+                              .top
+
+        expect(Submissions::Search.call(@subreddit.id, "top_all", score).to_a).to eq(expected_result.to_a)
+      end
+    end
+  end
+
+  context "when searching with top_month sorting" do
+    let(:date) { 1.month.ago.in_time_zone("UTC") }
+
+    context "when no after score is provided" do
+      it "returns all submissions of the last month sorted by score" do
+        expected_result = Submission
+                              .by_subreddit(@subreddit.id)
+                              .has_medium
+                              .created_after(date)
+                              .top
+
+        expect(Submissions::Search.call(@subreddit.id, "top_month", nil).to_a).to eq(expected_result.to_a)
+      end
+    end
+
+    context "when after score is provided" do
+      it "returns all submissions of the last month having a lower score" do
+        score = Submission.first.score
+        expected_result = Submission
+                              .by_subreddit(@subreddit.id)
+                              .has_medium
+                              .created_after(date)
+                              .where("score < ?", score.to_i)
+                              .top
+
+        expect(Submissions::Search.call(@subreddit.id, "top_month", score).to_a).to eq(expected_result.to_a)
+      end
+    end
+  end
+
+  context "when searching with top_week sorting" do
+    let(:date) { 1.week.ago.in_time_zone("UTC") }
+
+    context "when no after score is provided" do
+      it "returns all submissions of the last week sorted by score" do
+        expected_result = Submission
+                              .by_subreddit(@subreddit.id)
+                              .has_medium
+                              .created_after(date)
+                              .top
+
+        expect(Submissions::Search.call(@subreddit.id, "top_week", nil).to_a).to eq(expected_result.to_a)
+      end
+    end
+
+    context "when after score is provided" do
+      it "returns all submissions of the last week having a lower score" do
+        score = Submission.first.score
+        expected_result = Submission
+                              .by_subreddit(@subreddit.id)
+                              .has_medium
+                              .created_after(date)
+                              .where("score < ?", score.to_i)
+                              .top
+
+        expect(Submissions::Search.call(@subreddit.id, "top_week", score).to_a).to eq(expected_result.to_a)
+      end
+    end
+  end
+
+  context "when searching with top_day sorting" do
+    let(:date) { 1.day.ago.in_time_zone("UTC") }
+
+    context "when no after score is provided" do
+      it "returns all submissions of the last day sorted by score" do
+        expected_result = Submission
+                              .by_subreddit(@subreddit.id)
+                              .has_medium
+                              .created_after(date)
+                              .top
+
+        expect(Submissions::Search.call(@subreddit.id, "top_day", nil).to_a).to eq(expected_result.to_a)
+      end
+    end
+
+    context "when after score is provided" do
+      it "returns all submissions of the last day having a lower score" do
+        score = Submission.first.score
+        expected_result = Submission
+                              .by_subreddit(@subreddit.id)
+                              .has_medium
+                              .created_after(date)
+                              .where("score < ?", score.to_i)
+                              .top
+
+        expect(Submissions::Search.call(@subreddit.id, "top_day", score).to_a).to eq(expected_result.to_a)
+      end
+    end
+  end
 end

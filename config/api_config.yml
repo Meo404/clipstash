@@ -26,4 +26,21 @@ development:
   <<: *default
 
 test:
-  <<: *default
+  submissions:
+    recommended:
+      max_results: 10
+      default_results: 5
+    by_subreddit:
+      max_results: 10
+      default_results: 5
+
+  subreddits:
+    index:
+      max_results: 10
+      default_results: 5
+    recommended:
+      max_results: 10
+      default_results: 5
+    popular:
+      max_results: 10
+      default_results: 5
