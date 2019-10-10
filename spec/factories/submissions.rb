@@ -43,5 +43,6 @@ FactoryBot.define do
     created_utc { Faker::Time.between(DateTime.now - 100, DateTime.now) }
     reddit_thumbnail { Faker::Placeholdit.image }
     reddit_thumbnail_size { [320 , 280] }
+    hot_score { Faker::Number.between(0, 10000000) }
   end
 end

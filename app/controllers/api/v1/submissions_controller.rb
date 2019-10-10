@@ -15,6 +15,7 @@ class Api::V1::SubmissionsController < Api::V1::ApiController
   def recommended
     submissions = Submission
                       .hot
+                      .has_medium
                       .page(params[:page])
                       .per(params[:max_results])
 
