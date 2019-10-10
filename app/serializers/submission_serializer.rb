@@ -55,15 +55,11 @@ class SubmissionSerializer < ActiveModel::Serializer
   end
 
   def thumbnail
-    object.thumbnail.nil? ? object.reddit_thumbnail : object.thumbnail_url
+    object.thumbnail_image
   end
 
   def thumbnail_size
-    if object.thumbnail.nil?
-      object.reddit_thumbnail_size
-    else
-      [object.thumbnail.metadata["width"], object.thumbnail.metadata["height"]]
-    end
+    object.thumbnail_image_size
   end
 
   def created_date_string

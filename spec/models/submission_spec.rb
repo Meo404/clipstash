@@ -59,4 +59,42 @@ describe Submission do
       it { is_expected.to_not validate_uniqueness_of(:permalink) }
     end
   end
+
+  describe 'with no thumbnail attached' do
+    let(:submission) { create(:submission, subreddit: create(:subreddit)) }
+
+    describe 'thumbnail_image' do
+      it 'should return the reddit_thumbnail' do
+        expect(submission.thumbnail_image).to eq(submission.reddit_thumbnail)
+      end
+    end
+
+    describe 'thumbnail_image_size' do
+      it 'should return the reddit_thumbnail_size' do
+        expect(submission.thumbnail_image_size).to eq(submission.reddit_thumbnail_size)
+      end
+    end
+  end
+
+  describe 'with thumbnail attached' do
+    before :each do
+      create(:submission, subreddit: create(:subreddit), reddit_thumbnail: "https://dummyimage.com/300x300", thumbnail_data: nil )
+      Images::AttachSubmissionThumbnails.call
+    end
+
+    let(:submission) { Submission.first }
+
+    describe 'thumbnail_image' do
+      it 'should return the reddit_thumbnail' do
+        expect(submission.thumbnail_image).to eq(submission.thumbnail_url)
+      end
+    end
+
+    describe 'thumbnail_image_size' do
+      it 'should return the reddit_thumbnail_size' do
+        expect(submission.thumbnail_image_size).to eq([submission.thumbnail.metadata["width"],
+                                                       submission.thumbnail.metadata["height"]])
+      end
+    end
+  end
 end

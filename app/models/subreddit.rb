@@ -49,7 +49,32 @@ class Subreddit < ApplicationRecord
   scope :popular, -> { order(subscribers: :desc) }
   scope :alphabetically, -> { order(display_name: :asc) }
 
+  # Returns the url of the attached icon if present.
+  # Else it returns the reddit_icon value.
+  def icon_image
+    icon.blank? ? reddit_icon : icon_url
+  end
+
+  # Returns the url of the attached banner if present.
+  # Else it returns the reddit_banner value.
+  def banner_image
+    banner.blank? ? reddit_banner : banner_url
+  end
+
+  # Returns the size of the attached banner if present.
+  # Else it returns the size reddit_banner_size value.
+  def banner_image_size
+    banner.blank? ? reddit_banner_size : [banner.metadata["width"], banner.metadata["height"]]
+  end
+
+  # Returns the size of the attached icon if present.
+  # Else it returns the size reddit_icon_size value.
+  def icon_image_size
+    icon.blank? ? reddit_icon_size : [icon.metadata["width"], icon.metadata["height"]]
+  end
+
   private
+
     def build_url
       self.url = "https://www.reddit.com/#{self.display_name_prefixed}"
     end

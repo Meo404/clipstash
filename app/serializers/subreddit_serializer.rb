@@ -41,26 +41,18 @@ class SubredditSerializer < ActiveModel::Serializer
              :url
 
   def icon
-    object.icon.nil? ? object.reddit_icon : object.icon_url
+    object.icon_image
   end
 
   def icon_size
-    if object.icon.nil?
-      object.reddit_icon_size
-    else
-      [object.icon.metadata["width"], object.icon.metadata["height"]]
-    end
+    object.icon_image_size
   end
 
   def banner
-    object.banner.nil? ? object.reddit_banner : object.banner_url
+    object.banner_image
   end
 
   def banner_size
-    if object.banner.nil?
-      object.reddit_banner_size
-    else
-      [object.banner.metadata["width"], object.banner.metadata["height"]]
-    end
+    object.banner_image_size
   end
 end
