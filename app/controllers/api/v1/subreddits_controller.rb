@@ -23,9 +23,16 @@ class Api::V1::SubredditsController < Api::V1::ApiController
   end
 
   # Returns recommended subreddits and their top submissions.
-  # For now it will only return the top 5 ones by subscriber count. In the future it should be more personalized
+  # Only includes Subreddits that had at least one submission within the last month
   def recommended
-    subreddits = Subreddit.popular.page(params[:page]).per(params[:max_results])
+    subreddits = Subreddit
+                     .popular
+                     .joins(:submissions)
+                     .where("submissions.created_utc >= ?", 1.month.ago.in_time_zone("UTC"))
+                     .distinct
+                     .page(params[:page])
+                     .per(params[:max_results])
+
     render json: subreddits, each_serializer: RecommendedSubredditSerializer, meta: pagination_dict(subreddits)
   end
 
