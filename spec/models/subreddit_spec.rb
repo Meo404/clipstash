@@ -74,26 +74,54 @@ describe Subreddit do
       end
     end
 
+    describe 'icon_image_size' do
+      it 'should return the reddit_icon_size' do
+        expect(subreddit.icon_image_size).to eq(subreddit.reddit_icon_size)
+      end
+    end
+
     describe 'banner_image' do
       it 'should return the reddit_banner' do
         expect(subreddit.banner_image).to eq(subreddit.reddit_banner)
       end
     end
+
+    describe 'banner_image_size' do
+      it 'should return the reddit_icon_size' do
+        expect(subreddit.banner_image_size).to eq(subreddit.reddit_banner_size)
+      end
+    end
   end
 
   context 'with images attached' do
-    let(:subreddit) { create(:subreddit) }
-    Images::AttachSubredditImages.call
+    before :each do
+      create(:subreddit, reddit_icon: "https://dummyimage.com/300x300", reddit_banner: "https://dummyimage.com/300x300")
+      Images::AttachSubredditImages.call
+    end
 
+    let(:subreddit) { Subreddit.first }
     describe 'icon_image' do
       it 'should return the icon' do
-        expect(subreddit.icon_image).to eq(subreddit.icon)
+        expect(subreddit.icon_image).to eq(subreddit.icon_url)
+      end
+    end
+
+    describe 'icon_image_size' do
+      it 'should return the reddit_icon_size' do
+        expect(subreddit.icon_image_size).to eq([subreddit.icon.metadata["width"], subreddit.icon.metadata["height"]])
       end
     end
 
     describe 'banner_image' do
       it 'should return the banner' do
-        expect(subreddit.banner_image).to eq(subreddit.banner)
+        expect(subreddit.banner_image).to eq(subreddit.banner_url)
+      end
+    end
+
+    describe 'banner_image_size' do
+      it 'should return the reddit_icon_size' do
+        expect(subreddit.banner_image_size).to eq([subreddit.banner.metadata["width"],
+                                                   subreddit.banner.metadata["height"]])
       end
     end
   end
