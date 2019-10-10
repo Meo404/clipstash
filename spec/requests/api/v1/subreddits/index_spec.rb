@@ -1,7 +1,7 @@
 describe 'GET api/v1/subreddits/index', type: :request do
   # API CONFIG uses low amounts for testing purposes
   # Check config/api_config.yml for adjustments
-  DEFAULT_RESULTS = Rails.configuration.api_config["subreddits"]["index"]["default_results"].to_i
+  let(:default_results) { Rails.configuration.api_config["subreddits"]["index"]["default_results"].to_i }
 
   before :each do
     10.times { create(:subreddit) }
@@ -14,17 +14,17 @@ describe 'GET api/v1/subreddits/index', type: :request do
     end
 
     it 'returns the default amount of subreddits' do
-      DEFAULT_RESULTS.times { create(:subreddit) }
+      default_results.times { create(:subreddit) }
 
       get api_v1_subreddits_path, as: :json
-      expect(JSON.parse(response.body)["subreddits"].size).to eq(DEFAULT_RESULTS)
+      expect(JSON.parse(response.body)["subreddits"].size).to eq(default_results)
     end
 
     it 'sorts subreddits by subscribers' do
       get api_v1_subreddits_path, as: :json
       expect(
           JSON.parse(response.body)["subreddits"].map { |h| h["subscribers"] }
-      ).to eq(Subreddit.popular.limit(DEFAULT_RESULTS).map(&:subscribers))
+      ).to eq(Subreddit.popular.limit(default_results).map(&:subscribers))
     end
 
     it 'returns the correct keys' do
@@ -61,7 +61,7 @@ describe 'GET api/v1/subreddits/index', type: :request do
 
     it 'returns the default amount of subreddits' do
       get api_v1_subreddits_path, params: params, as: :json
-      expect(JSON.parse(response.body)["subreddits"].size).to eq(DEFAULT_RESULTS)
+      expect(JSON.parse(response.body)["subreddits"].size).to eq(default_results)
     end
   end
 

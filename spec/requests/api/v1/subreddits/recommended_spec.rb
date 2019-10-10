@@ -1,7 +1,7 @@
 describe 'GET api/v1/subreddits/recommended', type: :request do
   # API CONFIG uses low amounts for testing purposes
   # Check config/api_config.yml for adjustments
-  DEFAULT_RESULTS = Rails.configuration.api_config["subreddits"]["recommended"]["default_results"].to_i
+  let(:default_results) { Rails.configuration.api_config["subreddits"]["recommended"]["default_results"].to_i }
 
   before :each do
     media_provider = create(:media_provider)
@@ -20,17 +20,17 @@ describe 'GET api/v1/subreddits/recommended', type: :request do
     end
 
     it 'returns the default amount of subreddits' do
-      DEFAULT_RESULTS.times { create(:subreddit) }
+      default_results.times { create(:subreddit) }
 
       get "/api/v1/recommended_subreddits/", as: :json
-      expect(JSON.parse(response.body)["subreddits"].size).to eq(DEFAULT_RESULTS)
+      expect(JSON.parse(response.body)["subreddits"].size).to eq(default_results)
     end
 
     it 'sorts subreddits by subscribers' do
       get "/api/v1/recommended_subreddits/", as: :json
       expect(
           JSON.parse(response.body)["subreddits"].map { |s| s["id"] }
-      ).to eq(Subreddit.popular.limit(DEFAULT_RESULTS).map(&:id))
+      ).to eq(Subreddit.popular.limit(default_results).map(&:id))
     end
 
     it 'returns top 4 submissions of subreddits' do
@@ -69,7 +69,7 @@ describe 'GET api/v1/subreddits/recommended', type: :request do
 
     it 'returns the default amount of subreddits' do
       get "/api/v1/recommended_subreddits/", params: params, as: :json
-      expect(JSON.parse(response.body)["subreddits"].size).to eq(DEFAULT_RESULTS)
+      expect(JSON.parse(response.body)["subreddits"].size).to eq(default_results)
     end
   end
 
