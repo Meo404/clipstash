@@ -64,6 +64,14 @@ class Submission < ApplicationRecord
     Submissions::CalculateHotScore.call(Time.parse(created_utc.to_s), score)
   end
 
+  def thumbnail_image
+    thumbnail.blank? ? reddit_thumbnail : thumbnail_url
+  end
+
+  def thumbnail_image_size
+    thumbnail.blank? ? reddit_thumbnail_size : [thumbnail.metadata["width"], thumbnail.metadata["height"]]
+  end
+
   # Ensures uniqueness of the slug preventing problems when using PSQL upsert
   def slug_base
     slug_base_string = "#{reddit_fullname}-#{title}"
