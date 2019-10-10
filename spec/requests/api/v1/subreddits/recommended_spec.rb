@@ -8,7 +8,9 @@ describe 'GET api/v1/subreddits/recommended', type: :request do
 
     10.times do
       subreddit = create(:subreddit)
-      submission = create(:submission, subreddit: subreddit)
+      submission = create(:submission,
+                          subreddit: subreddit,
+                          created_utc: Faker::Time.between(DateTime.now - 25, DateTime.now))
       create(:medium, submission: submission, media_provider: media_provider)
     end
   end
@@ -52,7 +54,7 @@ describe 'GET api/v1/subreddits/recommended', type: :request do
     end
 
     it 'returns the correct amount of results' do
-      get "/api/v1/recommended_subreddits/", params:params, as: :json
+      get "/api/v1/recommended_subreddits/", params: params, as: :json
       expect(JSON.parse(response.body)["subreddits"].size).to eq(5)
     end
 
@@ -80,5 +82,17 @@ describe 'GET api/v1/subreddits/recommended', type: :request do
       get "/api/v1/recommended_subreddits/", params: params, as: :json
       expect(JSON.parse(response.body)["subreddits"].size).to eq(0)
     end
+  end
+
+  it 'only returns subreddits with submissions in the last month' do
+    10.times do
+      submission = create(:submission,
+             subreddit: Subreddit.first,
+             created_utc: 1.year.ago.in_time_zone("UTC"))
+      create(:medium, submission: submission, media_provider: MediaProvider.first)
+    end
+
+    get "/api/v1/recommended_subreddits/", params: { max_results: 25 }, as: :json
+    expect(JSON.parse(response.body)["subreddits"].size).to eq(10)
   end
 end
