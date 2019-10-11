@@ -1,14 +1,15 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import Button from '@material-ui/core/Button';
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
 import CommentOutlinedIcon from '@material-ui/icons/CommentOutlined';
-import Icon from '@material-ui/core/Icon';
+import Hidden from '@material-ui/core/Hidden';
 import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import ShareIcon from "@material-ui/icons/Share";
 import Grid from "@material-ui/core/Grid";
 import SwapVerticalCircleOutlinedIcon from '@material-ui/icons/SwapVerticalCircleOutlined';
@@ -20,7 +21,7 @@ export default function SubmissionListCard({ submission }) {
     return (
         <Grid item xs={12} lg={12} md={12} sm={12} className={classes.gridItem}>
             <Card className={classes.card}>
-                <CardActionArea> 
+                <CardActionArea>
                     <CardMedia
                         className={classes.media}
                         component="iframe"
@@ -37,44 +38,33 @@ export default function SubmissionListCard({ submission }) {
                     />
                 </CardActionArea>
                 <CardActions disableSpacing className={classes.actions}>
-                    <Icon size="small">
-                        <SwapVerticalCircleOutlinedIcon
-                            style={{ marginBottom: 2 }}
-                            classes={{ root: classes.actionButtonIcon }}
-                        />
-                    </Icon>
-                    <Typography
-                        variant="subtitle1"
-                        color="textSecondary"
-                        classes={{ subtitle1: classes.subtitleText }}
-                        className={classes.ml5}
-                    >
+                    <Button disabled size="small" className={classes.displayButton}>
+                        <SwapVerticalCircleOutlinedIcon classes={{ root: classes.actionButtonIcon }} />
                         {submission.score}
-                    </Typography>
-                    <Icon size="small">
-                        <CommentOutlinedIcon
-                            style={{ marginBottom: 2 }}
-                            classes={{ root: classes.actionButtonIcon }}
-                        />
-                    </Icon>
-                    <Typography
-                        variant="subtitle1"
-                        color="textSecondary"
-                        classes={{ subtitle1: classes.subtitleText }}
-                        className={classes.ml5}
-                    >
+                    </Button>
+                    <Button disabled size="small" className={classes.displayButton}>
+                        <CommentOutlinedIcon classes={{ root: classes.actionButtonIcon }} />
                         {submission.comment_count}
-                    </Typography>
+                    </Button>
                     <div className={classes.cardActionIcons}>
-                        <IconButton
+                        <Button aria-label="share" size="small" className={classes.actionButton}>
+                            <ShareIcon classes={{ root: classes.actionButtonIcon }} />
+                            <Hidden xsDown>
+                                Share
+                            </Hidden>
+                        </Button>
+                        <Button
                             aria-label="add to favorites"
                             size="small"
                             className={classes.actionButton}
                         >
                             <FavoriteBorderOutlinedIcon classes={{ root: classes.actionButtonIcon }} />
-                        </IconButton>
-                        <IconButton aria-label="share" size="small" className={classes.actionButton}>
-                            <ShareIcon classes={{ root: classes.actionButtonIcon }} />
+                            <Hidden xsDown>
+                                Favorite
+                            </Hidden>
+                        </Button>
+                        <IconButton aria-label="more actions" size="small" className={classes.actionButton}>
+                            <MoreHorizIcon />
                         </IconButton>
                     </div>
                 </CardActions>
@@ -127,13 +117,18 @@ const useStyles = makeStyles(theme => ({
         padding: 10
     },
     actionButton: {
-        margin: "0 3px",
+        color: "rgba(0, 0, 0, 0.54)",
+        minWidth: 0
     },
     actionButtonIcon: {
         fontSize: "1.25rem",
+        marginRight: 5,
         [theme.breakpoints.up('sm')]: {
             fontSize: "1.5rem",
         },
+    },
+    displayButton: {
+        color: "rgba(0, 0, 0, 0.87) !important"
     },
     titleText: {
         fontSize: "1rem",

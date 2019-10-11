@@ -61,18 +61,6 @@ export default function SubmissionListCard({ submission, clickHandler }) {
                     >
                         {submission.comment_count}
                     </Typography>
-                    <div className={classes.cardActionIcons}>
-                        <IconButton
-                            aria-label="add to favorites"
-                            size="small"
-                            className={classes.actionButton}
-                        >
-                            <FavoriteBorderOutlinedIcon classes={{ root: classes.actionButtonIcon }} />
-                        </IconButton>
-                        <IconButton aria-label="share" size="small" className={classes.actionButton}>
-                            <ShareIcon classes={{ root: classes.actionButtonIcon }} />
-                        </IconButton>
-                    </div>
                 </CardActions>
             </Card>
         </Grid>
@@ -91,9 +79,6 @@ const useStyles = makeStyles(theme => ({
     },
     cardHeader: {
         padding: "10px 16px"
-    },
-    cardActionIcons: {
-        marginLeft: "auto"
     },
     gridItem: {
         padding: "10px 0px",
