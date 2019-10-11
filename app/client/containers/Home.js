@@ -71,7 +71,6 @@ function Home(props) {
                 >
                     <RecommendedSubreddits subreddits={subreddits.subreddits} history={history} />
                 </InfiniteScroll>
-            
         </MaxWidthContainer>
     );
 }
