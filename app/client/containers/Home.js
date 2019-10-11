@@ -3,16 +3,15 @@ import { withRouter } from 'react-router-dom';
 import axios from "axios";
 import MaxWidthContainer from 'components/UI/MaxWidthContainer';
 import LoadingIndicator from 'components/UI/LoadingIndicator';
-import Typography from "@material-ui/core/Typography";
 import withErrorHandler from "hoc/withErrorHandler";
-import SubmissionList from "../components/SubmissionList";
+import RecommendedSubmissions from "components/RecommendedSubmissions";
+import RecommendedSubreddits from "components/RecommendedSubreddits";
 
 function Home(props) {
     const { history } = props;
     const [submissions, setSubmissions] = useState({ submissions: [], isLoading: true });
     const [subreddits, setSubreddits] = useState([]);
-
-    let recommendedSubmissions;
+    const [showMore, setShowMore] = useState(false);
 
     useEffect(() => {
         fetchRecommendedSubmissions();
@@ -20,7 +19,7 @@ function Home(props) {
     }, []);
 
     async function fetchRecommendedSubmissions() {
-        const result = await axios('/api/v1/recommended_submissions/');
+        const result = await axios('/api/v1/recommended_submissions/', { params: { max_results: 16 } });
         if (result) {
             setSubmissions({ submissions: result.data.submissions, isLoading: false });
         }
@@ -33,37 +32,31 @@ function Home(props) {
         }
     }
 
+    function displayedSubmissions() {
+        return showMore ? submissions.submissions : submissions.submissions.slice(0,8)
+    }
+
+    function showMoreHandler() {
+        setShowMore(true);
+    }
+
+    let recommendedSubmissions = (
+        <RecommendedSubmissions 
+            submissions={displayedSubmissions()} 
+            history={history}
+            showMore={showMore}
+            showMoreHandler={showMoreHandler} 
+        />
+    )
+
     if (submissions.isLoading) {
-        recommendedSubmissions = <LoadingIndicator key='loadingIndicator' />;
-    } else {
-        recommendedSubmissions = (
-            <React.Fragment>
-                <Typography variant="h6"style={{ padding: 10 }}>
-                    Recommended Videos
-                </Typography>
-                <SubmissionList
-                    submissions={submissions.submissions}
-                    searchState={{}}
-                    history={history}
-                />
-            </React.Fragment>
-        )
+        recommendedSubmissions = <LoadingIndicator />;
     }
 
     return (
         <MaxWidthContainer>
             {recommendedSubmissions}
-            {subreddits.map((subreddit) => (
-                <React.Fragment key={subreddit.id}>
-                    <Typography variant="h6" style={{ padding: 10 }}>
-                        Recommended from {subreddit.display_name_prefixed}
-                    </Typography>
-                    <SubmissionList
-                        submissions={subreddit.submissions}
-                        history={history}
-                    />
-                </React.Fragment>
-            ))}
+            <RecommendedSubreddits subreddits={subreddits} history={history} />
         </MaxWidthContainer>
     );
 }
