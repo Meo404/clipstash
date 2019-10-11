@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { withRouter } from 'react-router-dom';
 import axios from "axios";
+import InfiniteScroll from 'react-infinite-scroller';
 import MaxWidthContainer from 'components/UI/MaxWidthContainer';
 import LoadingIndicator from 'components/UI/LoadingIndicator';
 import withErrorHandler from "hoc/withErrorHandler";
@@ -10,7 +11,7 @@ import RecommendedSubreddits from "components/RecommendedSubreddits";
 function Home(props) {
     const { history } = props;
     const [submissions, setSubmissions] = useState({ submissions: [], isLoading: true });
-    const [subreddits, setSubreddits] = useState([]);
+    const [subreddits, setSubreddits] = useState({ subreddits: [], hasMore: true, page: 1 });
     const [showMore, setShowMore] = useState(false);
 
     useEffect(() => {
@@ -26,9 +27,15 @@ function Home(props) {
     }
 
     async function fetchRecommendedSubreddits() {
-        const result = await axios('/api/v1/recommended_subreddits/');
+        const params = { page: subreddits.page };
+        const result = await axios('/api/v1/recommended_subreddits/', { params: params });
         if (result) {
-            setSubreddits(result.data.subreddits);
+            const newData = {
+                subreddits: [...subreddits.subreddits, ...result.data.subreddits],
+                page: subreddits.page + 1,
+                hasMore: result.data.meta.next_page != null
+            };
+            setSubreddits(newData);
         }
     }
 
@@ -56,7 +63,15 @@ function Home(props) {
     return (
         <MaxWidthContainer>
             {recommendedSubmissions}
-            <RecommendedSubreddits subreddits={subreddits} history={history} />
+            <InfiniteScroll
+                    initialLoad={true}
+                    loadMore={fetchRecommendedSubreddits}
+                    hasMore={subreddits.hasMore}
+                    loader={<LoadingIndicator key='loadingIndicator' />}
+                >
+                    <RecommendedSubreddits subreddits={subreddits.subreddits} history={history} />
+                </InfiniteScroll>
+            
         </MaxWidthContainer>
     );
 }
