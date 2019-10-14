@@ -4,12 +4,11 @@ import axios from "axios";
 import InfiniteScroll from 'react-infinite-scroller';
 import LoadingIndicator from 'components/UI/LoadingIndicator';
 import MaxWidthContainer from "components/UI/MaxWidthContainer";
-import SubmissionHeader from 'components/SubmissionHeader';
+import SubredditHeader from 'components/SubredditHeader';
 import withErrorHandler from 'hoc/withErrorHandler';
 import SubmissionList from "../components/SubmissionList";
 
 const INITIAL_STATE = {
-    subreddit: null,
     submissions: [],
     hasMore: true,
     page: 1
@@ -18,6 +17,7 @@ const INITIAL_STATE = {
 function Subreddit(props) {
     const { history, match } = props;
     const [data, setData] = useState(INITIAL_STATE);
+    const [subreddit, setSubreddit] = useState(null);
     const [sortMethod, setSortMethod] = useState('hot');
     const displayName = match.params.displayName;
 
@@ -26,16 +26,15 @@ function Subreddit(props) {
     }, [sortMethod]);
 
     useEffect(() => {
-        const subreddit = fetchSubredditData();
-
+        fetchSubredditData();
         setSortMethod('hot');
-        setData(Object.assign(INITIAL_STATE, { subreddit: subreddit }));
+        setData(Object.assign(INITIAL_STATE));
     }, [displayName]);
 
     async function fetchSubredditData() {
         const result = await axios('/api/v1/subreddits/' + displayName);
         if (result) {
-            return result.data.subreddit;
+            setSubreddit(result.data.subreddit);
         }
     }
 
@@ -56,16 +55,23 @@ function Subreddit(props) {
         setSortMethod(event.target.value)
     }
 
+    let header = null;
+    if (subreddit) {
+        header = (
+            <SubredditHeader
+             subreddit={subreddit}
+             sortMethod={sortMethod}
+             handleSortChange={handleSortChange} />
+        )
+    }
+
     return (
         <React.Fragment>
             <Helmet>
                 <title>{displayName}</title>
             </Helmet>
             <MaxWidthContainer>
-                <SubmissionHeader
-                    sortMethod={sortMethod}
-                    handleSortingChange={handleSortChange}
-                />
+                {header}
                 <InfiniteScroll
                     initialLoad={true}
                     loadMore={fetchSubmissionsData}
