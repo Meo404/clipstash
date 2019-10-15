@@ -4,9 +4,9 @@ import axios from "axios";
 import InfiniteScroll from 'react-infinite-scroller';
 import LoadingIndicator from 'components/UI/LoadingIndicator';
 import MaxWidthContainer from "components/UI/MaxWidthContainer";
+import SubmissionList from "../components/SubmissionList";
 import SubredditHeader from 'components/SubredditHeader';
 import withErrorHandler from 'hoc/withErrorHandler';
-import SubmissionList from "../components/SubmissionList";
 
 const INITIAL_STATE = {
     submissions: [],

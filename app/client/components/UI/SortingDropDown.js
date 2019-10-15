@@ -1,9 +1,11 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
+import {
+    FormControl,
+    FormHelperText,
+    MenuItem,
+    Select
+} from '@material-ui/core';
 
 export default function SortingDropDown(props) {
     const { sortChangeHandler, selectedMethod, sortMethods } = props;
@@ -30,6 +32,6 @@ export default function SortingDropDown(props) {
 const useStyles = makeStyles(theme => ({
     formControl: {
         margin: theme.spacing(1),
-        minWidth: 75,
+        minWidth: 100,
     }
 }));

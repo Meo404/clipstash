@@ -1,15 +1,19 @@
 import React from "react";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
-import Divider from '@material-ui/core/Divider';
-import Avatar from '@material-ui/core/Avatar';
-import CardActions from '@material-ui/core/CardActions';
-import SortingDropDown from 'components/UI/SortingDropDown';
+import { makeStyles } from "@material-ui/core/styles";
 import { SubmissionSortMethods } from 'constants/SortMethods';
-import Hidden from '@material-ui/core/Hidden';
+import {
+  Avatar,
+  Card,
+  CardActions,
+  CardContent,
+  Divider,
+  Hidden,
+  Typography
+} from "@material-ui/core";
 import FullFlexRow from 'components/UI/FullFlexRow';
+import SortingDropDown from 'components/UI/SortingDropDown';
+
+
 
 export default function MediaControlCard(props) {
   const { subreddit, sortMethod, sortChangeHandler } = props;
