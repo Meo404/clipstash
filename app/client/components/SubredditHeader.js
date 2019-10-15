@@ -9,6 +9,7 @@ import CardActions from '@material-ui/core/CardActions';
 import SortingDropDown from 'components/UI/SortingDropDown';
 import { SubmissionSortMethods } from 'constants/SortMethods';
 import Hidden from '@material-ui/core/Hidden';
+import FullFlexRow from 'components/UI/FullFlexRow';
 
 export default function MediaControlCard(props) {
   const { subreddit, sortMethod, sortChangeHandler } = props;
@@ -17,29 +18,41 @@ export default function MediaControlCard(props) {
   return (
     <React.Fragment>
       <Card className={classes.card}>
-        <Avatar alt="Remy Sharp" src={subreddit.icon} className={classes.subredditIcon}/>
+        <Avatar alt="Remy Sharp" src={subreddit.icon} className={classes.subredditIcon} />
         <div className={classes.details}>
           <CardContent className={classes.content}>
             <Typography variant="h6" className={classes.titleText}>
               {subreddit.display_name}
-          </Typography>
-            <Typography 
-                variant="subtitle1" 
-                color="textSecondary"
-                className={classes.descriptionText}
+            </Typography>
+            <Typography
+              variant="subtitle1"
+              color="textSecondary"
+              className={classes.descriptionText}
             >
-            {subreddit.public_description}
-          </Typography>
+              {subreddit.public_description}
+            </Typography>
           </CardContent>
         </div>
-        <CardActions className={classes.sortDropDown} >
+        <Hidden xsDown>
+          <CardActions className={classes.sortDropDown} >
+            <SortingDropDown
+              selectedMethod={sortMethod}
+              sortMethods={SubmissionSortMethods}
+              sortChangeHandler={sortChangeHandler}
+            />
+          </CardActions>
+        </Hidden>
+      </Card>
+      <Hidden smUp>
+        <div className={classes.mobileSortDropDown}>
           <SortingDropDown
             selectedMethod={sortMethod}
-            sortMethods={SubmissionSortMethods} 
-            sortChangeHandler={sortChangeHandler} 
+            sortMethods={SubmissionSortMethods}
+            sortChangeHandler={sortChangeHandler}
           />
-        </CardActions>
-      </Card>
+        </div>
+      </Hidden>
+      <FullFlexRow />
       <Hidden smDown>
         <Divider className={classes.Divider} />
       </Hidden>
@@ -50,7 +63,10 @@ export default function MediaControlCard(props) {
 const useStyles = makeStyles(theme => ({
   card: {
     display: "flex",
-    marginBottom: 20,
+    marginBottom: 0,
+    [theme.breakpoints.up('sm')]: {
+      marginBottom: 20
+    }
   },
   details: {
     display: "flex",
@@ -67,6 +83,9 @@ const useStyles = makeStyles(theme => ({
   },
   Divider: {
     marginBottom: 10
+  },
+  mobileSortDropDown: {
+    float: "right",
   },
   subredditIcon: {
     margin: "auto 5px",
