@@ -17,7 +17,7 @@ export default function SortingDropDown(props) {
                 onChange={sortChangeHandler}
             >
                 {sortMethods.map((sortMethod) => (
-                    <MenuItem value={sortMethod.value}>
+                    <MenuItem value={sortMethod.value} key={sortMethod.value}>
                         {sortMethod.text}
                     </MenuItem>
                 ))}
