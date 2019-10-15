@@ -61,7 +61,7 @@ function Subreddit(props) {
             <SubredditHeader
              subreddit={subreddit}
              sortMethod={sortMethod}
-             handleSortChange={handleSortChange} />
+             sortChangeHandler={handleSortChange} />
         )
     }
 
