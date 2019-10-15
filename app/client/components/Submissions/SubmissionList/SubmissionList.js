@@ -1,6 +1,6 @@
-import React from 'react';
-import Grid from '@material-ui/core/Grid';
-import SubmissionListCard from 'components/SubmissionListCard';
+import React from "react";
+import Grid from "@material-ui/core/Grid";
+import { SubmissionListCard } from "components/Submissions";
 
 export default function SubmissionList(props) {
     const { 
@@ -11,18 +11,19 @@ export default function SubmissionList(props) {
 
     function handleSubmissionClick(slug) {
         history.push({
-            pathname: '/submission/' + slug,
+            pathname: "/submission/" + slug,
             state: searchState
         });
     }
 
     return (
-        <Grid container spacing={0} >
+        <Grid container spacing={0}>
             {submissions.map((submission) => (
                 <SubmissionListCard
-                    submission={submission}
                     key={submission.reddit_fullname}
-                    clickHandler={handleSubmissionClick} />
+                    clickHandler={handleSubmissionClick} 
+                    submission={submission}
+                />
             ))}
         </Grid>
     )

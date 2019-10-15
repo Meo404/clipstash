@@ -4,7 +4,7 @@ import axios from "axios";
 import LoadingIndicator from 'components/UI/LoadingIndicator';
 import Typography from "@material-ui/core/Typography";
 import withErrorHandler from "hoc/withErrorHandler";
-import SubmissionList from "../components/SubmissionList";
+import { SubmissionList } from "components/Submissions";
 
 function RelatedSubmissionsList(props) {
     const {

@@ -5,7 +5,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import MaxWidthContainer from 'components/UI/MaxWidthContainer';
 import LoadingIndicator from 'components/UI/LoadingIndicator';
 import withErrorHandler from "hoc/withErrorHandler";
-import RecommendedSubmissions from "components/RecommendedSubmissions";
+import { RecommendedSubmissions } from "components/Submissions";
 import RecommendedSubreddits from "components/RecommendedSubreddits";
 
 function Home(props) {

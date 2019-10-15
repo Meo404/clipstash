@@ -5,8 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import LoadingIndicator from 'components/UI/LoadingIndicator';
 import MaxWidthContainer from "components/UI/MaxWidthContainer";
 import RelatedSubmissionsList from "./RelatedSubmissionsList";
-import SubmissionCard from 'components/SubmissionCard';
-import SubmissionCardLinks from 'components/SubmissionCardLinks';
+import { SubmissionCard, SubmissionCardLinks } from 'components/Submissions';
 import withErrorHandler from "hoc/withErrorHandler";
 
 const DEFAULT_SORT_METHOD = 'hot';

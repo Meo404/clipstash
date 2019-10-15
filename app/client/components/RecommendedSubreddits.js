@@ -2,7 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Divider from "@material-ui/core/Divider";
 import SectionHeader from "components/UI/SectionHeader";
-import SubmissionList from "../components/SubmissionList";
+import { SubmissionList } from "components/Submissions";
 
 export default function RecommendedSubreddits(props) {
     const { history, subreddits } = props;

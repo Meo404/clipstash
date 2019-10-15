@@ -4,7 +4,7 @@ import axios from "axios";
 import InfiniteScroll from 'react-infinite-scroller';
 import LoadingIndicator from 'components/UI/LoadingIndicator';
 import MaxWidthContainer from "components/UI/MaxWidthContainer";
-import SubmissionList from "../components/SubmissionList";
+import { SubmissionList } from "components/Submissions";
 import SubredditHeader from 'components/SubredditHeader';
 import withErrorHandler from 'hoc/withErrorHandler';
 
