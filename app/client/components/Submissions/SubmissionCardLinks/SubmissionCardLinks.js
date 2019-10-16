@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Grid } from "@material-ui/core/";
+import { Button, Grid, Tooltip } from "@material-ui/core/";
 import { RedditIcon, TwitchIcon, YoutubeIcon } from "components/UI/Icons";
 
 import useStyles from "./Styles";
@@ -30,30 +30,34 @@ export default function SubmissionCardLinks({ submission }) {
 
         if (icon && buttonClass) {
             return (
-                <Button
-                    variant="contained"
-                    size="small"
-                    className={buttonClass}
-                    onClick={openMediaProviderLink}
-                 >
-                    {icon}
-                    {submission.media_provider}
-                </Button>
+                <Tooltip title={`View on ${ submission.media_provider }`} placement="bottom">
+                    <Button
+                        variant="contained"
+                        size="small"
+                        className={buttonClass}
+                        onClick={openMediaProviderLink}
+                    >
+                        {icon}
+                        {submission.media_provider}
+                    </Button>
+                </Tooltip>
             )
         }
     }
 
     return (
         <Grid container spacing={0}>
-            <Button
-                variant="contained"
-                size="small"
-                className={classes.redditButton}
-                onClick={openRedditLink}
-            >
-                <RedditIcon className={classes.brandIcon} />
-                Reddit
+            <Tooltip title="View on Reddit" placement="bottom">
+                <Button
+                    variant="contained"
+                    size="small"
+                    className={classes.redditButton}
+                    onClick={openRedditLink}
+                >
+                    <RedditIcon className={classes.brandIcon} />
+                    Reddit
             </Button>
+            </Tooltip>
             {mediaProviderButton()}
         </Grid>
     )

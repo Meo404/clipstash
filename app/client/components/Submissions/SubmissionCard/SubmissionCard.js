@@ -9,6 +9,7 @@ import {
     Grid,
     Hidden,
     IconButton,
+    Tooltip
 } from "@material-ui/core";
 import {
     CommentOutlined as CommentOutlinedIcon,
@@ -23,7 +24,7 @@ export default function SubmissionListCard({ submission }) {
     const classes = useStyles();
 
     return (
-        <Grid 
+        <Grid
             item xs={12} sm={12} md={12} lg={12}
             className={classes.gridItem}
         >
@@ -56,35 +57,39 @@ export default function SubmissionListCard({ submission }) {
                         <SwapVerticalCircleOutlinedIcon classes={{ root: classes.actionButtonIcon }} />
                         {submission.score}
                     </Button>
-                    <Button 
-                        disabled 
-                        size="small" 
+                    <Button
+                        disabled
+                        size="small"
                         className={classes.displayButton}
                     >
                         <CommentOutlinedIcon classes={{ root: classes.actionButtonIcon }} />
                         {submission.comment_count}
                     </Button>
                     <div className={classes.cardActionIcons}>
-                        <Button
-                            aria-label="share"
-                            size="small"
-                            className={classes.actionButton}
-                        >
-                            <ShareIcon classes={{ root: classes.actionButtonIcon }} />
-                            <Hidden xsDown>
-                                Share
+                        <Tooltip title="Share" placement="bottom">
+                            <Button
+                                aria-label="share"
+                                size="small"
+                                className={classes.actionButton}
+                            >
+                                <ShareIcon classes={{ root: classes.actionButtonIcon }} />
+                                <Hidden xsDown>
+                                    Share
                             </Hidden>
-                        </Button>
-                        <Button
-                            aria-label="add to favorites"
-                            size="small"
-                            className={classes.actionButton}
-                        >
-                            <FavoriteBorderOutlinedIcon classes={{ root: classes.actionButtonIcon }} />
-                            <Hidden xsDown>
-                                Favorite
+                            </Button>
+                        </Tooltip>
+                        <Tooltip title="Favorite" placement="bottom">
+                            <Button
+                                aria-label="add to favorites"
+                                size="small"
+                                className={classes.actionButton}
+                            >
+                                <FavoriteBorderOutlinedIcon classes={{ root: classes.actionButtonIcon }} />
+                                <Hidden xsDown>
+                                    Favorite
                             </Hidden>
-                        </Button>
+                            </Button>
+                        </Tooltip>
                         <IconButton aria-label="more actions" size="small" className={classes.actionButton}>
                             <MoreHorizIcon />
                         </IconButton>

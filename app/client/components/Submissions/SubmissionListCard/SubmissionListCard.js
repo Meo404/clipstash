@@ -7,6 +7,7 @@ import {
     CardMedia,
     Grid,
     Icon,
+    Tooltip,
     Typography
 } from "@material-ui/core";
 import {
@@ -20,29 +21,31 @@ export default function SubmissionListCard({ submission, clickHandler }) {
     const classes = useStyles();
 
     return (
-        <Grid 
-            item xs={12} sm={6} md={6} lg={3} 
+        <Grid
+            item xs={12} sm={6} md={6} lg={3}
             className={classes.gridItem}
         >
             <Card className={classes.card}>
-                <CardActionArea onClick={() => clickHandler(submission.slug)}> 
-                    <CardMedia
-                        className={classes.media}
-                        image={submission.thumbnail}
-                        title="Paella dish"
-                    />
-                    <CardHeader
-                        classes={{ root: classes.cardHeader, content: classes.cardContent }}
-                        subheader={"by /u/" + submission.author + " - " + submission.created_date_string}
-                        subheaderTypographyProps={{ noWrap: true, classes: { body1: classes.subtitleText } }}
-                        title={submission.title}
-                        titleTypographyProps={{ noWrap: true, variant: "h6", classes: { h6: classes.titleText } }}
-                    />
-                </CardActionArea>
+                <Tooltip title={submission.title} placement="bottom">
+                    <CardActionArea onClick={() => clickHandler(submission.slug)}>
+                        <CardMedia
+                            className={classes.media}
+                            image={submission.thumbnail}
+                            title="Paella dish"
+                        />
+                        <CardHeader
+                            classes={{ root: classes.cardHeader, content: classes.cardContent }}
+                            subheader={"by /u/" + submission.author + " - " + submission.created_date_string}
+                            subheaderTypographyProps={{ noWrap: true, classes: { body1: classes.subtitleText } }}
+                            title={submission.title}
+                            titleTypographyProps={{ noWrap: true, variant: "h6", classes: { h6: classes.titleText } }}
+                        />
+                    </CardActionArea>
+                </Tooltip>
                 <CardActions disableSpacing className={classes.actions}>
                     <Icon size="small">
                         <SwapVerticalCircleOutlinedIcon
-                            classes={{ root: classes.actionButtonIcon }}   
+                            classes={{ root: classes.actionButtonIcon }}
                             className={classes.cardIcon}
                         />
                     </Icon>
