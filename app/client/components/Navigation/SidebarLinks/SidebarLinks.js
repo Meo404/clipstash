@@ -30,8 +30,8 @@ function SidebarContent(props) {
             >
                 <ListItem
                     button
-                    className={activeNav("/", currentPath) ? classes.activeNav : ""}
                     key="Home"
+                    className={activeNav("/", currentPath) ? classes.activeNav : ""}
                 >
                     <ListItemIcon>
                         <HomeIcon className={activeNav("/", currentPath) ? classes.activeNavIcon : ""} />
@@ -39,12 +39,21 @@ function SidebarContent(props) {
                     <ListItemText primary="Home" />
                 </ListItem>
             </NavLink>
-            <ListItem button key="Trending">
-                <ListItemIcon>
-                    <WhatshotIcon />
-                </ListItemIcon>
-                <ListItemText primary="Trending" />
-            </ListItem>
+            <NavLink
+                className={classes.navLink}
+                onClick={closeDrawer}
+                to="/trending"
+            >
+                <ListItem 
+                    button 
+                    key="Trending"
+                    className={activeNav("/trending", currentPath) ? classes.activeNavIcon : ""}>
+                    <ListItemIcon>
+                        <WhatshotIcon className={activeNav("/trending", currentPath) ? classes.activeNavIcon : ""} />
+                    </ListItemIcon>
+                    <ListItemText primary="Trending" />
+                </ListItem>
+            </NavLink>
             <NavLink
                 className={classes.navLink}
                 onClick={closeDrawer}

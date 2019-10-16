@@ -7,6 +7,7 @@ import NotFound from "components/NotFound";
 import Submission from "containers/Submission";
 import Subreddit from "containers/Subreddit";
 import SubredditList from "containers/SubredditList";
+import Trending from "containers/Trending";
 
 export default function App() {
     const classes = useStyles();
@@ -16,6 +17,7 @@ export default function App() {
             <AppNavigation />
             <Switch>
                 <Route path="/" exact component={Home} />
+                <Route path="/trending" exact component={Trending} />
                 <Route path="/subreddits" exact component={SubredditList} />
                 <Route path="/r/:displayName" component={Subreddit} />
                 <Route path="/submission/:slug" component={Submission} />

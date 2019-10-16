@@ -15,8 +15,8 @@ function Trending(props) {
     const [data, setData] = useState({ submissions: [], hasMore: true, page: 1 });
 
     async function fetchSubmissionsData() {
-        const params = { sort: sortMethod, page: data.page };
-        const result = await axios("/api/v1/submissions/" + displayName, { params: params });
+        const params = { max_results: 40, page: data.page };
+        const result = await axios("/api/v1/recommended_submissions/", { params: params });
         if (result) {
             const newData = {
                 submissions: [...data.submissions, ...result.data.submissions],
