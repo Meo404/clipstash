@@ -50,18 +50,19 @@ class Api::V1::SubredditsController < Api::V1::ApiController
   end
 
   private
-    # Sets the subset of subreddits for the index method based on
-    #   params[:q] - Search query
+    # Returns a subset of subreddits based on
+    #   params[:q]    - Search query
     #   params[:sort] - Sort order
     def filtered_subreddits
-      if params[:q].blank?
-        return params[:sort] == "name" ? Subreddit.alphabetically : Subreddit.popular
-      end
+      search_query = params[:q]
+      sort_method = params[:sort]
 
-      if params[:sort] == "name"
-        Subreddit.where("display_name LIKE ?", "%#{params[:q]}%").alphabetically
+      if sort_method == "name"
+        Subreddit.alphabetically if search_query.blank?
+        Subreddit.where("display_name LIKE ?", "%#{search_query}%").alphabetically
       else
-        Subreddit.where("display_name LIKE ?", "%#{params[:q]}%").popular
+        Subreddit.popular if search_query.blank?
+        Subreddit.where("display_name LIKE ?", "%#{search_query}%").popular
       end
     end
 end
