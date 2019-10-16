@@ -1,14 +1,17 @@
-import React from 'react';
+import React from "react";
 import { activeNav } from "utils/navigationHelper";
 import { NavLink } from "react-router-dom";
-import { makeStyles } from '@material-ui/core/styles';
-import { setSubredditImage } from 'utils/subredditHelper';
-import { withRouter } from 'react-router-dom';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListSubheader from '@material-ui/core/ListSubheader';
+import { setSubredditImage } from "utils/subredditHelper";
+import { withRouter } from "react-router-dom";
+import {
+    List,
+    ListItem,
+    ListItemIcon,
+    ListItemText,
+    ListSubheader
+} from "@material-ui/core";
+
+import useStyles from "./Styles";
 
 function PopularSubredditsList(props) {
     const { location, subreddits, closeDrawer } = props;
@@ -26,12 +29,12 @@ function PopularSubredditsList(props) {
                     key={subreddit.id}>
                     <ListItem
                         button
-                        className={activeNav(`/${subreddit.display_name_prefixed}`, currentPath) ? classes.activeNav : ''}>
+                        className={activeNav(`/${subreddit.display_name_prefixed}`, currentPath) ? classes.activeNav : ""}>
                         <ListItemIcon>
                             <img
                                 src={setSubredditImage(subreddit.icon)}
                                 className={classes.subredditImage}
-                                alt={subreddit.display_name + ' subreddit icon'} />
+                                alt={subreddit.display_name + " subreddit icon"} />
                         </ListItemIcon>
                         <ListItemText primary={subreddit.display_name} />
                     </ListItem>
@@ -40,19 +43,5 @@ function PopularSubredditsList(props) {
         </List>
     );
 }
-
-const useStyles = makeStyles({
-    subredditImage: {
-        width: "20px",
-        height: "20px"
-    },
-    navLink: {
-        textDecoration: 'none',
-        color: 'inherit'
-    },
-    activeNav: {
-        backgroundColor: '#ebebeb'
-    }
-});
 
 export default withRouter(PopularSubredditsList);

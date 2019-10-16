@@ -1,4 +1,11 @@
 export {
+    Sidebar,
+    SidebarLinks,
+    SidebarSubreddits,
+    TopNavbar
+} from "./Navigation";
+
+export {
     RecommendedSubmissions,
     SubmissionCard,
     SubmissionCardLinks,
