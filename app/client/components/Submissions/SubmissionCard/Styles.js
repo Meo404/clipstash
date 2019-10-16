@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
     actionButtonIcon: {
         fontSize: "1.25rem",
         marginRight: 5,
-        [theme.breakpoints.up('sm')]: {
+        [theme.breakpoints.up("sm")]: {
             fontSize: "1.5rem",
         },
     },
@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
         padding: "10px 16px"
     },
     displayButton: {
-        color: "rgba(0, 0, 0, 0.87) !important"
+        color: "rgba(0, 0, 0, 0.54) !important"
     },
     gridItem: {
         padding: "10px 0px",
@@ -56,7 +56,7 @@ const useStyles = makeStyles(theme => ({
     },
     subtitleText: {
         fontSize: "0.8rem",
-        [theme.breakpoints.up('md')]: {
+        [theme.breakpoints.up("md")]: {
             fontSize: "0.9rem",
         },
         marginRight: 10,
@@ -64,7 +64,7 @@ const useStyles = makeStyles(theme => ({
     },
     titleText: {
         fontSize: "1rem",
-        [theme.breakpoints.up('md')]: {
+        [theme.breakpoints.up("md")]: {
             fontSize: "1.2rem",
         },
     }
