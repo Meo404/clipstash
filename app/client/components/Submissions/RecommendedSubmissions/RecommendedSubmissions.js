@@ -5,15 +5,27 @@ import { SectionHeader, SubmissionList } from "components";
 import useStyles from './Styles';
 
 export default function RecommendedSubmissions(props) {
-    const { 
-        history, 
+    const {
+        history,
         submissions,
         showMore,
-        showMoreHandler 
+        showMoreHandler
     } = props;
     const classes = useStyles();
 
-    let showMoreButton = <Button size="small" className={classes.moreButton} onClick={showMoreHandler}>Show More</Button>;
+    let showMoreButton = (
+        <div className={classes.moreButtonContainer}>
+            <Button
+                size="small"
+                variant="contained"
+                className={classes.moreButton}
+                onClick={showMoreHandler}
+            >
+                Show More
+            </Button>
+        </div>
+    )
+
     if (showMore) { showMoreButton = null }
 
     return (
@@ -22,7 +34,7 @@ export default function RecommendedSubmissions(props) {
             <SubmissionList
                 history={history}
                 searchState={{}}
-                submissions={submissions}   
+                submissions={submissions}
             />
             {showMoreButton}
         </React.Fragment>
