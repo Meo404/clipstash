@@ -47,6 +47,22 @@ class Api::V1::SubredditsController < Api::V1::ApiController
            meta: pagination_dict(subreddits)
   end
 
+  def search
+    subreddits = Subreddit
+                     .where("display_name LIKE ?", "%#{params[:q]}%")
+                     .alphabetically
+                     .page(params[:page])
+                     .per(params[:max_results])
+
+    render json: subreddits, fields: [:id,
+                                      :display_name,
+                                      :display_name_prefixed,
+                                      :icon,
+                                      :icon_size,
+                                      :subscribers],
+           meta: pagination_dict(subreddits)
+  end
+
   private
     # Sets the subset of subreddits for the index method based on the sorting param
     def sorted_subreddits
