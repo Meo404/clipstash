@@ -6,7 +6,7 @@ import Home from "containers/Home";
 import NotFound from "components/NotFound";
 import Submission from "containers/Submission";
 import Subreddit from "containers/Subreddit";
-import SubredditList from "containers/SubredditList";
+import SubredditOverview from "containers/SubredditOverview";
 import Trending from "containers/Trending";
 
 export default function App() {
@@ -18,7 +18,7 @@ export default function App() {
             <Switch>
                 <Route path="/" exact component={Home} />
                 <Route path="/trending" exact component={Trending} />
-                <Route path="/subreddits" exact component={SubredditList} />
+                <Route path="/subreddits" exact component={SubredditOverview} />
                 <Route path="/r/:displayName" component={Subreddit} />
                 <Route path="/submission/:slug" component={Submission} />
                 <Route component={NotFound} />

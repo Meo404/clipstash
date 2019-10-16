@@ -6,14 +6,16 @@ class Api::V1::SubredditsController < Api::V1::ApiController
   before_action :set_max_results, only: [:index, :recommended, :popular]
 
   def index
-    subreddits = sorted_subreddits.page(params[:page]).per(params[:max_results])
+    subreddits = filtered_subreddits
+                     .page(params[:page])
+                     .per(params[:max_results])
 
     render json: subreddits, fields: [:id,
-                                       :display_name,
-                                       :display_name_prefixed,
-                                       :icon,
-                                       :icon_size,
-                                       :subscribers],
+                                      :display_name,
+                                      :display_name_prefixed,
+                                      :icon,
+                                      :icon_size,
+                                      :subscribers],
            meta: pagination_dict(subreddits)
   end
 
@@ -47,24 +49,19 @@ class Api::V1::SubredditsController < Api::V1::ApiController
            meta: pagination_dict(subreddits)
   end
 
-  def search
-    subreddits = sorted_subreddits
-                     .where("display_name LIKE ?", "%#{params[:q]}%")
-                     .page(params[:page])
-                     .per(params[:max_results])
-
-    render json: subreddits, fields: [:id,
-                                      :display_name,
-                                      :display_name_prefixed,
-                                      :icon,
-                                      :icon_size,
-                                      :subscribers],
-           meta: pagination_dict(subreddits)
-  end
-
   private
-    # Sets the subset of subreddits for the index method based on the sorting param
-    def sorted_subreddits
-      params[:sort] == "name" ? Subreddit.alphabetically : Subreddit.popular
+    # Sets the subset of subreddits for the index method based on
+    #   params[:q] - Search query
+    #   params[:sort] - Sort order
+    def filtered_subreddits
+      if params[:q].blank?
+        return params[:sort] == "name" ? Subreddit.alphabetically : Subreddit.popular
+      end
+
+      if params[:sort] == "name"
+        Subreddit.where("display_name LIKE ?", "%#{params[:q]}%").alphabetically
+      else
+        Subreddit.where("display_name LIKE ?", "%#{params[:q]}%").popular
+      end
     end
 end

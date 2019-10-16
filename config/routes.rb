@@ -9,7 +9,6 @@ Rails.application.routes.draw do
       get 'popular_subreddits', to: 'subreddits#popular', as: 'popular_subreddits'
       get 'recommended_subreddits', to: 'subreddits#recommended', as: 'recommended_subreddits'
       get 'subreddits/:display_name', to: 'subreddits#show'
-      post 'subreddits/search', to: 'subreddits#search'
       # Submissions
       get 'recommended_submissions', to: 'submissions#recommended', as: 'recommended_submissions'
       get 'submissions/:display_name', to: 'submissions#by_subreddit'
