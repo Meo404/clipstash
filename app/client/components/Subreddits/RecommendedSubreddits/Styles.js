@@ -16,7 +16,11 @@ const useStyles = makeStyles(theme => ({
             padding: 10,
             fontSize: "1.25rem"
         },
-    }
+    },
+    link: {
+        textDecoration: "none",
+        color: "inherit"
+    },
 }));
 
 export default useStyles;

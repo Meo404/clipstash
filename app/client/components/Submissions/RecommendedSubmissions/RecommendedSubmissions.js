@@ -30,7 +30,7 @@ export default function RecommendedSubmissions(props) {
 
     return (
         <React.Fragment>
-            <SectionHeader headerText="Recommended Videos" />
+            <SectionHeader headerText="Trending Videos" />
             <SubmissionList
                 history={history}
                 searchState={{}}
