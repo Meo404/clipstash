@@ -26,7 +26,7 @@ export default function SubmissionListCard({ submission, clickHandler }) {
             className={classes.gridItem}
         >
             <Card className={classes.card}>
-                <Tooltip title={submission.title} placement="bottom">
+                <Tooltip  placement="bottom" enterDelay={700} title={submission.title}>
                     <CardActionArea onClick={() => clickHandler(submission.slug)}>
                         <CardMedia
                             className={classes.media}
