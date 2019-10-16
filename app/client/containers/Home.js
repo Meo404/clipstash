@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
 import InfiniteScroll from "react-infinite-scroller";
@@ -42,7 +43,7 @@ function Home(props) {
     }
 
     function displayedSubmissions() {
-        return showMore ? submissions.submissions : submissions.submissions.slice(0,8)
+        return showMore ? submissions.submissions : submissions.submissions.slice(0, 8)
     }
 
     function showMoreHandler() {
@@ -50,11 +51,11 @@ function Home(props) {
     }
 
     let recommendedSubmissions = (
-        <RecommendedSubmissions 
+        <RecommendedSubmissions
             history={history}
             showMore={showMore}
             showMoreHandler={showMoreHandler}
-            submissions={displayedSubmissions()} 
+            submissions={displayedSubmissions()}
         />
     )
 
@@ -63,9 +64,13 @@ function Home(props) {
     }
 
     return (
-        <MaxWidthContainer>
-            {recommendedSubmissions}
-            <InfiniteScroll
+        <React.Fragment>
+            <Helmet>
+                <title>ProjectFree - Gaming Videos from Reddit</title>
+            </Helmet>
+            <MaxWidthContainer>
+                {recommendedSubmissions}
+                <InfiniteScroll
                     hasMore={subreddits.hasMore}
                     initialLoad={true}
                     loader={<LoadingIndicator key="loadingIndicator" />}
@@ -73,7 +78,8 @@ function Home(props) {
                 >
                     <RecommendedSubreddits subreddits={subreddits.subreddits} history={history} />
                 </InfiniteScroll>
-        </MaxWidthContainer>
+            </MaxWidthContainer>
+        </React.Fragment>
     );
 }
 
