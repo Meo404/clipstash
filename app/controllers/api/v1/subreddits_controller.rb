@@ -48,9 +48,8 @@ class Api::V1::SubredditsController < Api::V1::ApiController
   end
 
   def search
-    subreddits = Subreddit
+    subreddits = sorted_subreddits
                      .where("display_name LIKE ?", "%#{params[:q]}%")
-                     .alphabetically
                      .page(params[:page])
                      .per(params[:max_results])
 
