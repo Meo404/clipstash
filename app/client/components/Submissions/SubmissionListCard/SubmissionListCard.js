@@ -31,7 +31,6 @@ export default function SubmissionListCard({ submission, clickHandler }) {
                         <CardMedia
                             className={classes.media}
                             image={submission.thumbnail}
-                            title="Paella dish"
                         />
                         <CardHeader
                             classes={{ root: classes.cardHeader, content: classes.cardContent }}
