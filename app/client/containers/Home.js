@@ -50,17 +50,31 @@ function Home(props) {
         setShowMore(true);
     }
 
-    let recommendedSubmissions = (
-        <RecommendedSubmissions
-            history={history}
-            showMore={showMore}
-            showMoreHandler={showMoreHandler}
-            submissions={displayedSubmissions()}
-        />
+    let homeContent = (
+        <MaxWidthContainer>
+            <RecommendedSubmissions
+                history={history}
+                showMore={showMore}
+                showMoreHandler={showMoreHandler}
+                submissions={displayedSubmissions()}
+            />
+            <InfiniteScroll
+                hasMore={subreddits.hasMore}
+                initialLoad={true}
+                loader={<LoadingIndicator key="loadingIndicator" />}
+                loadMore={fetchRecommendedSubreddits}
+            >
+                <RecommendedSubreddits subreddits={subreddits.subreddits} history={history} />
+            </InfiniteScroll>
+        </MaxWidthContainer>
     )
 
     if (submissions.isLoading) {
-        recommendedSubmissions = <LoadingIndicator />;
+        homeContent = (
+            <MaxWidthContainer>
+                <LoadingIndicator />
+            </MaxWidthContainer>
+        )
     }
 
     return (
@@ -68,17 +82,7 @@ function Home(props) {
             <Helmet>
                 <title>ProjectFree - Gaming Videos from Reddit</title>
             </Helmet>
-            <MaxWidthContainer>
-                {recommendedSubmissions}
-                <InfiniteScroll
-                    hasMore={subreddits.hasMore}
-                    initialLoad={true}
-                    loader={<LoadingIndicator key="loadingIndicator" />}
-                    loadMore={fetchRecommendedSubreddits}
-                >
-                    <RecommendedSubreddits subreddits={subreddits.subreddits} history={history} />
-                </InfiniteScroll>
-            </MaxWidthContainer>
+            {homeContent}
         </React.Fragment>
     );
 }
