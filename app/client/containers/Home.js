@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { withRouter } from 'react-router-dom';
+import { withRouter } from "react-router-dom";
 import axios from "axios";
-import InfiniteScroll from 'react-infinite-scroller';
+import InfiniteScroll from "react-infinite-scroller";
 import withErrorHandler from "hoc/withErrorHandler";
 import {
     LoadingIndicator,
@@ -22,7 +22,7 @@ function Home(props) {
     }, []);
 
     async function fetchRecommendedSubmissions() {
-        const result = await axios('/api/v1/recommended_submissions/', { params: { max_results: 16 } });
+        const result = await axios("/api/v1/recommended_submissions/", { params: { max_results: 16 } });
         if (result) {
             setSubmissions({ submissions: result.data.submissions, isLoading: false });
         }
@@ -30,7 +30,7 @@ function Home(props) {
 
     async function fetchRecommendedSubreddits() {
         const params = { page: subreddits.page };
-        const result = await axios('/api/v1/recommended_subreddits/', { params: params });
+        const result = await axios("/api/v1/recommended_subreddits/", { params: params });
         if (result) {
             const newData = {
                 subreddits: [...subreddits.subreddits, ...result.data.subreddits],
@@ -51,10 +51,10 @@ function Home(props) {
 
     let recommendedSubmissions = (
         <RecommendedSubmissions 
-            submissions={displayedSubmissions()} 
             history={history}
             showMore={showMore}
-            showMoreHandler={showMoreHandler} 
+            showMoreHandler={showMoreHandler}
+            submissions={displayedSubmissions()} 
         />
     )
 
@@ -66,10 +66,10 @@ function Home(props) {
         <MaxWidthContainer>
             {recommendedSubmissions}
             <InfiniteScroll
-                    initialLoad={true}
-                    loadMore={fetchRecommendedSubreddits}
                     hasMore={subreddits.hasMore}
-                    loader={<LoadingIndicator key='loadingIndicator' />}
+                    initialLoad={true}
+                    loader={<LoadingIndicator key="loadingIndicator" />}
+                    loadMore={fetchRecommendedSubreddits}
                 >
                     <RecommendedSubreddits subreddits={subreddits.subreddits} history={history} />
                 </InfiniteScroll>

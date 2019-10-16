@@ -6,7 +6,7 @@ import {
     LoadingIndicator, 
     MaxWidthContainer, 
     SubredditCard 
-} from 'components';
+} from "components";
 
 export default function SubredditList() {
     const [data, setData] = useState({ subreddits: [], isLoading: true });
@@ -16,13 +16,13 @@ export default function SubredditList() {
     }, []);
 
     async function fetchData() {
-        const result = await axios('/api/v1/subreddits');
+        const result = await axios("/api/v1/subreddits");
         setData({ subreddits: result.data.subreddits, isLoading: false });
     }
 
     let loadingIndicator = null;
     if (data.isLoading) {
-        loadingIndicator = <LoadingIndicator key='loadingIndicator' />
+        loadingIndicator = <LoadingIndicator key="loadingIndicator" />
     }
 
     return (

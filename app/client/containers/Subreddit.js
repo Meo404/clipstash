@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import axios from "axios";
-import InfiniteScroll from 'react-infinite-scroller';
-import withErrorHandler from 'hoc/withErrorHandler';
+import InfiniteScroll from "react-infinite-scroller";
+import withErrorHandler from "hoc/withErrorHandler";
 import { 
     LoadingIndicator, 
     MaxWidthContainer, 
@@ -20,7 +20,7 @@ function Subreddit(props) {
     const { history, match } = props;
     const [data, setData] = useState(INITIAL_STATE);
     const [subreddit, setSubreddit] = useState(null);
-    const [sortMethod, setSortMethod] = useState('hot');
+    const [sortMethod, setSortMethod] = useState("hot");
     const displayName = match.params.displayName;
 
     useEffect(() => {
@@ -29,12 +29,12 @@ function Subreddit(props) {
 
     useEffect(() => {
         fetchSubredditData();
-        setSortMethod('hot');
+        setSortMethod("hot");
         setData(Object.assign(INITIAL_STATE));
     }, [displayName]);
 
     async function fetchSubredditData() {
-        const result = await axios('/api/v1/subreddits/' + displayName);
+        const result = await axios("/api/v1/subreddits/" + displayName);
         if (result) {
             setSubreddit(result.data.subreddit);
         }
@@ -42,7 +42,7 @@ function Subreddit(props) {
 
     async function fetchSubmissionsData() {
         const params = { sort: sortMethod, page: data.page };
-        const result = await axios('/api/v1/submissions/' + displayName, { params: params });
+        const result = await axios("/api/v1/submissions/" + displayName, { params: params });
         if (result) {
             const newData = {
                 submissions: [...data.submissions, ...result.data.submissions],
@@ -78,7 +78,7 @@ function Subreddit(props) {
                     initialLoad={true}
                     loadMore={fetchSubmissionsData}
                     hasMore={data.hasMore}
-                    loader={<LoadingIndicator key='loadingIndicator' />}
+                    loader={<LoadingIndicator key="loadingIndicator" />}
                 >
                     <SubmissionList
                         submissions={data.submissions}
