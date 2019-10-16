@@ -1,11 +1,12 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React from "react";
 import {
     FormControl,
     FormHelperText,
     MenuItem,
     Select
-} from '@material-ui/core';
+} from "@material-ui/core";
+
+import useStyles from "./Styles";
 
 export default function SortingDropDown(props) {
     const { sortChangeHandler, selectedMethod, sortMethods } = props;
@@ -15,11 +16,11 @@ export default function SortingDropDown(props) {
         <FormControl className={classes.formControl}>
             <Select
                 name="sorting"
-                value={selectedMethod}
                 onChange={sortChangeHandler}
+                value={selectedMethod}   
             >
                 {sortMethods.map((sortMethod) => (
-                    <MenuItem value={sortMethod.value} key={sortMethod.value}>
+                    <MenuItem key={sortMethod.value} value={sortMethod.value}>
                         {sortMethod.text}
                     </MenuItem>
                 ))}
@@ -28,10 +29,3 @@ export default function SortingDropDown(props) {
         </FormControl>
     )
 }
-
-const useStyles = makeStyles(theme => ({
-    formControl: {
-        margin: theme.spacing(1),
-        minWidth: 100,
-    }
-}));

@@ -1,6 +1,6 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import { SubmissionSortMethods } from 'constants/SortMethods';
+import { FullFlexRow, SortDropDown } from "components";
+import { SubmissionSortMethods } from "constants/SortMethods";
 import {
   Avatar,
   Card,
@@ -10,10 +10,8 @@ import {
   Hidden,
   Typography
 } from "@material-ui/core";
-import FullFlexRow from 'components/UI/FullFlexRow';
-import SortingDropDown from 'components/UI/SortingDropDown';
 
-
+import useStyles from "./Styles";
 
 export default function MediaControlCard(props) {
   const { subreddit, sortMethod, sortChangeHandler } = props;
@@ -22,7 +20,7 @@ export default function MediaControlCard(props) {
   return (
     <React.Fragment>
       <Card className={classes.card}>
-        <Avatar alt="Remy Sharp" src={subreddit.icon} className={classes.subredditIcon} />
+        <Avatar alt={subreddit.display_name} src={subreddit.icon} className={classes.subredditIcon} />
         <div className={classes.details}>
           <CardContent className={classes.content}>
             <Typography variant="h6" className={classes.titleText}>
@@ -39,7 +37,7 @@ export default function MediaControlCard(props) {
         </div>
         <Hidden xsDown>
           <CardActions className={classes.sortDropDown} >
-            <SortingDropDown
+            <SortDropDown
               selectedMethod={sortMethod}
               sortMethods={SubmissionSortMethods}
               sortChangeHandler={sortChangeHandler}
@@ -49,7 +47,7 @@ export default function MediaControlCard(props) {
       </Card>
       <Hidden smUp>
         <div className={classes.mobileSortDropDown}>
-          <SortingDropDown
+          <SortDropDown
             selectedMethod={sortMethod}
             sortMethods={SubmissionSortMethods}
             sortChangeHandler={sortChangeHandler}
@@ -58,56 +56,8 @@ export default function MediaControlCard(props) {
       </Hidden>
       <FullFlexRow />
       <Hidden smDown>
-        <Divider className={classes.Divider} />
+        <Divider className={classes.divider} />
       </Hidden>
     </React.Fragment>
   );
 }
-
-const useStyles = makeStyles(theme => ({
-  card: {
-    display: "flex",
-    marginBottom: 0,
-    [theme.breakpoints.up('sm')]: {
-      marginBottom: 20
-    }
-  },
-  details: {
-    display: "flex",
-    flexDirection: "column"
-  },
-  content: {
-    flex: "1 0 auto"
-  },
-  descriptionText: {
-    fontSize: "0.8rem",
-    [theme.breakpoints.up('sm')]: {
-      fontSize: "1.1rem"
-    }
-  },
-  Divider: {
-    marginBottom: 10
-  },
-  mobileSortDropDown: {
-    float: "right",
-  },
-  subredditIcon: {
-    margin: "auto 5px",
-    width: 40,
-    height: 40,
-    [theme.breakpoints.up('sm')]: {
-      margin: "auto 15px",
-      width: 75,
-      height: 75
-    }
-  },
-  sortDropDown: {
-    marginLeft: "auto"
-  },
-  titleText: {
-    fontSize: "1.1rem",
-    [theme.breakpoints.up('sm')]: {
-      fontSize: "1.25rem"
-    }
-  }
-}));

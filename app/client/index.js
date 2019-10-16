@@ -1,8 +1,8 @@
 import React from "react"
-import { HelmetProvider } from 'react-helmet-async';
+import { HelmetProvider } from "react-helmet-async";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import App from './App';
+import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
+import App from "./App";
 
 export default function index() {
     return (
@@ -10,7 +10,7 @@ export default function index() {
             <MuiThemeProvider theme={theme}>
                 <Router>
                     <Switch>
-                        <Route path='/' component={App} />
+                        <Route path="/" component={App} />
                     </Switch>
                 </Router>
             </MuiThemeProvider>
@@ -21,10 +21,10 @@ export default function index() {
 const theme = createMuiTheme({
     palette: {
         primary: {
-            main: '#b71c1c',
+            main: "#b71c1c",
         },
         secondary: {
-            main: '#b71c1c',
+            main: "#b71c1c",
         },
     },
 });

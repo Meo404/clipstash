@@ -2,14 +2,16 @@ import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import axios from "axios";
 import Grid from "@material-ui/core/Grid";
-import LoadingIndicator from 'components/UI/LoadingIndicator';
-import MaxWidthContainer from "components/UI/MaxWidthContainer";
 import RelatedSubmissionsList from "./RelatedSubmissionsList";
-import SubmissionCard from 'components/SubmissionCard';
-import SubmissionCardLinks from 'components/SubmissionCardLinks';
 import withErrorHandler from "hoc/withErrorHandler";
+import { 
+    LoadingIndicator , 
+    MaxWidthContainer, 
+    SubmissionCard, 
+    SubmissionCardLinks 
+} from "components";
 
-const DEFAULT_SORT_METHOD = 'hot';
+const DEFAULT_SORT_METHOD = "hot";
 
 function Submission(props) {
     const { match, location } = props;
@@ -17,7 +19,7 @@ function Submission(props) {
     const slug = match.params.slug;
     const relatedSortMethod = setRelatedSortMethod();
 
-    let title = '';
+    let title = "";
     let content;
 
     useEffect(() => {
@@ -26,7 +28,7 @@ function Submission(props) {
     }, [slug]);
 
     async function fetchData() {
-        const result = await axios('/api/v1/submission/' + slug);
+        const result = await axios("/api/v1/submission/" + slug);
         setData({ submission: result.data.submission, isLoading: false });
     }
 
@@ -39,7 +41,7 @@ function Submission(props) {
     }
 
     function getAfterScore() {
-        return relatedSortMethod === 'hot' ? data.submission.hot_score : data.submission.score
+        return relatedSortMethod === "hot" ? data.submission.hot_score : data.submission.score
     }
 
     if (data.submission != null) {
@@ -47,7 +49,7 @@ function Submission(props) {
     }
 
     if (data.isLoading) {
-        content = <LoadingIndicator key='loadingIndicator' />;
+        content = <LoadingIndicator key="loadingIndicator" />;
     } else {
         content = (
             <Grid>

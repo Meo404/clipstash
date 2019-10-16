@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import NotFound from 'components/NotFound';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import NotFound from "components/NotFound";
 
 const withErrorHandler = (WrappedComponent) => {
     return props => {

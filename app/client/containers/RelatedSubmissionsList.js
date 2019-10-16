@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { withRouter } from 'react-router-dom';
+import { withRouter } from "react-router-dom";
 import axios from "axios";
-import LoadingIndicator from 'components/UI/LoadingIndicator';
 import Typography from "@material-ui/core/Typography";
 import withErrorHandler from "hoc/withErrorHandler";
-import SubmissionList from "../components/SubmissionList";
+import { LoadingIndicator, SubmissionList } from "components";
 
 function RelatedSubmissionsList(props) {
     const {
@@ -23,20 +22,20 @@ function RelatedSubmissionsList(props) {
 
     async function fetchRelatedSubmisisons() {
         const params = { sort: sortMethod, after_score: afterScore, max_results: 8 };
-        const result = await axios('/api/v1/submissions/' + displayName, { params: params });
+        const result = await axios("/api/v1/submissions/" + displayName, { params: params });
         if (result) {
             setData({ submissions: result.data.submissions, isLoading: false });
         }
     }
 
     if (data.isLoading) {
-        content = <LoadingIndicator key='loadingIndicator' />;
+        content = <LoadingIndicator key="loadingIndicator" />;
     } else {
         content = (
-            <SubmissionList 
-                submissions={data.submissions}
+            <SubmissionList
+                history={history}
                 searchState={{ sortMethod: sortMethod }}
-                history={history} 
+                submissions={data.submissions}
             />
         )
     }

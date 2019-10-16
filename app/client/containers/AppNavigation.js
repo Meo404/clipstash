@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Sidebar from 'components/Navigation/Sidebar';
-import TopNavbar from 'components/Navigation/TopNavbar';
-
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import { Sidebar, TopNavbar } from "components";
 
 export default function Navigation() {
     const [popularSubreddits, setPopularSubreddits] = useState([]);
@@ -14,7 +12,7 @@ export default function Navigation() {
     }, []);
 
     async function fetchSubredditData() {
-        const result = await axios('/api/v1/popular_subreddits');
+        const result = await axios("/api/v1/popular_subreddits");
         setPopularSubreddits(result.data.subreddits);
     }
 

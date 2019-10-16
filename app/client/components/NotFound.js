@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 import { Helmet } from "react-helmet-async";
-import MaxWidthContainer from 'components/UI/MaxWidthContainer';
+import { MaxWidthContainer } from "components";
 
 export default function NotFound() {
     return (
