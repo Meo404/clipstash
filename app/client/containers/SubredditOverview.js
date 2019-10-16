@@ -5,8 +5,9 @@ import InfiniteScroll from "react-infinite-scroller";
 import withErrorHandler from "hoc/withErrorHandler";
 import { 
     LoadingIndicator, 
-    MaxWidthContainer, 
-    SubredditList 
+    MaxWidthContainer,
+    SubredditFilters,
+    SubredditList
 } from "components";
 
 const INITIAL_STATE = {
@@ -21,8 +22,8 @@ function SubredditOverview() {
     const [searchTerm, setSearchTerm] = useState("");
 
     useEffect(() => {
-        fetchSubredditData();
-    }, [sortMethod, searchTerm]);
+        setData(INITIAL_STATE);
+    }, [sortMethod]);
 
     async function fetchSubredditData() {
         const params = { sort: sortMethod, page: data.page, q: searchTerm }
@@ -37,12 +38,20 @@ function SubredditOverview() {
         }
     }
 
+    function handleSortChange(event) {
+        setSortMethod(event.target.value)
+    }
+
     return (
         <React.Fragment>
             <Helmet>
                 <title>All Subreddits</title>
             </Helmet>
             <MaxWidthContainer>
+                <SubredditFilters 
+                    sortMethod={sortMethod}
+                    sortChangeHandler={handleSortChange} 
+                />
                 <InfiniteScroll
                     initialLoad={true}
                     loadMore={fetchSubredditData}

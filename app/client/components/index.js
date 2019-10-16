@@ -16,6 +16,7 @@ export {
 export {
     RecommendedSubreddits,
     SubredditCard,
+    SubredditFilters,
     SubredditHeader,
     SubredditList
 } from "./Subreddits";
