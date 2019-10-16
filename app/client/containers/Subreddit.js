@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import axios from "axios";
 import InfiniteScroll from 'react-infinite-scroller';
-import LoadingIndicator from 'components/UI/LoadingIndicator';
-import MaxWidthContainer from "components/UI/MaxWidthContainer";
-import { SubmissionList } from "components/Submissions";
-import SubredditHeader from 'components/SubredditHeader';
 import withErrorHandler from 'hoc/withErrorHandler';
+import { 
+    LoadingIndicator, 
+    MaxWidthContainer, 
+    SubmissionList, 
+    SubredditHeader 
+} from "components";
 
 const INITIAL_STATE = {
     submissions: [],

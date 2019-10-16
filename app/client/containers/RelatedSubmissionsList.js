@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { withRouter } from 'react-router-dom';
 import axios from "axios";
-import LoadingIndicator from 'components/UI/LoadingIndicator';
 import Typography from "@material-ui/core/Typography";
 import withErrorHandler from "hoc/withErrorHandler";
-import { SubmissionList } from "components/Submissions";
+import { LoadingIndicator, SubmissionList } from "components";
 
 function RelatedSubmissionsList(props) {
     const {

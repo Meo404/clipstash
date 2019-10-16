@@ -2,11 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import axios from "axios";
 import Grid from "@material-ui/core/Grid";
-import LoadingIndicator from 'components/UI/LoadingIndicator';
-import MaxWidthContainer from "components/UI/MaxWidthContainer";
 import RelatedSubmissionsList from "./RelatedSubmissionsList";
-import { SubmissionCard, SubmissionCardLinks } from 'components/Submissions';
 import withErrorHandler from "hoc/withErrorHandler";
+import { 
+    LoadingIndicator , 
+    MaxWidthContainer, 
+    SubmissionCard, 
+    SubmissionCardLinks 
+} from 'components';
 
 const DEFAULT_SORT_METHOD = 'hot';
 

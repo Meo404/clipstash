@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import axios from "axios";
 import Grid from "@material-ui/core/Grid";
-import LoadingIndicator from 'components/UI/LoadingIndicator';
-import MaxWidthContainer from "components/UI/MaxWidthContainer";
-import SubredditCard from 'components/SubredditCard';
+import { 
+    LoadingIndicator, 
+    MaxWidthContainer, 
+    SubredditCard 
+} from 'components';
 
 export default function SubredditList() {
     const [data, setData] = useState({ subreddits: [], isLoading: true });

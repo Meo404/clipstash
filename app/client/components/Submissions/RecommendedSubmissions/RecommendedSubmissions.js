@@ -1,7 +1,6 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
-import SectionHeader from "components/UI/SectionHeader";
-import { SubmissionList } from "components/Submissions";
+import { SectionHeader, SubmissionList } from "components";
 
 import useStyles from './Styles';
 

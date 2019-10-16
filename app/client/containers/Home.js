@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { withRouter } from 'react-router-dom';
 import axios from "axios";
 import InfiniteScroll from 'react-infinite-scroller';
-import MaxWidthContainer from 'components/UI/MaxWidthContainer';
-import LoadingIndicator from 'components/UI/LoadingIndicator';
 import withErrorHandler from "hoc/withErrorHandler";
-import { RecommendedSubmissions } from "components/Submissions";
-import RecommendedSubreddits from "components/RecommendedSubreddits";
+import {
+    LoadingIndicator,
+    MaxWidthContainer,
+    RecommendedSubmissions,
+    RecommendedSubreddits
+} from "components";
 
 function Home(props) {
     const { history } = props;

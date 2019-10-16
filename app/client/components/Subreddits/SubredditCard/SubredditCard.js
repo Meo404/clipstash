@@ -1,15 +1,18 @@
 import React from "react";
-import { Link } from 'react-router-dom';
-import { makeStyles } from "@material-ui/core/styles";
-import { setSubredditImage } from 'utils/subredditHelper';
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
-import Grid from "@material-ui/core/Grid";
-import PersonIcon from '@material-ui/icons/Person';
-import Tooltip from '@material-ui/core/Tooltip';
-import Typography from "@material-ui/core/Typography";
+import { Link } from "react-router-dom";
+import {
+    Card,
+    CardActionArea,
+    CardContent,
+    CardMedia,
+    Grid,
+    Tooltip,
+    Typography
+} from "@material-ui/core"
+import { setSubredditImage } from "utils/subredditHelper";
+import PersonIcon from "@material-ui/icons/Person";
+
+import useStyles from "./Styles";
 
 export default function SubredditCard({ subreddit }) {
     const classes = useStyles();
@@ -22,8 +25,8 @@ export default function SubredditCard({ subreddit }) {
         >
             <Card className={classes.card}>
                 <Link
-                    to={"/" + subreddit.display_name_prefixed}
                     className={classes.subredditLink}
+                    to={"/" + subreddit.display_name_prefixed} 
                 >
                     <CardActionArea>
                         <CardMedia
@@ -38,7 +41,7 @@ export default function SubredditCard({ subreddit }) {
                             <Tooltip title="Subscribers" placement="bottom-start">
                                 <div className={classes.subscribers}>
                                     <PersonIcon fontSize="small" className={classes.subscriberIcon} />
-                                    <Typography variant="body2" color="textSecondary" component="p">
+                                    <Typography component="p" color="textSecondary" variant="body2">
                                         {subreddit.subscribers}
                                     </Typography>
                                 </div>
@@ -51,30 +54,3 @@ export default function SubredditCard({ subreddit }) {
     );
 }
 
-const useStyles = makeStyles({
-    card: {
-        maxWidth: 175,
-        margin: "auto"
-    },
-    gridItem: {
-        padding: 10
-    },
-    media: {
-        height: 150,
-        backgroundSize: "contain",
-        backgroundColor: '#E0E0E0',
-        padding: 5
-    },
-    subscribers: {
-        display: 'flex',
-        justifyContent: 'flex-start'
-    },
-    subscriberIcon: {
-        marginLeft: '-5px',
-        marginRight: 3
-    },
-    subredditLink: {
-        textDecoration: 'none',
-        color: 'inherit'
-    }
-});

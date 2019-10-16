@@ -1,6 +1,6 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
-import { SubmissionListCard } from "components/Submissions";
+import { SubmissionListCard } from "components";
 
 export default function SubmissionList(props) {
     const { 
