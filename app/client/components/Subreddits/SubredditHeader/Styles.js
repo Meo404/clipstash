@@ -28,7 +28,8 @@ const useStyles = makeStyles(theme => ({
       float: "right",
     },
     subredditIcon: {
-      margin: "auto 5px",
+      margin: "auto 0",
+      marginLeft: 10,
       width: 40,
       height: 40,
       [theme.breakpoints.up("sm")]: {
