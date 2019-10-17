@@ -3,34 +3,32 @@ import { Helmet } from "react-helmet-async";
 import axios from "axios";
 import InfiniteScroll from "react-infinite-scroller";
 import withErrorHandler from "hoc/withErrorHandler";
-import { 
-    LoadingIndicator, 
-    MaxWidthContainer, 
-    SubmissionList, 
-    SubredditHeader 
+import {
+    LoadingIndicator,
+    MaxWidthContainer,
+    SubmissionList,
+    SubredditHeader
 } from "components";
 
 const INITIAL_STATE = {
     submissions: [],
-    hasMore: true,
-    page: 1
+    sortMethod: "hot",
+    hasMore: false,
+    nextPage: 1,
+    initialLoad: true
 };
 
 function Subreddit(props) {
     const { history, match } = props;
     const [data, setData] = useState(INITIAL_STATE);
     const [subreddit, setSubreddit] = useState(null);
-    const [sortMethod, setSortMethod] = useState("hot");
     const displayName = match.params.displayName;
+    let header, initialLoadingIndicator = null;
 
     useEffect(() => {
         setData(INITIAL_STATE);
-    }, [sortMethod]);
-
-    useEffect(() => {
         fetchSubredditData();
-        setSortMethod("hot");
-        setData(Object.assign(INITIAL_STATE));
+        fetchSubmissionData(null, "hot");
     }, [displayName]);
 
     async function fetchSubredditData() {
@@ -40,31 +38,45 @@ function Subreddit(props) {
         }
     }
 
-    async function fetchSubmissionsData() {
-        const params = { sort: sortMethod, page: data.page };
+    async function fetchSubmissionData(infiniteScrollPage = null, sortMethod = null) {
+        // Prevents unneccessary first load of the infinite-scroller
+        if (infiniteScrollPage && !data.hasMore) { return ; }
+
+        const sort = sortMethod ? sortMethod : data.sortMethod
+        const page = sortMethod ? 1 : data.nextPage
+        const params = { sort: sort, page: page }
         const result = await axios("/api/v1/submissions/" + displayName, { params: params });
+
         if (result) {
-            const newData = {
-                submissions: [...data.submissions, ...result.data.submissions],
-                page: data.page + 1,
-                hasMore: result.data.meta.next_page != null
-            };
-            setData(newData);
+            const submissions = sortMethod ? [] : [...data.submissions]
+            const updatedData = {
+                submissions: [...submissions, ...result.data.submissions],
+                sortMethod: sort,
+                nextPage: result.data.meta.next_page,
+                hasMore: result.data.meta.next_page != null,
+                initialLoad: false
+            }
+
+            setData(updatedData);
         }
     }
 
     function handleSortChange(event) {
-        setSortMethod(event.target.value)
+        setData(INITIAL_STATE);
+        fetchSubmissionData(null, event.target.value);
     }
 
-    let header = null;
     if (subreddit) {
         header = (
             <SubredditHeader
-             subreddit={subreddit}
-             sortMethod={sortMethod}
-             sortChangeHandler={handleSortChange} />
+                subreddit={subreddit}
+                sortMethod={data.sortMethod}
+                sortChangeHandler={handleSortChange} />
         )
+    }
+
+    if (data.initialLoad) { 
+        initialLoadingIndicator = <LoadingIndicator key="loadingIndicator" />; 
     }
 
     return (
@@ -75,16 +87,17 @@ function Subreddit(props) {
             <MaxWidthContainer>
                 {header}
                 <InfiniteScroll
-                    initialLoad={true}
-                    loadMore={fetchSubmissionsData}
+                    initialLoad={false}
+                    loadMore={fetchSubmissionData}
                     hasMore={data.hasMore}
                     loader={<LoadingIndicator key="loadingIndicator" />}
                 >
                     <SubmissionList
                         submissions={data.submissions}
-                        searchState={{ sortMethod: sortMethod }}
-                        history={history} 
+                        searchState={{ sortMethod: data.sortMethod }}
+                        history={history}
                     />
+                    {initialLoadingIndicator}
                 </InfiniteScroll>
             </MaxWidthContainer>
         </React.Fragment>
