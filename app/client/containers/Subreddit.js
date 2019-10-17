@@ -23,7 +23,6 @@ function Subreddit(props) {
     const [data, setData] = useState(INITIAL_STATE);
     const [subreddit, setSubreddit] = useState(null);
     const displayName = match.params.displayName;
-    let header, initialLoadingIndicator = null;
 
     useEffect(() => {
         setData(INITIAL_STATE);
@@ -40,7 +39,7 @@ function Subreddit(props) {
 
     async function fetchSubmissionData(infiniteScrollPage = null, sortMethod = null) {
         // Prevents unneccessary first load of the infinite-scroller
-        if (infiniteScrollPage && !data.hasMore) { return ; }
+        if (infiniteScrollPage && !data.hasMore) { return; }
 
         const sort = sortMethod ? sortMethod : data.sortMethod
         const page = sortMethod ? 1 : data.nextPage
@@ -66,38 +65,31 @@ function Subreddit(props) {
         fetchSubmissionData(null, event.target.value);
     }
 
-    if (subreddit) {
-        header = (
-            <SubredditHeader
-                subreddit={subreddit}
-                sortMethod={data.sortMethod}
-                sortChangeHandler={handleSortChange} />
-        )
-    }
-
-    if (data.initialLoad) { 
-        initialLoadingIndicator = <LoadingIndicator key="loadingIndicator" />; 
-    }
-
     return (
         <React.Fragment>
             <Helmet>
                 <title>{displayName}</title>
             </Helmet>
             <MaxWidthContainer>
-                {header}
+                {subreddit ? (
+                    <SubredditHeader
+                        subreddit={subreddit}
+                        sortMethod={data.sortMethod}
+                        sortChangeHandler={handleSortChange} 
+                    />
+                ) : null}
                 <InfiniteScroll
                     initialLoad={false}
                     loadMore={fetchSubmissionData}
                     hasMore={data.hasMore}
-                    loader={<LoadingIndicator key="loadingIndicator" />}
+                    loader={<LoadingIndicator key="loadingIndicator" show={true} />}
                 >
                     <SubmissionList
                         submissions={data.submissions}
                         searchState={{ sortMethod: data.sortMethod }}
                         history={history}
                     />
-                    {initialLoadingIndicator}
+                    <LoadingIndicator key="loadingIndicator" show={data.initialLoad} />;
                 </InfiniteScroll>
             </MaxWidthContainer>
         </React.Fragment>

@@ -50,39 +50,32 @@ function Home(props) {
         setShowMore(true);
     }
 
-    let homeContent = (
-        <MaxWidthContainer>
-            <RecommendedSubmissions
-                history={history}
-                showMore={showMore}
-                showMoreHandler={showMoreHandler}
-                submissions={displayedSubmissions()}
-            />
-            <InfiniteScroll
-                hasMore={subreddits.hasMore}
-                initialLoad={true}
-                loader={<LoadingIndicator key="loadingIndicator" />}
-                loadMore={fetchRecommendedSubreddits}
-            >
-                <RecommendedSubreddits subreddits={subreddits.subreddits} history={history} />
-            </InfiniteScroll>
-        </MaxWidthContainer>
-    )
-
-    if (submissions.isLoading) {
-        homeContent = (
-            <MaxWidthContainer>
-                <LoadingIndicator />
-            </MaxWidthContainer>
-        )
-    }
-
     return (
         <React.Fragment>
             <Helmet>
                 <title>ProjectFree - Gaming Videos from Reddit</title>
             </Helmet>
-            {homeContent}
+            <MaxWidthContainer>
+                <LoadingIndicator show={submissions.isLoading} />
+                {submissions.isLoading ? null : (
+                    <React.Fragment>
+                        <RecommendedSubmissions
+                            history={history}
+                            showMore={showMore}
+                            showMoreHandler={showMoreHandler}
+                            submissions={displayedSubmissions()}
+                        />
+                        <InfiniteScroll
+                            hasMore={subreddits.hasMore}
+                            initialLoad={true}
+                            loader={<LoadingIndicator key="loadingIndicator" />}
+                            loadMore={fetchRecommendedSubreddits}
+                        >
+                            <RecommendedSubreddits subreddits={subreddits.subreddits} history={history} />
+                        </InfiniteScroll>
+                    </React.Fragment>
+                )}
+            </MaxWidthContainer>
         </React.Fragment>
     );
 }
