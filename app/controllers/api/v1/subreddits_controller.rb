@@ -58,11 +58,11 @@ class Api::V1::SubredditsController < Api::V1::ApiController
       sort_method = params[:sort]
 
       if sort_method == "name"
-        Subreddit.alphabetically if search_query.blank?
-        Subreddit.where("display_name LIKE ?", "%#{search_query}%").alphabetically
+        return Subreddit.alphabetically if search_query.blank?
+        Subreddit.where("LOWER(display_name) LIKE ?", "#{search_query.downcase}%").alphabetically
       else
-        Subreddit.popular if search_query.blank?
-        Subreddit.where("display_name LIKE ?", "%#{search_query}%").popular
+        return Subreddit.popular if search_query.blank?
+        Subreddit.where("LOWER(display_name) LIKE ?", "#{search_query.downcase}%").popular
       end
     end
 end
