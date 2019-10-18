@@ -37,12 +37,24 @@ function Subreddit(props) {
         }
     }
 
+    /**
+     * This function is fetching submissions for the view
+     * 
+     * It will use both params to detect which operation it should run:
+     * If infiniteScrollPage is passed we assume that we need to fetch more data if data.hasMore returns true.
+     * If sortMethod is passed we assume that we need to fetch a new set of submissions.
+     * 
+     *  @param infiniteScrollPage - passed page by infinite-scroller
+     *  @param sortMethod - passed if we want to change sorting
+     */ 
     async function fetchSubmissionData(infiniteScrollPage = null, sortMethod = null) {
         // Prevents unneccessary first load of the infinite-scroller
         if (infiniteScrollPage && !data.hasMore) { return; }
 
+        // Setting request params
         const sort = sortMethod ? sortMethod : data.sortMethod
         const page = sortMethod ? 1 : data.nextPage
+        // Request data and update state accordingly
         const params = { sort: sort, page: page }
         const result = await axios("/api/v1/submissions/" + displayName, { params: params });
 
@@ -89,7 +101,7 @@ function Subreddit(props) {
                         searchState={{ sortMethod: data.sortMethod }}
                         history={history}
                     />
-                    <LoadingIndicator key="loadingIndicator" show={data.initialLoad} />;
+                    <LoadingIndicator key="loadingIndicator" show={data.initialLoad} />
                 </InfiniteScroll>
             </MaxWidthContainer>
         </React.Fragment>

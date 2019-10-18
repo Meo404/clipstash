@@ -3,8 +3,8 @@ import { Helmet } from "react-helmet-async";
 import axios from "axios";
 import InfiniteScroll from "react-infinite-scroller";
 import withErrorHandler from "hoc/withErrorHandler";
-import { 
-    LoadingIndicator, 
+import {
+    LoadingIndicator,
     MaxWidthContainer,
     SubredditFilters,
     SubredditList
@@ -12,34 +12,60 @@ import {
 
 const INITIAL_STATE = {
     subreddits: [],
-    hasMore: true,
-    page: 1
+    searchTerm: "",
+    sortMethod: "popular",
+    hasMore: false,
+    nextPage: 1,
+    initialLoad: true
 };
 
 function SubredditOverview() {
     const [data, setData] = useState(INITIAL_STATE);
-    const [sortMethod, setSortMethod] = useState("popular");
-    const [searchTerm, setSearchTerm] = useState("");
 
     useEffect(() => {
         setData(INITIAL_STATE);
-    }, [sortMethod]);
+        fetchSubredditData(null, null, "popular");
+    }, []);
+    
+    /**
+     * This function is fetching subreddits for the view
+     * 
+     * It will use the function params to detect which operation it should run:
+     * If infiniteScrollPage is passed we assume that we need to fetch more data if data.hasMore returns true.
+     * If searchTerm or sortMethod or both are passed we assume that we need to fetch a new set of submissions.
+     * 
+     *  @param infiniteScrollPage - passed page by infinite-scroller
+     *  @param sortMethod - passed if we want to change sorting
+     */ 
+    async function fetchSubredditData(infiniteScrollPage = null, searchTerm = null, sortMethod = null) {
+        // Prevents unneccessary first load of the infinite-scroller
+        if (infiniteScrollPage && !data.hasMore) { return; }
 
-    async function fetchSubredditData() {
-        const params = { sort: sortMethod, page: data.page, q: searchTerm }
-        const result = await axios("/api/v1/subreddits", { params: params });
+        // Setting request params
+        const searchParam = searchTerm ? searchTerm : data.searchTerm
+        const sortParam = sortMethod ? sortMethod : data.sortMethod
+        const pageParam = searchTerm || sortMethod ? 1 : data.nextPage
+        const params = { sort: sortParam, q: searchParam, page: pageParam  }
+        // Request data and update state accordingly
+        const result = await axios("/api/v1/subreddits", { params: params })
         if (result) {
-            const newData = {
-                subreddits: [...data.subreddits, ...result.data.subreddits],
-                page: data.page + 1,
-                hasMore: result.data.meta.next_page != null
-            };
-            setData(newData);
+            const subreddits = searchTerm || sortMethod ? [] : [...data.subreddits]
+            const updatedData = {
+                subreddits: [...subreddits, ...result.data.subreddits],
+                searchTerm: searchParam,
+                sortMethod: sortParam,
+                nextPage: result.data.meta.next_page,
+                hasMore: result.data.meta.next_page != null,
+                initialLoad: false
+            }
+
+            setData(updatedData);
         }
     }
 
     function handleSortChange(event) {
-        setSortMethod(event.target.value)
+        setData(INITIAL_STATE);
+        fetchSubredditData(null, null, event.target.value);
     }
 
     return (
@@ -48,17 +74,18 @@ function SubredditOverview() {
                 <title>All Subreddits</title>
             </Helmet>
             <MaxWidthContainer>
-                <SubredditFilters 
-                    sortMethod={sortMethod}
-                    sortChangeHandler={handleSortChange} 
+                <SubredditFilters
+                    sortMethod={data.sortMethod}
+                    sortChangeHandler={handleSortChange}
                 />
                 <InfiniteScroll
-                    initialLoad={true}
+                    initialLoad={false}
                     loadMore={fetchSubredditData}
                     hasMore={data.hasMore}
-                    loader={<LoadingIndicator key="loadingIndicator" />}
+                    loader={<LoadingIndicator key="loadingIndicator" show={true} />}
                 >
                     <SubredditList subreddits={data.subreddits} />
+                    <LoadingIndicator key="loadingIndicator" show={data.initialLoad} />
                 </InfiniteScroll>
             </MaxWidthContainer>
         </React.Fragment>
