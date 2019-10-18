@@ -34,8 +34,9 @@ function SubredditOverview() {
      * If infiniteScrollPage is passed we assume that we need to fetch more data if data.hasMore returns true.
      * If searchTerm or sortMethod or both are passed we assume that we need to fetch a new set of submissions.
      * 
-     *  @param infiniteScrollPage - passed page by infinite-scroller
-     *  @param sortMethod - passed if we want to change sorting
+     *  @param infiniteScrollPage   - passed page by infinite-scroller
+     *  @param searchTerm           - passed if the user changed his search input
+     *  @param sortMethod           - passed if we want to change sorting
      */ 
     async function fetchSubredditData(infiniteScrollPage = null, searchTerm = null, sortMethod = null) {
         // Prevents unneccessary first load of the infinite-scroller
