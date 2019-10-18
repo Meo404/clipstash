@@ -1,18 +1,22 @@
 import React from "react";
 import { SubredditSortMethods } from "constants/SortMethods";
-import { 
+import {
     Card,
     CardActions,
     CardContent,
     Divider,
+    FormControl,
     Hidden,
+    InputAdornment,
+    TextField,
     Typography
 } from "@material-ui/core";
+import SearchIcon from "@material-ui/icons/Search";
 import { SortDropDown } from "components";
 
 import useStyles from "./Styles";
 
-export default function SubredditFilters(props) {
+export default function SubredditOverviewHeader(props) {
     const { sortChangeHandler, sortMethod } = props;
     const classes = useStyles();
 
@@ -34,6 +38,18 @@ export default function SubredditFilters(props) {
                     </CardContent>
                 </div>
                 <CardActions className={classes.sortDropDown} >
+                    <FormControl className={classes.test}>
+                        <TextField
+                            id="standard-search"
+                            type="search"
+                            className={classes.textField}
+                            margin="normal"
+                            helperText="Search"
+                            InputProps={{
+                                startAdornment: <InputAdornment position="start"><SearchIcon style={{ color: "rgba(0, 0, 0, 0.54)"}}/></InputAdornment>,
+                              }}
+                        />
+                    </FormControl>
                     <SortDropDown
                         selectedMethod={sortMethod}
                         sortMethods={SubredditSortMethods}

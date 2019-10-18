@@ -46,6 +46,13 @@ const useStyles = makeStyles(theme => ({
       [theme.breakpoints.up("sm")]: {
         fontSize: "1.25rem"
       }
+    },
+    test: {
+      margin: theme.spacing(1),
+      minWidth: 100,
+    },
+    textField: {
+      margin: 0
     }
   }));
 

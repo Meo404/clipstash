@@ -6,8 +6,8 @@ import withErrorHandler from "hoc/withErrorHandler";
 import {
     LoadingIndicator,
     MaxWidthContainer,
-    SubredditFilters,
-    SubredditList
+    SubredditList,
+    SubredditOverviewHeader
 } from "components";
 
 const INITIAL_STATE = {
@@ -75,7 +75,7 @@ function SubredditOverview() {
                 <title>All Subreddits</title>
             </Helmet>
             <MaxWidthContainer>
-                <SubredditFilters
+                <SubredditOverviewHeader
                     sortMethod={data.sortMethod}
                     sortChangeHandler={handleSortChange}
                 />
