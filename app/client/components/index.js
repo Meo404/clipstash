@@ -25,6 +25,7 @@ export {
     FullFlexRow,
     LoadingIndicator,
     MaxWidthContainer,
+    SearchField,
     SectionHeader,
     SortDropDown
 } from "./UI";

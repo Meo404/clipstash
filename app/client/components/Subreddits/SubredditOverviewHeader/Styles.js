@@ -24,21 +24,13 @@ const useStyles = makeStyles(theme => ({
     divider: {
       marginBottom: 10
     },
-    mobileSortDropDown: {
+    mobileSubredditFilter: {
       float: "right",
-    },
-    subredditIcon: {
-      margin: "auto 0",
-      marginLeft: 10,
-      width: 40,
-      height: 40,
-      [theme.breakpoints.up("sm")]: {
-        margin: "auto 15px",
-        width: 75,
-        height: 75
+      "&*": {
+        maxWidth: 100,
       }
     },
-    sortDropDown: {
+    subredditFilter: {
       marginLeft: "auto"
     },
     titleText: {
@@ -46,13 +38,6 @@ const useStyles = makeStyles(theme => ({
       [theme.breakpoints.up("sm")]: {
         fontSize: "1.25rem"
       }
-    },
-    test: {
-      margin: theme.spacing(1),
-      minWidth: 100,
-    },
-    textField: {
-      margin: 0
     }
   }));
 

@@ -5,14 +5,10 @@ import {
     CardActions,
     CardContent,
     Divider,
-    FormControl,
     Hidden,
-    InputAdornment,
-    TextField,
     Typography
 } from "@material-ui/core";
-import SearchIcon from "@material-ui/icons/Search";
-import { SortDropDown } from "components";
+import { SearchField, SortDropDown } from "components";
 
 import useStyles from "./Styles";
 
@@ -37,26 +33,27 @@ export default function SubredditOverviewHeader(props) {
                         </Typography>
                     </CardContent>
                 </div>
-                <CardActions className={classes.sortDropDown} >
-                    <FormControl className={classes.test}>
-                        <TextField
-                            id="standard-search"
-                            type="search"
-                            className={classes.textField}
-                            margin="normal"
-                            helperText="Search"
-                            InputProps={{
-                                startAdornment: <InputAdornment position="start"><SearchIcon style={{ color: "rgba(0, 0, 0, 0.54)"}}/></InputAdornment>,
-                              }}
+                <Hidden xsDown>
+                    <CardActions className={classes.subredditFilter} >
+                        <SearchField />
+                        <SortDropDown
+                            selectedMethod={sortMethod}
+                            sortMethods={SubredditSortMethods}
+                            sortChangeHandler={sortChangeHandler}
                         />
-                    </FormControl>
+                    </CardActions>
+                </Hidden>
+            </Card>
+            <Hidden smUp>
+                <div className={classes.mobileSubredditFilter}>
+                    <SearchField />
                     <SortDropDown
                         selectedMethod={sortMethod}
                         sortMethods={SubredditSortMethods}
                         sortChangeHandler={sortChangeHandler}
                     />
-                </CardActions>
-            </Card >
+                </div>
+            </Hidden>
             <Hidden smDown>
                 <Divider className={classes.divider} />
             </Hidden>
