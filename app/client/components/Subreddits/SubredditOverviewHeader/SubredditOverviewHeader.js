@@ -13,7 +13,7 @@ import { SearchField, SortDropDown } from "components";
 import useStyles from "./Styles";
 
 export default function SubredditOverviewHeader(props) {
-    const { sortChangeHandler, sortMethod } = props;
+    const { searchChangeHandler, sortChangeHandler, sortMethod } = props;
     const classes = useStyles();
 
     return (
@@ -33,20 +33,19 @@ export default function SubredditOverviewHeader(props) {
                         </Typography>
                     </CardContent>
                 </div>
-                <Hidden xsDown>
-                    <CardActions className={classes.subredditFilter} >
-                        <SearchField />
+                <CardActions className={classes.subredditFilter} >
+                    <SearchField searchChangeHandler={searchChangeHandler} />
+                    <Hidden xsDown>
                         <SortDropDown
                             selectedMethod={sortMethod}
                             sortMethods={SubredditSortMethods}
                             sortChangeHandler={sortChangeHandler}
                         />
-                    </CardActions>
-                </Hidden>
+                    </Hidden>
+                </CardActions>
             </Card>
             <Hidden smUp>
                 <div className={classes.mobileSubredditFilter}>
-                    <SearchField />
                     <SortDropDown
                         selectedMethod={sortMethod}
                         sortMethods={SubredditSortMethods}

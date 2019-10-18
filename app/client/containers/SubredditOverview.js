@@ -69,6 +69,10 @@ function SubredditOverview() {
         fetchSubredditData(null, null, event.target.value);
     }
 
+    function handleSearchChange(searchTerm) {
+        console.log(searchTerm);
+    }
+
     return (
         <React.Fragment>
             <Helmet>
@@ -76,6 +80,7 @@ function SubredditOverview() {
             </Helmet>
             <MaxWidthContainer>
                 <SubredditOverviewHeader
+                    searchChangeHandler={handleSearchChange}
                     sortMethod={data.sortMethod}
                     sortChangeHandler={handleSortChange}
                 />
