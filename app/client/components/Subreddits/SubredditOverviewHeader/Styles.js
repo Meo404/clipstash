@@ -25,10 +25,7 @@ const useStyles = makeStyles(theme => ({
       marginBottom: 10
     },
     mobileSubredditFilter: {
-      float: "right",
-      "&*": {
-        maxWidth: 100,
-      }
+      float: "right"
     },
     subredditFilter: {
       marginLeft: "auto"
