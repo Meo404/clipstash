@@ -26,7 +26,7 @@ function SubredditOverview() {
         setData(INITIAL_STATE);
         fetchSubredditData(null, null, "popular");
     }, []);
-    
+
     /**
      * This function is fetching subreddits for the view
      * 
@@ -37,16 +37,17 @@ function SubredditOverview() {
      *  @param infiniteScrollPage   - passed page by infinite-scroller
      *  @param searchTerm           - passed if the user changed his search input
      *  @param sortMethod           - passed if we want to change sorting
-     */ 
+     */
     async function fetchSubredditData(infiniteScrollPage = null, searchTerm = null, sortMethod = null) {
         // Prevents unneccessary first load of the infinite-scroller
         if (infiniteScrollPage && !data.hasMore) { return; }
 
         // Setting request params
-        const searchParam = searchTerm ? searchTerm : data.searchTerm
+        const searchParam = searchTerm != null ? searchTerm : data.searchTerm
         const sortParam = sortMethod ? sortMethod : data.sortMethod
         const pageParam = searchTerm || sortMethod ? 1 : data.nextPage
-        const params = { sort: sortParam, q: searchParam, page: pageParam  }
+        const params = { sort: sortParam, q: searchParam, page: pageParam }
+
         // Request data and update state accordingly
         const result = await axios("/api/v1/subreddits", { params: params })
         if (result) {
@@ -70,7 +71,10 @@ function SubredditOverview() {
     }
 
     function handleSearchChange(searchTerm) {
-        console.log(searchTerm);
+        // Setting the sortMethod to "popular" in case search input gets removed
+        const sortMethod = searchTerm != "" ? "name" : "popular"
+        setData(INITIAL_STATE);
+        fetchSubredditData(null, searchTerm, sortMethod);
     }
 
     return (
