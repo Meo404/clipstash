@@ -1,6 +1,7 @@
 import React from "react";
 import { FullFlexRow, SortDropDown } from "components";
 import { SubmissionSortMethods } from "constants/SortMethods";
+import { setSubredditImage } from "utils/subredditHelper";
 import {
   Avatar,
   Card,
@@ -20,7 +21,11 @@ export default function MediaControlCard(props) {
   return (
     <React.Fragment>
       <Card className={classes.card}>
-        <Avatar alt={subreddit.display_name} src={subreddit.icon} className={classes.subredditIcon} />
+        <Avatar 
+          alt={subreddit.display_name} 
+          src={setSubredditImage(subreddit.icon)} 
+          className={classes.subredditIcon} 
+        />
         <div className={classes.details}>
           <CardContent className={classes.content}>
             <Typography variant="h6" className={classes.titleText}>

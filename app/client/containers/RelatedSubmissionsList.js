@@ -14,8 +14,6 @@ function RelatedSubmissionsList(props) {
     } = props;
     const [data, setData] = useState({ submissions: [], isLoading: true });
 
-    let content;
-
     useEffect(() => {
         fetchRelatedSubmisisons();
     }, []);
@@ -28,27 +26,21 @@ function RelatedSubmissionsList(props) {
         }
     }
 
-    if (data.isLoading) {
-        content = <LoadingIndicator key="loadingIndicator" />;
-    } else {
-        content = (
-            <SubmissionList
-                history={history}
-                searchState={{ sortMethod: sortMethod }}
-                submissions={data.submissions}
-            />
-        )
-    }
-
     return (
         <React.Fragment>
-            <Typography
-                variant="h6"
-                style={{ padding: 10 }}
-            >
-                More Videos
-                </Typography>
-            {content}
+            <LoadingIndicator key="loadingIndicator" show={data.isLoading} />
+            {data.isLoading ? null : (
+                <React.Fragment>
+                    <Typography variant="h6" style={{ padding: 10 }}>
+                        More Videos
+                    </Typography>
+                    <SubmissionList
+                        history={history}
+                        searchState={{ sortMethod: sortMethod }}
+                        submissions={data.submissions}
+                    />
+                </React.Fragment>
+            )}
         </React.Fragment>
     );
 }

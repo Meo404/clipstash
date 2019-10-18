@@ -38,7 +38,7 @@ function Trending(props) {
                     initialLoad={true}
                     loadMore={fetchSubmissionsData}
                     hasMore={data.hasMore}
-                    loader={<LoadingIndicator key="loadingIndicator" />}
+                    loader={<LoadingIndicator key="loadingIndicator" show={true}/>}
                 >
                     <SubmissionList
                         submissions={data.submissions}

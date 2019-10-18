@@ -6,14 +6,16 @@ class Api::V1::SubredditsController < Api::V1::ApiController
   before_action :set_max_results, only: [:index, :recommended, :popular]
 
   def index
-    subreddits = sorted_subreddits.page(params[:page]).per(params[:max_results])
+    subreddits = filtered_subreddits
+                     .page(params[:page])
+                     .per(params[:max_results])
 
     render json: subreddits, fields: [:id,
-                                       :display_name,
-                                       :display_name_prefixed,
-                                       :icon,
-                                       :icon_size,
-                                       :subscribers],
+                                      :display_name,
+                                      :display_name_prefixed,
+                                      :icon,
+                                      :icon_size,
+                                      :subscribers],
            meta: pagination_dict(subreddits)
   end
 
@@ -48,8 +50,19 @@ class Api::V1::SubredditsController < Api::V1::ApiController
   end
 
   private
-    # Sets the subset of subreddits for the index method based on the sorting param
-    def sorted_subreddits
-      params[:sort] == "name" ? Subreddit.alphabetically : Subreddit.popular
+    # Returns a subset of subreddits based on
+    #   params[:q]    - Search query
+    #   params[:sort] - Sort order
+    def filtered_subreddits
+      search_query = params[:q]
+      sort_method = params[:sort]
+
+      if sort_method == "name"
+        return Subreddit.alphabetically if search_query.blank?
+        Subreddit.where("LOWER(display_name) LIKE ?", "#{search_query.downcase}%").alphabetically
+      else
+        return Subreddit.popular if search_query.blank?
+        Subreddit.where("LOWER(display_name) LIKE ?", "#{search_query.downcase}%").popular
+      end
     end
 end

@@ -4,11 +4,11 @@ import axios from "axios";
 import Grid from "@material-ui/core/Grid";
 import RelatedSubmissionsList from "./RelatedSubmissionsList";
 import withErrorHandler from "hoc/withErrorHandler";
-import { 
-    LoadingIndicator , 
-    MaxWidthContainer, 
-    SubmissionCard, 
-    SubmissionCardLinks 
+import {
+    LoadingIndicator,
+    MaxWidthContainer,
+    SubmissionCard,
+    SubmissionCardLinks
 } from "components";
 
 const DEFAULT_SORT_METHOD = "hot";
@@ -18,9 +18,6 @@ function Submission(props) {
     const [data, setData] = useState({ submission: null, isLoading: true });
     const slug = match.params.slug;
     const relatedSortMethod = setRelatedSortMethod();
-
-    let title = "";
-    let content;
 
     useEffect(() => {
         setData({ submission: null, isLoading: true })
@@ -36,7 +33,7 @@ function Submission(props) {
         if (location.state && location.state.sortMethod) {
             return location.state.sortMethod;
         }
-       
+
         return DEFAULT_SORT_METHOD;
     }
 
@@ -44,33 +41,24 @@ function Submission(props) {
         return relatedSortMethod === "hot" ? data.submission.hot_score : data.submission.score
     }
 
-    if (data.submission != null) {
-        title = data.submission.title
-    }
-
-    if (data.isLoading) {
-        content = <LoadingIndicator key="loadingIndicator" />;
-    } else {
-        content = (
-            <Grid>
-                <SubmissionCard submission={data.submission} />
-                <SubmissionCardLinks submission={data.submission} />
-                <RelatedSubmissionsList 
-                    displayName={data.submission.subreddit.display_name}
-                    sortMethod={relatedSortMethod}
-                    afterScore={getAfterScore()} 
-            />
-            </Grid>
-        )
-    }
-
     return (
         <React.Fragment>
             <Helmet>
-                <title>{title}</title>
+                <title>{data.submission ? data.submission.title : ""}</title>
             </Helmet>
             <MaxWidthContainer>
-                {content}
+                <LoadingIndicator key="loadingIndicator" show={data.isLoading} />
+                {data.isLoading ? null : (
+                    <Grid>
+                        <SubmissionCard submission={data.submission} />
+                        <SubmissionCardLinks submission={data.submission} />
+                        <RelatedSubmissionsList
+                            displayName={data.submission.subreddit.display_name}
+                            sortMethod={relatedSortMethod}
+                            afterScore={getAfterScore()}
+                        />
+                    </Grid>
+                )}
             </MaxWidthContainer>
         </React.Fragment>
     );

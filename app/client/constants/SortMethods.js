@@ -7,4 +7,9 @@ const SubmissionSortMethods = [
     { value: "top_all", text: "Top - All" }
 ];
 
-export { SubmissionSortMethods };
+const SubredditSortMethods = [
+    { value: "popular", text: "Popular" },
+    { value: "name", text: "Name A-Z" }
+]
+
+export { SubmissionSortMethods, SubredditSortMethods };

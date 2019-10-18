@@ -9,7 +9,7 @@ import {
 import useStyles from "./Styles";
 
 export default function SortingDropDown(props) {
-    const { sortChangeHandler, selectedMethod, sortMethods } = props;
+    const { selectedMethod, sortChangeHandler, sortMethods } = props;
     const classes = useStyles();
 
     return (

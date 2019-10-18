@@ -16,13 +16,16 @@ export {
 export {
     RecommendedSubreddits,
     SubredditCard,
-    SubredditHeader
+    SubredditHeader,
+    SubredditList,
+    SubredditOverviewHeader
 } from "./Subreddits";
 
 export {
     FullFlexRow,
     LoadingIndicator,
     MaxWidthContainer,
+    SearchField,
     SectionHeader,
     SortDropDown
 } from "./UI";

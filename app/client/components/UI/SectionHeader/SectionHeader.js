@@ -6,8 +6,8 @@ import useStyles from "./Styles";
 
 export default function SectionHeader({ headerIcon, headerText }) {
     const classes = useStyles();
-    
     let icon = null;
+    
     if (headerIcon) {
         icon = (
             <Avatar 

@@ -3,34 +3,31 @@ import { Helmet } from "react-helmet-async";
 import axios from "axios";
 import InfiniteScroll from "react-infinite-scroller";
 import withErrorHandler from "hoc/withErrorHandler";
-import { 
-    LoadingIndicator, 
-    MaxWidthContainer, 
-    SubmissionList, 
-    SubredditHeader 
+import {
+    LoadingIndicator,
+    MaxWidthContainer,
+    SubmissionList,
+    SubredditHeader
 } from "components";
 
 const INITIAL_STATE = {
     submissions: [],
-    hasMore: true,
-    page: 1
+    sortMethod: "hot",
+    hasMore: false,
+    nextPage: 1,
+    initialLoad: true
 };
 
 function Subreddit(props) {
     const { history, match } = props;
     const [data, setData] = useState(INITIAL_STATE);
     const [subreddit, setSubreddit] = useState(null);
-    const [sortMethod, setSortMethod] = useState("hot");
     const displayName = match.params.displayName;
 
     useEffect(() => {
         setData(INITIAL_STATE);
-    }, [sortMethod]);
-
-    useEffect(() => {
         fetchSubredditData();
-        setSortMethod("hot");
-        setData(Object.assign(INITIAL_STATE));
+        fetchSubmissionData(null, "hot");
     }, [displayName]);
 
     async function fetchSubredditData() {
@@ -40,31 +37,44 @@ function Subreddit(props) {
         }
     }
 
-    async function fetchSubmissionsData() {
-        const params = { sort: sortMethod, page: data.page };
+    /**
+     * This function is fetching submissions for the view
+     * 
+     * It will use both params to detect which operation it should run:
+     * If infiniteScrollPage is passed we assume that we need to fetch more data if data.hasMore returns true.
+     * If sortMethod is passed we assume that we need to fetch a new set of submissions.
+     * 
+     *  @param infiniteScrollPage   - passed page by infinite-scroller
+     *  @param sortMethod           - passed if we want to change sorting
+     */ 
+    async function fetchSubmissionData(infiniteScrollPage = null, sortMethod = null) {
+        // Prevents unneccessary first load of the infinite-scroller
+        if (infiniteScrollPage && !data.hasMore) { return; }
+
+        // Setting request params
+        const sortParam = sortMethod ? sortMethod : data.sortMethod
+        const pageParam = sortMethod ? 1 : data.nextPage
+        // Request data and update state accordingly
+        const params = { sort: sortParam, page: pageParam }
         const result = await axios("/api/v1/submissions/" + displayName, { params: params });
+
         if (result) {
-            const newData = {
-                submissions: [...data.submissions, ...result.data.submissions],
-                page: data.page + 1,
-                hasMore: result.data.meta.next_page != null
-            };
-            setData(newData);
+            const submissions = sortMethod ? [] : [...data.submissions]
+            const updatedData = {
+                submissions: [...submissions, ...result.data.submissions],
+                sortMethod: sortParam,
+                nextPage: result.data.meta.next_page,
+                hasMore: result.data.meta.next_page != null,
+                initialLoad: false
+            }
+
+            setData(updatedData);
         }
     }
 
     function handleSortChange(event) {
-        setSortMethod(event.target.value)
-    }
-
-    let header = null;
-    if (subreddit) {
-        header = (
-            <SubredditHeader
-             subreddit={subreddit}
-             sortMethod={sortMethod}
-             sortChangeHandler={handleSortChange} />
-        )
+        setData(INITIAL_STATE);
+        fetchSubmissionData(null, event.target.value);
     }
 
     return (
@@ -73,18 +83,25 @@ function Subreddit(props) {
                 <title>{displayName}</title>
             </Helmet>
             <MaxWidthContainer>
-                {header}
+                {subreddit ? (
+                    <SubredditHeader
+                        subreddit={subreddit}
+                        sortMethod={data.sortMethod}
+                        sortChangeHandler={handleSortChange} 
+                    />
+                ) : null}
                 <InfiniteScroll
-                    initialLoad={true}
-                    loadMore={fetchSubmissionsData}
+                    initialLoad={false}
+                    loadMore={fetchSubmissionData}
                     hasMore={data.hasMore}
-                    loader={<LoadingIndicator key="loadingIndicator" />}
+                    loader={<LoadingIndicator key="loadingIndicator" show={true} />}
                 >
                     <SubmissionList
                         submissions={data.submissions}
-                        searchState={{ sortMethod: sortMethod }}
-                        history={history} 
+                        searchState={{ sortMethod: data.sortMethod }}
+                        history={history}
                     />
+                    <LoadingIndicator key="loadingIndicator" show={data.initialLoad} />
                 </InfiniteScroll>
             </MaxWidthContainer>
         </React.Fragment>

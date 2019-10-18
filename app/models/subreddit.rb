@@ -47,7 +47,7 @@ class Subreddit < ApplicationRecord
   validates_presence_of :reddit_banner_size, if: :banner_image?
 
   scope :popular, -> { order(subscribers: :desc) }
-  scope :alphabetically, -> { order(display_name: :asc) }
+  scope :alphabetically, -> { order("LOWER(display_name) ASC") }
 
   # Returns the url of the attached icon if present.
   # Else it returns the reddit_icon value.
