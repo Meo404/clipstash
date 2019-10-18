@@ -68,7 +68,7 @@ function Home(props) {
                         <InfiniteScroll
                             hasMore={subreddits.hasMore}
                             initialLoad={true}
-                            loader={<LoadingIndicator key="loadingIndicator" />}
+                            loader={<LoadingIndicator key="loadingIndicator" show={true} />}
                             loadMore={fetchRecommendedSubreddits}
                         >
                             <RecommendedSubreddits subreddits={subreddits.subreddits} history={history} />
