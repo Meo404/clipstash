@@ -13,7 +13,7 @@ export default function Navigation() {
     }, []);
 
     async function fetchSubredditData() {
-        const result = await axios("/api/v1/popular_subreddits", { params: { max_results: 20 } });
+        const result = await axios("/api/v1/popular_subreddits", { params: { max_results: 30 } });
         setPopularSubreddits(result.data.subreddits);
     }
 
@@ -22,7 +22,7 @@ export default function Navigation() {
     }
 
     function displayedPopularSubreddits() {
-        return showMore ? popularSubreddits : popularSubreddits.slice(0, 5)
+        return showMore ? popularSubreddits : popularSubreddits.slice(0, 7)
     }
 
     function showMoreHandler() {
