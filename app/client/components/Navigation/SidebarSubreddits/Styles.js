@@ -8,6 +8,9 @@ const useStyles = makeStyles({
         textDecoration: "none",
         color: "inherit"
     },
+    showMoreButton: {
+
+    },
     subredditImage: {
         width: "20px",
         height: "20px"
