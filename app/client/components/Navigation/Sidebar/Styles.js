@@ -4,6 +4,7 @@ const drawerWidth = 225;
 const useStyles = makeStyles(theme => ({
     list: {
         width: drawerWidth,
+        overflowY: "auto"
     },
     desktopDrawer: {
         width: drawerWidth,

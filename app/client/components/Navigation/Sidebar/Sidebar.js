@@ -8,7 +8,9 @@ export default function Sidebar(props) {
     const {
         mobileMenu,
         mobileMenuHandler,
-        popularSubreddits
+        popularSubreddits,
+        showMore,
+        showMoreHandler,
     } = props;
     const classes = useStyles();
 
@@ -23,6 +25,8 @@ export default function Sidebar(props) {
             <SidebarSubreddits
                 closeDrawer={closeDrawerHandler}
                 subreddits={popularSubreddits}
+                showMore={showMore}
+                showMoreHandler={showMoreHandler}
             />
         </div>
     );
