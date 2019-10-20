@@ -26,7 +26,7 @@ export default function Navigation() {
     }
 
     function showMoreHandler() {
-        setShowMore(true);
+        setShowMore(!showMore);
     }
 
     return (
