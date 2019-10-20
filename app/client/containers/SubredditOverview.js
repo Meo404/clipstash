@@ -6,6 +6,7 @@ import withErrorHandler from "hoc/withErrorHandler";
 import {
     LoadingIndicator,
     MaxWidthContainer,
+    NoResultsBox,
     SubredditList,
     SubredditOverviewHeader
 } from "components";
@@ -77,6 +78,10 @@ function SubredditOverview() {
         fetchSubredditData(null, searchTerm, sortMethod);
     }
 
+    function isEmptySearchResult() {
+        return data.subreddits.length === 0 && data.searchTerm && !data.initialLoad
+    }
+
     return (
         <React.Fragment>
             <Helmet>
@@ -97,6 +102,12 @@ function SubredditOverview() {
                     <SubredditList subreddits={data.subreddits} />
                     <LoadingIndicator key="loadingIndicator" show={data.initialLoad} />
                 </InfiniteScroll>
+                {isEmptySearchResult() ? (
+                    <NoResultsBox
+                        headerText="No subreddits found"
+                        descriptionText="Try searching for something else!"
+                    />
+                ) : null}
             </MaxWidthContainer>
         </React.Fragment>
     );
