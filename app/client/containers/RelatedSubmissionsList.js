@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
 import InfiniteScroll from "react-infinite-scroller";
-import Typography from "@material-ui/core/Typography";
 import withErrorHandler from "hoc/withErrorHandler";
 import { SubmissionSortMethods } from "constants/SortMethods";
-import { LoadingIndicator, NoResultsBox, SubmissionList } from "components";
+import { 
+    LoadingIndicator,
+    NoResultsBox,
+    SectionHeader,
+    SubmissionList } from "components";
 
 function RelatedSubmissionsList(props) {
     const {
@@ -49,9 +52,7 @@ function RelatedSubmissionsList(props) {
             <LoadingIndicator key="loadingIndicator" show={data.isLoading} />
             {data.isLoading ? null : (
                 <React.Fragment>
-                    <Typography variant="h6" style={{ padding: 10 }}>
-                        More Videos
-                    </Typography>
+                    <SectionHeader headerText="More Videos" />
                     <InfiniteScroll
                         initialLoad={false}
                         loadMore={fetchRelatedSubmisisons}

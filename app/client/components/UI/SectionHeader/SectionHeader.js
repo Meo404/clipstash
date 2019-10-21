@@ -19,7 +19,7 @@ export default function SectionHeader({ headerIcon, headerText }) {
     }
 
     return (
-        <div style={{ display: "flex" }}>
+        <div className={classes.sectionHeader}>
             {icon}
             <Typography variant="h6" className={classes.headingText}>
                 {headerText}
