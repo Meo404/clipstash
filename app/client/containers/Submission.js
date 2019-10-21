@@ -37,10 +37,6 @@ function Submission(props) {
         return DEFAULT_SORT_METHOD;
     }
 
-    function getAfterScore() {
-        return relatedSortMethod === "hot" ? data.submission.hot_score : data.submission.score
-    }
-
     return (
         <React.Fragment>
             <Helmet>
@@ -54,8 +50,8 @@ function Submission(props) {
                         <SubmissionCardLinks submission={data.submission} />
                         <RelatedSubmissionsList
                             displayName={data.submission.subreddit.display_name}
+                            slug={slug}
                             sortMethod={relatedSortMethod}
-                            afterScore={getAfterScore()}
                         />
                     </Grid>
                 )}

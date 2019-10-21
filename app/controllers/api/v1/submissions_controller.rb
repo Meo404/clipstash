@@ -25,8 +25,18 @@ class Api::V1::SubmissionsController < Api::V1::ApiController
   # Returns submissions for a given subreddit
   # Subreddit is provided by display_name via param
   def by_subreddit
-    submissions = Submissions::Search
-                      .call(subreddit, params[:sort], params[:after_score])
+    submissions = Submissions::Search::FindSubmissions
+                      .call(subreddit_id, params[:sort])
+                      .page(params[:page])
+                      .per(params[:max_results])
+
+    render json: submissions, include: [], meta: pagination_dict(submissions)
+  end
+
+  # Returns submissions related to a given submission
+  def related
+    submissions = Submissions::Search::FindRelatedSubmissions
+                      .call(params[:slug], params[:sort])
                       .page(params[:page])
                       .per(params[:max_results])
 
@@ -35,7 +45,7 @@ class Api::V1::SubmissionsController < Api::V1::ApiController
 
   private
 
-    def subreddit
-      Subreddit.find_by_display_name!(params[:display_name])
+    def subreddit_id
+      Subreddit.find_by_display_name!(params[:display_name]).id
     end
 end

@@ -1,0 +1,1 @@
+VALID_SORT_PARAMS = ["hot", "top_day", "top_week", "top_month", "top_year", "top_all"].freeze

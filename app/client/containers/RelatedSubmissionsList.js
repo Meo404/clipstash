@@ -15,8 +15,8 @@ function RelatedSubmissionsList(props) {
     const {
         history,
         displayName,
-        sortMethod,
-        afterScore
+        slug,
+        sortMethod
     } = props;
     const [data, setData] = useState({ submissions: [], isLoading: true, hasMore: false });
     const sortMethodText = SubmissionSortMethods.find(method => method.value === sortMethod).text.toLowerCase()
@@ -28,12 +28,11 @@ function RelatedSubmissionsList(props) {
     async function fetchRelatedSubmisisons(page) {
         const params = {
             sort: sortMethod,
-            after_score: afterScore,
             max_results: 8,
             page: page
         };
 
-        const result = await axios("/api/v1/submissions/" + displayName, { params: params });
+        const result = await axios("/api/v1/related_submissions/" + slug, { params: params });
         if (result) {
             const updatedData = {
                 submissions: [...data.submissions, ...result.data.submissions],
