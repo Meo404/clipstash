@@ -8,7 +8,8 @@ import {
     LoadingIndicator,
     NoResultsBox,
     SectionHeader,
-    SubmissionList } from "components";
+    SubmissionList 
+} from "components";
 
 function RelatedSubmissionsList(props) {
     const {
