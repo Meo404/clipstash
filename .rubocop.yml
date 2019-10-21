@@ -26,6 +26,7 @@ AllCops:
     - 'app/services/create_admin_service.rb'
     - 'app/services/mock_data/*'
     - 'lib/tasks/*'
+    - 'lib/friendly_id/*'
     - 'Guardfile'
     - 'Gemfile'
     - 'Rakefile'
