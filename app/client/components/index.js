@@ -25,6 +25,7 @@ export {
     FullFlexRow,
     LoadingIndicator,
     MaxWidthContainer,
+    NoResultsBox,
     SearchField,
     SectionHeader,
     SortDropDown

@@ -10,7 +10,8 @@ import {
     ListItemText,
     ListSubheader
 } from "@material-ui/core";
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
+import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 
 import useStyles from "./Styles";
 
@@ -34,7 +35,16 @@ function PopularSubredditsList(props) {
         </ListItem>
     )
 
-    if (showMore) { showMoreListItem = null }
+    if (showMore) {
+        showMoreListItem = (
+            <ListItem button onClick={showMoreHandler}>
+                <ListItemIcon>
+                    <KeyboardArrowUpIcon />
+                </ListItemIcon>
+                <ListItemText primary="Show less" />
+            </ListItem>
+        )
+    }
 
     return (
         <List>

@@ -2,9 +2,14 @@ import React, { useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
 import InfiniteScroll from "react-infinite-scroller";
-import Typography from "@material-ui/core/Typography";
 import withErrorHandler from "hoc/withErrorHandler";
-import { LoadingIndicator, SubmissionList } from "components";
+import { SubmissionSortMethods } from "constants/SortMethods";
+import { 
+    LoadingIndicator,
+    NoResultsBox,
+    SectionHeader,
+    SubmissionList 
+} from "components";
 
 function RelatedSubmissionsList(props) {
     const {
@@ -14,17 +19,18 @@ function RelatedSubmissionsList(props) {
         afterScore
     } = props;
     const [data, setData] = useState({ submissions: [], isLoading: true, hasMore: false });
+    const sortMethodText = SubmissionSortMethods.find(method => method.value === sortMethod).text.toLowerCase()
 
     useEffect(() => {
         fetchRelatedSubmisisons();
     }, []);
 
     async function fetchRelatedSubmisisons(page) {
-        const params = { 
+        const params = {
             sort: sortMethod,
             after_score: afterScore,
             max_results: 8,
-            page: page 
+            page: page
         };
 
         const result = await axios("/api/v1/submissions/" + displayName, { params: params });
@@ -38,14 +44,16 @@ function RelatedSubmissionsList(props) {
         }
     }
 
+    function isEndOfResults() {
+        return !data.isLoading && !data.hasMore
+    }
+
     return (
         <React.Fragment>
             <LoadingIndicator key="loadingIndicator" show={data.isLoading} />
             {data.isLoading ? null : (
                 <React.Fragment>
-                    <Typography variant="h6" style={{ padding: 10 }}>
-                        More Videos
-                    </Typography>
+                    <SectionHeader headerText="More Videos" />
                     <InfiniteScroll
                         initialLoad={false}
                         loadMore={fetchRelatedSubmisisons}
@@ -59,6 +67,12 @@ function RelatedSubmissionsList(props) {
                             submissions={data.submissions}
                         />
                     </InfiniteScroll>
+                    {isEndOfResults() ? (
+                        <NoResultsBox
+                            headerText="Nothing more to see"
+                            descriptionText={`You are through all ${sortMethodText} videos within r/${displayName}!`}
+                        />
+                    ) : null}
                 </React.Fragment>
             )}
         </React.Fragment>

@@ -13,6 +13,9 @@ const useStyles = makeStyles(theme => ({
             fontSize: "1.25rem"
         },
     },
+    sectionHeader: {
+        display: "flex"
+    }
 }));
 
 export default useStyles;

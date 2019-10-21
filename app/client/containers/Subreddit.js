@@ -6,6 +6,7 @@ import withErrorHandler from "hoc/withErrorHandler";
 import {
     LoadingIndicator,
     MaxWidthContainer,
+    NoResultsBox,
     SubmissionList,
     SubredditHeader
 } from "components";
@@ -77,6 +78,10 @@ function Subreddit(props) {
         fetchSubmissionData(null, event.target.value);
     }
 
+    function isEmptyResultSet() {
+        return data.submissions.length === 0 && !data.initialLoad
+    }
+
     return (
         <React.Fragment>
             <Helmet>
@@ -103,6 +108,12 @@ function Subreddit(props) {
                     />
                     <LoadingIndicator key="loadingIndicator" show={data.initialLoad} />
                 </InfiniteScroll>
+                {isEmptyResultSet() ? (
+                    <NoResultsBox
+                        headerText="No videos found"
+                        descriptionText="Try changing your sorting filter or visit another subreddit!"
+                    />
+                ) : null}
             </MaxWidthContainer>
         </React.Fragment>
 
