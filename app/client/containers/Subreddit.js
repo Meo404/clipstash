@@ -26,6 +26,7 @@ function Subreddit(props) {
     const displayName = match.params.displayName;
 
     useEffect(() => {
+        setSubreddit(null);
         setData(INITIAL_STATE);
         fetchSubredditData();
         fetchSubmissionData(null, "hot");
