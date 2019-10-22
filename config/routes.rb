@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       get 'subreddits/:display_name', to: 'subreddits#show'
       # Submissions
       get 'recommended_submissions', to: 'submissions#recommended', as: 'recommended_submissions'
+      get 'related_submissions/:slug', to: 'submissions#related', as: 'related_submissions'
       get 'submissions/:display_name', to: 'submissions#by_subreddit'
       get 'submission/:slug', to: 'submissions#show'
     end

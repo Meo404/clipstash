@@ -36,7 +36,7 @@ describe 'GET api/v1/submissions/:display_name', type: :request do
       get "/api/v1/submissions/#{subreddit.display_name}", as: :json
       expect(
           JSON.parse(response.body)["submissions"].map { |s| s["reddit_fullname"] }
-      ).to eq(Submissions::Search.call(subreddit, nil, nil).limit(default_results).map(&:reddit_fullname))
+      ).to eq(Submissions::Search::FindSubmissions.call(subreddit.id, nil).limit(default_results).map(&:reddit_fullname))
     end
   end
 
@@ -48,16 +48,7 @@ describe 'GET api/v1/submissions/:display_name', type: :request do
       get "/api/v1/submissions/#{subreddit.display_name}", params: { sort: "top_month" }, as: :json
       expect(
           JSON.parse(response.body)["submissions"].map { |s| s["reddit_fullname"] }
-      ).to eq(Submissions::Search.call(subreddit, "top_month", nil).limit(default_results).map(&:reddit_fullname))
-    end
-
-    it 'returns the correct submissions based on after score' do
-      get "/api/v1/submissions/#{subreddit.display_name}", params: { after_score: submission.hot_score }, as: :json
-      expected_result = Submissions::Search.call(subreddit, nil, submission.hot_score)
-                            .limit(default_results)
-                            .map(&:reddit_fullname)
-
-      expect(JSON.parse(response.body)["submissions"].map { |s| s["reddit_fullname"] }).to eq(expected_result)
+      ).to eq(Submissions::Search::FindSubmissions.call(subreddit.id, "top_month").limit(default_results).map(&:reddit_fullname))
     end
   end
 
@@ -79,7 +70,7 @@ describe 'GET api/v1/submissions/:display_name', type: :request do
       get "/api/v1/submissions/#{subreddit.display_name}", params: params, as: :json
       expect(
           JSON.parse(response.body)["submissions"].map { |s| s["reddit_fullname"] }
-      ).to eq(Submissions::Search.call(subreddit, nil, nil).page(2).per(5).map(&:reddit_fullname))
+      ).to eq(Submissions::Search::FindSubmissions.call(subreddit.id, nil).page(2).per(5).map(&:reddit_fullname))
     end
   end
 
