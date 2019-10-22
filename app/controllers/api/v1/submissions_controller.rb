@@ -3,7 +3,7 @@
 class Api::V1::SubmissionsController < Api::V1::ApiController
   include Api::Concerns::FilterParams
 
-  before_action :set_max_results, only: [:recommended, :by_subreddit]
+  before_action :set_max_results, only: [:recommended, :by_subreddit, :related]
 
   # Returns a single submission
   def show
