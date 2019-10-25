@@ -1,0 +1,6 @@
+:concurrency: 5
+:queues:
+  - critical
+  - default
+  - priority_updates
+  - regular_updates

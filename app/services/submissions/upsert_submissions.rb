@@ -22,7 +22,7 @@ module Submissions
                           validate: true,
                           batch_size: 100,
                           on_duplicate_key_update: { conflict_target: [:reddit_fullname],
-                                                    columns: [:comment_count, :over18, :score, :title] }
+                                                    columns: [:comment_count, :hot_score, :over18, :score, :title] }
       end
 
       # Upserts Media only
