@@ -1,7 +1,7 @@
-RSpec.describe UpdateSubredditsJob, type: :job do
+RSpec.describe AttachSubredditImagesJob, type: :job do
   subject(:job) { described_class.perform_later }
 
-  it "enqueues job to update subreddits" do
+  it "enqueues job to upload and attach subreddit images" do
     ActiveJob::Base.queue_adapter = :test
 
     expect { job }.to have_enqueued_job(described_class)

@@ -3,7 +3,7 @@ RSpec.describe CreateSubredditJob, type: :job do
 
   let(:display_name) { "TestSubreddit" }
 
-  it "enqueues job to update submissions" do
+  it "enqueues job to create subreddit" do
     ActiveJob::Base.queue_adapter = :test
 
     expect { job }.to have_enqueued_job(described_class)
