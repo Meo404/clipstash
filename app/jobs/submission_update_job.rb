@@ -4,13 +4,7 @@ class SubmissionUpdateJob < ApplicationJob
   sidekiq_options retry: 5
 
   def perform(subreddit_id, search_method)
-    search_options = set_search_options(search_method)
+    search_options = "SearchOptions::#{search_method}".constantize
     RedditData::UpdateSubmissions.call(subreddit_id, search_options)
   end
-
-  private
-
-    def set_search_options(search_method)
-      "SearchOptions::#{search_method}".constantize
-    end
 end
