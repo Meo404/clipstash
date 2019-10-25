@@ -11,7 +11,7 @@ module Submissions
       candidate = generate_candidate
       candidate.valid? ? candidate : nil
 
-    rescue NoMethodError
+    rescue NoMethodError, LazyLazer::MissingAttribute
       nil # TODO: Add proper logging
     end
 
