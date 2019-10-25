@@ -36,5 +36,8 @@ module ProjectFree
 
     # Add api config
     config.api_config = config_for(:api_config)
+
+    # Add Sidekiq as queue adapter
+    config.active_job.queue_adapter = :sidekiq
   end
 end

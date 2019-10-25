@@ -26,8 +26,9 @@ describe Submissions::UpsertSubmissions do
     end
 
     it 'updates records' do
-      Submission.first.update(comment_count: 0, over18: nil, score: 0, title: 'Test Title')
+      Submission.first.update(comment_count: 0, hot_score: 0, over18: nil, score: 0, title: 'Test Title')
       expect { Submissions::UpsertSubmissions.call(@submissions, @media) }.to change { Submission.first.comment_count }
+                                                                          .and change { Submission.first.hot_score }
                                                                           .and change { Submission.first.over18 }
                                                                           .and change { Submission.first.score }
                                                                           .and change { Submission.first.title }
