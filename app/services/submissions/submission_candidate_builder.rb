@@ -39,8 +39,13 @@ module Submissions
                 thumbnail[:height]
             ],
             subreddit: @subreddit,
-            candidate_validation: true
+            candidate_validation: true,
+            hot_score: hot_score(@submission.created_at, @submission.score)
         }
+      end
+
+      def hot_score(created_date, score)
+        Submissions::CalculateHotScore.call(Time.parse(created_date.to_s), score)
       end
   end
 end
