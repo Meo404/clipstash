@@ -1,4 +1,4 @@
-RSpec.describe SubmissionsUpdateJob, type: :job do
+RSpec.describe UpdateSubmissionsJob, type: :job do
   subject(:job) { described_class.perform_later(subreddit_id, search_method) }
 
   let(:subreddit_id) { 1 }

@@ -1,4 +1,4 @@
-class SubredditsUpdateJob < ApplicationJob
+class UpdateSubredditsJob < ApplicationJob
   queue_as :regular_updates
   sidekiq_options retry: 5
 

@@ -13,7 +13,7 @@ describe Jobs::CreateSubmissionUpdateJobs do
 
       expect {
         Jobs::CreateSubmissionUpdateJobs.call("TOP_DAILY")
-      }.to have_enqueued_job(SubmissionsUpdateJob)
+      }.to have_enqueued_job(UpdateSubmissionsJob)
                .with(subreddit.id, "TOP_DAILY")
                .on_queue("priority_updates")
 
@@ -28,7 +28,7 @@ describe Jobs::CreateSubmissionUpdateJobs do
 
       expect {
         Jobs::CreateSubmissionUpdateJobs.call("TOP_YEARLY")
-      }.to have_enqueued_job(SubmissionsUpdateJob)
+      }.to have_enqueued_job(UpdateSubmissionsJob)
                .with(subreddit.id, "TOP_YEARLY")
                .on_queue("regular_updates")
 

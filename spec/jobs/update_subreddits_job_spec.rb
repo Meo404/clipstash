@@ -1,4 +1,4 @@
-RSpec.describe SubredditsUpdateJob, type: :job do
+RSpec.describe UpdateSubredditsJob, type: :job do
   subject(:job) { described_class.perform_later }
 
   it "enqueues job to update submissions" do

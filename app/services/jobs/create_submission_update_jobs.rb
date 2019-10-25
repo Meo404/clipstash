@@ -12,7 +12,7 @@ module Jobs
       queue = select_queue
 
       subreddits.each do |submission|
-        SubmissionsUpdateJob.set(queue: queue).perform_later(submission.id, @search_method)
+        UpdateSubmissionsJob.set(queue: queue).perform_later(submission.id, @search_method)
       end
     end
 

@@ -1,6 +1,6 @@
 # Job to update submissions
 # The actual queue to be used will be defined by the caller
-class SubmissionsUpdateJob < ApplicationJob
+class UpdateSubmissionsJob < ApplicationJob
   sidekiq_options retry: 5
 
   def perform(subreddit_id, search_method)
