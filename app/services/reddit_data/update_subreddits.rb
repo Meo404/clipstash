@@ -14,7 +14,8 @@ module RedditData
 
         # We're querying the data in batches of 100 due to API limitations on reddit side
         subreddit_fullnames.in_groups_of(100).each do |subreddit_group|
-          update_data.push(*fetch_data(subreddit_group).to_a)
+          result = fetch_data(subreddit_group)
+          update_data.push(*result.to_a)
         end
 
         update_data
