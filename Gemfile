@@ -29,6 +29,7 @@ gem "image_processing", "~> 1.0"
 gem "aws-sdk-s3", "~> 1.2"
 gem 'friendly_id', '~> 5.2.4'
 gem 'sidekiq'
+gem 'whenever'
 
 group :development, :test do
   gem 'factory_bot_rails'
