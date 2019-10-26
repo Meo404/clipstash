@@ -1,21 +1,28 @@
 module RedditData
+  # Service responsible for updating the data of all subreddits
   class UpdateSubreddits < ApplicationService
     def call
-      subreddit_to_update = subreddit_fullnames
-      update_data = query_data(subreddit_to_update)
-
+      update_data = retrieve_update_data
       update_subreddits(update_data)
     end
 
     private
 
-      def subreddit_fullnames
-        Subreddit.all.map(&:reddit_fullname)
+      def retrieve_update_data
+        update_data = []
+        subreddit_fullnames = Subreddit.all.map(&:reddit_fullname)
+
+        # We're querying the data in batches of 100 due to API limitations on reddit side
+        subreddit_fullnames.in_groups_of(100).each do |subreddit_group|
+          update_data.push(*fetch_data(subreddit_group).to_a)
+        end
+
+        update_data
       end
 
-      def query_data(subreddits_to_update)
-        @api_session = ReddWrapper::Session.new
-        @api_session.from_fullnames(subreddits_to_update)
+      def fetch_data(subreddits_to_update)
+        api_session = ReddWrapper::Session.new
+        api_session.from_fullnames(subreddits_to_update)
       end
 
       def update_subreddits(subreddits)
