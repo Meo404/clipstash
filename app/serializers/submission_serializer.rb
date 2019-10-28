@@ -46,12 +46,17 @@ class SubmissionSerializer < ActiveModel::Serializer
              :reddit_fullname,
              :slug,
              :score,
+             :subreddit,
              :title,
              :thumbnail,
              :thumbnail_size
 
   def media_provider
     object.medium.media_provider.name
+  end
+
+  def subreddit
+    object.subreddit.display_name_prefixed
   end
 
   def thumbnail
