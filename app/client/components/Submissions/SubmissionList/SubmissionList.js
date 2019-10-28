@@ -6,7 +6,8 @@ export default function SubmissionList(props) {
     const { 
         history,
         submissions, 
-        searchState 
+        searchState,
+        showSubreddits,
     } = props
 
     function handleSubmissionClick(slug) {
@@ -22,7 +23,8 @@ export default function SubmissionList(props) {
                 <SubmissionListCard
                     key={submission.reddit_fullname}
                     clickHandler={handleSubmissionClick} 
-                    submission={submission}
+                    showSubreddit={showSubreddits}
+                    submission={submission} 
                 />
             ))}
         </Grid>

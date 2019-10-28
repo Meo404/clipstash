@@ -43,6 +43,11 @@ const useStyles = makeStyles(theme => ({
         marginRight: 10,
         marginTop: 2
     },
+    subredditText: {
+        fontSize: "0.8rem",
+        marginLeft: "auto",
+        maxWidth: "50%"
+    },
     titleText: {
         fontSize: "1rem"
     }

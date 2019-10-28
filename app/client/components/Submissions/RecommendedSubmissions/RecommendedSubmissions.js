@@ -34,6 +34,7 @@ export default function RecommendedSubmissions(props) {
             <SubmissionList
                 history={history}
                 searchState={{}}
+                showSubreddits={true}
                 submissions={submissions}
             />
             {showMoreButton}

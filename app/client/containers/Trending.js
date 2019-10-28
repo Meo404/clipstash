@@ -43,6 +43,7 @@ function Trending(props) {
                     <SubmissionList
                         submissions={data.submissions}
                         searchState={{}}
+                        showSubreddits={true}
                         history={history} 
                     />
                 </InfiniteScroll>

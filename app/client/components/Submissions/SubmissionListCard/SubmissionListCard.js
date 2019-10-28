@@ -17,8 +17,9 @@ import {
 
 import useStyles from "./Styles";
 
-export default function SubmissionListCard({ submission, clickHandler }) {
+export default function SubmissionListCard(props) {
     const classes = useStyles();
+    const { clickHandler, showSubreddit, submission } = props;
 
     return (
         <Grid
@@ -26,7 +27,7 @@ export default function SubmissionListCard({ submission, clickHandler }) {
             className={classes.gridItem}
         >
             <Card className={classes.card}>
-                <Tooltip  placement="bottom" enterDelay={700} title={submission.title}>
+                <Tooltip placement="bottom" enterDelay={700} title={submission.title}>
                     <CardActionArea onClick={() => clickHandler(submission.slug)}>
                         <CardMedia
                             className={classes.media}
@@ -68,6 +69,17 @@ export default function SubmissionListCard({ submission, clickHandler }) {
                     >
                         {submission.comment_count}
                     </Typography>
+                    {showSubreddit ? (
+                        <Typography
+                            variant="subtitle1"
+                            color="textSecondary"
+                            align="right"
+                            noWrap={true}
+                            classes={{ subtitle1: classes.subredditText }}
+                        >
+                            {submission.subreddit}
+                        </Typography>
+                    ) : null}
                 </CardActions>
             </Card>
         </Grid>
