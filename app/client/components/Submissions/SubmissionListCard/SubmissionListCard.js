@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
     Card,
     CardActions,
@@ -70,15 +71,17 @@ export default function SubmissionListCard(props) {
                         {submission.comment_count}
                     </Typography>
                     {showSubreddit ? (
-                        <Typography
-                            variant="subtitle1"
-                            color="textSecondary"
-                            align="right"
-                            noWrap={true}
-                            classes={{ subtitle1: classes.subredditText }}
-                        >
-                            {submission.subreddit}
-                        </Typography>
+                        <Link to={`/${submission.subreddit}`} className={classes.subredditLink}>
+                            <Typography
+                                variant="subtitle1"
+                                color="textSecondary"
+                                align="right"
+                                noWrap={true}
+                                classes={{ subtitle1: classes.subredditText }}
+                            >
+                                {submission.subreddit}
+                            </Typography>
+                        </Link>
                     ) : null}
                 </CardActions>
             </Card>
