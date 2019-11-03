@@ -1,6 +1,7 @@
 require "sidekiq/web"
 
 Rails.application.routes.draw do
+  devise_for :users
   # Heartbeat Route
   get 'appInfo', to: proc { [200, {}, ['Application is running']] }
 
