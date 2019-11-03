@@ -47,7 +47,7 @@ function SidebarContent(props) {
                 <ListItem 
                     button 
                     key="Trending"
-                    className={activeNav("/trending", currentPath) ? classes.activeNavIcon : ""}>
+                    className={activeNav("/trending", currentPath) ? classes.activeNav : ""}>
                     <ListItemIcon>
                         <WhatshotIcon className={activeNav("/trending", currentPath) ? classes.activeNavIcon : ""} />
                     </ListItemIcon>
