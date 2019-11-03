@@ -1,7 +1,6 @@
 require "sidekiq/web"
 
 Rails.application.routes.draw do
-  devise_for :users
   # Heartbeat Route
   get 'appInfo', to: proc { [200, {}, ['Application is running']] }
 
@@ -20,6 +19,12 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: 'json' } do
     namespace :v1 do
+      # Devise Token Auth
+      mount_devise_token_auth_for 'User', at: 'auth', controllers: {
+          registrations: 'api/v1/users/registrations',
+          sessions: 'api/v1/users/sessions',
+          passwords: 'api/v1/users/passwords'
+      }
       # Subreddits
       get 'subreddits', to: 'subreddits#index', as: 'subreddits'
       get 'popular_subreddits', to: 'subreddits#popular', as: 'popular_subreddits'
