@@ -1,16 +1,16 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
     activeNav: {
         backgroundColor: "#ebebeb"
     },
     activeNavIcon: {
-        color: "#b71c1c"
+        color: theme.palette.primary.main
     },
     navLink: {
         textDecoration: "none",
         color: "inherit"
     }
-});
+}));
 
 export default useStyles;
