@@ -50,4 +50,24 @@ describe 'POST api/v1/auth/sign_in', type: :request do
       expect(json).to eq(expected_response)
     end
   end
+
+  context 'with unconfirmed account' do
+    it 'returns an error' do
+      user.update_attributes(confirmed_at: nil)
+      params = {
+          user:
+              {
+                  email: user.email,
+                  password: password
+              }
+      }
+      post api_v1_user_session_path, params: params, as: :json
+
+      expect(response).to be_unauthorized
+      expected_response = {
+          error: "A confirmation email was sent to your account at '#{user.email}'. You must follow the instructions in the email before your account can be activated"
+      }.with_indifferent_access
+      expect(json).to eq(expected_response)
+    end
+  end
 end
