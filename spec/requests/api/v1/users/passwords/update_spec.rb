@@ -1,4 +1,4 @@
-describe 'PUT api/v1/users/passwords/', type: :request do
+describe 'PUT api/v1/auth/password/', type: :request do
   let(:user) { create(:user, password: 'mypass123', confirmed_at: '2019-03-03') }
   let(:password_token) { user.send(:set_reset_password_token) }
   let(:new_password) { '123456789' }
