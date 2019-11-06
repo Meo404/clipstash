@@ -19,6 +19,13 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: 'json' } do
     namespace :v1 do
+      # Devise Token Auth
+      mount_devise_token_auth_for 'User', at: 'auth', controllers: {
+          registrations: 'api/v1/users/registrations',
+          sessions: 'api/v1/users/sessions',
+          passwords: 'api/v1/users/passwords',
+          confirmations: 'api/v1/users/confirmations'
+      }
       # Subreddits
       get 'subreddits', to: 'subreddits#index', as: 'subreddits'
       get 'popular_subreddits', to: 'subreddits#popular', as: 'popular_subreddits'

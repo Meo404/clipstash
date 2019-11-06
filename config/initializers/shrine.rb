@@ -4,11 +4,11 @@ if Rails.env.production?
   require "shrine/storage/s3"
 
   s3_options = {
-      access_key_id:     Rails.application.credentials.storage[:key],
-      secret_access_key: Rails.application.credentials.storage[:secret],
-      bucket:            Rails.application.credentials.storage[:bucket],
-      region:            Rails.application.credentials.storage[:region],
-      endpoint:          Rails.application.credentials.storage[:endpoint]
+      access_key_id:     Rails.application.credentials[Rails.env.to_sym][:storage][:key],
+      secret_access_key: Rails.application.credentials[Rails.env.to_sym][:storage][:secret],
+      bucket:            Rails.application.credentials[Rails.env.to_sym][:storage][:bucket],
+      region:            Rails.application.credentials[Rails.env.to_sym][:storage][:region],
+      endpoint:          Rails.application.credentials[Rails.env.to_sym][:storage][:endpoint]
   }
 
   Shrine.storages = {
