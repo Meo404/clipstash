@@ -42,6 +42,11 @@ describe 'POST api/v1/auth/', type: :request do
       expect(json[:user][:provider]).to eq('email')
     end
 
+    it 'sends registraion email' do
+      expect { post api_v1_user_registration_path, params: params, as: :json}
+          .to change { ActionMailer::Base.deliveries.count }.by(1)
+    end
+
     context 'when the email is not correct' do
       let(:email) { 'invalid_email' }
 
@@ -55,6 +60,11 @@ describe 'POST api/v1/auth/', type: :request do
         post api_v1_user_registration_path, params: params, as: :json
 
         expect(response.status).to eq(failed_response)
+      end
+
+      it 'does not send registraion email' do
+        expect { post api_v1_user_registration_path, params: params, as: :json }
+            .to change { ActionMailer::Base.deliveries.count }.by(0)
       end
     end
 
@@ -74,6 +84,11 @@ describe 'POST api/v1/auth/', type: :request do
 
         expect(response.status).to eq(failed_response)
       end
+
+      it 'does not send registraion email' do
+        expect { post api_v1_user_registration_path, params: params, as: :json }
+            .to change { ActionMailer::Base.deliveries.count }.by(0)
+      end
     end
 
     context 'when passwords don\'t match' do
@@ -91,6 +106,11 @@ describe 'POST api/v1/auth/', type: :request do
         post api_v1_user_registration_path, params: params, as: :json
 
         expect(response.status).to eq(failed_response)
+      end
+
+      it 'does not send registraion email' do
+        expect { post api_v1_user_registration_path, params: params, as: :json }
+            .to change { ActionMailer::Base.deliveries.count }.by(0)
       end
     end
   end
