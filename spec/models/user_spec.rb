@@ -28,8 +28,16 @@
 #  index_users_on_uid_and_provider      (uid,provider) UNIQUE
 #
 
-require 'rails_helper'
-
-RSpec.describe User, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe User do
+  describe 'validations' do
+    context 'when was created' do
+      subject { build :user }
+      it { is_expected.to validate_uniqueness_of(:uid).scoped_to(:provider) }
+      it { should validate_uniqueness_of(:email).case_insensitive.scoped_to(:provider) }
+      it { should validate_presence_of(:email) }
+      it { should validate_length_of(:password).is_at_least(6) }
+      it { should validate_presence_of(:user_name) }
+      it { should validate_length_of(:user_name).is_at_least(3) }
+    end
+  end
 end
