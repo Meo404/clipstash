@@ -1,6 +1,6 @@
 describe 'GET api/v1/subreddits/show', type: :request do
   context 'with valid display name' do
-    let(:subreddit) { create(:subreddit, display_name: "testsub") }
+    let(:subreddit) { create(:subreddit, display_name: "testsub", status_cd: 1) }
 
     it 'returns a successful response' do
       get "/api/v1/subreddits/#{subreddit.display_name}", as: :json
@@ -25,6 +25,20 @@ describe 'GET api/v1/subreddits/show', type: :request do
 
     it 'returns not found error message' do
       get "/api/v1/subreddits/test", as: :json
+      expect(JSON.parse(response.body)["error"]).to eq("Not Found")
+    end
+  end
+
+  context 'with inactive subreddit display name' do
+    let(:subreddit) { create(:subreddit, display_name: "testsubreddit", status_cd: 0) }
+
+    it 'returns a not found response' do
+      get "/api/v1/subreddits/#{subreddit.display_name}", as: :json
+      expect(response).to have_http_status(:not_found)
+    end
+
+    it 'returns not found error message' do
+      get "/api/v1/subreddits/#{subreddit.display_name}", as: :json
       expect(JSON.parse(response.body)["error"]).to eq("Not Found")
     end
   end

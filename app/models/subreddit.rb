@@ -48,6 +48,7 @@ class Subreddit < ApplicationRecord
 
   scope :popular, -> { order(subscribers: :desc) }
   scope :alphabetically, -> { order("LOWER(display_name) ASC") }
+  scope :has_submissions, -> { joins(:submissions).distinct }
 
   # Returns the url of the attached icon if present.
   # Else it returns the reddit_icon value.

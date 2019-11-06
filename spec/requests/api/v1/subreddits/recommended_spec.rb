@@ -7,12 +7,19 @@ describe 'GET api/v1/subreddits/recommended', type: :request do
     media_provider = create(:media_provider)
 
     10.times do
-      subreddit = create(:subreddit)
+      subreddit = create(:subreddit, status_cd: 1)
       submission = create(:submission,
                           subreddit: subreddit,
                           created_utc: Faker::Time.between(DateTime.now - 25, DateTime.now))
       create(:medium, submission: submission, media_provider: media_provider)
     end
+  end
+
+  it 'does not retrieve inactive subreddits' do
+    Subreddit.update_all(status_cd: 0)
+
+    get "/api/v1/recommended_subreddits/", as: :json
+    expect(JSON.parse(response.body)["subreddits"].size).to eq(0)
   end
 
   context 'without params' do

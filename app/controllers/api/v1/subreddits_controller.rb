@@ -7,6 +7,7 @@ class Api::V1::SubredditsController < Api::V1::ApiController
 
   def index
     subreddits = filtered_subreddits
+                     .actives
                      .page(params[:page])
                      .per(params[:max_results])
 
@@ -21,6 +22,8 @@ class Api::V1::SubredditsController < Api::V1::ApiController
 
   def show
     @subreddit = Subreddit.find_by_display_name!(params[:display_name])
+
+    raise ActiveRecord::RecordNotFound unless @subreddit.active?
     render json: @subreddit
   end
 
@@ -28,6 +31,7 @@ class Api::V1::SubredditsController < Api::V1::ApiController
   # Only includes Subreddits that had at least one submission within the last month
   def recommended
     subreddits = Subreddit
+                     .actives
                      .popular
                      .joins(:submissions)
                      .where("submissions.created_utc >= ?", 1.month.ago.in_time_zone("UTC"))
@@ -39,7 +43,7 @@ class Api::V1::SubredditsController < Api::V1::ApiController
   end
 
   def popular
-    subreddits = Subreddit.popular.page(params[:page]).per(params[:max_results])
+    subreddits = Subreddit.actives.has_submissions.popular.page(params[:page]).per(params[:max_results])
 
     render json: subreddits, fields: [:id,
                                       :display_name,

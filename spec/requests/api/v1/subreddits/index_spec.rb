@@ -4,7 +4,14 @@ describe 'GET api/v1/subreddits/index', type: :request do
   let(:default_results) { Rails.configuration.api_config["subreddits"]["index"]["default_results"].to_i }
 
   before :each do
-    10.times { create(:subreddit) }
+    10.times { create(:subreddit, status_cd: 1) }
+  end
+
+  it 'does not retrieve inactive subreddits' do
+    Subreddit.update_all(status_cd: 0)
+
+    get api_v1_subreddits_path, as: :json
+    expect(JSON.parse(response.body)["subreddits"].size).to eq(0)
   end
 
   context 'without params' do
@@ -14,7 +21,7 @@ describe 'GET api/v1/subreddits/index', type: :request do
     end
 
     it 'returns the default amount of subreddits' do
-      default_results.times { create(:subreddit) }
+      default_results.times { create(:subreddit, status_cd: 1) }
 
       get api_v1_subreddits_path, as: :json
       expect(JSON.parse(response.body)["subreddits"].size).to eq(default_results)
@@ -24,7 +31,7 @@ describe 'GET api/v1/subreddits/index', type: :request do
       get api_v1_subreddits_path, as: :json
       expect(
           JSON.parse(response.body)["subreddits"].map { |h| h["subscribers"] }
-      ).to eq(Subreddit.popular.limit(default_results).map(&:subscribers))
+      ).to eq(Subreddit.actives.popular.limit(default_results).map(&:subscribers))
     end
 
     it 'returns the correct keys' do

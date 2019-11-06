@@ -4,7 +4,25 @@ describe 'GET api/v1/subreddits/popular', type: :request do
   let(:default_results) { Rails.configuration.api_config["subreddits"]["popular"]["default_results"].to_i }
 
   before :each do
-    10.times { create(:subreddit) }
+    10.times do
+      subreddit = create(:subreddit, status_cd: 1)
+      create(:submission, subreddit: subreddit)
+    end
+
+  end
+
+  it 'does not retrieve inactive subreddits' do
+    Subreddit.update_all(status_cd: 0)
+
+    get "/api/v1/popular_subreddits", as: :json
+    expect(JSON.parse(response.body)["subreddits"].size).to eq(0)
+  end
+
+  it 'does not retrieve subreddits without submissions' do
+    Submission.destroy_all
+
+    get "/api/v1/popular_subreddits", as: :json
+    expect(JSON.parse(response.body)["subreddits"].size).to eq(0)
   end
 
   context 'without params' do
