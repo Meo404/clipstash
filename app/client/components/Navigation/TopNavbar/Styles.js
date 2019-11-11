@@ -4,9 +4,6 @@ const useStyles = makeStyles(theme => ({
     appBar: {
         zIndex: theme.zIndex.drawer + 1
     },
-    closeDialogButton: {
-        marginTop: 25
-    },
     desktopButton: {
         display: "none",
         [theme.breakpoints.up("md")]: {
@@ -19,9 +16,6 @@ const useStyles = makeStyles(theme => ({
         [theme.breakpoints.up("md")]: {
             display: "none",
         },
-    },
-    signUpPaper: {
-        margin: 10
     },
     title: {
         flexGrow: 1,

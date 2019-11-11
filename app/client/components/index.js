@@ -30,3 +30,9 @@ export {
     SectionHeader,
     SortDropDown
 } from "./UI";
+
+export {
+    SignUpDialog,
+    SignUpForm,
+    SignUpSuccess
+} from "./Users";

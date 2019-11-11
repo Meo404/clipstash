@@ -8,7 +8,6 @@ import Submission from "containers/Submission";
 import Subreddit from "containers/Subreddit";
 import SubredditOverview from "containers/SubredditOverview";
 import Trending from "containers/Trending";
-import SignUp from "containers/SignUp";
 
 export default function App() {
     const classes = useStyles();
@@ -22,7 +21,6 @@ export default function App() {
                 <Route path="/subreddits" exact component={SubredditOverview} />
                 <Route path="/r/:displayName" component={Subreddit} />
                 <Route path="/submission/:slug" component={Submission} />
-                <Route path="/register" component={SignUp} />
                 <Route component={NotFound} />
             </Switch>
         </div>

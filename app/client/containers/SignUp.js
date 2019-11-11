@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import SignUpForm from 'components/Users/SignUpForm/SignUpForm';
-import SignUpSuccess from 'components/Users/SignUpSuccess/SignUpSuccess';
+import { SignUpForm, SignUpSuccess } from 'components';
 import { validateSignUpData } from 'utils/Users/UserValidation';
 import registerUser from 'utils/Users/RegisterUser';
 
