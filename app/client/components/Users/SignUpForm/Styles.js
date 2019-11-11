@@ -17,8 +17,7 @@ const useStyles = makeStyles(theme => ({
     },
     submit: {
         margin: theme.spacing(3, 0, 2),
-    },
-    toolbar: theme.mixins.toolbar
+    }
 }));
 
 export default useStyles;

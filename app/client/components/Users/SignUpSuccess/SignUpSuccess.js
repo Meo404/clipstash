@@ -1,31 +1,39 @@
 import React from 'react';
-import { MaxWidthContainer } from 'components';
-import { Avatar, Grid, Paper, Typography } from '@material-ui/core';
+import { 
+    Avatar,
+    Container,
+    Divider,
+    Grid,
+    Typography
+} from '@material-ui/core';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 import useStyles from './Styles';
 
-export default function SignUpSuccess({ email, userName }) {
+export default function SignUpSuccess({ email }) {
     const classes = useStyles();
 
     return (
-        <MaxWidthContainer>
-            <Paper className={classes.regSuccess}>
-                <Grid container>
-                    <Avatar className={classes.successIcon}>
-                        <CheckCircleIcon />
-                    </Avatar>
-                        <Typography variant="h6" component="h3" className={classes.headingText}>
-                            Welcome {userName},
-                        </Typography>
-                    <Grid item xs={12}>
-                        <Typography component="p" className={classes.helperText}>
-                            A verification link has been sent to <strong>{email}</strong>. Please click on the
-                            link to verify your email address and finalize your registration.
-                        </Typography>
-                    </Grid>
+        <Container maxWidth="xs">
+            <Grid container className={classes.signUpSuccess}>
+                <Avatar className={classes.successIcon}>
+                    <CheckCircleIcon />
+                </Avatar>
+                <Typography variant="h6" component="h3" className={classes.headingText}>
+                    Success!
+                </Typography>
+                <Divider 
+                    orientation="horizontal" 
+                    variant="fullWidth" 
+                    className={classes.divider}
+                />
+                <Grid item xs={12}>
+                    <Typography component="p" className={classes.helperText}>
+                        A verification link has been sent to <strong>{email}</strong>. Please click on the
+                        link to verify your email address and finalize your registration.
+                    </Typography>
                 </Grid>
-            </Paper>
-        </MaxWidthContainer>
+            </Grid>
+        </Container>
     )
 }

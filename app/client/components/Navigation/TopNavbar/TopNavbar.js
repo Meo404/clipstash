@@ -1,15 +1,23 @@
 import React from "react";
 import {
     AppBar,
+    Button,
+    Dialog,
     IconButton,
     Toolbar,
     Typography
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
+import SignUp from 'containers/SignUp';
 
 import useStyles from "./Styles";
 
-export default function TopNavbar({ mobileMenuHandler }) {
+export default function TopNavbar(props) {
+    const { 
+        mobileMenuHandler,
+        showSignUp,
+        showSignUpHandler
+    } = props;
     const classes = useStyles();
 
     return (
@@ -28,10 +36,25 @@ export default function TopNavbar({ mobileMenuHandler }) {
                     <Typography variant="h6" className={classes.title}>
                         Project Free
                     </Typography>
+                    <Button color="inherit" onClick={showSignUpHandler}>
+                        Sign Up
+                    </Button>
                 </Toolbar>
             </AppBar>
+            <Dialog 
+                open={showSignUp} 
+                onClose={showSignUpHandler}
+                classes={{ paper: classes.signUpPaper }}
+            >
+                <SignUp closeSignUp={showSignUpHandler} />
+                <Button 
+                    onClick={showSignUpHandler} 
+                    className={classes.closeDialogButton}
+                >
+                    Close
+                </Button>
+            </Dialog>
         </header>
-
     );
 }
 

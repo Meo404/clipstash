@@ -7,6 +7,7 @@ export default function Navigation() {
     const [popularSubreddits, setPopularSubreddits] = useState([]);
     const [mobileMenu, setMobileMenu] = useState(false);
     const [showMore, setShowMore] = useState(false);
+    const [showSignUp, setShowSignUp] = useState(false);
 
     useEffect(() => {
         fetchSubredditData();
@@ -29,10 +30,18 @@ export default function Navigation() {
         setShowMore(!showMore);
     }
 
+    function showSignUpHandler() {
+        setShowSignUp(!showSignUp);
+    }
+
     return (
         <React.Fragment>
             <CssBaseline />
-            <TopNavbar mobileMenuHandler={mobileMenuHandler} />
+            <TopNavbar 
+                mobileMenuHandler={mobileMenuHandler}
+                showSignUp={showSignUp}
+                showSignUpHandler={showSignUpHandler}
+            />
             <Sidebar 
                 mobileMenuHandler={mobileMenuHandler} 
                 mobileMenu={mobileMenu}

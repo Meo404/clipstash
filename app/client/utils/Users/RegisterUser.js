@@ -10,21 +10,21 @@ export default function RegisterUser(formData) {
         },
         confirm_success_url: "http://localhost:3000/"
     })
-        .then(() => {
+    .then(() => {
+        return {
+            success: true,
+            errors: null
+        };
+    })
+    .catch(function (error) {
+        if (error.response.status === 422) {
             return {
-                success: true,
-                errors: null
-            };
-        })
-        .catch(function (error) {
-            if (error.response.status === 422) {
-                return {
-                    success: false,
-                    errors: parseErrors(error.response.data.errors)
-                }
+                success: false,
+                errors: parseErrors(error.response.data.errors)
             }
-            return { success: false, errors: null }
-        })
+        }
+        return { success: false, errors: null }
+    })
 }
 
 function parseErrors(responseErrors) {

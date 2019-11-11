@@ -42,14 +42,14 @@ export default function SignUp() {
     }
     
     function submitRegistration() {
-        registerUser(signUpData).then(response => {
-            if (response.success) {
+        registerUser(signUpData).then(data => {
+            if (data.success) {
                 setRegisterSuccess(true);
             };
 
-            if (!response.success) {
-                if (response.errors) {
-                    setSignUpdata({ ...signUpData, errors: response.errors, hasErrors: true, isSubmitting: false });
+            if (!data.success) {
+                if (data.errors) {
+                    setSignUpdata({ ...signUpData, errors: data.errors, hasErrors: true, isSubmitting: false });
                 } else {
                     // TODO: Add proper handling (e.g. displaying error snackbar)
                     setSignUpdata({ ...signUpData, isSubmitting: false }); 
@@ -61,10 +61,7 @@ export default function SignUp() {
     return (
         <React.Fragment>
             {registerSuccess ? (
-                <SignUpSuccess
-                    email={signUpData.email}
-                    userName={signUpData.userName}
-                />
+                <SignUpSuccess email={signUpData.email} />
             ) : (
                 <SignUpForm 
                     signUpData={signUpData} 

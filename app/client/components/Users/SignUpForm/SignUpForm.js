@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
     Avatar,
     Button,
     TextField,
-    FormControlLabel,
-    Checkbox,
     Container,
     Link,
     Grid,
@@ -20,7 +18,6 @@ export default function SignUpForm(props) {
 
     return (
         <Container maxWidth="xs">
-            <div className={classes.toolbar} />
             <div className={classes.signUpContainer}>
                 <Avatar className={classes.avatar}>
                     <LockOutlinedIcon />
@@ -98,12 +95,6 @@ export default function SignUpForm(props) {
                                 helperText={
                                     signUpData.errors.passwordConfirmation != null ? signUpData.errors.passwordConfirmation : null
                                 }
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <FormControlLabel
-                                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                                label="I want to receive weekly recommendations via email."
                             />
                         </Grid>
                     </Grid>
