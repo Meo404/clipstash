@@ -27,6 +27,14 @@ export default function SignUp() {
         setSignUpdata({ ...signUpData, [name]: value });
     }
 
+    /**
+     * Handler for the form submit
+     * 
+     * It will first check if there are any FE validation errors before reaching out
+     * to the actual registration.
+     * 
+     * @param {object} event 
+     */
     function submitHandler(event) {
         event.preventDefault();
         const validatedData = validateSignUpData(signUpData);
@@ -40,6 +48,14 @@ export default function SignUp() {
         submitRegistration();
     }
     
+    /**
+     * Function to actually submit the registration to the Backend
+     * 
+     * In case the registration is successfull it will set the registerSuccess state to true,
+     * thus rendering the SignUpSuccess component.
+     * If the registration is not successfull it will either show field errors or alternatively
+     * a generic error if the error response was != 422.
+     */
     function submitRegistration() {
         registerUser(signUpData).then(data => {
             if (data.success) {

@@ -4,8 +4,8 @@ import * as EmailValidator from 'email-validator';
  * Validates the submitted SignUp form data
  * In case of validation errors, it puts them into the error object.
  * 
- *  @param formData   - formData state object
- *  @return           - updatedFormData
+ *  @param {object} formData
+ *  @return {object} updatedFormData
  */
 function validateSignUpData(formData) {
     const errors = {
@@ -22,8 +22,8 @@ function validateSignUpData(formData) {
  * Validates the passed user name
  * Requirements: Needs to be at least 3 characters long
  * 
- *  @param userName   - user name to validate
- *  @return           - null OR error description
+ *  @param {String} userName
+ *  @return null OR error description
  */
 function validateUserName(userName) {
     if (userName === '') {
@@ -39,8 +39,8 @@ function validateUserName(userName) {
 /**
  * Validates the passed email address
  * 
- *  @param email - email address to validate
- *  @return      - null OR error description
+ *  @param {String} email
+ *  @return  null OR error description
  */
 function validateEmail(email) {
     if (email === '') {
@@ -57,8 +57,8 @@ function validateEmail(email) {
  * Validates the passed password
  * Requirements: Needs to be at least 6 characters long
  * 
- *  @param password   - password to validate
- *  @return           - null OR error description
+ *  @param {String} password
+ *  @return null OR error description
  */
 function validatePassword(password) {
     if(password.length < 6) {
@@ -70,9 +70,9 @@ function validatePassword(password) {
 /**
  * Validates that password and password confirmation are matching
  * 
- *  @param password
- *  @param passwordConfirmation
- *  @return                     - null OR error description
+ *  @param {String} password
+ *  @param {String} passwordConfirmation
+ *  @return null OR error description
  */
 function validateConfirmationPassword(password, passwordConfirmation) {
     if (password != passwordConfirmation) {
