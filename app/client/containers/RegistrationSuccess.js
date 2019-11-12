@@ -6,7 +6,7 @@ function RegistrationSuccess({ location }) {
     const [show, setShow] = useState(false);
 
     useEffect(() => {
-        successParam();
+        checkRegisterSuccessParam();
     }, [])
 
     /**
