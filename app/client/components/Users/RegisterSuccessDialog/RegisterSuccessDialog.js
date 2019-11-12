@@ -38,7 +38,7 @@ export default function RegisterSuccessDialog(props) {
                     <Grid item xs={12}>
                         <Typography component="p" className={classes.helperText}>
                             You have successfully confirmed your Email address. You can now log in using your credentials.
-                    </Typography>
+                        </Typography>
                     </Grid>
                 </Grid>
             </Container>
