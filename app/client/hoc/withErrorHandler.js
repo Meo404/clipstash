@@ -15,7 +15,7 @@ const withErrorHandler = (WrappedComponent) => {
                         setError({ code: 404, message: error.response.message })
                         return false;
                     default:
-                        return false;
+                        return Promise.reject(error);
                 }
             }
         );

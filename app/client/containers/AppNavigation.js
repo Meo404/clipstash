@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { Sidebar, TopNavbar } from "components";
+import { Sidebar, SignUpDialog, TopNavbar } from "components";
 
 export default function Navigation() {
     const [popularSubreddits, setPopularSubreddits] = useState([]);
     const [mobileMenu, setMobileMenu] = useState(false);
     const [showMore, setShowMore] = useState(false);
+    const [showSignUp, setShowSignUp] = useState(false);
 
     useEffect(() => {
         fetchSubredditData();
@@ -29,16 +30,27 @@ export default function Navigation() {
         setShowMore(!showMore);
     }
 
+    function showSignUpHandler() {
+        setShowSignUp(!showSignUp);
+    }
+
     return (
         <React.Fragment>
             <CssBaseline />
-            <TopNavbar mobileMenuHandler={mobileMenuHandler} />
+            <TopNavbar 
+                mobileMenuHandler={mobileMenuHandler}
+                showSignUpHandler={showSignUpHandler}
+            />
             <Sidebar 
                 mobileMenuHandler={mobileMenuHandler} 
                 mobileMenu={mobileMenu}
                 popularSubreddits={displayedPopularSubreddits()}
                 showMore={showMore}
                 showMoreHandler={showMoreHandler}
+            />
+            <SignUpDialog 
+                showSignUp={showSignUp} 
+                showSignUpHandler={showSignUpHandler} 
             />
         </React.Fragment>
     );

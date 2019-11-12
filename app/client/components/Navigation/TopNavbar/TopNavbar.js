@@ -1,6 +1,7 @@
 import React from "react";
 import {
     AppBar,
+    Button,
     IconButton,
     Toolbar,
     Typography
@@ -9,7 +10,11 @@ import MenuIcon from "@material-ui/icons/Menu";
 
 import useStyles from "./Styles";
 
-export default function TopNavbar({ mobileMenuHandler }) {
+export default function TopNavbar(props) {
+    const { 
+        mobileMenuHandler,
+        showSignUpHandler
+    } = props;
     const classes = useStyles();
 
     return (
@@ -28,10 +33,12 @@ export default function TopNavbar({ mobileMenuHandler }) {
                     <Typography variant="h6" className={classes.title}>
                         Project Free
                     </Typography>
+                    <Button color="inherit" onClick={showSignUpHandler}>
+                        Sign Up
+                    </Button>
                 </Toolbar>
             </AppBar>
         </header>
-
     );
 }
 
