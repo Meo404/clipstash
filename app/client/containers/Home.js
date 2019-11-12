@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
 import InfiniteScroll from "react-infinite-scroller";
+import RegistrationSuccess from "containers/RegistrationSuccess";
 import withErrorHandler from "hoc/withErrorHandler";
 import {
     LoadingIndicator,
@@ -76,6 +77,8 @@ function Home(props) {
                     </React.Fragment>
                 )}
             </MaxWidthContainer>
+            {/* RegistrationSuccess will only be displayed on mail confirmation */}
+            <RegistrationSuccess />
         </React.Fragment>
     );
 }
