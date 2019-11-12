@@ -32,6 +32,7 @@ export {
 } from "./UI";
 
 export {
+    RegisterSuccessDialog,
     SignUpDialog,
     SignUpForm,
     SignUpSuccess
