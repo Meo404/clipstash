@@ -27,4 +27,11 @@ namespace :jobs do
       AttachSubmissionThumbnailsJob.perform_later
     end
   end
+
+  namespace :users do
+    desc "Removed all user accounts that have not been activated for 30 days"
+    task delete_unconfirmed: :environment do
+      DeleteUnconfirmedUsersJob.perform_later
+    end
+  end
 end

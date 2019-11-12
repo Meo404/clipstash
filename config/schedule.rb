@@ -77,3 +77,9 @@ end
 every 1.day, at: '0:05' do
   rake "jobs:subreddits:attach_images"
 end
+
+# Every day once at 1:05
+# Delete unconfirmed users
+every 1.day, at: '1:05' do
+  rake "jobs:users:delete_unconfirmed"
+end
