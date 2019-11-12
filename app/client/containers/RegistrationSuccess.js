@@ -9,7 +9,11 @@ function RegistrationSuccess({ location }) {
         successParam();
     }, [])
 
-    function successParam() {
+    /**
+     * Function to check if the account_confirmation_success param is present and equals true.
+     * If so it will trigger showing the RegisterSuccessDialog
+     */
+    function checkRegisterSuccessParam() {
         if (location.search && location.search.includes("account_confirmation_success=true")) {
             setShow(true);
         }
