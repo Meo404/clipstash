@@ -57,7 +57,7 @@ export default function SignUp() {
                 password: signUpData.password,
                 password_confirmation: signUpData.passwordConfirmation,
             },
-            confirm_success_url: "http://localhost:3000/"
+            confirm_success_url: window.location.origin
         };
 
         // TODO add proper error handling for generic errors
