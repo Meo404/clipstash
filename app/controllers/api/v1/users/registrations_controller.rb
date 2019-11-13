@@ -3,7 +3,7 @@ module Api
     module Users
       class RegistrationsController < DeviseTokenAuth::RegistrationsController
         include Api::Concerns::ActsAsApiRequest
-        protect_from_forgery with: :null_session
+        protect_from_forgery with: :exception
 
         private
 

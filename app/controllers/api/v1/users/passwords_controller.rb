@@ -3,7 +3,7 @@ module Api
     module Users
       class PasswordsController < DeviseTokenAuth::PasswordsController
         include Api::Concerns::ActsAsApiRequest
-        protect_from_forgery with: :null_session
+        protect_from_forgery with: :exception
         skip_before_action :check_json_request, on: :edit
       end
     end
