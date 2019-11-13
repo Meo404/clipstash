@@ -1,8 +1,7 @@
 import React from "react";
 import { activeNav } from "utils/navigationHelper";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { setSubredditImage } from "utils/subredditHelper";
-import { withRouter } from "react-router-dom";
 import {
     List,
     ListItem,
@@ -15,16 +14,15 @@ import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 
 import useStyles from "./Styles";
 
-function PopularSubredditsList(props) {
+export default function PopularSubredditsList(props) {
     const {
         closeDrawer,
-        location,
         showMore,
         showMoreHandler,
         subreddits
     } = props;
     const classes = useStyles();
-    const currentPath = location.pathname;
+    const currentPath = useLocation().pathname;
 
     let showMoreListItem = (
         <ListItem button onClick={showMoreHandler}>
@@ -75,5 +73,3 @@ function PopularSubredditsList(props) {
         </List>
     );
 }
-
-export default withRouter(PopularSubredditsList);

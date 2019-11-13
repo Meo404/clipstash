@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useLocation, useParams } from 'react-router-dom';
 import { Helmet } from "react-helmet-async";
-import axios from "axios";
+import { ApiClient } from 'ApiClient';
 import Grid from "@material-ui/core/Grid";
 import RelatedSubmissionsList from "./RelatedSubmissionsList";
-import withErrorHandler from "hoc/withErrorHandler";
 import {
     LoadingIndicator,
     MaxWidthContainer,
@@ -13,20 +13,23 @@ import {
 
 const DEFAULT_SORT_METHOD = "hot";
 
-function Submission(props) {
-    const { match, location } = props;
+export default function Submission() {
     const [data, setData] = useState({ submission: null, isLoading: true });
-    const slug = match.params.slug;
+    const location = useLocation();
+    const slug = useParams().slug;
     const relatedSortMethod = setRelatedSortMethod();
+    const client = new ApiClient('/', true);
 
     useEffect(() => {
+        console.log(location);
         setData({ submission: null, isLoading: true })
         fetchData();
     }, [slug]);
 
     async function fetchData() {
-        const result = await axios("/api/v1/submission/" + slug);
-        setData({ submission: result.data.submission, isLoading: false });
+        await client.get("/api/v1/submission/" + slug).then((response) => {
+            setData({ submission: response.data.submission, isLoading: false });
+        })
     }
 
     function setRelatedSortMethod() {
@@ -59,5 +62,3 @@ function Submission(props) {
         </React.Fragment>
     );
 }
-
-export default withErrorHandler(Submission);

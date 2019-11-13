@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { withRouter } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { RegisterSuccessDialog } from 'components';
 
-function RegistrationSuccess({ location }) {
+export default function RegistrationSuccess() {
     const [show, setShow] = useState(false);
+    const location = useLocation();
 
     useEffect(() => {
         checkRegisterSuccessParam();
@@ -29,5 +30,3 @@ function RegistrationSuccess({ location }) {
         </React.Fragment>
     )
 }
-
-export default withRouter(RegistrationSuccess);

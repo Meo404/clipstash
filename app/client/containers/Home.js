@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { withRouter } from "react-router-dom";
-import axios from "axios";
+import { ApiClient } from "ApiClient";
 import InfiniteScroll from "react-infinite-scroller";
 import RegistrationSuccess from "containers/RegistrationSuccess";
-import withErrorHandler from "hoc/withErrorHandler";
 import {
     LoadingIndicator,
     MaxWidthContainer,
@@ -12,11 +10,11 @@ import {
     RecommendedSubreddits
 } from "components";
 
-function Home(props) {
-    const { history } = props;
+export default function Home() {
     const [submissions, setSubmissions] = useState({ submissions: [], isLoading: true });
     const [subreddits, setSubreddits] = useState({ subreddits: [], hasMore: true, page: 1 });
     const [showMore, setShowMore] = useState(false);
+    const client = new ApiClient();
 
     useEffect(() => {
         fetchRecommendedSubmissions();
@@ -24,23 +22,23 @@ function Home(props) {
     }, []);
 
     async function fetchRecommendedSubmissions() {
-        const result = await axios("/api/v1/recommended_submissions/", { params: { max_results: 16 } });
-        if (result) {
-            setSubmissions({ submissions: result.data.submissions, isLoading: false });
-        }
+        await client.get("/api/v1/recommended_submissions/", { params: { max_results: 16 } })
+            .then((response) => {
+                setSubmissions({ submissions: response.data.submissions, isLoading: false });
+            });
     }
 
     async function fetchRecommendedSubreddits() {
         const params = { page: subreddits.page };
-        const result = await axios("/api/v1/recommended_subreddits/", { params: params });
-        if (result) {
-            const newData = {
-                subreddits: [...subreddits.subreddits, ...result.data.subreddits],
-                page: subreddits.page + 1,
-                hasMore: result.data.meta.next_page != null
-            };
-            setSubreddits(newData);
-        }
+        await client.get("/api/v1/recommended_subreddits/", { params: params })
+            .then((response) => {
+                const newData = {
+                    subreddits: [...subreddits.subreddits, ...response.data.subreddits],
+                    page: subreddits.page + 1,
+                    hasMore: response.data.meta.next_page != null
+                };
+                setSubreddits(newData);
+            })
     }
 
     function displayedSubmissions() {
@@ -61,7 +59,6 @@ function Home(props) {
                 {submissions.isLoading ? null : (
                     <React.Fragment>
                         <RecommendedSubmissions
-                            history={history}
                             showMore={showMore}
                             showMoreHandler={showMoreHandler}
                             submissions={displayedSubmissions()}
@@ -83,4 +80,3 @@ function Home(props) {
     );
 }
 
-export default withRouter(withErrorHandler(Home));

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from 'react-router-dom';
+import { ApiClient } from 'ApiClient';
 import { Helmet } from "react-helmet-async";
-import axios from "axios";
 import InfiniteScroll from "react-infinite-scroller";
-import withErrorHandler from "hoc/withErrorHandler";
 import {
     LoadingIndicator,
     MaxWidthContainer,
@@ -19,11 +19,11 @@ const INITIAL_STATE = {
     initialLoad: true
 };
 
-function Subreddit(props) {
-    const { history, match } = props;
+export default function Subreddit() {
     const [data, setData] = useState(INITIAL_STATE);
     const [subreddit, setSubreddit] = useState(null);
-    const displayName = match.params.displayName;
+    const displayName = useParams().displayName;
+    const client = new ApiClient('/', true);
 
     useEffect(() => {
         setSubreddit(null);
@@ -33,10 +33,10 @@ function Subreddit(props) {
     }, [displayName]);
 
     async function fetchSubredditData() {
-        const result = await axios("/api/v1/subreddits/" + displayName);
-        if (result) {
-            setSubreddit(result.data.subreddit);
-        }
+        await client.get("/api/v1/subreddits/" + displayName)
+            .then((response) => {
+                setSubreddit(response.data.subreddit);
+            })
     }
 
     /**
@@ -48,7 +48,7 @@ function Subreddit(props) {
      * 
      *  @param infiniteScrollPage   - passed page by infinite-scroller
      *  @param sortMethod           - passed if we want to change sorting
-     */ 
+     */
     async function fetchSubmissionData(infiniteScrollPage = null, sortMethod = null) {
         // Prevents unneccessary first load of the infinite-scroller
         if (infiniteScrollPage && !data.hasMore) { return; }
@@ -58,20 +58,19 @@ function Subreddit(props) {
         const pageParam = sortMethod ? 1 : data.nextPage
         // Request data and update state accordingly
         const params = { sort: sortParam, page: pageParam }
-        const result = await axios("/api/v1/submissions/" + displayName, { params: params });
+        await client.get("/api/v1/submissions/" + displayName, { params: params })
+            .then((response) => {
+                const submissions = sortMethod ? [] : [...data.submissions]
+                const updatedData = {
+                    submissions: [...submissions, ...response.data.submissions],
+                    sortMethod: sortParam,
+                    nextPage: response.data.meta.next_page,
+                    hasMore: response.data.meta.next_page != null,
+                    initialLoad: false
+                }
 
-        if (result) {
-            const submissions = sortMethod ? [] : [...data.submissions]
-            const updatedData = {
-                submissions: [...submissions, ...result.data.submissions],
-                sortMethod: sortParam,
-                nextPage: result.data.meta.next_page,
-                hasMore: result.data.meta.next_page != null,
-                initialLoad: false
-            }
-
-            setData(updatedData);
-        }
+                setData(updatedData);
+            })
     }
 
     function handleSortChange(event) {
@@ -93,7 +92,7 @@ function Subreddit(props) {
                     <SubredditHeader
                         subreddit={subreddit}
                         sortMethod={data.sortMethod}
-                        sortChangeHandler={handleSortChange} 
+                        sortChangeHandler={handleSortChange}
                     />
                 ) : null}
                 <InfiniteScroll
@@ -105,7 +104,6 @@ function Subreddit(props) {
                     <SubmissionList
                         submissions={data.submissions}
                         searchState={{ sortMethod: data.sortMethod }}
-                        history={history}
                     />
                     <LoadingIndicator key="loadingIndicator" show={data.initialLoad} />
                 </InfiniteScroll>
@@ -117,8 +115,5 @@ function Subreddit(props) {
                 ) : null}
             </MaxWidthContainer>
         </React.Fragment>
-
     );
 }
-
-export default withErrorHandler(Subreddit);
