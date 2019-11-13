@@ -1,6 +1,43 @@
 import * as EmailValidator from 'email-validator';
 
 /**
+ * Function to pare backend validation errors
+ * 
+ * This will take the response error object, parse it and return the
+ * errors properly mapped to the formData fields.
+ * 
+ * @param {object} responseErrors
+ * @return {object}
+ */
+function parseValidationErrors(responseErrors) {
+    let errors = {
+        userName: null,
+        email: null,
+        password: null,
+        passwordConfirmation: null,
+    }
+
+    if (responseErrors.user_name) {
+        errors.userName = `User name ${responseErrors.user_name[0]}`;
+    }
+
+    if (responseErrors.email) {
+        errors.email = `Email ${responseErrors.email[0]}`;
+    }
+
+    if (responseErrors.password) {
+        errors.password = `Password ${responseErrors.password[0]}`;
+    }
+
+    if (responseErrors.password_confirmation) {
+        errorString = `Password confirmation ${responseErrors.password_confirmation[0]}`;
+        errors.passwordConfirmation = errorString;
+    }
+
+    return errors;
+} 
+
+/**
  * Validates the submitted SignUp form data
  * In case of validation errors, it puts them into the error object.
  * 
@@ -18,6 +55,7 @@ function validateSignUpData(formData) {
 
     return {...formData, hasErrors: hasErrors, errors: errors}
 }
+
 /**
  * Validates the passed user name
  * Requirements: Needs to be at least 3 characters long
@@ -82,4 +120,4 @@ function validateConfirmationPassword(password, passwordConfirmation) {
     return null;
 }
 
-export { validateSignUpData };
+export { parseValidationErrors, validateSignUpData };

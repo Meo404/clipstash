@@ -1,6 +1,5 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { activeNav } from "utils/navigationHelper";
 import {
     Apps as AppsIcon,
@@ -16,10 +15,9 @@ import {
 
 import useStyles from './Styles';
 
-function SidebarContent(props) {
-    const { closeDrawer, location } = props;
+export default function SidebarContent({ closeDrawer }) {
     const classes = useStyles();
-    const currentPath = location.pathname;
+    const currentPath = useLocation().pathname;
 
     return (
         <List>
@@ -73,5 +71,3 @@ function SidebarContent(props) {
         </List>
     );
 }
-
-export default withRouter(SidebarContent);

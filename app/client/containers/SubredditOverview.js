@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { ApiClient } from 'ApiClient';
 import { Helmet } from "react-helmet-async";
-import axios from "axios";
 import InfiniteScroll from "react-infinite-scroller";
-import withErrorHandler from "hoc/withErrorHandler";
 import {
     LoadingIndicator,
     MaxWidthContainer,
@@ -20,8 +19,9 @@ const INITIAL_STATE = {
     initialLoad: true
 };
 
-function SubredditOverview() {
+export default function SubredditOverview() {
     const [data, setData] = useState(INITIAL_STATE);
+    const client = new ApiClient();
 
     useEffect(() => {
         setData(INITIAL_STATE);
@@ -50,20 +50,19 @@ function SubredditOverview() {
         const params = { sort: sortParam, q: searchParam, page: pageParam }
 
         // Request data and update state accordingly
-        const result = await axios("/api/v1/subreddits", { params: params })
-        if (result) {
+        await client.get("/api/v1/subreddits", { params: params }).then((response) => {
             const subreddits = searchTerm || sortMethod ? [] : [...data.subreddits]
             const updatedData = {
-                subreddits: [...subreddits, ...result.data.subreddits],
+                subreddits: [...subreddits, ...response.data.subreddits],
                 searchTerm: searchParam,
                 sortMethod: sortParam,
-                nextPage: result.data.meta.next_page,
-                hasMore: result.data.meta.next_page != null,
+                nextPage: response.data.meta.next_page,
+                hasMore: response.data.meta.next_page != null,
                 initialLoad: false
             }
 
             setData(updatedData);
-        }
+        })
     }
 
     function handleSortChange(event) {
@@ -112,5 +111,3 @@ function SubredditOverview() {
         </React.Fragment>
     );
 }
-
-export default withErrorHandler(SubredditOverview);

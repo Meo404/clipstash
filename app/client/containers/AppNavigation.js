@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { ApiClient } from 'ApiClient';
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { Sidebar, SignUpDialog, TopNavbar } from "components";
 
@@ -8,16 +8,19 @@ export default function Navigation() {
     const [mobileMenu, setMobileMenu] = useState(false);
     const [showMore, setShowMore] = useState(false);
     const [showSignUp, setShowSignUp] = useState(false);
+    const client = new ApiClient();
 
     useEffect(() => {
         fetchSubredditData();
     }, []);
 
     async function fetchSubredditData() {
-        const result = await axios("/api/v1/popular_subreddits", { params: { max_results: 30 } });
-        setPopularSubreddits(result.data.subreddits);
+        await client.get("/api/v1/popular_subreddits", { params: { max_results: 30 } })
+            .then((response) => {
+                setPopularSubreddits(response.data.subreddits);
+            })
     }
-
+ 
     function mobileMenuHandler() {
         setMobileMenu(!mobileMenu);
     }
@@ -37,20 +40,20 @@ export default function Navigation() {
     return (
         <React.Fragment>
             <CssBaseline />
-            <TopNavbar 
+            <TopNavbar
                 mobileMenuHandler={mobileMenuHandler}
                 showSignUpHandler={showSignUpHandler}
             />
-            <Sidebar 
-                mobileMenuHandler={mobileMenuHandler} 
+            <Sidebar
+                mobileMenuHandler={mobileMenuHandler}
                 mobileMenu={mobileMenu}
                 popularSubreddits={displayedPopularSubreddits()}
                 showMore={showMore}
                 showMoreHandler={showMoreHandler}
             />
-            <SignUpDialog 
-                showSignUp={showSignUp} 
-                showSignUpHandler={showSignUpHandler} 
+            <SignUpDialog
+                showSignUp={showSignUp}
+                showSignUpHandler={showSignUpHandler}
             />
         </React.Fragment>
     );

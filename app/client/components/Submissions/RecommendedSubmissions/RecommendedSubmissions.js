@@ -6,7 +6,6 @@ import useStyles from './Styles';
 
 export default function RecommendedSubmissions(props) {
     const {
-        history,
         submissions,
         showMore,
         showMoreHandler
@@ -32,7 +31,6 @@ export default function RecommendedSubmissions(props) {
         <React.Fragment>
             <SectionHeader headerText="Trending Videos" />
             <SubmissionList
-                history={history}
                 searchState={{}}
                 showSubreddits={true}
                 submissions={submissions}

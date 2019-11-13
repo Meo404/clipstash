@@ -1,14 +1,15 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import { SubmissionListCard } from "components";
 
 export default function SubmissionList(props) {
     const { 
-        history,
         submissions, 
         searchState,
         showSubreddits,
-    } = props
+    } = props;
+    const history = useHistory();
 
     function handleSubmissionClick(slug) {
         history.push({

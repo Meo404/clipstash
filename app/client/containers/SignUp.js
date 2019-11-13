@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
+import { ApiClient } from 'ApiClient';
 import { SignUpForm, SignUpSuccess } from 'components';
-import { validateSignUpData } from 'utils/Users/UserValidation';
-import registerUser from 'utils/Users/RegisterUser';
+import { parseValidationErrors, validateSignUpData } from 'utils/UserValidation';
 
 const INITIAL_STATE = {
     userName: '',
@@ -21,6 +21,7 @@ const INITIAL_STATE = {
 export default function SignUp() {
     const [signUpData, setSignUpdata] = useState(INITIAL_STATE);
     const [registerSuccess, setRegisterSuccess] = useState(false);
+    const client = new ApiClient();
 
     function changeHandler(event) {
         const { name, value } = event.target;
@@ -45,32 +46,32 @@ export default function SignUp() {
         }
 
         setSignUpdata({ ...validatedData, isSubmitting: true });
-        submitRegistration();
+        registerUser();
     }
-    
-    /**
-     * Function to actually submit the registration to the Backend
-     * 
-     * In case the registration is successfull it will set the registerSuccess state to true,
-     * thus rendering the SignUpSuccess component.
-     * If the registration is not successfull it will either show field errors or alternatively
-     * a generic error if the error response was != 422.
-     */
-    function submitRegistration() {
-        registerUser(signUpData).then(data => {
-            if (data.success) {
-                setRegisterSuccess(true);
-            };
 
-            if (!data.success) {
-                if (data.errors) {
-                    setSignUpdata({ ...signUpData, errors: data.errors, hasErrors: true, isSubmitting: false });
-                } else {
-                    // TODO: Add proper handling (e.g. displaying error snackbar)
-                    setSignUpdata({ ...signUpData, isSubmitting: false }); 
-                }  
-            }
-        })
+    async function registerUser() {
+        const params = {
+            user: {
+                user_name: signUpData.userName,
+                email: signUpData.email,
+                password: signUpData.password,
+                password_confirmation: signUpData.passwordConfirmation,
+            },
+            confirm_success_url: "http://localhost:3000/"
+        };
+
+        // TODO add proper error handling for generic errors
+        await client.post('api/v1/auth', params)
+            .then(() => {
+                setRegisterSuccess(true);
+                setSignUpdata({ ...signUpData, isSubmitting: false });
+            })
+            .catch((error) => {
+                if (error.response.status = 422) {
+                    const errors = parseValidationErrors(error.response.data.errors);
+                    setSignUpdata({ ...signUpData, errors: errors, hasErrors: true, isSubmitting: false });
+                }
+            })
     }
 
     return (
@@ -78,12 +79,12 @@ export default function SignUp() {
             {registerSuccess ? (
                 <SignUpSuccess email={signUpData.email} />
             ) : (
-                <SignUpForm 
-                    signUpData={signUpData} 
-                    changeHandler={changeHandler}
-                    submitHandler={submitHandler} 
-                />
-        )}
+                    <SignUpForm
+                        signUpData={signUpData}
+                        changeHandler={changeHandler}
+                        submitHandler={submitHandler}
+                    />
+                )}
         </React.Fragment>
     )
 }

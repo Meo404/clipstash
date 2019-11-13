@@ -5,8 +5,7 @@ import { SectionHeader, SubmissionList } from "components";
 
 import useStyles from "./Styles";
 
-export default function RecommendedSubreddits(props) {
-    const { history, subreddits } = props;
+export default function RecommendedSubreddits({ subreddits }) {
     const classes = useStyles();
 
     return (
@@ -22,7 +21,6 @@ export default function RecommendedSubreddits(props) {
                     </Link>
                     <SubmissionList
                         submissions={subreddit.submissions}
-                        history={history}
                     />
                 </React.Fragment>
             ))}
