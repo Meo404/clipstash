@@ -62,10 +62,11 @@ export default function SignUp() {
 
         // TODO add proper error handling for generic errors
         await client.post('api/v1/auth', params)
-            .then(() => { 
+            .then(() => {
                 setRegisterSuccess(true);
                 setSignUpdata({ ...signUpData, isSubmitting: false });
-            }, (error) => {
+            })
+            .catch((error) => {
                 if (error.response.status = 422) {
                     const errors = parseValidationErrors(error.response.data.errors);
                     setSignUpdata({ ...signUpData, errors: errors, hasErrors: true, isSubmitting: false });
