@@ -5,9 +5,15 @@ import { useHistory } from 'react-router-dom';
  * Create a new Axios client instance
  */
 const getClient = (baseUrl = '/', useInterceptor = false) => {
+    const csrfToken = document.querySelector('[name=csrf-token]').content
     const history = useHistory();
     const options = {
         baseURL: baseUrl
+    };
+
+    // Set common headers
+    options.headers = {
+        'X-CSRF-TOKEN': csrfToken
     };
 
     const client = axios.create(options);
