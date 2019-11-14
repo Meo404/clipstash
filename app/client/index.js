@@ -1,4 +1,5 @@
 import React from "react"
+import { AuthProvider } from "contexts/AuthContext";
 import { HelmetProvider } from "react-helmet-async";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
@@ -8,11 +9,13 @@ export default function index() {
     return (
         <HelmetProvider>
             <MuiThemeProvider theme={theme}>
-                <Router>
-                    <Switch>
-                        <Route path="/" component={App} />
-                    </Switch>
-                </Router>
+                <AuthProvider>
+                    <Router>
+                        <Switch>
+                            <Route path="/" component={App} />
+                        </Switch>
+                    </Router>
+                </AuthProvider>
             </MuiThemeProvider>
         </HelmetProvider>
     )
