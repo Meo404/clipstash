@@ -1,15 +1,17 @@
 import React, { useReducer } from 'react';
 import authReducer from 'reducers/authReducer';
-import Cookies from 'js-cookie';
+import cookieTokenizer from 'utils/cookieTokenizer';
 
 const AuthContext = React.createContext({});
 
 export const AuthProvider = ({ children }) => {
+    const Cookies = cookieTokenizer();
     const initialState = setInitialState();
     const [state, dispatch] = useReducer(authReducer, initialState);
 
-    const setInitialState = () => {
-        authCookie = Cookies.get('userAuth')
+    function setInitialState() {
+        const authCookie = Cookies.get('userToken');
+        
         if (authCookie) {
             return {
                 isLoggedIn: true,
