@@ -11,9 +11,12 @@ import MenuIcon from "@material-ui/icons/Menu";
 import useStyles from "./Styles";
 
 export default function TopNavbar(props) {
-    const { 
+    const {
         mobileMenuHandler,
-        showSignUpHandler
+        logOutHandler,
+        showSignInHandler,
+        showSignUpHandler,
+        userIsLoggedIn
     } = props;
     const classes = useStyles();
 
@@ -33,9 +36,20 @@ export default function TopNavbar(props) {
                     <Typography variant="h6" className={classes.title}>
                         Project Free
                     </Typography>
-                    <Button color="inherit" onClick={showSignUpHandler}>
-                        Sign Up
-                    </Button>
+                    {userIsLoggedIn ? (
+                        <Button color="inherit" onClick={logOutHandler}>
+                            Log Out
+                        </Button>
+                    ) : (
+                        <React.Fragment>
+                            <Button color="inherit" onClick={showSignUpHandler}>
+                                Sign Up
+                            </Button>
+                            <Button color="inherit" onClick={showSignInHandler}>
+                                Sign In
+                            </Button>
+                        </React.Fragment>
+                        )}
                 </Toolbar>
             </AppBar>
         </header>

@@ -33,6 +33,7 @@ export {
 
 export {
     RegisterSuccessDialog,
+    SignInDialog,
     SignInForm,
     SignUpDialog,
     SignUpForm,

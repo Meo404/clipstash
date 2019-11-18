@@ -1,13 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import AuthContext from 'contexts/AuthContext';
 import { ApiClient } from 'ApiClient';
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { Sidebar, SignUpDialog, TopNavbar } from "components";
+import { 
+    Sidebar,
+    SignInDialog,
+    SignUpDialog,
+    TopNavbar
+} from "components";
 
 export default function Navigation() {
+    const [{ isLoggedIn }, dispatch] = useContext(AuthContext);
     const [popularSubreddits, setPopularSubreddits] = useState([]);
     const [mobileMenu, setMobileMenu] = useState(false);
     const [showMore, setShowMore] = useState(false);
     const [showSignUp, setShowSignUp] = useState(false);
+    const [showSignIn, setShowSignin] = useState(false);
     const client = new ApiClient();
 
     useEffect(() => {
@@ -37,12 +45,26 @@ export default function Navigation() {
         setShowSignUp(!showSignUp);
     }
 
+    function showSignInHandler() {
+        setShowSignin(!showSignIn);
+    }
+
+    async function logOutHandler() {
+        await client.delete('api/v1/auth/sign_out', {})
+        .then(() => {
+            dispatch({ type: 'LOGOUT' });
+        })
+    }
+
     return (
         <React.Fragment>
             <CssBaseline />
             <TopNavbar
                 mobileMenuHandler={mobileMenuHandler}
+                logOutHandler={logOutHandler}
+                showSignInHandler={showSignInHandler}
                 showSignUpHandler={showSignUpHandler}
+                userIsLoggedIn={isLoggedIn}
             />
             <Sidebar
                 mobileMenuHandler={mobileMenuHandler}
@@ -54,6 +76,10 @@ export default function Navigation() {
             <SignUpDialog
                 showSignUp={showSignUp}
                 showSignUpHandler={showSignUpHandler}
+            />
+            <SignInDialog
+                showSignIn={showSignIn}
+                showSignInHandler={showSignInHandler}
             />
         </React.Fragment>
     );

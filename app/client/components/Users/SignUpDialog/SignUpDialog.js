@@ -14,7 +14,7 @@ export default function SignUpDialog(props) {
             onClose={showSignUpHandler}
             classes={{ paper: classes.signUpPaper }}
         >
-            <SignUp closeSignUp={showSignUpHandler} />
+            <SignUp />
             <Button
                 onClick={showSignUpHandler}
                 className={classes.closeDialogButton}

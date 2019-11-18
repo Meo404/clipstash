@@ -69,8 +69,8 @@ function validateSignInData(formData) {
         password: validatePassword(formData.password)
     }
     const hasErrors = !Object.values(errors).every(x => (x === null));
-
-    return {...formData, hasErrors: hasErrors, errors: errors}
+    
+    return { ...formData, hasErrors: hasErrors }
 }
 
 /**

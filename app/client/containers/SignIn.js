@@ -1,22 +1,18 @@
 import React, { useContext, useState } from 'react';
 import AuthContext from 'contexts/AuthContext';
 import { ApiClient } from 'ApiClient';
-import { SignInForm, SignUpSuccess } from 'components';
-import { parseValidationErrors, validateSignInData } from 'utils/UserValidation';
+import { SignInForm } from 'components';
+import { validateSignInData } from 'utils/UserValidation';
 
 const INITIAL_STATE = {
     email: '',
     password: '',
     hasErrors: false,
-    isSubmitting: false,
-    errors: {
-        email: null,
-        password: null
-    }
+    isSubmitting: false
 }
 
-export default function SignUp() {
-    const [authState, dispatch] = useContext(AuthContext);
+export default function SignIn({ closeDialog }) {
+    const [{ isLoggedIn }, dispatch] = useContext(AuthContext);
     const [signInData, setSignInData] = useState(INITIAL_STATE);
     const [signInSuccess, setSignInSuccess] = useState(false);
     const client = new ApiClient();
@@ -39,7 +35,7 @@ export default function SignUp() {
         const validatedData = validateSignInData(signInData);
 
         if (validatedData.hasErrors) {
-            setSignInData({ ...validatedData, isSubmitting: false });
+            setSignInData({ ...validatedData, password: '', isSubmitting: false });
             return;
         }
 
@@ -60,11 +56,11 @@ export default function SignUp() {
             .then((response) => {
                 dispatchLogin(response);
                 setSignInSuccess(true);
+                closeDialog();
             })
             .catch((error) => {
-                if (error.response.status = 422) {
-                    const errors = parseValidationErrors(error.response.data.errors);
-                    setSignInData({ ...signInData, errors: errors, hasErrors: true, isSubmitting: false });
+                if (error.response.status = 401) {
+                    setSignInData({ ...signInData, hasErrors: true, isSubmitting: false });
                 }
             })
     }
@@ -78,7 +74,7 @@ export default function SignUp() {
             'expiry': response.headers.expiry,
             'uid': response.headers.uid
         }
-        
+
         dispatch({
             type: 'LOGIN',
             payload: {
@@ -90,15 +86,11 @@ export default function SignUp() {
 
     return (
         <React.Fragment>
-            {signInSuccess ? (
-                <h1>Success</h1>
-            ) : (
-                    <SignInForm
-                        signInData={signInData}
-                        changeHandler={changeHandler}
-                        submitHandler={submitHandler}e
-                    />
-                )}
+            <SignInForm
+                signInData={signInData}
+                changeHandler={changeHandler}
+                submitHandler={submitHandler}
+            />
         </React.Fragment>
     )
 }

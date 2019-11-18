@@ -18,14 +18,14 @@ export default function SignInForm(props) {
 
     return (
         <Container maxWidth="xs">
-            <div className={classes.signUpContainer}>
+            <div className={classes.signInContainer}>
                 <Avatar className={classes.avatar}>
                     <LockOutlinedIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
                     Sign In
                </Typography>
-                <form className={classes.signUpForm} onSubmit={submitHandler} noValidate>
+                <form className={classes.signInForm} onSubmit={submitHandler} noValidate>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
                             <TextField
@@ -38,9 +38,9 @@ export default function SignInForm(props) {
                                 name="email"
                                 autoComplete="email"
                                 onChange={changeHandler}
-                                error={signInData.errors.email != null}
+                                error={signInData.hasErrors}
                                 helperText={
-                                    signInData.errors.email != null ? signInData.errors.email : null
+                                    signInData.hasErrors ? "Invalid login credentials. Please try again." : null
                                 }
                             />
                         </Grid>
@@ -56,10 +56,6 @@ export default function SignInForm(props) {
                                 id="password"
                                 autoComplete="current-password"
                                 onChange={changeHandler}
-                                error={signInData.errors.password != null}
-                                helperText={
-                                    signInData.errors.password != null ? signInData.errors.password : null
-                                }
                             />
                         </Grid>
                     </Grid>
