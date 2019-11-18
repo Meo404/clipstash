@@ -3,6 +3,7 @@ import AuthContext from 'contexts/AuthContext';
 import { ApiClient } from 'ApiClient';
 import { SignInForm } from 'components';
 import { validateSignInData } from 'utils/UserValidation';
+import { useSnackbar } from 'notistack';
 
 const INITIAL_STATE = {
     email: '',
@@ -14,7 +15,7 @@ const INITIAL_STATE = {
 export default function SignIn({ closeDialog }) {
     const [{ isLoggedIn }, dispatch] = useContext(AuthContext);
     const [signInData, setSignInData] = useState(INITIAL_STATE);
-    const [signInSuccess, setSignInSuccess] = useState(false);
+    const { enqueueSnackbar } = useSnackbar();
     const client = new ApiClient();
 
     function changeHandler(event) {
@@ -55,8 +56,8 @@ export default function SignIn({ closeDialog }) {
         await client.post('api/v1/auth/sign_in', params)
             .then((response) => {
                 dispatchLogin(response);
-                setSignInSuccess(true);
                 closeDialog();
+                enqueueSnackbar('Signed in successfully.', { variant: 'success' });
             })
             .catch((error) => {
                 if (error.response.status = 401) {

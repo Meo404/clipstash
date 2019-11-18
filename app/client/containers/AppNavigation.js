@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import AuthContext from 'contexts/AuthContext';
 import { ApiClient } from 'ApiClient';
+import { useSnackbar } from 'notistack';
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { 
     Sidebar,
@@ -16,6 +17,7 @@ export default function Navigation() {
     const [showMore, setShowMore] = useState(false);
     const [showSignUp, setShowSignUp] = useState(false);
     const [showSignIn, setShowSignin] = useState(false);
+    const { enqueueSnackbar } = useSnackbar();
     const client = new ApiClient();
 
     useEffect(() => {
@@ -49,10 +51,13 @@ export default function Navigation() {
         setShowSignin(!showSignIn);
     }
 
+    // 3rd then works like jQueries finally()
     async function logOutHandler() {
-        await client.delete('api/v1/auth/sign_out', {})
+        await client.delete('api/v1/auth/sign_out')
+        .then().catch(() => {})
         .then(() => {
             dispatch({ type: 'LOGOUT' });
+            enqueueSnackbar('Signed out successfully.', { variant: 'success' });
         })
     }
 
