@@ -8,7 +8,7 @@ import {
     Grid,
     Typography
 } from '@material-ui/core';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
 
 import useStyles from './Styles';
 
@@ -20,7 +20,7 @@ export default function SignUpForm(props) {
         <Container maxWidth="xs">
             <div className={classes.signUpContainer}>
                 <Avatar className={classes.avatar}>
-                    <LockOutlinedIcon />
+                    <PersonAddIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
                     Sign Up

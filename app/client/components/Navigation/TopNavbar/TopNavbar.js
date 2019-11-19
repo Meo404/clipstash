@@ -6,7 +6,11 @@ import {
     Toolbar,
     Typography
 } from "@material-ui/core";
-import MenuIcon from "@material-ui/icons/Menu";
+import {
+    AccountCircle as AccountCircleIcon,
+    Menu as MenuIcon,
+    PersonAdd as PersonAddIcon
+} from "@material-ui/icons";
 
 import useStyles from "./Styles";
 
@@ -28,7 +32,7 @@ export default function TopNavbar(props) {
                         aria-label="menu"
                         color="inherit"
                         edge="start"
-                        className={classes.menuButton}
+                        className={classes.mobileButton}
                         onClick={mobileMenuHandler}
                     >
                         <MenuIcon />
@@ -37,18 +41,34 @@ export default function TopNavbar(props) {
                         Project Free
                     </Typography>
                     {userIsLoggedIn ? (
-                        <Button color="inherit" onClick={logOutHandler}>
+                        <Button
+                            color="inherit"
+                            variant="outlined"
+                            className={classes.desktopButton}
+                            onClick={logOutHandler}
+                        >
                             Log Out
                         </Button>
                     ) : (
-                        <React.Fragment>
-                            <Button color="inherit" onClick={showSignUpHandler}>
-                                Sign Up
-                            </Button>
-                            <Button color="inherit" onClick={showSignInHandler}>
-                                Sign In
-                            </Button>
-                        </React.Fragment>
+                            <React.Fragment>
+                                <Button
+                                    color="inherit"
+                                    variant="outlined"
+                                    className={classes.desktopButton}
+                                    onClick={showSignInHandler}
+                                >
+                                    Log In
+                                </Button>
+                                <Button
+                                    color="inherit"
+                                    variant="outlined"
+                                    className={classes.desktopButton}
+                                    onClick={showSignUpHandler}
+                                    endIcon={<AccountCircleIcon />}
+                                >
+                                    Sign Up
+                                </Button>
+                            </React.Fragment>
                         )}
                 </Toolbar>
             </AppBar>

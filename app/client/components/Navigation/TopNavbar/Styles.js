@@ -7,12 +7,12 @@ const useStyles = makeStyles(theme => ({
     desktopButton: {
         display: "none",
         [theme.breakpoints.up("md")]: {
-            display: "block",
+            display: "flex",
+            margin: "0 5px"
         },
     },
-    menuButton: {
-        marginRight: theme.spacing(2),
-        display: "block",
+    mobileButton: {
+        display: "flex",
         [theme.breakpoints.up("md")]: {
             display: "none",
         },
