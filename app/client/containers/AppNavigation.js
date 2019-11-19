@@ -3,12 +3,13 @@ import AuthContext from 'contexts/AuthContext';
 import { ApiClient } from 'ApiClient';
 import { useSnackbar } from 'notistack';
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { 
+import {
+    Modal,
     Sidebar,
-    SignInDialog,
-    SignUpDialog,
     TopNavbar
 } from "components";
+import SignIn from 'containers/SignIn';
+import SignUp from 'containers/SignUp';
 
 export default function Navigation() {
     const [{ isLoggedIn }, dispatch] = useContext(AuthContext);
@@ -30,7 +31,7 @@ export default function Navigation() {
                 setPopularSubreddits(response.data.subreddits);
             })
     }
- 
+
     function mobileMenuHandler() {
         setMobileMenu(!mobileMenu);
     }
@@ -54,11 +55,11 @@ export default function Navigation() {
     // 3rd then works like jQueries finally()
     async function logOutHandler() {
         await client.delete('api/v1/auth/sign_out')
-        .then().catch(() => {})
-        .then(() => {
-            dispatch({ type: 'LOGOUT' });
-            enqueueSnackbar('Signed out successfully.', { variant: 'success' });
-        })
+            .then().catch(() => { })
+            .then(() => {
+                dispatch({ type: 'LOGOUT' });
+                enqueueSnackbar('Signed out successfully.', { variant: 'success' });
+            })
     }
 
     return (
@@ -78,14 +79,18 @@ export default function Navigation() {
                 showMore={showMore}
                 showMoreHandler={showMoreHandler}
             />
-            <SignUpDialog
-                showSignUp={showSignUp}
-                showSignUpHandler={showSignUpHandler}
-            />
-            <SignInDialog
-                showSignIn={showSignIn}
-                showSignInHandler={showSignInHandler}
-            />
+            <Modal
+                showModal={showSignUp}
+                showModalHandler={showSignUpHandler}
+            >
+                <SignUp />
+            </Modal>
+            <Modal
+                showModal={showSignIn}
+                showModalHandler={showSignInHandler}
+            >
+                <SignIn closeModal={showSignInHandler} />
+            </Modal>
         </React.Fragment>
     );
 }

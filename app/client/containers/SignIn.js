@@ -12,7 +12,7 @@ const INITIAL_STATE = {
     isSubmitting: false
 }
 
-export default function SignIn({ closeDialog }) {
+export default function SignIn({ closeModal }) {
     const [{ isLoggedIn }, dispatch] = useContext(AuthContext);
     const [signInData, setSignInData] = useState(INITIAL_STATE);
     const { enqueueSnackbar } = useSnackbar();
@@ -56,7 +56,7 @@ export default function SignIn({ closeDialog }) {
         await client.post('api/v1/auth/sign_in', params)
             .then((response) => {
                 dispatchLogin(response);
-                closeDialog();
+                closeModal();
                 enqueueSnackbar('Signed in successfully.', { variant: 'success' });
             })
             .catch((error) => {

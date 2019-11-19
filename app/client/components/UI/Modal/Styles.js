@@ -1,10 +1,10 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
-    closeDialogButton: {
+    closeModalButton: {
         marginTop: 25
     },
-    signUpPaper: {
+    modalPaper: {
         margin: 10
     },
 });

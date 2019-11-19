@@ -8,8 +8,7 @@ import {
 } from "@material-ui/core";
 import {
     AccountCircle as AccountCircleIcon,
-    Menu as MenuIcon,
-    PersonAdd as PersonAddIcon
+    Menu as MenuIcon
 } from "@material-ui/icons";
 
 import useStyles from "./Styles";
