@@ -2,11 +2,10 @@ import React from 'react';
 import {
     AppBar,
     IconButton,
-    Toolbar,
-    Typography
+    Toolbar
 } from '@material-ui/core';
 import { Menu as MenuIcon } from '@material-ui/icons';
-import { LoggedInUserMenu, NavbarUserMenu } from 'components';
+import { LoggedInUserMenu, NavbarLogo, NavbarUserMenu } from 'components';
 
 import useStyles from './Styles';
 
@@ -34,9 +33,7 @@ export default function Navbar(props) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" className={classes.title}>
-                        Project Free
-                    </Typography>
+                    <NavbarLogo className={classes.logo} />
                     {userIsLoggedIn ? (
                         <LoggedInUserMenu logOutHandler={logOutHandler} userName={userName} />
                     ) : (
