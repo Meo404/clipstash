@@ -4,15 +4,8 @@ const useStyles = makeStyles(theme => ({
     appBar: {
         zIndex: theme.zIndex.drawer + 1
     },
-    desktopButton: {
-        display: "none",
-        [theme.breakpoints.up("md")]: {
-            display: "block",
-        },
-    },
-    menuButton: {
-        marginRight: theme.spacing(2),
-        display: "block",
+    mobileButton: {
+        display: "flex",
         [theme.breakpoints.up("md")]: {
             display: "none",
         },

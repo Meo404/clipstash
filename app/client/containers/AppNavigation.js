@@ -1,13 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import AuthContext from 'contexts/AuthContext';
 import { ApiClient } from 'ApiClient';
+import { useSnackbar } from 'notistack';
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { Sidebar, SignUpDialog, TopNavbar } from "components";
+import {
+    Modal,
+    Navbar,
+    Sidebar
+} from "components";
+import SignIn from 'containers/SignIn';
+import SignUp from 'containers/SignUp';
 
 export default function Navigation() {
+    const [{ isLoggedIn, userName }, dispatch] = useContext(AuthContext);
     const [popularSubreddits, setPopularSubreddits] = useState([]);
     const [mobileMenu, setMobileMenu] = useState(false);
     const [showMore, setShowMore] = useState(false);
     const [showSignUp, setShowSignUp] = useState(false);
+    const [showSignIn, setShowSignin] = useState(false);
+    const { enqueueSnackbar } = useSnackbar();
     const client = new ApiClient();
 
     useEffect(() => {
@@ -20,7 +31,7 @@ export default function Navigation() {
                 setPopularSubreddits(response.data.subreddits);
             })
     }
- 
+
     function mobileMenuHandler() {
         setMobileMenu(!mobileMenu);
     }
@@ -37,12 +48,31 @@ export default function Navigation() {
         setShowSignUp(!showSignUp);
     }
 
+    function showSignInHandler() {
+        setShowSignUp(false);
+        setShowSignin(!showSignIn);
+    }
+
+    // 3rd then works like jQueries finally()
+    async function logOutHandler() {
+        await client.delete('api/v1/auth/sign_out')
+            .then().catch(() => { })
+            .then(() => {
+                dispatch({ type: 'LOGOUT' });
+                enqueueSnackbar('Signed out successfully.', { variant: 'success' });
+            })
+    }
+
     return (
         <React.Fragment>
             <CssBaseline />
-            <TopNavbar
+            <Navbar
                 mobileMenuHandler={mobileMenuHandler}
+                logOutHandler={logOutHandler}
+                showSignInHandler={showSignInHandler}
                 showSignUpHandler={showSignUpHandler}
+                userIsLoggedIn={isLoggedIn}
+                userName={userName}
             />
             <Sidebar
                 mobileMenuHandler={mobileMenuHandler}
@@ -51,10 +81,18 @@ export default function Navigation() {
                 showMore={showMore}
                 showMoreHandler={showMoreHandler}
             />
-            <SignUpDialog
-                showSignUp={showSignUp}
-                showSignUpHandler={showSignUpHandler}
-            />
+            <Modal
+                showModal={showSignUp}
+                showModalHandler={showSignUpHandler}
+            >
+                <SignUp showSignInHandler={showSignInHandler} />
+            </Modal>
+            <Modal
+                showModal={showSignIn}
+                showModalHandler={showSignInHandler}
+            >
+                <SignIn closeModal={showSignInHandler} />
+            </Modal>
         </React.Fragment>
     );
 }

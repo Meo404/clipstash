@@ -1,8 +1,10 @@
 export {
+    LoggedInUserMenu,
+    Navbar,
+    NavbarUserMenu,
     Sidebar,
     SidebarLinks,
-    SidebarSubreddits,
-    TopNavbar
+    SidebarSubreddits
 } from "./Navigation";
 
 export {
@@ -25,6 +27,7 @@ export {
     FullFlexRow,
     LoadingIndicator,
     MaxWidthContainer,
+    Modal,
     NoResultsBox,
     SearchField,
     SectionHeader,
@@ -33,7 +36,7 @@ export {
 
 export {
     RegisterSuccessDialog,
-    SignUpDialog,
+    SignInForm,
     SignUpForm,
     SignUpSuccess
 } from "./Users";

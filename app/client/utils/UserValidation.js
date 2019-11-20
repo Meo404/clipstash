@@ -57,6 +57,23 @@ function validateSignUpData(formData) {
 }
 
 /**
+ * Validates the submitted SignIn form data
+ * In case of validation errors, it puts them into the error object.
+ * 
+ *  @param {object} formData
+ *  @return {object} updatedFormData
+ */
+function validateSignInData(formData) {
+    const errors = {
+        email: validateEmail(formData.email),
+        password: validatePassword(formData.password)
+    }
+    const hasErrors = !Object.values(errors).every(x => (x === null));
+    
+    return { ...formData, hasErrors: hasErrors }
+}
+
+/**
  * Validates the passed user name
  * Requirements: Needs to be at least 3 characters long
  * 
@@ -120,4 +137,4 @@ function validateConfirmationPassword(password, passwordConfirmation) {
     return null;
 }
 
-export { parseValidationErrors, validateSignUpData };
+export { parseValidationErrors, validateSignInData, validateSignUpData };

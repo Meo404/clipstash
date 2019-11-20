@@ -1,10 +1,13 @@
+import { useContext } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import AuthContext from 'contexts/AuthContext';
 
 /**
  * Create a new Axios client instance
  */
 const getClient = (baseUrl = '/', useInterceptor = false) => {
+    const [ { isLoggedIn, authHeaders }, dispatch ] = useContext(AuthContext);
     const csrfToken = document.querySelector('[name=csrf-token]').content
     const history = useHistory();
     const options = {
@@ -12,9 +15,10 @@ const getClient = (baseUrl = '/', useInterceptor = false) => {
     };
 
     // Set common headers
-    options.headers = {
-        'X-CSRF-TOKEN': csrfToken
-    };
+    options.headers = { 'X-CSRF-TOKEN': csrfToken, 'Content-Type': 'application/json' };
+    if (isLoggedIn) {
+        options.headers = { ...options.headers, ...authHeaders }
+    }
 
     const client = axios.create(options);
 

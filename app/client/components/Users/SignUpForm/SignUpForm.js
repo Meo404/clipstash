@@ -8,19 +8,19 @@ import {
     Grid,
     Typography
 } from '@material-ui/core';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
 
 import useStyles from './Styles';
 
 export default function SignUpForm(props) {
-    const { changeHandler, signUpData, submitHandler } = props;
+    const { changeHandler, showSignInHandler, signUpData, submitHandler } = props;
     const classes = useStyles();
 
     return (
         <Container maxWidth="xs">
             <div className={classes.signUpContainer}>
                 <Avatar className={classes.avatar}>
-                    <LockOutlinedIcon />
+                    <PersonAddIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
                     Sign Up
@@ -110,8 +110,13 @@ export default function SignUpForm(props) {
                     </Button>
                     <Grid container justify="flex-end">
                         <Grid item>
-                            <Link href="#" variant="body2">
-                                Already have an account? Sign in
+                            <Link
+                                underline="none"
+                                variant="body2"
+                                onClick={showSignInHandler}
+                                className={classes.signInLink}
+                            >
+                                Already have an account? Log In
                             </Link>
                         </Grid>
                     </Grid>
