@@ -38,6 +38,7 @@ describe User do
       it { should validate_length_of(:password).is_at_least(6) }
       it { should validate_presence_of(:user_name) }
       it { should validate_length_of(:user_name).is_at_least(3) }
+      it { should_not allow_value("Test User").for(:user_name) }
     end
   end
 end

@@ -37,7 +37,11 @@ class User < ApplicationRecord
 
   validates :uid, uniqueness: { scope: :provider }
   validates :email, uniqueness: { scope: :provider }
-  validates :user_name, presence: true, uniqueness: true, length: { minimum: 3 }
+  validates :user_name,
+            presence: true,
+            uniqueness: true,
+            length: { minimum: 3 },
+            format: { without: /\s/, message: "can't contain spaces" }
 
   private
 
