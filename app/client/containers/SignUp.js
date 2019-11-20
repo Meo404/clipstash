@@ -18,7 +18,7 @@ const INITIAL_STATE = {
     }
 }
 
-export default function SignUp() {
+export default function SignUp({ showSignInHandler }) {
     const [signUpData, setSignUpdata] = useState(INITIAL_STATE);
     const [registerSuccess, setRegisterSuccess] = useState(false);
     const client = new ApiClient();
@@ -83,6 +83,7 @@ export default function SignUp() {
                         signUpData={signUpData}
                         changeHandler={changeHandler}
                         submitHandler={submitHandler}
+                        showSignInHandler={showSignInHandler}
                     />
                 )}
         </React.Fragment>

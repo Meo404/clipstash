@@ -49,6 +49,7 @@ export default function Navigation() {
     }
 
     function showSignInHandler() {
+        setShowSignUp(false);
         setShowSignin(!showSignIn);
     }
 
@@ -84,7 +85,7 @@ export default function Navigation() {
                 showModal={showSignUp}
                 showModalHandler={showSignUpHandler}
             >
-                <SignUp />
+                <SignUp showSignInHandler={showSignInHandler} />
             </Modal>
             <Modal
                 showModal={showSignIn}
