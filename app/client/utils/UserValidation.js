@@ -137,4 +137,4 @@ function validateConfirmationPassword(password, passwordConfirmation) {
     return null;
 }
 
-export { parseValidationErrors, validateSignInData, validateSignUpData };
+export { parseValidationErrors, validateEmail, validateSignInData, validateSignUpData };
