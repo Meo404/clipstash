@@ -99,7 +99,7 @@ function validateUserName(userName) {
  */
 function validateEmail(email) {
     if (email === '') {
-        return "Email name can't be blank"
+        return "Email can't be blank"
     }
 
     if (!EmailValidator.validate(email)) {
