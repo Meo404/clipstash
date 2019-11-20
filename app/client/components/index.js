@@ -1,6 +1,7 @@
 export {
     LoggedInUserMenu,
     Navbar,
+    NavbarLogo,
     NavbarUserMenu,
     Sidebar,
     SidebarLinks,
