@@ -5,14 +5,14 @@ import { useSnackbar } from 'notistack';
 import CssBaseline from "@material-ui/core/CssBaseline";
 import {
     Modal,
-    Sidebar,
-    TopNavbar
+    Navbar,
+    Sidebar
 } from "components";
 import SignIn from 'containers/SignIn';
 import SignUp from 'containers/SignUp';
 
 export default function Navigation() {
-    const [{ isLoggedIn }, dispatch] = useContext(AuthContext);
+    const [{ isLoggedIn, userName }, dispatch] = useContext(AuthContext);
     const [popularSubreddits, setPopularSubreddits] = useState([]);
     const [mobileMenu, setMobileMenu] = useState(false);
     const [showMore, setShowMore] = useState(false);
@@ -65,12 +65,13 @@ export default function Navigation() {
     return (
         <React.Fragment>
             <CssBaseline />
-            <TopNavbar
+            <Navbar
                 mobileMenuHandler={mobileMenuHandler}
                 logOutHandler={logOutHandler}
                 showSignInHandler={showSignInHandler}
                 showSignUpHandler={showSignUpHandler}
                 userIsLoggedIn={isLoggedIn}
+                userName={userName}
             />
             <Sidebar
                 mobileMenuHandler={mobileMenuHandler}

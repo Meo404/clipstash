@@ -23,7 +23,7 @@ export default function SignInForm(props) {
                     <LockOpenIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                    Sign In
+                    Log In
                </Typography>
                 <form className={classes.signInForm} onSubmit={submitHandler} noValidate>
                     <Grid container spacing={2}>

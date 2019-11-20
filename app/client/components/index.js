@@ -1,8 +1,10 @@
 export {
+    LoggedInUserMenu,
+    Navbar,
+    NavbarUserMenu,
     Sidebar,
     SidebarLinks,
-    SidebarSubreddits,
-    TopNavbar
+    SidebarSubreddits
 } from "./Navigation";
 
 export {
@@ -34,9 +36,7 @@ export {
 
 export {
     RegisterSuccessDialog,
-    SignInDialog,
     SignInForm,
-    SignUpDialog,
     SignUpForm,
     SignUpSuccess
 } from "./Users";
