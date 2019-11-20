@@ -20,6 +20,16 @@ export default function NavbarUserMenu(props) {
         setAnchorEl(null);
     };
 
+    const handleShowSignIn = () => {
+        setAnchorEl(null);
+        showSignInHandler();
+    }
+
+    const handleShowSignUp = () => {
+        setAnchorEl(null);
+        showSignUpHandler();
+    }
+
     const mobileMenu = (
         <React.Fragment>
             <IconButton
@@ -33,8 +43,8 @@ export default function NavbarUserMenu(props) {
                 open={Boolean(anchorEl)}
                 onClose={handleMobileMenuClose}
             >
-                <MenuItem onClick={showSignInHandler}>Log In</MenuItem>
-                <MenuItem onClick={showSignUpHandler}>Sign Up</MenuItem>
+                <MenuItem onClick={handleShowSignIn}>Log In</MenuItem>
+                <MenuItem onClick={handleShowSignUp}>Sign Up</MenuItem>
             </Menu>
         </React.Fragment>
     )
