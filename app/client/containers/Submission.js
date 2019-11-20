@@ -21,7 +21,6 @@ export default function Submission() {
     const client = new ApiClient('/', true);
 
     useEffect(() => {
-        console.log(location);
         setData({ submission: null, isLoading: true })
         fetchData();
     }, [slug]);
