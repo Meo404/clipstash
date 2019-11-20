@@ -38,6 +38,7 @@ export {
 export {
     RegisterSuccessDialog,
     RequestPasswordForm,
+    RequestPasswordSuccess,
     SignInForm,
     SignUpForm,
     SignUpSuccess

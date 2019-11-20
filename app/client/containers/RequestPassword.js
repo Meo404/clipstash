@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ApiClient } from 'ApiClient';
 import { validateEmail } from 'utils/UserValidation';
-import { RequestPasswordForm } from 'components';
+import { RequestPasswordForm, RequestPasswordSuccess } from 'components';
 
 const INITIAL_STATE = {
     email: '',
@@ -54,9 +54,8 @@ export default function RequestPassword() {
                 setFormData({ ...formData, isSubmitting: false });
             })
             .catch((error) => {
-                if (error.response.status = 404) {
-                    const errors = parseValidationErrors(error.response.data.error);
-                    setSignUpdata({ ...formData, error: errors, hasErrors: true, isSubmitting: false });
+                if (error.response.status == 404) {
+                    setFormData({ ...formData, error: 'Email not found', hasErrors: true, isSubmitting: false });
                 }
             })
     }
@@ -64,7 +63,7 @@ export default function RequestPassword() {
     return (
         <React.Fragment>
             {requestSuccess ? (
-                <h1>yay</h1>
+                <RequestPasswordSuccess email={formData.email} />
             ) : (
                     <RequestPasswordForm
                         formData={formData}
