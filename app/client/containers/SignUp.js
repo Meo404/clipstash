@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { ApiClient } from 'ApiClient';
-import { SignUpForm, SignUpSuccess } from 'components';
+import { SignUpForm, SuccessDialog } from 'components';
 import { parseValidationErrors, validateSignUpData } from 'utils/UserValidation';
 
 const INITIAL_STATE = {
@@ -67,7 +67,7 @@ export default function SignUp({ showSignInHandler }) {
                 setSignUpdata({ ...signUpData, isSubmitting: false });
             })
             .catch((error) => {
-                if (error.response.status = 422) {
+                if (error.response.status == 422) {
                     const errors = parseValidationErrors(error.response.data.errors);
                     setSignUpdata({ ...signUpData, errors: errors, hasErrors: true, isSubmitting: false });
                 }
@@ -77,7 +77,11 @@ export default function SignUp({ showSignInHandler }) {
     return (
         <React.Fragment>
             {registerSuccess ? (
-                <SignUpSuccess email={signUpData.email} />
+                <SuccessDialog message={
+                    <Fragment>A verification link has been sent to <strong>{signUpData.email}</strong>.
+                    Please click on thelink to verify your email address and finalize your registration.
+                    </Fragment>}
+                />
             ) : (
                     <SignUpForm
                         signUpData={signUpData}

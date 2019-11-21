@@ -60,7 +60,7 @@ export default function SignIn({ closeModal, showRequestPasswordHandler }) {
                 enqueueSnackbar('Signed in successfully.', { variant: 'success' });
             })
             .catch((error) => {
-                if (error.response.status = 401) {
+                if (error.response.status == 401) {
                     setSignInData({ ...signInData, hasErrors: true, isSubmitting: false });
                 }
             })
