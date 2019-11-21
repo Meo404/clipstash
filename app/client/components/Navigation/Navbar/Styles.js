@@ -5,11 +5,14 @@ const useStyles = makeStyles(theme => ({
         zIndex: theme.zIndex.drawer + 1
     },
     logo: {
-        marginRight: 'auto',
-        maxHeight: 25,
+        display: 'flex',
+        maxWidth: 100,
         [theme.breakpoints.up("md")]: {
-            maxHeight: 35,
+            maxWidth: 120,
         }, 
+    },
+    logoLink: {
+        flexGrow: 1
     },
     mobileButton: {
         display: "flex",

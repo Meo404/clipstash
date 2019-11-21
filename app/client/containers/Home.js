@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { ApiClient } from "ApiClient";
 import InfiniteScroll from "react-infinite-scroller";
 import RegistrationSuccess from "containers/RegistrationSuccess";
+import ResetPassword from "containers/ResetPassword";
 import {
     LoadingIndicator,
     MaxWidthContainer,
@@ -74,8 +75,11 @@ export default function Home() {
                     </React.Fragment>
                 )}
             </MaxWidthContainer>
+            
             {/* RegistrationSuccess will only be displayed on mail confirmation */}
             <RegistrationSuccess />
+            {/* ResetPassword will only be displayed if reset_password_token search param is existing*/}
+            <ResetPassword />
         </React.Fragment>
     );
 }

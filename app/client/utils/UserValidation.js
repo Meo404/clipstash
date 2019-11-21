@@ -1,7 +1,7 @@
 import * as EmailValidator from 'email-validator';
 
 /**
- * Function to pare backend validation errors
+ * Function to parse backend validation errors
  * 
  * This will take the response error object, parse it and return the
  * errors properly mapped to the formData fields.
@@ -30,7 +30,7 @@ function parseValidationErrors(responseErrors) {
     }
 
     if (responseErrors.password_confirmation) {
-        errorString = `Password confirmation ${responseErrors.password_confirmation[0]}`;
+        const errorString = `Password confirmation ${responseErrors.password_confirmation[0]}`;
         errors.passwordConfirmation = errorString;
     }
 
@@ -74,6 +74,24 @@ function validateSignInData(formData) {
 }
 
 /**
+ * Validates the submitted ResetPassword form data
+ * In case of validation errors, it puts them into the error object.
+ * 
+ *  @param {object} formData
+ *  @return {object} updatedFormData
+ */
+function validatePasswordResetData(formData) {
+    const errors = {
+        password: validatePassword(formData.password),
+        passwordConfirmation: validateConfirmationPassword(formData.password, formData.passwordConfirmation)
+    }
+
+    const hasErrors = !Object.values(errors).every(x => (x === null));
+    
+    return { ...formData, hasErrors: hasErrors, errors: errors }
+}
+
+/**
  * Validates the passed user name
  * Requirements: Needs to be at least 3 characters long
  * 
@@ -99,7 +117,7 @@ function validateUserName(userName) {
  */
 function validateEmail(email) {
     if (email === '') {
-        return "Email name can't be blank"
+        return "Email can't be blank"
     }
 
     if (!EmailValidator.validate(email)) {
@@ -137,4 +155,10 @@ function validateConfirmationPassword(password, passwordConfirmation) {
     return null;
 }
 
-export { parseValidationErrors, validateSignInData, validateSignUpData };
+export { 
+    parseValidationErrors,
+    validateEmail,
+    validatePasswordResetData,
+    validateSignInData,
+    validateSignUpData
+};

@@ -10,12 +10,12 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 import useStyles from './Styles';
 
-export default function SignUpSuccess({ email }) {
+export default function SuccessDialog({ message }) {
     const classes = useStyles();
 
     return (
         <Container maxWidth="xs">
-            <Grid container className={classes.signUpSuccess}>
+            <Grid container className={classes.successDialogContainer}>
                 <Avatar className={classes.successIcon}>
                     <CheckCircleIcon />
                 </Avatar>
@@ -29,8 +29,7 @@ export default function SignUpSuccess({ email }) {
                 />
                 <Grid item xs={12}>
                     <Typography component="p" className={classes.helperText}>
-                        A verification link has been sent to <strong>{email}</strong>. Please click on the
-                        link to verify your email address and finalize your registration.
+                        {message}
                     </Typography>
                 </Grid>
             </Grid>

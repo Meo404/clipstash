@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
         margin: "0 5px",
         textAlign: "justify"
     },
-    signUpSuccess: {
+    successDialogContainer: {
         padding: theme.spacing(3, 2)
     }
 }));

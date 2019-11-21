@@ -13,7 +13,12 @@ import LockOpenIcon from '@material-ui/icons/LockOpen';
 import useStyles from './Styles';
 
 export default function SignInForm(props) {
-    const { changeHandler, signInData, submitHandler } = props;
+    const {
+        changeHandler,
+        showRequestPasswordHandler,
+        signInData,
+        submitHandler
+    } = props;
     const classes = useStyles();
 
     return (
@@ -71,7 +76,12 @@ export default function SignInForm(props) {
                     </Button>
                     <Grid container justify="flex-end">
                         <Grid item>
-                            <Link href="#" variant="body2">
+                            <Link
+                                underline="none"
+                                variant="body2"
+                                onClick={showRequestPasswordHandler}
+                                className={classes.requestPasswordLink}
+                            >
                                 Forgot your password? Click here
                             </Link>
                         </Grid>

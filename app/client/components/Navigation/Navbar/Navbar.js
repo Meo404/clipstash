@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import {
     AppBar,
     IconButton,
@@ -33,7 +34,9 @@ export default function Navbar(props) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <NavbarLogo className={classes.logo} />
+                    <Link to='/' className={classes.logoLink}>
+                        <NavbarLogo className={classes.logo} />
+                    </Link>
                     {userIsLoggedIn ? (
                         <LoggedInUserMenu logOutHandler={logOutHandler} userName={userName} />
                     ) : (

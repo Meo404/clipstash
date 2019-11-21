@@ -10,6 +10,7 @@ import {
 } from "components";
 import SignIn from 'containers/SignIn';
 import SignUp from 'containers/SignUp';
+import RequestPassword from 'containers/RequestPassword';
 
 export default function Navigation() {
     const [{ isLoggedIn, userName }, dispatch] = useContext(AuthContext);
@@ -18,6 +19,7 @@ export default function Navigation() {
     const [showMore, setShowMore] = useState(false);
     const [showSignUp, setShowSignUp] = useState(false);
     const [showSignIn, setShowSignin] = useState(false);
+    const [showRequestPassword, setShowRequestPassword] = useState(false);
     const { enqueueSnackbar } = useSnackbar();
     const client = new ApiClient();
 
@@ -51,6 +53,11 @@ export default function Navigation() {
     function showSignInHandler() {
         setShowSignUp(false);
         setShowSignin(!showSignIn);
+    }
+
+    function showRequestPasswordHandler() {
+        setShowSignin(false);
+        setShowRequestPassword(!showRequestPassword);
     }
 
     // 3rd then works like jQueries finally()
@@ -91,7 +98,16 @@ export default function Navigation() {
                 showModal={showSignIn}
                 showModalHandler={showSignInHandler}
             >
-                <SignIn closeModal={showSignInHandler} />
+                <SignIn 
+                    closeModal={showSignInHandler}
+                    showRequestPasswordHandler={showRequestPasswordHandler}
+                />
+            </Modal>
+            <Modal
+                showModal={showRequestPassword}
+                showModalHandler={showRequestPasswordHandler}
+            >
+                <RequestPassword />
             </Modal>
         </React.Fragment>
     );

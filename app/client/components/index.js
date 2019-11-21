@@ -37,7 +37,9 @@ export {
 
 export {
     RegisterSuccessDialog,
+    ResetPasswordForm,
+    RequestPasswordForm,
     SignInForm,
     SignUpForm,
-    SignUpSuccess
+    SuccessDialog
 } from "./Users";
