@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { ApiClient } from 'ApiClient';
 import { validateEmail } from 'utils/UserValidation';
-import { RequestPasswordForm, RequestPasswordSuccess } from 'components';
+import { RequestPasswordForm, SuccessDialog } from 'components';
 
 const INITIAL_STATE = {
     email: '',
@@ -63,7 +63,12 @@ export default function RequestPassword() {
     return (
         <React.Fragment>
             {requestSuccess ? (
-                <RequestPasswordSuccess email={formData.email} />
+                <SuccessDialog message={
+                    <Fragment>
+                        An email has been sent to <strong>{formData.email}</strong> containing instructions for resetting your password.
+                    </Fragment>
+                }
+                />
             ) : (
                     <RequestPasswordForm
                         formData={formData}

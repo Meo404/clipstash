@@ -39,7 +39,6 @@ export {
     RegisterSuccessDialog,
     ResetPasswordForm,
     RequestPasswordForm,
-    RequestPasswordSuccess,
     SignInForm,
     SignUpForm,
     SuccessDialog
