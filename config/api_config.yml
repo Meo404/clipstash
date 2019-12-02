@@ -21,6 +21,11 @@ default: &default
       max_results: 100
       default_results: 5
 
+  favorite_submissions:
+    index:
+      max_results: 100
+      default_results: 50
+
 
 production:
   <<: *default
