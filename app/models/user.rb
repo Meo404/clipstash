@@ -33,6 +33,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   include DeviseTokenAuth::Concerns::User
 
+  has_many :favorite_submissions
+  has_many :submissions, through: :favorite_submissions
+
   before_validation :init_uid
 
   validates :uid, uniqueness: { scope: :provider }

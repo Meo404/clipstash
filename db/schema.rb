@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_03_072237) do
+ActiveRecord::Schema.define(version: 2019_12_02_113313) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "favorite_submissions", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "submission_fullname"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "media", force: :cascade do |t|
     t.bigint "media_provider_id"
