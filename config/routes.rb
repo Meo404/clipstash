@@ -36,6 +36,10 @@ Rails.application.routes.draw do
       get 'related_submissions/:slug', to: 'submissions#related', as: 'related_submissions'
       get 'submissions/:display_name', to: 'submissions#by_subreddit'
       get 'submission/:slug', to: 'submissions#show'
+      # Favorite Submissions
+      get 'favorite_submissions', to: 'favorite_submissions#index'
+      post 'favorite_submissions', to: 'favorite_submissions#create'
+      delete 'favorite_submissions', to: 'favorite_submissions#destroy'
     end
   end
 

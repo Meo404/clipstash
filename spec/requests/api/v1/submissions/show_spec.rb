@@ -16,6 +16,20 @@ describe 'GET api/v1/submissions/show', type: :request do
       get "/api/v1/submission/#{submission.slug}", as: :json
       expect(JSON.parse(response.body)["submission"]["reddit_fullname"]).to eq(submission.reddit_fullname)
     end
+
+    context 'when authenticated' do
+      before :each do
+        user = create(:user)
+        create(:favorite_submission, user: user, submission: Submission.first)
+      end
+
+      let(:auth_headers) { User.first.create_new_auth_token }
+
+      it 'sets is_favorite flag correctly' do
+        get "/api/v1/submission/#{submission.slug}", headers: auth_headers, as: :json
+        expect(JSON.parse(response.body)["submission"]["is_favorite"]).to eq(true)
+      end
+    end
   end
 
   context 'with invalid slug' do

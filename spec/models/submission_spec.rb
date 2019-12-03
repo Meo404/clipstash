@@ -35,6 +35,8 @@ require 'rails_helper'
 describe Submission do
 
   it { should belong_to(:subreddit) }
+  it { should have_many(:favorite_submissions) }
+  it { should have_many(:users) }
 
   describe 'validations' do
     context 'when was created' do

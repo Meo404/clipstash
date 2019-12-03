@@ -30,6 +30,10 @@
 
 describe User do
   describe 'validations' do
+
+    it { should have_many(:favorite_submissions) }
+    it { should have_many(:submissions) }
+
     context 'when was created' do
       subject { build :user }
       it { is_expected.to validate_uniqueness_of(:uid).scoped_to(:provider) }
