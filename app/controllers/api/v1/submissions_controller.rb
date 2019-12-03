@@ -4,11 +4,16 @@ class Api::V1::SubmissionsController < Api::V1::ApiController
   include Api::Concerns::FilterParams
 
   before_action :set_max_results, only: [:recommended, :by_subreddit, :related]
+  before_action :set_user_id, only: [:show]
 
   # Returns a single submission
   def show
     submission = Submission.friendly.find(params[:slug])
-    render json: submission, include: ["subreddit", "medium"]
+
+    render json: submission,
+           serializer: SubmissionDetailSerializer,
+           include: ["subreddit", "medium"],
+           user_id: @user_id
   end
 
   # Returns recommended submissions used for the index page
@@ -47,5 +52,9 @@ class Api::V1::SubmissionsController < Api::V1::ApiController
 
     def subreddit_id
       Subreddit.find_by_display_name!(params[:display_name]).id
+    end
+
+    def set_user_id
+      @user_id = current_api_v1_user ? current_api_v1_user.id : nil
     end
 end

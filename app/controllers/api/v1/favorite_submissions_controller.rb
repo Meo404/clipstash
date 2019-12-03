@@ -2,6 +2,7 @@
 
 class Api::V1::FavoriteSubmissionsController < Api::V1::ApiController
   include Api::Concerns::FilterParams
+  protect_from_forgery with: :exception
 
   before_action :authenticate_api_v1_user!
   before_action :set_user
