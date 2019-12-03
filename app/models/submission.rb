@@ -40,8 +40,8 @@ class Submission < ApplicationRecord
   attr_accessor :candidate_validation
 
   belongs_to :subreddit
-  has_one :medium, foreign_key: :submission_fullname
-  has_many :favorite_submissions, foreign_key: :submission_fullname
+  has_one :medium, foreign_key: :submission_fullname, dependent: :destroy
+  has_many :favorite_submissions, foreign_key: :submission_fullname, dependent: :destroy
   has_many :users, through: :favorite_submissions
 
   validates_uniqueness_of :reddit_fullname, :permalink, unless: :candidate_validation?
