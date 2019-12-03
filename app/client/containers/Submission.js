@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useParams } from 'react-router-dom';
 import { Helmet } from "react-helmet-async";
 import { ApiClient } from 'ApiClient';
+import { useSnackbar } from 'notistack';
 import Grid from "@material-ui/core/Grid";
 import RelatedSubmissionsList from "./RelatedSubmissionsList";
 import {
@@ -18,6 +19,7 @@ export default function Submission() {
     const location = useLocation();
     const slug = useParams().slug;
     const relatedSortMethod = setRelatedSortMethod();
+    const { enqueueSnackbar } = useSnackbar();
     const client = new ApiClient('/', true);
 
     useEffect(() => {
@@ -39,6 +41,28 @@ export default function Submission() {
         return DEFAULT_SORT_METHOD;
     }
 
+    function favoriteButtonHandler() {
+        data.submission.is_favorite ? removeFavorite() : addFavorite()
+    }
+
+    async function addFavorite() {
+        const params = { submission_fullname: data.submission.reddit_fullname }
+        await client.post("/api/v1/favorite_submissions", params).then(() => {
+            const submission = { ...data.submission, is_favorite: true };
+            setData({ ...data, submission: submission });
+            enqueueSnackbar('Successfully added to Favorites', { variant: 'success' });
+        })
+    }
+
+    async function removeFavorite() {
+        await client.delete("/api/v1/favorite_submissions?submission_fullname=" +  data.submission.reddit_fullname )
+            .then(() => {
+                const submission = { ...data.submission, is_favorite: false };
+                setData({ ...data, submission: submission });
+                enqueueSnackbar('Successfully removed from Favorites', { variant: 'success' });
+            })
+    }
+
     return (
         <React.Fragment>
             <Helmet>
@@ -48,7 +72,10 @@ export default function Submission() {
                 <LoadingIndicator key="loadingIndicator" show={data.isLoading} />
                 {data.isLoading ? null : (
                     <Grid>
-                        <SubmissionCard submission={data.submission} />
+                        <SubmissionCard 
+                            submission={data.submission}
+                            favoriteButtonHandler={favoriteButtonHandler} 
+                        />
                         <SubmissionCardLinks submission={data.submission} />
                         <RelatedSubmissionsList
                             displayName={data.submission.subreddit.display_name}

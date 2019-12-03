@@ -14,14 +14,24 @@ import {
 import {
     CommentOutlined as CommentOutlinedIcon,
     FavoriteBorderOutlined as FavoriteBorderOutlinedIcon,
+    FavoriteOutlined as FavoriteOutlinedIcon,
     MoreHoriz as MoreHorizIcon,
     Share as ShareIcon,
     SwapVerticalCircleOutlined as SwapVerticalCircleOutlinedIcon
 } from "@material-ui/icons";
 import useStyles from './Styles';
 
-export default function SubmissionListCard({ submission }) {
+export default function SubmissionListCard(props) {
+    const { favoriteButtonHandler, submission } = props;
     const classes = useStyles();
+
+    const selectFavoriteIcon = () => {
+        if (submission.is_favorite) { 
+            return <FavoriteOutlinedIcon classes={{ root: classes.actionButtonIcon }} />
+        }
+        
+        return <FavoriteBorderOutlinedIcon classes={{ root: classes.actionButtonIcon }} />
+    }
 
     return (
         <Grid
@@ -83,8 +93,9 @@ export default function SubmissionListCard({ submission }) {
                                 aria-label="add to favorites"
                                 size="small"
                                 className={classes.actionButton}
+                                onClick={favoriteButtonHandler}
                             >
-                                <FavoriteBorderOutlinedIcon classes={{ root: classes.actionButtonIcon }} />
+                                {selectFavoriteIcon()}
                                 <Hidden xsDown>
                                     Favorite
                             </Hidden>
