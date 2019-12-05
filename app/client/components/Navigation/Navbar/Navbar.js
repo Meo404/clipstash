@@ -14,8 +14,6 @@ export default function Navbar(props) {
     const {
         mobileMenuHandler,
         logOutHandler,
-        showSignInHandler,
-        showSignUpHandler,
         userIsLoggedIn,
         userName
     } = props;
@@ -37,15 +35,10 @@ export default function Navbar(props) {
                     <Link to='/' className={classes.logoLink}>
                         <NavbarLogo className={classes.logo} />
                     </Link>
-                    {userIsLoggedIn ? (
-                        <LoggedInUserMenu logOutHandler={logOutHandler} userName={userName} />
-                    ) : (
-                            <NavbarUserMenu
-                                logOutHandler={logOutHandler}
-                                showSignInHandler={showSignInHandler}
-                                showSignUpHandler={showSignUpHandler}
-                            />
-                    )}
+                    {userIsLoggedIn
+                        ? <LoggedInUserMenu logOutHandler={logOutHandler} userName={userName} />
+                        : <NavbarUserMenu logOutHandler={logOutHandler} />
+                    }
                 </Toolbar>
             </AppBar>
         </header>

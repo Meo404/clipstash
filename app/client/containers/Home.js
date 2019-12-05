@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { useLocation } from 'react-router-dom';
 import { Helmet } from "react-helmet-async";
 import { ApiClient } from "ApiClient";
 import InfiniteScroll from "react-infinite-scroller";
-import RegistrationSuccess from "containers/RegistrationSuccess";
-import ResetPassword from "containers/ResetPassword";
+import UserActionMenuContext from "contexts/UserActionMenuContext";
+import queryString from 'query-string';
 import {
     LoadingIndicator,
     MaxWidthContainer,
@@ -12,14 +13,17 @@ import {
 } from "components";
 
 export default function Home() {
+    const [, dispatch] = useContext(UserActionMenuContext);
     const [submissions, setSubmissions] = useState({ submissions: [], isLoading: true });
     const [subreddits, setSubreddits] = useState({ subreddits: [], hasMore: true, page: 1 });
     const [showMore, setShowMore] = useState(false);
+    const location = useLocation();
     const client = new ApiClient();
 
     useEffect(() => {
         fetchRecommendedSubmissions();
         fetchRecommendedSubreddits();
+        checkResetPasswordToken();
     }, []);
 
     async function fetchRecommendedSubmissions() {
@@ -40,6 +44,12 @@ export default function Home() {
                 };
                 setSubreddits(newData);
             })
+    }
+
+    function checkResetPasswordToken() {
+        if (queryString.parse(location.search).reset_password_token) { 
+            dispatch({ type: 'RESET_PASSWORD' })
+        }
     }
 
     function displayedSubmissions() {
@@ -75,12 +85,6 @@ export default function Home() {
                     </React.Fragment>
                 )}
             </MaxWidthContainer>
-            
-            {/* RegistrationSuccess will only be displayed on mail confirmation */}
-            <RegistrationSuccess />
-            {/* ResetPassword will only be displayed if reset_password_token search param is existing*/}
-            <ResetPassword />
         </React.Fragment>
     );
 }
-

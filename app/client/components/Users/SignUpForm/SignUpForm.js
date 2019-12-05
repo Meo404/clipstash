@@ -9,11 +9,18 @@ import {
     Typography
 } from '@material-ui/core';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
-
 import useStyles from './Styles';
 
+const DEFAULT_SIGNUP_DESCRIPTION = "to save your favorite videos, create playlists and be informed about new highlights!"
+
 export default function SignUpForm(props) {
-    const { changeHandler, showSignInHandler, signUpData, submitHandler } = props;
+    const { 
+        changeHandler,
+        showSignInHandler,
+        signUpData,
+        signUpDescriptionText,
+        submitHandler
+    } = props;
     const classes = useStyles();
 
     return (
@@ -23,8 +30,11 @@ export default function SignUpForm(props) {
                     <PersonAddIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
-                    Sign Up
-               </Typography>
+                    Sign up now
+                </Typography>
+                <Typography component="h3" variant="subtitle1" style={{ textAlign: 'center', marginTop: 5 }}>
+                    {signUpDescriptionText ? signUpDescriptionText : DEFAULT_SIGNUP_DESCRIPTION}
+                </Typography>
                 <form className={classes.signUpForm} onSubmit={submitHandler} noValidate>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>

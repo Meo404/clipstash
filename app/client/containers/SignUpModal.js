@@ -1,6 +1,6 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { ApiClient } from 'ApiClient';
-import { SignUpForm, SuccessDialog } from 'components';
+import { Modal, SignUpForm } from 'components';
 import { parseValidationErrors, validateSignUpData } from 'utils/UserValidation';
 
 const INITIAL_STATE = {
@@ -18,9 +18,15 @@ const INITIAL_STATE = {
     }
 }
 
-export default function SignUp({ showSignInHandler }) {
+export default function SignUp(props) {
+    const {
+        showSignUp,
+        showSignUpHandler,
+        showSignUpSuccessHandler,
+        showSignInHandler,
+    } = props;
     const [signUpData, setSignUpdata] = useState(INITIAL_STATE);
-    const [registerSuccess, setRegisterSuccess] = useState(false);
+
     const client = new ApiClient();
 
     function changeHandler(event) {
@@ -63,8 +69,8 @@ export default function SignUp({ showSignInHandler }) {
         // TODO add proper error handling for generic errors
         await client.post('api/v1/auth', params)
             .then(() => {
-                setRegisterSuccess(true);
-                setSignUpdata({ ...signUpData, isSubmitting: false });
+                showSignUpSuccessHandler(signUpData.email);
+                setSignUpdata(INITIAL_STATE);
             })
             .catch((error) => {
                 if (error.response.status == 422) {
@@ -75,21 +81,16 @@ export default function SignUp({ showSignInHandler }) {
     }
 
     return (
-        <React.Fragment>
-            {registerSuccess ? (
-                <SuccessDialog message={
-                    <Fragment>A verification link has been sent to <strong>{signUpData.email}</strong>.
-                    Please click on thelink to verify your email address and finalize your registration.
-                    </Fragment>}
-                />
-            ) : (
-                    <SignUpForm
-                        signUpData={signUpData}
-                        changeHandler={changeHandler}
-                        submitHandler={submitHandler}
-                        showSignInHandler={showSignInHandler}
-                    />
-                )}
-        </React.Fragment>
+        <Modal
+            showModal={showSignUp}
+            showModalHandler={showSignUpHandler}
+        >
+            <SignUpForm
+                signUpData={signUpData}
+                changeHandler={changeHandler}
+                submitHandler={submitHandler}
+                showSignInHandler={showSignInHandler}
+            />
+        </Modal>
     )
 }

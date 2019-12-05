@@ -5,7 +5,8 @@ export {
     NavbarUserMenu,
     Sidebar,
     SidebarLinks,
-    SidebarSubreddits
+    SidebarSubreddits,
+    SidebarUserLinks
 } from "./Navigation";
 
 export {
@@ -41,5 +42,6 @@ export {
     RequestPasswordForm,
     SignInForm,
     SignUpForm,
+    SuccessModal,
     SuccessDialog
 } from "./Users";

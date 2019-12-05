@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import queryString from 'query-string';
 import { ApiClient } from 'ApiClient';
-import { Modal, ResetPasswordForm, SuccessDialog } from 'components';
+import { Modal, ResetPasswordForm } from 'components';
 import { parseValidationErrors, validatePasswordResetData } from 'utils/UserValidation';
 
 const INITIAL_STATE = {
@@ -17,22 +17,17 @@ const INITIAL_STATE = {
     }
 }
 
-export default function ResetPassword() {
+export default function ResetPasswordModal(props) {
+    const {
+        showResetPassword,
+        showResetPasswordHandler,
+        showResetPasswordSuccessHandler
+    } = props;
     const [formData, setFormData] = useState(INITIAL_STATE);
-    const [showModal, setShowModal] = useState(false);
-    const [resetSuccess, setResetSuccess] = useState(false);
     const { enqueueSnackbar } = useSnackbar();
     const location = useLocation();
-    const client = new ApiClient();
     const resetToken = queryString.parse(location.search).reset_password_token;
-
-    useEffect(() => {
-        if (resetToken) { setShowModal(true) }
-    }, [])
-
-    const showModalHandler = () => {
-        setShowModal(!showModal);
-    }
+    const client = new ApiClient();
 
     function changeHandler(event) {
         const { name, value } = event.target;
@@ -60,7 +55,8 @@ export default function ResetPassword() {
 
         await client.patch('api/v1/auth/password', params)
             .then(() => {
-                setResetSuccess(true);
+                showResetPasswordSuccessHandler();
+                setFormData(INITIAL_STATE);
             })
             .catch((error) => {
                 if (error.response.status == 422) {
@@ -70,34 +66,26 @@ export default function ResetPassword() {
                 }
 
                 if (error.response.status == 401) {
-                    setShowModal(false);
+                    showResetPasswordHandler();
                     enqueueSnackbar('Invalid reset password token!', { variant: 'error' });
                     return;
                 }
-                
-                setShowModal(false);
+
+                showResetPasswordHandler();
                 enqueueSnackbar('Something went wrong. Please try again', { variant: 'error' });
             })
     }
 
     return (
-        <React.Fragment>
-            {resetToken ? (
-                <Modal
-                    showModal={showModal}
-                    showModalHandler={showModalHandler}
-                >
-                    {resetSuccess ? (
-                        <SuccessDialog message="Your password has been successfully updated." />
-                    ) : (
-                            <ResetPasswordForm
-                                changeHandler={changeHandler}
-                                formData={formData}
-                                submitHandler={submitHandler}
-                            />
-                        )}
-                </Modal>
-            ) : null}
-        </React.Fragment>
+        <Modal
+            showModal={showResetPassword}
+            showModalHandler={showResetPasswordHandler}
+        >
+            <ResetPasswordForm
+                changeHandler={changeHandler}
+                formData={formData}
+                submitHandler={submitHandler}
+            />
+        </Modal>
     )
 }
