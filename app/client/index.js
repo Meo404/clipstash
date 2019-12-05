@@ -1,5 +1,6 @@
 import React from "react"
 import { AuthProvider } from "contexts/AuthContext";
+import { UserActionMenuProvider } from "contexts/UserActionMenuContext";
 import { SnackbarProvider } from "notistack";
 import { HelmetProvider } from "react-helmet-async";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -10,16 +11,18 @@ export default function index() {
     return (
         <HelmetProvider>
             <MuiThemeProvider theme={theme}>
-                <SnackbarProvider 
-                    maxSnack={3} 
+                <SnackbarProvider
+                    maxSnack={3}
                     autoHideDuration={3000}
                 >
                     <AuthProvider>
-                        <Router>
-                            <Switch>
-                                <Route path="/" component={App} />
-                            </Switch>
-                        </Router>
+                        <UserActionMenuProvider>
+                            <Router>
+                                <Switch>
+                                    <Route path="/" component={App} />
+                                </Switch>
+                            </Router>
+                        </UserActionMenuProvider>
                     </AuthProvider>
                 </SnackbarProvider>
             </MuiThemeProvider>

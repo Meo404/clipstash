@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import UserActionMenuContext from 'contexts/UserActionMenuContext';
 import { AccountCircle as AccountCircleIcon } from '@material-ui/icons';
 import { Button, IconButton, Hidden, Menu, MenuItem } from '@material-ui/core';
 
@@ -6,11 +7,8 @@ import useStyles from './Styles';
 
 export default function NavbarUserMenu(props) {
     const classes = useStyles();
+    const [, dispatch] = useContext(UserActionMenuContext);
     const [anchorEl, setAnchorEl] = React.useState(null);
-    const {
-        showSignInHandler,
-        showSignUpHandler
-    } = props;
 
     const handleMobileMenuClick = event => {
         setAnchorEl(event.currentTarget);
@@ -22,12 +20,12 @@ export default function NavbarUserMenu(props) {
 
     const handleShowSignIn = () => {
         setAnchorEl(null);
-        showSignInHandler();
+        dispatch({ type: 'SIGN_IN' });
     }
 
     const handleShowSignUp = () => {
         setAnchorEl(null);
-        showSignUpHandler();
+        dispatch({ type: 'SIGN_UP' });
     }
 
     const mobileMenu = (
@@ -55,7 +53,7 @@ export default function NavbarUserMenu(props) {
                 color="inherit"
                 variant="outlined"
                 className={classes.desktopButton}
-                onClick={showSignInHandler}
+                onClick={handleShowSignIn}
             >
                 Log In
             </Button>
@@ -63,7 +61,7 @@ export default function NavbarUserMenu(props) {
                 color="inherit"
                 variant="outlined"
                 className={classes.desktopButton}
-                onClick={showSignUpHandler}
+                onClick={handleShowSignUp}
                 endIcon={<AccountCircleIcon />}
             >
                 Sign Up

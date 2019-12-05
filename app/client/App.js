@@ -9,6 +9,7 @@ import Submission from "containers/Submission";
 import Subreddit from "containers/Subreddit";
 import SubredditOverview from "containers/SubredditOverview";
 import Trending from "containers/Trending";
+import UserActionModals from "containers/UserActionModals";
 import UserFavorites from "containers/UserFavorites";
 
 export default function App() {
@@ -26,6 +27,7 @@ export default function App() {
                 <ProtectedRoute path="/favorites" component={UserFavorites} />
                 <Route component={NotFound} />
             </Switch>
+            <UserActionModals />
         </div>
     )
 }
