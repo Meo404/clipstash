@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import AuthContext from 'contexts/AuthContext';
+import UserActionMenuContext from 'contexts/UserActionMenuContext';
 import { useLocation, useParams } from 'react-router-dom';
 import { Helmet } from "react-helmet-async";
 import { ApiClient } from 'ApiClient';
@@ -15,6 +17,8 @@ import {
 const DEFAULT_SORT_METHOD = "hot";
 
 export default function Submission() {
+    const [{ isLoggedIn},] = useContext(AuthContext);
+    const [{ showSignUp }, dispatch] = useContext(UserActionMenuContext);
     const [data, setData] = useState({ submission: null, isLoading: true });
     const location = useLocation();
     const slug = useParams().slug;
@@ -42,7 +46,15 @@ export default function Submission() {
     }
 
     function favoriteButtonHandler() {
-        data.submission.is_favorite ? removeFavorite() : addFavorite()
+        if(isLoggedIn) {
+            data.submission.is_favorite ? removeFavorite() : addFavorite()
+            return;
+        }
+
+        if(!showSignUp) { 
+            dispatch({ type: 'SIGN_UP' });
+            return;
+        }
     }
 
     async function addFavorite() {
