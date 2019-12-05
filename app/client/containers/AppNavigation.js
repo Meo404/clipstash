@@ -8,8 +8,8 @@ import {
     Navbar,
     Sidebar
 } from "components";
-import SignIn from 'containers/SignIn';
-import SignUp from 'containers/SignUp';
+import SignInModal from 'containers/SignInModal';
+import SignUpModal from 'containers/SignUpModal';
 import RequestPassword from 'containers/RequestPassword';
 
 export default function Navigation() {
@@ -88,21 +88,16 @@ export default function Navigation() {
                 showMore={showMore}
                 showMoreHandler={showMoreHandler}
             />
-            <Modal
-                showModal={showSignUp}
-                showModalHandler={showSignUpHandler}
-            >
-                <SignUp showSignInHandler={showSignInHandler} />
-            </Modal>
-            <Modal
-                showModal={showSignIn}
-                showModalHandler={showSignInHandler}
-            >
-                <SignIn 
-                    closeModal={showSignInHandler}
-                    showRequestPasswordHandler={showRequestPasswordHandler}
-                />
-            </Modal>
+            <SignUpModal
+                showSignUp={showSignUp}
+                showSignUpHandler={showSignUpHandler}
+                showSignInHandler={showSignInHandler}
+            />
+            <SignInModal 
+                showSignIn={showSignIn}
+                showSignInHandler={showSignInHandler}
+                showRequestPasswordHandler={showRequestPasswordHandler}
+            />
             <Modal
                 showModal={showRequestPassword}
                 showModalHandler={showRequestPasswordHandler}

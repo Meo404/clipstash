@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import AuthContext from 'contexts/AuthContext';
 import { ApiClient } from 'ApiClient';
-import { SignInForm } from 'components';
+import { Modal, SignInForm } from 'components';
 import { validateSignInData } from 'utils/UserValidation';
 import { useSnackbar } from 'notistack';
 
@@ -12,7 +12,12 @@ const INITIAL_STATE = {
     isSubmitting: false
 }
 
-export default function SignIn({ closeModal, showRequestPasswordHandler }) {
+export default function SignInModal(props) {
+    const { 
+        showRequestPasswordHandler,
+        showSignIn,
+        showSignInHandler
+    } = props;
     const [{ isLoggedIn }, dispatch] = useContext(AuthContext);
     const [signInData, setSignInData] = useState(INITIAL_STATE);
     const { enqueueSnackbar } = useSnackbar();
@@ -86,13 +91,16 @@ export default function SignIn({ closeModal, showRequestPasswordHandler }) {
     }
 
     return (
-        <React.Fragment>
+        <Modal
+            showModal={showSignIn}
+            showModalHandler={showSignInHandler}
+        >
             <SignInForm
                 signInData={signInData}
                 changeHandler={changeHandler}
                 submitHandler={submitHandler}
                 showRequestPasswordHandler={showRequestPasswordHandler}
             />
-        </React.Fragment>
+        </Modal>
     )
 }

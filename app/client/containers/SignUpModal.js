@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import { ApiClient } from 'ApiClient';
-import { SignUpForm, SuccessDialog } from 'components';
+import { Modal, SignUpForm, SuccessDialog } from 'components';
 import { parseValidationErrors, validateSignUpData } from 'utils/UserValidation';
 
 const INITIAL_STATE = {
@@ -18,7 +18,12 @@ const INITIAL_STATE = {
     }
 }
 
-export default function SignUp({ showSignInHandler }) {
+export default function SignUp(props) {
+    const {
+        showSignUp,
+        showSignUpHandler,
+        showSignInHandler
+    } = props;
     const [signUpData, setSignUpdata] = useState(INITIAL_STATE);
     const [registerSuccess, setRegisterSuccess] = useState(false);
     const client = new ApiClient();
@@ -75,7 +80,10 @@ export default function SignUp({ showSignInHandler }) {
     }
 
     return (
-        <React.Fragment>
+        <Modal
+            showModal={showSignUp}
+            showModalHandler={showSignUpHandler}
+        >
             {registerSuccess ? (
                 <SuccessDialog message={
                     <Fragment>A verification link has been sent to <strong>{signUpData.email}</strong>.
@@ -90,6 +98,6 @@ export default function SignUp({ showSignInHandler }) {
                         showSignInHandler={showSignInHandler}
                     />
                 )}
-        </React.Fragment>
+        </Modal>
     )
 }
