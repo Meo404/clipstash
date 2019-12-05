@@ -61,7 +61,8 @@ export default function SignInModal(props) {
         await client.post('api/v1/auth/sign_in', params)
             .then((response) => {
                 dispatchLogin(response);
-                closeModal();
+                showSignInHandler();
+                setSignInData(INITIAL_STATE);
                 enqueueSnackbar('Signed in successfully.', { variant: 'success' });
             })
             .catch((error) => {

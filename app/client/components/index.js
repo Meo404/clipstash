@@ -41,5 +41,6 @@ export {
     RequestPasswordForm,
     SignInForm,
     SignUpForm,
+    SuccessModal,
     SuccessDialog
 } from "./Users";

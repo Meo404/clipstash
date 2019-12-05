@@ -5,6 +5,7 @@ const UserActionMenuContext = React.createContext({});
 const initialState = {
     showSignIn: false,
     showSignUp: false,
+    showSignUpSuccess: false,
     showRequestPassword: false
 }
 

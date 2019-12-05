@@ -1,19 +1,32 @@
-import React, { useContext } from "react";
+import React, { Fragment, useContext, useState } from "react";
 import UserActionMenuContext from 'contexts/UserActionMenuContext';
 import RequestPasswordModal from 'containers/RequestPasswordModal';
 import SignInModal from 'containers/SignInModal';
 import SignUpModal from 'containers/SignUpModal';
+import { SuccessModal } from 'components';
 
 export default function UserActionModals() {
-    const [{ showSignIn, showSignUp, showRequestPassword }, dispatch] = useContext(UserActionMenuContext);
+    const [signUpEmail, setSignUpEmail] = useState('');
+    const [{ 
+        showSignIn,
+        showSignUp,
+        showSignUpSuccess,
+        showRequestPassword,
+    }, dispatch] = useContext(UserActionMenuContext);
+
+    function showSignInHandler() {
+        const actionType = showSignIn ? 'CLOSE' : 'SIGN_IN'
+        dispatch({ type: actionType });
+    }
 
     function showSignUpHandler() {
         const actionType = showSignUp ? 'CLOSE' : 'SIGN_UP'
         dispatch({ type: actionType });
     }
 
-    function showSignInHandler() {
-        const actionType = showSignIn ? 'CLOSE' : 'SIGN_IN'
+    function showSignUpSuccessHandler(userEmail = '') {
+        setSignUpEmail(userEmail);
+        const actionType = showSignUpSuccess ? 'CLOSE' : 'SIGN_UP_SUCCESS'
         dispatch({ type: actionType });
     }
 
@@ -27,9 +40,10 @@ export default function UserActionModals() {
             <SignUpModal
                 showSignUp={showSignUp}
                 showSignUpHandler={showSignUpHandler}
+                showSignUpSuccessHandler={showSignUpSuccessHandler}
                 showSignInHandler={showSignInHandler}
             />
-            <SignInModal 
+            <SignInModal
                 showSignIn={showSignIn}
                 showSignInHandler={showSignInHandler}
                 showRequestPasswordHandler={showRequestPasswordHandler}
@@ -37,6 +51,15 @@ export default function UserActionModals() {
             <RequestPasswordModal
                 showRequestPassword={showRequestPassword}
                 showRequestPasswordHandler={showRequestPasswordHandler}
+            />
+            <SuccessModal
+                message={
+                    <Fragment>A verification link has been sent to <strong>{signUpEmail.toString()}</strong>.
+                    Please click on thelink to verify your email address and finalize your registration.
+                    </Fragment>
+                }
+                showSuccess={showSignUpSuccess}
+                showSuccessHandler={showSignUpSuccessHandler}
             />
         </React.Fragment>
     );
