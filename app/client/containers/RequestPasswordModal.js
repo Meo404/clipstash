@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import { ApiClient } from 'ApiClient';
 import { validateEmail } from 'utils/UserValidation';
-import { RequestPasswordForm, SuccessDialog } from 'components';
+import { Modal, RequestPasswordForm, SuccessDialog } from 'components';
 
 const INITIAL_STATE = {
     email: '',
@@ -10,7 +10,8 @@ const INITIAL_STATE = {
     error: null
 }
 
-export default function RequestPassword() {
+export default function RequestPasswordModal(props) {
+    const { showRequestPassword, showRequestPasswordHandler } = props;
     const [formData, setFormData] = useState(INITIAL_STATE);
     const [requestSuccess, setRequestSuccess] = useState(false);
     const client = new ApiClient();
@@ -61,7 +62,10 @@ export default function RequestPassword() {
     }
 
     return (
-        <React.Fragment>
+        <Modal 
+            showModal={showRequestPassword}
+            showModalHandler={showRequestPasswordHandler}
+        >
             {requestSuccess ? (
                 <SuccessDialog message={
                     <Fragment>
@@ -76,6 +80,6 @@ export default function RequestPassword() {
                         submitHandler={submitHandler}
                     />
                 )}
-        </React.Fragment>
+        </Modal>
     )
 }

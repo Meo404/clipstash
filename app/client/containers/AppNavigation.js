@@ -10,7 +10,7 @@ import {
 } from "components";
 import SignInModal from 'containers/SignInModal';
 import SignUpModal from 'containers/SignUpModal';
-import RequestPassword from 'containers/RequestPassword';
+import RequestPasswordModal from 'containers/RequestPasswordModal';
 
 export default function Navigation() {
     const [{ isLoggedIn, userName }, dispatch] = useContext(AuthContext);
@@ -98,12 +98,10 @@ export default function Navigation() {
                 showSignInHandler={showSignInHandler}
                 showRequestPasswordHandler={showRequestPasswordHandler}
             />
-            <Modal
-                showModal={showRequestPassword}
-                showModalHandler={showRequestPasswordHandler}
-            >
-                <RequestPassword />
-            </Modal>
+            <RequestPasswordModal
+                showRequestPassword={showRequestPassword}
+                showRequestPasswordHandler={showRequestPasswordHandler}
+            />
         </React.Fragment>
     );
 }
