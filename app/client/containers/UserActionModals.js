@@ -6,12 +6,13 @@ import SignUpModal from 'containers/SignUpModal';
 import { SuccessModal } from 'components';
 
 export default function UserActionModals() {
-    const [signUpEmail, setSignUpEmail] = useState('');
-    const [{ 
+    const [successEmail, setSuccessEmail] = useState('');
+    const [{
         showSignIn,
         showSignUp,
         showSignUpSuccess,
         showRequestPassword,
+        showRequestPasswordSuccess
     }, dispatch] = useContext(UserActionMenuContext);
 
     function showSignInHandler() {
@@ -25,13 +26,19 @@ export default function UserActionModals() {
     }
 
     function showSignUpSuccessHandler(userEmail = '') {
-        setSignUpEmail(userEmail);
+        setSuccessEmail(userEmail);
         const actionType = showSignUpSuccess ? 'CLOSE' : 'SIGN_UP_SUCCESS'
         dispatch({ type: actionType });
     }
 
     function showRequestPasswordHandler() {
         const actionType = showRequestPassword ? 'CLOSE' : 'REQUEST_PASSWORD'
+        dispatch({ type: actionType });
+    }
+
+    function showRequestPasswordSuccessHandler(userEmail = '') {
+        setSuccessEmail(userEmail);
+        const actionType = showRequestPasswordSuccess ? 'CLOSE' : 'REQUEST_PASSWORD_SUCCESS'
         dispatch({ type: actionType });
     }
 
@@ -51,15 +58,27 @@ export default function UserActionModals() {
             <RequestPasswordModal
                 showRequestPassword={showRequestPassword}
                 showRequestPasswordHandler={showRequestPasswordHandler}
+                showRequestPasswordSuccessHandler={showRequestPasswordSuccessHandler}
             />
+            {/* SignUp success modal */}
             <SuccessModal
                 message={
-                    <Fragment>A verification link has been sent to <strong>{signUpEmail.toString()}</strong>.
+                    <Fragment>A verification link has been sent to <strong>{successEmail.toString()}</strong>.
                     Please click on thelink to verify your email address and finalize your registration.
                     </Fragment>
                 }
                 showSuccess={showSignUpSuccess}
                 showSuccessHandler={showSignUpSuccessHandler}
+            />
+            {/* RequestPassword success modal */}
+            <SuccessModal
+                message={
+                    <Fragment>
+                        An email has been sent to <strong>{successEmail.toString()}</strong> containing instructions for resetting your password.
+                    </Fragment>
+                }
+                showSuccess={showRequestPasswordSuccess}
+                showSuccessHandler={showRequestPasswordSuccessHandler}
             />
         </React.Fragment>
     );

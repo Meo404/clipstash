@@ -5,35 +5,48 @@ const userActionMenuReducer = (state, action) => {
                 showSignIn: true,
                 showSignUp: false,
                 showSignUpSuccess: false,
-                showRequestPassword: false
+                showRequestPassword: false,
+                showRequestPasswordSuccess: false
             };
         case 'SIGN_UP':
             return {
                 showSignIn: false,
                 showSignUp: true,
                 showSignUpSuccess: false,
-                showRequestPassword: false
+                showRequestPassword: false,
+                showRequestPasswordSuccess: false
             };
         case 'SIGN_UP_SUCCESS':
             return {
                 showSignIn: false,
                 showSignUp: false,
                 showSignUpSuccess: true,
-                showRequestPassword: false
+                showRequestPassword: false,
+                showRequestPasswordSuccess: false
             };
         case 'REQUEST_PASSWORD':
             return {
                 showSignIn: false,
                 showSignUp: false,
                 showSignUpSuccess: false,
-                showRequestPassword: true
+                showRequestPassword: true,
+                showRequestPasswordSuccess: false
+            };
+        case 'REQUEST_PASSWORD_SUCCESS':
+            return {
+                showSignIn: false,
+                showSignUp: false,
+                showSignUpSuccess: false,
+                showRequestPassword: false,
+                showRequestPasswordSuccess: true
             };
         case 'CLOSE':
             return {
                 showSignIn: false,
                 showSignUp: false,
                 showSignUpSuccess: false,
-                showRequestPassword: false
+                showRequestPassword: false,
+                showRequestPasswordSuccess: false
             };
         default:
             return state;

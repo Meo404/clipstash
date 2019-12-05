@@ -1,7 +1,7 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { ApiClient } from 'ApiClient';
 import { validateEmail } from 'utils/UserValidation';
-import { Modal, RequestPasswordForm, SuccessDialog } from 'components';
+import { Modal, RequestPasswordForm } from 'components';
 
 const INITIAL_STATE = {
     email: '',
@@ -11,9 +11,12 @@ const INITIAL_STATE = {
 }
 
 export default function RequestPasswordModal(props) {
-    const { showRequestPassword, showRequestPasswordHandler } = props;
+    const {
+        showRequestPassword,
+        showRequestPasswordHandler,
+        showRequestPasswordSuccessHandler
+    } = props;
     const [formData, setFormData] = useState(INITIAL_STATE);
-    const [requestSuccess, setRequestSuccess] = useState(false);
     const client = new ApiClient();
 
     function changeHandler(event) {
@@ -51,8 +54,8 @@ export default function RequestPasswordModal(props) {
         // TODO add proper error handling for generic errors
         await client.post('api/v1/auth/password', params)
             .then(() => {
-                setRequestSuccess(true);
-                setFormData({ ...formData, isSubmitting: false });
+                showRequestPasswordSuccessHandler(formData.email);
+                setFormData(INITIAL_STATE);
             })
             .catch((error) => {
                 if (error.response.status == 404) {
@@ -62,24 +65,15 @@ export default function RequestPasswordModal(props) {
     }
 
     return (
-        <Modal 
+        <Modal
             showModal={showRequestPassword}
             showModalHandler={showRequestPasswordHandler}
         >
-            {requestSuccess ? (
-                <SuccessDialog message={
-                    <Fragment>
-                        An email has been sent to <strong>{formData.email}</strong> containing instructions for resetting your password.
-                    </Fragment>
-                }
-                />
-            ) : (
-                    <RequestPasswordForm
-                        formData={formData}
-                        changeHandler={changeHandler}
-                        submitHandler={submitHandler}
-                    />
-                )}
+            <RequestPasswordForm
+                formData={formData}
+                changeHandler={changeHandler}
+                submitHandler={submitHandler}
+            />
         </Modal>
     )
 }

@@ -6,7 +6,8 @@ const initialState = {
     showSignIn: false,
     showSignUp: false,
     showSignUpSuccess: false,
-    showRequestPassword: false
+    showRequestPassword: false,
+    showRequestPasswordSuccess: false
 }
 
 export const UserActionMenuProvider = ({ children }) => {
