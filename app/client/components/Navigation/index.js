@@ -5,3 +5,4 @@ export { default as NavbarUserMenu } from './NavbarUserMenu/NavbarUserMenu';
 export { default as Sidebar } from "./Sidebar/Sidebar";
 export { default as SidebarLinks } from "./SidebarLinks/SidebarLinks";
 export { default as SidebarSubreddits } from "./SidebarSubreddits/SidebarSubreddits";
+export { default as SidebarUserLinks } from "./SidebarUserLinks/SidebarUserLinks";

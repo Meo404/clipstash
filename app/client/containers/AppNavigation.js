@@ -61,6 +61,7 @@ export default function Navigation() {
                 popularSubreddits={displayedPopularSubreddits()}
                 showMore={showMore}
                 showMoreHandler={showMoreHandler}
+                userIsLoggedIn={isLoggedIn}
             />
         </React.Fragment>
     );

@@ -9,7 +9,7 @@ import {
     SubmissionList
 } from "components";
 
-export default function UserFavorites() {
+export default function SavedVideos() {
     const [data, setData] = useState({ submissions: [], hasMore: true, page: 1 });
     const client = new ApiClient();
 
@@ -29,10 +29,10 @@ export default function UserFavorites() {
     return (
         <React.Fragment>
             <Helmet>
-                <title>Your Favorite Videos</title>
+                <title>Saved Videos</title>
             </Helmet>
             <MaxWidthContainer>
-                <SectionHeader headerText="Your Favorite Videos" />
+                <SectionHeader headerText="Saved Videos" />
                 <InfiniteScroll
                     initialLoad={true}
                     loadMore={fetchSubmissionsData}

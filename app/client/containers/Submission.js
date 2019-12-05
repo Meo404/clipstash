@@ -45,9 +45,9 @@ export default function Submission() {
         return DEFAULT_SORT_METHOD;
     }
 
-    function favoriteButtonHandler() {
+    function saveButtonHandler() {
         if(isLoggedIn) {
-            data.submission.is_favorite ? removeFavorite() : addFavorite()
+            data.submission.is_favorite ? removeFromSavedVideos() : addToSavedVideos()
             return;
         }
 
@@ -57,21 +57,21 @@ export default function Submission() {
         }
     }
 
-    async function addFavorite() {
+    async function addToSavedVideos() {
         const params = { submission_fullname: data.submission.reddit_fullname }
         await client.post("/api/v1/favorite_submissions", params).then(() => {
             const submission = { ...data.submission, is_favorite: true };
             setData({ ...data, submission: submission });
-            enqueueSnackbar('Successfully added to Favorites', { variant: 'success' });
+            enqueueSnackbar('Successfully added to saved videos', { variant: 'success' });
         })
     }
 
-    async function removeFavorite() {
+    async function removeFromSavedVideos() {
         await client.delete("/api/v1/favorite_submissions?submission_fullname=" +  data.submission.reddit_fullname )
             .then(() => {
                 const submission = { ...data.submission, is_favorite: false };
                 setData({ ...data, submission: submission });
-                enqueueSnackbar('Successfully removed from Favorites', { variant: 'success' });
+                enqueueSnackbar('Successfully removed from saved videos', { variant: 'success' });
             })
     }
 
@@ -86,7 +86,7 @@ export default function Submission() {
                     <Grid>
                         <SubmissionCard 
                             submission={data.submission}
-                            favoriteButtonHandler={favoriteButtonHandler} 
+                            saveButtonHandler={saveButtonHandler} 
                         />
                         <SubmissionCardLinks submission={data.submission} />
                         <RelatedSubmissionsList

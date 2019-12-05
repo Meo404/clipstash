@@ -5,7 +5,8 @@ export {
     NavbarUserMenu,
     Sidebar,
     SidebarLinks,
-    SidebarSubreddits
+    SidebarSubreddits,
+    SidebarUserLinks
 } from "./Navigation";
 
 export {

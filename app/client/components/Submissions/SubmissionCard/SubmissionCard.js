@@ -13,8 +13,8 @@ import {
 } from "@material-ui/core";
 import {
     CommentOutlined as CommentOutlinedIcon,
-    FavoriteBorderOutlined as FavoriteBorderOutlinedIcon,
-    FavoriteOutlined as FavoriteOutlinedIcon,
+    BookmarkBorderOutlined as BookmarkBorderOutlinedIcon,
+    BookmarkOutlined as BookmarkOutlinedIcon,
     MoreHoriz as MoreHorizIcon,
     Share as ShareIcon,
     SwapVerticalCircleOutlined as SwapVerticalCircleOutlinedIcon
@@ -22,15 +22,15 @@ import {
 import useStyles from './Styles';
 
 export default function SubmissionListCard(props) {
-    const { favoriteButtonHandler, submission } = props;
+    const { saveButtonHandler, submission } = props;
     const classes = useStyles();
 
-    const selectFavoriteIcon = () => {
+    const selectSaveIcon = () => {
         if (submission.is_favorite) { 
-            return <FavoriteOutlinedIcon classes={{ root: classes.actionButtonIcon }} />
+            return <BookmarkOutlinedIcon classes={{ root: classes.actionButtonIcon }} />
         }
         
-        return <FavoriteBorderOutlinedIcon classes={{ root: classes.actionButtonIcon }} />
+        return <BookmarkBorderOutlinedIcon classes={{ root: classes.actionButtonIcon }} />
     }
 
     return (
@@ -93,11 +93,11 @@ export default function SubmissionListCard(props) {
                                 aria-label="add to favorites"
                                 size="small"
                                 className={classes.actionButton}
-                                onClick={favoriteButtonHandler}
+                                onClick={saveButtonHandler}
                             >
-                                {selectFavoriteIcon()}
+                                {selectSaveIcon()}
                                 <Hidden xsDown>
-                                    Favorite
+                                    Save
                             </Hidden>
                             </Button>
                         </Tooltip>

@@ -1,6 +1,10 @@
 import React from "react";
 import { Divider, Drawer } from "@material-ui/core";
-import { SidebarLinks, SidebarSubreddits } from "components";
+import {
+    SidebarLinks,
+    SidebarSubreddits,
+    SidebarUserLinks
+} from "components";
 
 import useStyles from "./Styles";
 
@@ -11,6 +15,7 @@ export default function Sidebar(props) {
         popularSubreddits,
         showMore,
         showMoreHandler,
+        userIsLoggedIn
     } = props;
     const classes = useStyles();
 
@@ -22,6 +27,12 @@ export default function Sidebar(props) {
         <div role="presentation" className={classes.list}>
             <SidebarLinks closeDrawer={closeDrawerHandler} />
             <Divider />
+            {userIsLoggedIn ? (
+                <React.Fragment>
+                    <SidebarUserLinks closeDrawer={closeDrawerHandler} />
+                    <Divider />
+                </React.Fragment>
+            ) : null}
             <SidebarSubreddits
                 closeDrawer={closeDrawerHandler}
                 subreddits={popularSubreddits}
