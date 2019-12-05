@@ -5,6 +5,8 @@ const userActionMenuReducer = (state, action) => {
                 showSignIn: true,
                 showSignUp: false,
                 showSignUpSuccess: false,
+                showResetPassword: false,
+                showResetPasswordSuccess: false,
                 showRequestPassword: false,
                 showRequestPasswordSuccess: false
             };
@@ -13,6 +15,8 @@ const userActionMenuReducer = (state, action) => {
                 showSignIn: false,
                 showSignUp: true,
                 showSignUpSuccess: false,
+                showResetPassword: false,
+                showResetPasswordSuccess: false,
                 showRequestPassword: false,
                 showRequestPasswordSuccess: false
             };
@@ -21,6 +25,28 @@ const userActionMenuReducer = (state, action) => {
                 showSignIn: false,
                 showSignUp: false,
                 showSignUpSuccess: true,
+                showResetPassword: false,
+                showResetPasswordSuccess: false,
+                showRequestPassword: false,
+                showRequestPasswordSuccess: false
+            };
+        case 'RESET_PASSWORD':
+            return {
+                showSignIn: false,
+                showSignUp: false,
+                showSignUpSuccess: false,
+                showResetPassword: true,
+                showResetPasswordSuccess: false,
+                showRequestPassword: false,
+                showRequestPasswordSuccess: false
+            };
+        case 'RESET_PASSWORD_SUCCESS':
+            return {
+                showSignIn: false,
+                showSignUp: false,
+                showSignUpSuccess: false,
+                showResetPassword: false,
+                showResetPasswordSuccess: true,
                 showRequestPassword: false,
                 showRequestPasswordSuccess: false
             };
@@ -29,6 +55,8 @@ const userActionMenuReducer = (state, action) => {
                 showSignIn: false,
                 showSignUp: false,
                 showSignUpSuccess: false,
+                showResetPassword: false,
+                showResetPasswordSuccess: false,
                 showRequestPassword: true,
                 showRequestPasswordSuccess: false
             };
@@ -37,6 +65,8 @@ const userActionMenuReducer = (state, action) => {
                 showSignIn: false,
                 showSignUp: false,
                 showSignUpSuccess: false,
+                showResetPassword: false,
+                showResetPasswordSuccess: false,
                 showRequestPassword: false,
                 showRequestPasswordSuccess: true
             };
@@ -45,6 +75,8 @@ const userActionMenuReducer = (state, action) => {
                 showSignIn: false,
                 showSignUp: false,
                 showSignUpSuccess: false,
+                showResetPassword: false,
+                showResetPasswordSuccess: false,
                 showRequestPassword: false,
                 showRequestPasswordSuccess: false
             };
