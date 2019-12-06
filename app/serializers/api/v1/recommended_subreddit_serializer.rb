@@ -27,7 +27,7 @@
 #  index_subreddits_on_reddit_fullname  (reddit_fullname) UNIQUE
 #
 
-class RecommendedSubredditSerializer < ActiveModel::Serializer
+class Api::V1::RecommendedSubredditSerializer < ActiveModel::Serializer
   attributes :id,
              :display_name,
              :display_name_prefixed,
@@ -45,6 +45,6 @@ class RecommendedSubredditSerializer < ActiveModel::Serializer
 
   def submissions
     submissions = Submission.hot.where(subreddit_id: object.id).limit(4)
-    ActiveModel::Serializer::CollectionSerializer.new(submissions).as_json
+    ActiveModel::Serializer::CollectionSerializer.new(submissions, serializer: Api::V1::SubmissionSerializer).as_json
   end
 end

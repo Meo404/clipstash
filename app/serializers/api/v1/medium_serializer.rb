@@ -27,6 +27,6 @@
 #  fk_rails_...  (media_provider_id => media_providers.id)
 #
 
-class MediumSerializer < ActiveModel::Serializer
+class Api::V1::MediumSerializer < ActiveModel::Serializer
   attributes :id, :author, :author_url, :size, :thumbnail, :thumbnail_size, :title, :url, :embed_url
 end

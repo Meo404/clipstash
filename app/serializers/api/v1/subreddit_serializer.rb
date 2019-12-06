@@ -27,7 +27,7 @@
 #  index_subreddits_on_reddit_fullname  (reddit_fullname) UNIQUE
 #
 
-class SubredditSerializer < ActiveModel::Serializer
+class Api::V1::SubredditSerializer < ActiveModel::Serializer
   attributes :id,
              :reddit_fullname,
              :display_name,

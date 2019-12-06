@@ -39,7 +39,9 @@ class Api::V1::SubredditsController < Api::V1::ApiController
                      .page(params[:page])
                      .per(params[:max_results])
 
-    render json: subreddits, each_serializer: RecommendedSubredditSerializer, meta: pagination_dict(subreddits)
+    render json: subreddits,
+           each_serializer: Api::V1::RecommendedSubredditSerializer,
+           meta: pagination_dict(subreddits)
   end
 
   def popular

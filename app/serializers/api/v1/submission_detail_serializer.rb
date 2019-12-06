@@ -30,7 +30,7 @@
 #  fk_rails_...  (subreddit_id => subreddits.id)
 #
 
-class SubmissionSerializer < ActiveModel::Serializer
+class Api::V1::SubmissionDetailSerializer < ActiveModel::Serializer
   include ActionView::Helpers::DateHelper
 
   belongs_to :subreddit
@@ -46,28 +46,22 @@ class SubmissionSerializer < ActiveModel::Serializer
              :reddit_fullname,
              :slug,
              :score,
-             :subreddit,
              :title,
-             :thumbnail,
-             :thumbnail_size
+             :is_favorite
 
   def media_provider
     object.medium.media_provider.name
   end
 
-  def subreddit
-    object.subreddit.display_name_prefixed
-  end
-
-  def thumbnail
-    object.thumbnail_image
-  end
-
-  def thumbnail_size
-    object.thumbnail_image_size
-  end
-
   def created_date_string
     time_ago_in_words(object.created_utc) + " ago"
+  end
+
+  def is_favorite
+    if @instance_options[:user_id]
+      object.users.pluck(:user_id).include?(instance_options[:user_id])
+    else
+      false
+    end
   end
 end
