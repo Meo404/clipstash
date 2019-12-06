@@ -22,6 +22,7 @@ describe 'PUT api/v1/auth/password/', type: :request do
 
     let(:params) do
       {
+          current_password: 'mypass123',
           password: new_password,
           password_confirmation: new_password
       }
@@ -35,6 +36,12 @@ describe 'PUT api/v1/auth/password/', type: :request do
     end
 
     context 'with invalid params' do
+      it 'does not change the password if current_password is incorrect' do
+        params[:current_password] = 'anotherpass'
+        put api_v1_user_password_path, params: params, headers: headers, as: :json
+        expect(response.status).to eq(422)
+      end
+
       it 'does not change the password if confirmation does not match' do
         params[:password_confirmation] = 'anotherpass'
         put api_v1_user_password_path, params: params, headers: headers, as: :json
