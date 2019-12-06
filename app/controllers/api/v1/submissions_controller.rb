@@ -11,7 +11,7 @@ class Api::V1::SubmissionsController < Api::V1::ApiController
     submission = Submission.friendly.find(params[:slug])
 
     render json: submission,
-           serializer: SubmissionDetailSerializer,
+           serializer: Api::V1::SubmissionDetailSerializer,
            include: ["subreddit", "medium"],
            user_id: @user_id
   end
