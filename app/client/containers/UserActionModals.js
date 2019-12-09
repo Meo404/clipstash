@@ -7,6 +7,7 @@ import RequestPasswordModal from 'containers/RequestPasswordModal';
 import SignInModal from 'containers/SignInModal';
 import SignUpModal from 'containers/SignUpModal';
 import { SuccessModal } from 'components';
+import RegistrationSuccess from "./RegistrationSuccess";
 
 export default function UserActionModals() {
     const [successEmail, setSuccessEmail] = useState('');
@@ -146,12 +147,14 @@ export default function UserActionModals() {
                 showSuccess={showRequestPasswordSuccess}
                 showSuccessHandler={showRequestPasswordSuccessHandler}
             />
-            {/* ResetPassword success modal */}
+            {/* DeleteAccount success modal */}
             <SuccessModal
                 message='Your account has been deleted.'
                 showSuccess={showDeleteAccountSuccess}
                 showSuccessHandler={showDeleteAccountSuccessHandler}
             />
+            {/* Show Registration Success modal on successful registration */}
+            <RegistrationSuccess />
         </React.Fragment>
     );
 }
