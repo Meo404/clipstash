@@ -33,8 +33,8 @@ export default function NavbarUserMenu(props) {
             >
                 <MenuItem disabled>{userName}</MenuItem>
                 <Divider />
-                <NavLink to='/profile' className={classes.navLink}>
-                    <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <NavLink to='/settings' className={classes.navLink}>
+                    <MenuItem onClick={handleClose}>Settings</MenuItem>
                 </NavLink>
                 <MenuItem onClick={logOutHandler}>Logout</MenuItem>
             </Menu>

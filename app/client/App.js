@@ -5,7 +5,7 @@ import AppNavigation from "containers/AppNavigation";
 import Home from "containers/Home";
 import NotFound from "components/NotFound";
 import ProtectedRoute from 'hoc/ProtectedRoute';
-import UserProfile from 'containers/UserProfile';
+import UserSettings from 'containers/UserSettings';
 import SavedVideos from "containers/SavedVideos";
 import Submission from "containers/Submission";
 import Subreddit from "containers/Subreddit";
@@ -25,7 +25,7 @@ export default function App() {
                 <Route path="/subreddits" exact component={SubredditOverview} />
                 <Route path="/r/:displayName" component={Subreddit} />
                 <Route path="/submission/:slug" component={Submission} />
-                <ProtectedRoute path="/profile" component={UserProfile} />
+                <ProtectedRoute path="/settings" component={UserSettings} />
                 <ProtectedRoute path="/saved_videos" component={SavedVideos} />
                 <Route component={NotFound} />
             </Switch>

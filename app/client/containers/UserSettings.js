@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import AuthContext from 'contexts/AuthContext';
 import { Helmet } from "react-helmet-async";
-import { MaxWidthContainer, UserProfileWidget } from "components";
+import { MaxWidthContainer, UserSettingsWidget } from "components";
 
-export default function SavedVideos() {
+export default function UserSettings() {
     const [{ userName },] = useContext(AuthContext);
 
     return (
@@ -12,7 +12,7 @@ export default function SavedVideos() {
                 <title>User Profile</title>
             </Helmet>
             <MaxWidthContainer>
-                <UserProfileWidget userName={userName} />
+                <UserSettingsWidget userName={userName} />
             </MaxWidthContainer>
         </React.Fragment>
     );

@@ -10,7 +10,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 import useStyles from './Styles';
 
-export default function UserProfileWidget({ userName }) {
+export default function UserSettingsWidget({ userName }) {
     const [, dispatch] = useContext(UserActionMenuContext);
     const classes = useStyles();
 
