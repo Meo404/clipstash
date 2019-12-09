@@ -10,7 +10,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 import useStyles from './Styles';
 
-export default function UserProfileWidget() {
+export default function UserProfileWidget({ userName }) {
     const [, dispatch] = useContext(UserActionMenuContext);
     const classes = useStyles();
 
@@ -25,7 +25,7 @@ export default function UserProfileWidget() {
                     <AccountCircleIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5" className={classes.userName}>
-                    UserName
+                    {userName}
                 </Typography>
                 <Button
                     fullWidth
