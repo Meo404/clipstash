@@ -16,11 +16,12 @@ export const AuthProvider = ({ children }) => {
             return {
                 isLoggedIn: true,
                 userName: authCookie.userName,
+                email: authCookie.email,
                 authHeaders: authCookie.authHeaders
             }
         }
 
-        return { isLoggedIn: false, userName: null, authHeaders: null }
+        return { isLoggedIn: false, userName: null, email: null, authHeaders: null }
     }
 
     return (

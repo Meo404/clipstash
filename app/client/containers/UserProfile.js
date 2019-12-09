@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-import { ApiClient } from 'ApiClient';
+import React from "react";
 import { Helmet } from "react-helmet-async";
-import { MaxWidthContainer } from "components";
+import { MaxWidthContainer, UserProfileWidget } from "components";
 
 export default function SavedVideos() {
 
@@ -11,9 +10,8 @@ export default function SavedVideos() {
                 <title>User Profile</title>
             </Helmet>
             <MaxWidthContainer>
-                <h1>User Profile</h1>
+                <UserProfileWidget />
             </MaxWidthContainer>
         </React.Fragment>
-
     );
 }

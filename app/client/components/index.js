@@ -42,5 +42,6 @@ export {
     RequestPasswordForm,
     SignInForm,
     SignUpForm,
-    SuccessModal
+    SuccessModal,
+    UserProfileWidget
 } from "./Users";

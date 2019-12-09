@@ -74,6 +74,7 @@ export default function SignInModal(props) {
 
     const dispatchLogin = (response) => {
         const userName = response.data.user.user_name;
+        const email = response.data.user.email;
         const authHeaders = {
             'access-token': response.headers['access-token'],
             'token-type': response.headers['token-type'],
@@ -86,6 +87,7 @@ export default function SignInModal(props) {
             type: 'LOGIN',
             payload: {
                 userName: userName,
+                email: email,
                 authHeaders: authHeaders
             }
         })
