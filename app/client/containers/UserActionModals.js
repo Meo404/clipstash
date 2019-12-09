@@ -1,6 +1,7 @@
 import React, { Fragment, useContext, useState } from "react";
 import UserActionMenuContext from 'contexts/UserActionMenuContext';
 import ChangePasswordModal from 'containers/ChangePasswordModal';
+import DeleteAccountModal from 'containers/DeleteAccountModal';
 import ResetPasswordModal from 'containers/ResetPasswordModal';
 import RequestPasswordModal from 'containers/RequestPasswordModal';
 import SignInModal from 'containers/SignInModal';
@@ -18,7 +19,9 @@ export default function UserActionModals() {
         showResetPassword,
         showResetPasswordSuccess,
         showRequestPassword,
-        showRequestPasswordSuccess
+        showRequestPasswordSuccess,
+        showDeleteAccount,
+        showDeleteAccountSuccess,
     }, dispatch] = useContext(UserActionMenuContext);
 
     function showSignInHandler() {
@@ -68,6 +71,16 @@ export default function UserActionModals() {
         dispatch({ type: actionType });
     }
 
+    function showDeleteAccountHandler() {
+        const actionType = showDeleteAccount ? 'CLOSE' : 'DELETE_ACCOUNT'
+        dispatch({ type: actionType });
+    }
+
+    function showDeleteAccountSuccessHandler() {
+        const actionType = showDeleteAccountSuccess ? 'CLOSE' : 'DELETE_ACCOUNT_SUCCESS'
+        dispatch({ type: actionType });
+    }
+
     return (
         <React.Fragment>
             <SignUpModal
@@ -95,6 +108,11 @@ export default function UserActionModals() {
                 showRequestPassword={showRequestPassword}
                 showRequestPasswordHandler={showRequestPasswordHandler}
                 showRequestPasswordSuccessHandler={showRequestPasswordSuccessHandler}
+            />
+            <DeleteAccountModal
+                showDeleteAccount={showDeleteAccount}
+                showDeleteAccountHandler={showDeleteAccountHandler}
+                showDeleteAccountSuccessHandler={showDeleteAccountSuccessHandler}
             />
             {/* SignUp success modal */}
             <SuccessModal
@@ -127,6 +145,12 @@ export default function UserActionModals() {
                 }
                 showSuccess={showRequestPasswordSuccess}
                 showSuccessHandler={showRequestPasswordSuccessHandler}
+            />
+            {/* ResetPassword success modal */}
+            <SuccessModal
+                message='Your account has been deleted.'
+                showSuccess={showDeleteAccountSuccess}
+                showSuccessHandler={showDeleteAccountSuccessHandler}
             />
         </React.Fragment>
     );

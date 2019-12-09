@@ -38,6 +38,7 @@ export {
 
 export {
     ChangePasswordForm,
+    DeleteAccountForm,
     RegisterSuccessDialog,
     ResetPasswordForm,
     RequestPasswordForm,

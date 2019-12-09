@@ -18,6 +18,10 @@ export default function UserProfileWidget({ userName }) {
         dispatch({ type: 'CHANGE_PASSWORD' });
     }
 
+    const handleShowDeleteAccount = () => {
+        dispatch({ type: 'DELETE_ACCOUNT' });
+    }
+
     return (
         <Container maxWidth="sm">
             <div className={classes.userProfileContainer}>
@@ -32,14 +36,6 @@ export default function UserProfileWidget({ userName }) {
                     variant="contained"
                     color="primary"
                     className={classes.actionButton}
-                >
-                    Change Email
-                </Button>
-                <Button
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    className={classes.actionButton}
                     onClick={handleShowChangePassword}
                 >
                     Change Password
@@ -49,6 +45,7 @@ export default function UserProfileWidget({ userName }) {
                     variant="contained"
                     color="primary"
                     className={classes.actionButton}
+                    onClick={handleShowDeleteAccount}
                 >
                     Delete Account
                 </Button>

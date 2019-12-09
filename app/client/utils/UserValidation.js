@@ -115,6 +115,24 @@ function validatePasswordChangeData(formData) {
     return { ...formData, hasErrors: hasErrors, errors: errors }
 }
 
+/**
+ * Validates the submitted Delete Account form data
+ * In case of validation errors, it puts them into the error object.
+ * 
+ *  @param {object} formData
+ *  @param {String} currentUserName
+ *  @return {object} updatedFormData
+ */
+function validateDeleteAccountData(formData, currentUserName) {
+    const errors = {
+        userName: validateCurrentUserName(formData.userName, currentUserName),
+        deleteConfirmation: validateDeleteConfirmation(formData.deleteConfirmation)
+    }
+
+    const hasErrors = !Object.values(errors).every(x => (x === null));
+    
+    return { ...formData, hasErrors: hasErrors, errors: errors }
+}
 
 /**
  * Validates the passed user name
@@ -134,6 +152,22 @@ function validateUserName(userName) {
 
     return null;
 }
+
+/**
+ * Validates that userName equals currentUserName
+ * 
+ *  @param {String} userName
+ *  @param {String} currentUserName
+ *  @return null OR error description
+ */
+function validateCurrentUserName(userName, currentUserName) {
+    if (userName != currentUserName) {
+        return "Entered name doesn't match your user name"
+    };
+
+    return null;
+}
+
 /**
  * Validates the passed email address
  * 
@@ -155,7 +189,7 @@ function validateEmail(email) {
 /**
  * Validates that the currentPassword is not empty
  * 
- *  @param {String} password
+ *  @param {String} currentPassword
  *  @return null OR error description
  */
 function validateCurrentPassword(currentPassword) {
@@ -195,8 +229,24 @@ function validateConfirmationPassword(password, passwordConfirmation) {
     return null;
 }
 
+/**
+ * Validates the passed delete Confirmation
+ * Requirement: Needs to match the String 'DELETE'
+ * 
+ *  @param {String} deleteConfirmation
+ *  @return null OR error description
+ */
+function validateDeleteConfirmation(deleteConfirmation) {
+    if (deleteConfirmation != 'DELETE') {
+        return "Confirmation text needs to be 'DELETE'"
+    }
+
+    return null;
+}
+
 export { 
     parseValidationErrors,
+    validateDeleteAccountData,
     validateEmail,
     validatePasswordChangeData,
     validatePasswordResetData,
