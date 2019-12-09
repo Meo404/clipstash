@@ -6,10 +6,14 @@ const initialState = {
     showSignIn: false,
     showSignUp: false,
     showSignUpSuccess: false,
+    showChangePassword: false,
+    showChangePasswordSuccess: false,
     showResetPassword: false,
     showResetPasswordSuccess: false,
     showRequestPassword: false,
-    showRequestPasswordSuccess: false
+    showRequestPasswordSuccess: false,
+    showDeleteAccount: false,
+    showDeleteAccountSuccess: false
 }
 
 export const UserActionMenuProvider = ({ children }) => {

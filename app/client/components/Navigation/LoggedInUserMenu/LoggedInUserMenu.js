@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import { AccountCircle as AccountCircleIcon } from '@material-ui/icons';
 import { Divider, IconButton, Menu, MenuItem } from '@material-ui/core';
 
@@ -32,7 +33,9 @@ export default function NavbarUserMenu(props) {
             >
                 <MenuItem disabled>{userName}</MenuItem>
                 <Divider />
-                <MenuItem onClick={handleClose}>Settings</MenuItem>
+                <NavLink to='/settings' className={classes.navLink}>
+                    <MenuItem onClick={handleClose}>Settings</MenuItem>
+                </NavLink>
                 <MenuItem onClick={logOutHandler}>Logout</MenuItem>
             </Menu>
         </React.Fragment>

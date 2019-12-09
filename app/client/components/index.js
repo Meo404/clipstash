@@ -37,10 +37,13 @@ export {
 } from "./UI";
 
 export {
+    ChangePasswordForm,
+    DeleteAccountForm,
     RegisterSuccessDialog,
     ResetPasswordForm,
     RequestPasswordForm,
     SignInForm,
     SignUpForm,
-    SuccessModal
+    SuccessModal,
+    UserSettingsWidget
 } from "./Users";

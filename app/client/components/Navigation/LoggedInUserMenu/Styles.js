@@ -10,6 +10,10 @@ const useStyles = makeStyles(theme => ({
         [theme.breakpoints.up("sm")]: {
             fontSize: '2.2rem'
         }
+    },
+    navLink: {
+        textDecoration: "none",
+        color: "inherit"
     }
 }));
 

@@ -13,6 +13,7 @@ const authReducer = (state, action) => {
             return {
                 isLoggedIn: true,
                 userName: action.payload.userName,
+                email: action.payload.email,
                 authHeaders: action.payload.authHeaders
             };
         case 'LOGOUT':
@@ -21,6 +22,7 @@ const authReducer = (state, action) => {
             return {
                 isLoggedIn: false,
                 userName: null,
+                email: null,
                 authHeaders: null
             };
         default:
