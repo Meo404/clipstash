@@ -24,7 +24,7 @@ export default function UserSettingsWidget({ userName }) {
 
     return (
         <Container maxWidth="sm">
-            <div className={classes.userProfileContainer}>
+            <div className={classes.userSettingsContainer}>
                 <Avatar className={classes.avatar}>
                     <AccountCircleIcon />
                 </Avatar>

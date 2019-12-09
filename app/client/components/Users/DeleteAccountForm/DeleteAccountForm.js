@@ -2,9 +2,9 @@ import React from 'react';
 import {
     Avatar,
     Button,
-    TextField,
     Container,
     Grid,
+    TextField,
     Typography
 } from '@material-ui/core';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';

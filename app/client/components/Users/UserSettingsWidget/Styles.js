@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
     userName: {
         marginBottom: "20px !important"
     },
-    userProfileContainer: {
+    userSettingsContainer: {
         marginTop: 25,
         display: 'flex',
         flexDirection: 'column',

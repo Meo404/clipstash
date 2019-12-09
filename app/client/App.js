@@ -5,13 +5,13 @@ import AppNavigation from "containers/AppNavigation";
 import Home from "containers/Home";
 import NotFound from "components/NotFound";
 import ProtectedRoute from 'hoc/ProtectedRoute';
-import UserSettings from 'containers/UserSettings';
 import SavedVideos from "containers/SavedVideos";
 import Submission from "containers/Submission";
 import Subreddit from "containers/Subreddit";
 import SubredditOverview from "containers/SubredditOverview";
 import Trending from "containers/Trending";
 import UserActionModals from "containers/UserActionModals";
+import UserSettings from 'containers/UserSettings';
 
 export default function App() {
     const classes = useStyles();
