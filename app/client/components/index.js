@@ -37,6 +37,7 @@ export {
 } from "./UI";
 
 export {
+    ChangePasswordForm,
     RegisterSuccessDialog,
     ResetPasswordForm,
     RequestPasswordForm,

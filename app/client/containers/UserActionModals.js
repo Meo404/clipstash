@@ -1,5 +1,6 @@
 import React, { Fragment, useContext, useState } from "react";
 import UserActionMenuContext from 'contexts/UserActionMenuContext';
+import ChangePasswordModal from 'containers/ChangePasswordModal';
 import ResetPasswordModal from 'containers/ResetPasswordModal';
 import RequestPasswordModal from 'containers/RequestPasswordModal';
 import SignInModal from 'containers/SignInModal';
@@ -12,6 +13,8 @@ export default function UserActionModals() {
         showSignIn,
         showSignUp,
         showSignUpSuccess,
+        showChangePassword,
+        showChangePasswordSuccess,
         showResetPassword,
         showResetPasswordSuccess,
         showRequestPassword,
@@ -31,6 +34,16 @@ export default function UserActionModals() {
     function showSignUpSuccessHandler(userEmail = '') {
         setSuccessEmail(userEmail);
         const actionType = showSignUpSuccess ? 'CLOSE' : 'SIGN_UP_SUCCESS'
+        dispatch({ type: actionType });
+    }
+
+    function showChangePasswordHandler() {
+        const actionType = showChangePassword ? 'CLOSE' : 'CHANGE_PASSWORD'
+        dispatch({ type: actionType });
+    }
+
+    function showChangePasswordSuccessHandler() {
+        const actionType = showChangePasswordSuccess ? 'CLOSE' : 'CHANGE_PASSWORD_SUCCESS'
         dispatch({ type: actionType });
     }
 
@@ -68,6 +81,11 @@ export default function UserActionModals() {
                 showSignInHandler={showSignInHandler}
                 showRequestPasswordHandler={showRequestPasswordHandler}
             />
+            <ChangePasswordModal
+                showChangePassword={showChangePassword}
+                showChangePasswordHandler={showChangePasswordHandler}
+                showChangePasswordSuccessHandler={showChangePasswordSuccessHandler}
+            />
             <ResetPasswordModal
                 showResetPassword={showResetPassword}
                 showResetPasswordHandler={showResetPasswordHandler}
@@ -87,6 +105,12 @@ export default function UserActionModals() {
                 }
                 showSuccess={showSignUpSuccess}
                 showSuccessHandler={showSignUpSuccessHandler}
+            />
+            {/* ChangePassword success modal */}
+            <SuccessModal
+                message='Your password has been successfully updated.'
+                showSuccess={showChangePasswordSuccess}
+                showSuccessHandler={showChangePasswordSuccessHandler}
             />
             {/* ResetPassword success modal */}
             <SuccessModal

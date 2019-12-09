@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import UserActionMenuContext from 'contexts/UserActionMenuContext';
 import {
     Avatar,
     Button,
     Container,
-    Divider,
     Typography
 } from '@material-ui/core';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
@@ -11,7 +11,12 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import useStyles from './Styles';
 
 export default function UserProfileWidget() {
+    const [, dispatch] = useContext(UserActionMenuContext);
     const classes = useStyles();
+
+    const handleShowChangePassword = () => {
+        dispatch({ type: 'CHANGE_PASSWORD' });
+    }
 
     return (
         <Container maxWidth="sm">
@@ -23,7 +28,6 @@ export default function UserProfileWidget() {
                     UserName
                 </Typography>
                 <Button
-                    type="submit"
                     fullWidth
                     variant="contained"
                     color="primary"
@@ -32,16 +36,15 @@ export default function UserProfileWidget() {
                     Change Email
                 </Button>
                 <Button
-                    type="submit"
                     fullWidth
                     variant="contained"
                     color="primary"
                     className={classes.actionButton}
+                    onClick={handleShowChangePassword}
                 >
                     Change Password
                 </Button>
                 <Button
-                    type="submit"
                     fullWidth
                     variant="contained"
                     color="primary"

@@ -6,6 +6,8 @@ const initialState = {
     showSignIn: false,
     showSignUp: false,
     showSignUpSuccess: false,
+    showChangePassword: false,
+    showChangePasswordSuccess: false,
     showResetPassword: false,
     showResetPasswordSuccess: false,
     showRequestPassword: false,

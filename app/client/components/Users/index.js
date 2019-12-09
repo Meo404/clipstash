@@ -1,3 +1,4 @@
+export { default as ChangePasswordForm } from "./ChangePasswordForm/ChangePasswordForm";
 export { default as RegisterSuccessDialog } from "./RegisterSuccessDialog/RegisterSuccessDialog";
 export { default as ResetPasswordForm } from "./ResetPasswordForm/ResetPasswordForm";
 export { default as RequestPasswordForm } from "./RequestPasswordForm/RequestPasswordForm";
