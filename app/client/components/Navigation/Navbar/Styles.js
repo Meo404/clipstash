@@ -8,7 +8,7 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         maxWidth: 100,
         [theme.breakpoints.up("md")]: {
-            maxWidth: 120,
+            maxWidth: 150,
         }, 
     },
     logoLink: {
