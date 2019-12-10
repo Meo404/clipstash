@@ -5,6 +5,7 @@ import InfiniteScroll from "react-infinite-scroller";
 import {
     LoadingIndicator,
     MaxWidthContainer,
+    NoResultsBox,
     SectionHeader,
     SubmissionList
 } from "components";
@@ -26,6 +27,10 @@ export default function SavedVideos() {
             })
     }
 
+    function isEmptyResultSet() {
+        return data.submissions.length === 0
+    }
+
     return (
         <React.Fragment>
             <Helmet>
@@ -45,6 +50,12 @@ export default function SavedVideos() {
                         showSubreddits={true}
                     />
                 </InfiniteScroll>
+                {isEmptyResultSet() ? (
+                    <NoResultsBox
+                        headerText="No saved videos found"
+                        descriptionText="You can add some by using the save button on any video!"
+                    />
+                ) : null}
             </MaxWidthContainer>
         </React.Fragment>
 
