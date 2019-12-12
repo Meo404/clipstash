@@ -15,3 +15,4 @@ Ahoy.api = false
 
 # GDPR compliance
 Ahoy.mask_ips = true
+Ahoy.geocode = false
