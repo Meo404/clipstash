@@ -19,7 +19,7 @@ module UserHistory
         submission_fullnames = Ahoy::Event
                                    .where(name: "submission_view", user_id: user_id)
                                    .order(time: :desc)
-                                   .pluck("properties->'submission_fullname'")
+                                   .map { |event| event.properties["submission_fullname"] }
                                    .uniq
 
         Submission.where(reddit_fullname: submission_fullnames).page(page).per(max_results)

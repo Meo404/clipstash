@@ -44,7 +44,7 @@ describe 'GET api/v1/submission_history', type: :request do
       ).to eq(Ahoy::Event
                   .where(name: "submission_view", user_id: user.id)
                   .order(time: :desc)
-                  .pluck("properties->'submission_fullname'")
+                  .map { |event| event.properties["submission_fullname"] }
                   .uniq[0..default_results-1])
     end
   end
