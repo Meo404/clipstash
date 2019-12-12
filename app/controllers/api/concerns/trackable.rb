@@ -4,6 +4,7 @@ module Api
       extend ActiveSupport::Concern
 
       private
+
         def track_subreddit_overview_view
           ahoy.track "subreddit_overview_view",
                      search_query: params[:q],
@@ -39,6 +40,12 @@ module Api
         def track_favorite_submission_removed
           ahoy.track "favorite_submission_removed",
                      submission_fullname: params[:submission_fullname]
+        end
+
+        def track_history_view
+          ahoy.track "history_view",
+                     pagination_page: params[:page],
+                     pagination_max_results: params[:max_results]
         end
     end
   end
