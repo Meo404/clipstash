@@ -4,6 +4,7 @@ module Api
       include DeviseTokenAuth::Concerns::SetUserByToken
       include Api::Concerns::ActsAsApiRequest
       include Api::Concerns::Pagination
+      include Api::Concerns::Trackable
 
       rescue_from Exception,                           with: :render_error
       rescue_from ActiveRecord::RecordNotFound,        with: :render_not_found
