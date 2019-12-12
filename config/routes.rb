@@ -40,6 +40,8 @@ Rails.application.routes.draw do
       get 'favorite_submissions', to: 'favorite_submissions#index'
       post 'favorite_submissions', to: 'favorite_submissions#create'
       delete 'favorite_submissions', to: 'favorite_submissions#destroy'
+      # Submission History
+      get 'submission_history', to: 'history#index'
     end
   end
 
