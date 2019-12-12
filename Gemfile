@@ -32,6 +32,7 @@ gem 'sidekiq'
 gem 'whenever'
 gem 'devise'
 gem 'devise_token_auth'
+gem 'ahoy_matey'
 
 group :development, :test do
   gem 'factory_bot_rails'

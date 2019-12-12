@@ -4,6 +4,8 @@ class Api::V1::SubredditsController < Api::V1::ApiController
   include Api::Concerns::FilterParams
 
   before_action :set_max_results, only: [:index, :recommended, :popular]
+  after_action :track_subreddit_overview_view, only: [:index]
+  after_action :track_subreddit_view, only: [:show]
 
   def index
     subreddits = filtered_subreddits

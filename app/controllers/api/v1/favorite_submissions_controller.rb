@@ -6,6 +6,9 @@ class Api::V1::FavoriteSubmissionsController < Api::V1::ApiController
   before_action :authenticate_api_v1_user!
   before_action :set_user
   before_action :set_max_results, only: [:index]
+  after_action :track_favorite_submissions_view, only: [:index]
+  after_action :track_favorite_submission_added, only: [:create]
+  after_action :track_favorite_submission_removed, only: [:destroy]
 
   def index
     submissions = @user.submissions.page(params[:page]).per(params[:max_results])

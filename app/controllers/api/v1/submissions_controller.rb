@@ -5,12 +5,13 @@ class Api::V1::SubmissionsController < Api::V1::ApiController
 
   before_action :set_max_results, only: [:recommended, :by_subreddit, :related]
   before_action :set_user_id, only: [:show]
+  after_action :track_submission_view, only: [:show]
 
   # Returns a single submission
   def show
-    submission = Submission.friendly.find(params[:slug])
+    @submission = Submission.friendly.find(params[:slug])
 
-    render json: submission,
+    render json: @submission,
            serializer: Api::V1::SubmissionDetailSerializer,
            include: ["subreddit", "medium"],
            user_id: @user_id
