@@ -11,6 +11,7 @@ import Subreddit from "containers/Subreddit";
 import SubredditOverview from "containers/SubredditOverview";
 import Trending from "containers/Trending";
 import UserActionModals from "containers/UserActionModals";
+import UserHistory from 'containers/UserHistory';
 import UserSettings from 'containers/UserSettings';
 
 export default function App() {
@@ -25,6 +26,7 @@ export default function App() {
                 <Route path="/subreddits" exact component={SubredditOverview} />
                 <Route path="/r/:displayName" component={Subreddit} />
                 <Route path="/submission/:slug" component={Submission} />
+                <ProtectedRoute path="/history" component={UserHistory} />
                 <ProtectedRoute path="/settings" component={UserSettings} />
                 <ProtectedRoute path="/saved_videos" component={SavedVideos} />
                 <Route component={NotFound} />

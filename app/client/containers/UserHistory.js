@@ -10,13 +10,13 @@ import {
     SubmissionList
 } from "components";
 
-export default function SavedVideos() {
+export default function UserHistory() {
     const [data, setData] = useState({ submissions: [], hasMore: true, page: 1 });
     const client = new ApiClient();
 
     async function fetchSubmissionsData() {
         const params = { max_results: 40, page: data.page };
-        await client.get("/api/v1/favorite_submissions/", { params: params })
+        await client.get("/api/v1/submission_history/", { params: params })
             .then((response) => {
                 const newData = {
                     submissions: [...data.submissions, ...response.data.submissions],
@@ -34,10 +34,10 @@ export default function SavedVideos() {
     return (
         <React.Fragment>
             <Helmet>
-                <title>Saved Videos - Clipstash</title>
+                <title>History - Clipstash</title>
             </Helmet>
             <MaxWidthContainer>
-                <SectionHeader headerText="Saved Videos" />
+                <SectionHeader headerText="Video History" />
                 <InfiniteScroll
                     initialLoad={true}
                     loadMore={fetchSubmissionsData}
@@ -52,8 +52,8 @@ export default function SavedVideos() {
                 </InfiniteScroll>
                 {isEmptyResultSet() ? (
                     <NoResultsBox
-                        headerText="No saved videos found"
-                        descriptionText="You can add some by using the save button on any video!"
+                        headerText="No history found"
+                        descriptionText="Once you watched some videos they will appear here!"
                     />
                 ) : null}
             </MaxWidthContainer>
