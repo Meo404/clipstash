@@ -58,6 +58,5 @@ export default function UserHistory() {
                 ) : null}
             </MaxWidthContainer>
         </React.Fragment>
-
     );
 }

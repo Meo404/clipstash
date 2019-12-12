@@ -58,6 +58,5 @@ export default function SavedVideos() {
                 ) : null}
             </MaxWidthContainer>
         </React.Fragment>
-
     );
 }
