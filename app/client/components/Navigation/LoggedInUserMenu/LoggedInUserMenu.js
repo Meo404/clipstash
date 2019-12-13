@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { AccountCircle as AccountCircleIcon } from '@material-ui/icons';
 import { Divider, IconButton, Menu, MenuItem } from '@material-ui/core';
@@ -7,7 +7,7 @@ import useStyles from './Styles';
 
 export default function NavbarUserMenu(props) {
     const classes = useStyles();
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [anchorEl, setAnchorEl] = useState(null);
     const { logOutHandler, userName } = props;
 
     const handleClick = event => {

@@ -14,7 +14,8 @@ const userActionMenuReducer = (state, action) => {
                 showDeleteAccount: false,
                 showDeleteAccountSuccess: false,
                 showReportSubmission: false,
-                showReportSubmissionSuccess: false
+                showReportSubmissionSuccess: false,
+                reportSubmissionFullname: null
             };
         case 'SIGN_UP':
             return {
@@ -30,7 +31,8 @@ const userActionMenuReducer = (state, action) => {
                 showDeleteAccount: false,
                 showDeleteAccountSuccess: false,
                 showReportSubmission: false,
-                showReportSubmissionSuccess: false
+                showReportSubmissionSuccess: false,
+                reportSubmissionFullname: null
             };
         case 'SIGN_UP_SUCCESS':
             return {
@@ -46,7 +48,8 @@ const userActionMenuReducer = (state, action) => {
                 showDeleteAccount: false,
                 showDeleteAccountSuccess: false,
                 showReportSubmission: false,
-                showReportSubmissionSuccess: false
+                showReportSubmissionSuccess: false,
+                reportSubmissionFullname: null
             };
         case 'CHANGE_PASSWORD':
             return {
@@ -60,7 +63,8 @@ const userActionMenuReducer = (state, action) => {
                 showRequestPassword: false,
                 showRequestPasswordSuccess: false,
                 showDeleteAccount: false,
-                showDeleteAccountSuccess: false
+                showDeleteAccountSuccess: false,
+                reportSubmissionFullname: null
             };
         case 'CHANGE_PASSWORD_SUCCESS':
             return {
@@ -76,7 +80,8 @@ const userActionMenuReducer = (state, action) => {
                 showDeleteAccount: false,
                 showDeleteAccountSuccess: false,
                 showReportSubmission: false,
-                showReportSubmissionSuccess: false
+                showReportSubmissionSuccess: false,
+                reportSubmissionFullname: null
             };
         case 'RESET_PASSWORD':
             return {
@@ -92,7 +97,8 @@ const userActionMenuReducer = (state, action) => {
                 showDeleteAccount: false,
                 showDeleteAccountSuccess: false,
                 showReportSubmission: false,
-                showReportSubmissionSuccess: false
+                showReportSubmissionSuccess: false,
+                reportSubmissionFullname: null
             };
         case 'RESET_PASSWORD_SUCCESS':
             return {
@@ -108,7 +114,8 @@ const userActionMenuReducer = (state, action) => {
                 showDeleteAccount: false,
                 showDeleteAccountSuccess: false,
                 showReportSubmission: false,
-                showReportSubmissionSuccess: false
+                showReportSubmissionSuccess: false,
+                reportSubmissionFullname: null
             };
         case 'REQUEST_PASSWORD':
             return {
@@ -124,7 +131,8 @@ const userActionMenuReducer = (state, action) => {
                 showDeleteAccount: false,
                 showDeleteAccountSuccess: false,
                 showReportSubmission: false,
-                showReportSubmissionSuccess: false
+                showReportSubmissionSuccess: false,
+                reportSubmissionFullname: null
             };
         case 'REQUEST_PASSWORD_SUCCESS':
             return {
@@ -140,7 +148,8 @@ const userActionMenuReducer = (state, action) => {
                 showDeleteAccount: false,
                 showDeleteAccountSuccess: false,
                 showReportSubmission: false,
-                showReportSubmissionSuccess: false
+                showReportSubmissionSuccess: false,
+                reportSubmissionFullname: null
             };
         case 'DELETE_ACCOUNT':
             return {
@@ -156,7 +165,8 @@ const userActionMenuReducer = (state, action) => {
                 showDeleteAccount: true,
                 showDeleteAccountSuccess: false,
                 showReportSubmission: false,
-                showReportSubmissionSuccess: false
+                showReportSubmissionSuccess: false,
+                reportSubmissionFullname: null
             };
         case 'DELETE_ACCOUNT_SUCCESS':
             return {
@@ -172,7 +182,8 @@ const userActionMenuReducer = (state, action) => {
                 showDeleteAccount: false,
                 showDeleteAccountSuccess: true,
                 showReportSubmission: false,
-                showReportSubmissionSuccess: false
+                showReportSubmissionSuccess: false,
+                reportSubmissionFullname: null
             };
         case 'REPORT_SUBMISSION':
             return {
@@ -188,7 +199,8 @@ const userActionMenuReducer = (state, action) => {
                 showDeleteAccount: false,
                 showDeleteAccountSuccess: false,
                 showReportSubmission: true,
-                showReportSubmissionSuccess: false
+                showReportSubmissionSuccess: false,
+                reportSubmissionFullname: action.submissionFullname
             };
         case 'REPORT_SUBMISSION_SUCCESS':
             return {
@@ -220,7 +232,8 @@ const userActionMenuReducer = (state, action) => {
                 showDeleteAccount: false,
                 showDeleteAccountSuccess: false,
                 showReportSubmission: false,
-                showReportSubmissionSuccess: false
+                showReportSubmissionSuccess: false,
+                reportSubmissionFullname: null
             };
         default:
             return state;

@@ -25,7 +25,8 @@ export default function UserActionModals() {
         showDeleteAccount,
         showDeleteAccountSuccess,
         showReportSubmission,
-        showReportSubmissionSuccess
+        showReportSubmissionSuccess,
+        reportSubmissionFullname
     }, dispatch] = useContext(UserActionMenuContext);
 
     function showSignInHandler() {
@@ -129,6 +130,7 @@ export default function UserActionModals() {
                 showDeleteAccountSuccessHandler={showDeleteAccountSuccessHandler}
             />
             <ReportSubmissionModal
+                reportSubmissionFullname={reportSubmissionFullname}
                 showReportSubmission={showReportSubmission}
                 showReportSubmissionHandler={showReportSubmissionHandler}
                 showReportSubmissionSuccessHandler={showReportSubmissionSuccessHandler}

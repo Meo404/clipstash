@@ -5,7 +5,8 @@ class Api::V1::SubmissionReportsController < Api::V1::ApiController
   def create
     SubmissionReport.create!(user: @user,
                              submission: Submission.find(params[:submission_fullname]),
-                             reason: params[:reason])
+                             reason: params[:reason],
+                             status_cd: 1)
 
     render json: { success: true }
   end

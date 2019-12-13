@@ -10,7 +10,11 @@ import {
 import useStyles from './Styles';
 
 export default function ReportSubmissionForm(props) {
-    const { changeHandler, formData, submitHandler } = props;
+    const { 
+        changeHandler,
+        formData,
+        submitHandler
+    } = props;
     const classes = useStyles();
 
     return (

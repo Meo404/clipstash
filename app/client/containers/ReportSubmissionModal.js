@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { ApiClient } from 'ApiClient';
 import { validateReason } from 'utils/UserValidation';
 import { Modal, ReportSubmissionForm } from 'components';
@@ -15,10 +14,10 @@ export default function ReportSubmissionModal(props) {
     const {
         showReportSubmission,
         showReportSubmissionHandler,
-        showReportSubmissionSuccessHandler
+        showReportSubmissionSuccessHandler,
+        reportSubmissionFullname
     } = props;
     const [formData, setFormData] = useState(INITIAL_STATE);
-    const { slug } = useParams();
     const client = new ApiClient();
 
     function changeHandler(event) {
@@ -39,7 +38,7 @@ export default function ReportSubmissionModal(props) {
         const validatedReason = validateReason(formData.reason);
 
         if (validatedReason != null) {
-            setFormData({ ...formData, hasErrors: true, error: validateReason, isSubmitting: false });
+            setFormData({ ...formData, hasErrors: true, error: validatedReason, isSubmitting: false });
             return;
         }
 
@@ -50,7 +49,7 @@ export default function ReportSubmissionModal(props) {
     async function reportSubmission() {
         const params = {
             reason: formData.reason,
-            slug: slug,
+            submission_fullname: reportSubmissionFullname,
         };
 
         // TODO add proper error handling for generic errors

@@ -15,7 +15,8 @@ const initialState = {
     showDeleteAccount: false,
     showDeleteAccountSuccess: false,
     showReportSubmission: false,
-    showReportSubmissionSuccess: false
+    showReportSubmissionSuccess: false,
+    reportSubmissionFullname: null
 }
 
 export const UserActionMenuProvider = ({ children }) => {
