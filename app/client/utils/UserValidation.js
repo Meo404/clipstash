@@ -15,7 +15,7 @@ function parseValidationErrors(responseErrors) {
         email: null,
         currentPassword: null,
         password: null,
-        passwordConfirmation: null,
+        passwordConfirmation: null
     }
 
     if (responseErrors.user_name) {
@@ -244,6 +244,21 @@ function validateDeleteConfirmation(deleteConfirmation) {
     return null;
 }
 
+/**
+ * Validates the passed reason
+ * Requirement: Can't be empty
+ * 
+ *  @param {String} reason
+ *  @return null OR error description
+ */
+function validateReason(reason) {
+    if (reason === '') {
+        return "Reason can't be blank"
+    }
+
+    return null;
+}
+
 export { 
     parseValidationErrors,
     validateDeleteAccountData,
@@ -251,5 +266,6 @@ export {
     validatePasswordChangeData,
     validatePasswordResetData,
     validateSignInData,
-    validateSignUpData
+    validateSignUpData,
+    validateReason
 };

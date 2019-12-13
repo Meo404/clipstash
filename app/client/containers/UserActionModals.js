@@ -1,13 +1,14 @@
 import React, { Fragment, useContext, useState } from "react";
-import UserActionMenuContext from 'contexts/UserActionMenuContext';
 import ChangePasswordModal from 'containers/ChangePasswordModal';
 import DeleteAccountModal from 'containers/DeleteAccountModal';
-import ResetPasswordModal from 'containers/ResetPasswordModal';
+import RegistrationSuccess from "containers/RegistrationSuccess";
+import ReportSubmissionModal from "containers/ReportSubmissionModal";
 import RequestPasswordModal from 'containers/RequestPasswordModal';
+import ResetPasswordModal from 'containers/ResetPasswordModal';
 import SignInModal from 'containers/SignInModal';
 import SignUpModal from 'containers/SignUpModal';
+import UserActionMenuContext from 'contexts/UserActionMenuContext';
 import { SuccessModal } from 'components';
-import RegistrationSuccess from "./RegistrationSuccess";
 
 export default function UserActionModals() {
     const [successEmail, setSuccessEmail] = useState('');
@@ -23,6 +24,8 @@ export default function UserActionModals() {
         showRequestPasswordSuccess,
         showDeleteAccount,
         showDeleteAccountSuccess,
+        showReportSubmission,
+        showReportSubmissionSuccess
     }, dispatch] = useContext(UserActionMenuContext);
 
     function showSignInHandler() {
@@ -82,6 +85,16 @@ export default function UserActionModals() {
         dispatch({ type: actionType });
     }
 
+    function showReportSubmissionHandler() {
+        const actionType = showReportSubmission ? 'CLOSE' : 'REPORT_SUBMISSION'
+        dispatch({ type: actionType });
+    }
+
+    function showReportSubmissionSuccessHandler() {
+        const actionType = showReportSubmissionSuccess ? 'CLOSE' : 'REPORT_SUBMISSION_SUCCESS'
+        dispatch({ type: actionType });
+    }
+
     return (
         <React.Fragment>
             <SignUpModal
@@ -114,6 +127,11 @@ export default function UserActionModals() {
                 showDeleteAccount={showDeleteAccount}
                 showDeleteAccountHandler={showDeleteAccountHandler}
                 showDeleteAccountSuccessHandler={showDeleteAccountSuccessHandler}
+            />
+            <ReportSubmissionModal
+                showReportSubmission={showReportSubmission}
+                showReportSubmissionHandler={showReportSubmissionHandler}
+                showReportSubmissionSuccessHandler={showReportSubmissionSuccessHandler}
             />
             {/* SignUp success modal */}
             <SuccessModal
@@ -152,6 +170,12 @@ export default function UserActionModals() {
                 message='Your account has been deleted.'
                 showSuccess={showDeleteAccountSuccess}
                 showSuccessHandler={showDeleteAccountSuccessHandler}
+            />
+            {/* Report submission success modal */}
+            <SuccessModal
+                message='Submission was successfully reported'
+                showSuccess={showReportSubmissionSuccess}
+                showSuccessHandler={showReportSubmissionSuccessHandler}
             />
             {/* Show Registration Success modal on successful registration */}
             <RegistrationSuccess />

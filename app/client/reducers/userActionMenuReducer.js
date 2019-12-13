@@ -12,7 +12,9 @@ const userActionMenuReducer = (state, action) => {
                 showRequestPassword: false,
                 showRequestPasswordSuccess: false,
                 showDeleteAccount: false,
-                showDeleteAccountSuccess: false
+                showDeleteAccountSuccess: false,
+                showReportSubmission: false,
+                showReportSubmissionSuccess: false
             };
         case 'SIGN_UP':
             return {
@@ -26,7 +28,9 @@ const userActionMenuReducer = (state, action) => {
                 showRequestPassword: false,
                 showRequestPasswordSuccess: false,
                 showDeleteAccount: false,
-                showDeleteAccountSuccess: false
+                showDeleteAccountSuccess: false,
+                showReportSubmission: false,
+                showReportSubmissionSuccess: false
             };
         case 'SIGN_UP_SUCCESS':
             return {
@@ -40,7 +44,9 @@ const userActionMenuReducer = (state, action) => {
                 showRequestPassword: false,
                 showRequestPasswordSuccess: false,
                 showDeleteAccount: false,
-                showDeleteAccountSuccess: false
+                showDeleteAccountSuccess: false,
+                showReportSubmission: false,
+                showReportSubmissionSuccess: false
             };
         case 'CHANGE_PASSWORD':
             return {
@@ -68,7 +74,9 @@ const userActionMenuReducer = (state, action) => {
                 showRequestPassword: false,
                 showRequestPasswordSuccess: false,
                 showDeleteAccount: false,
-                showDeleteAccountSuccess: false
+                showDeleteAccountSuccess: false,
+                showReportSubmission: false,
+                showReportSubmissionSuccess: false
             };
         case 'RESET_PASSWORD':
             return {
@@ -82,7 +90,9 @@ const userActionMenuReducer = (state, action) => {
                 showRequestPassword: false,
                 showRequestPasswordSuccess: false,
                 showDeleteAccount: false,
-                showDeleteAccountSuccess: false
+                showDeleteAccountSuccess: false,
+                showReportSubmission: false,
+                showReportSubmissionSuccess: false
             };
         case 'RESET_PASSWORD_SUCCESS':
             return {
@@ -96,7 +106,9 @@ const userActionMenuReducer = (state, action) => {
                 showRequestPassword: false,
                 showRequestPasswordSuccess: false,
                 showDeleteAccount: false,
-                showDeleteAccountSuccess: false
+                showDeleteAccountSuccess: false,
+                showReportSubmission: false,
+                showReportSubmissionSuccess: false
             };
         case 'REQUEST_PASSWORD':
             return {
@@ -110,7 +122,9 @@ const userActionMenuReducer = (state, action) => {
                 showRequestPassword: true,
                 showRequestPasswordSuccess: false,
                 showDeleteAccount: false,
-                showDeleteAccountSuccess: false
+                showDeleteAccountSuccess: false,
+                showReportSubmission: false,
+                showReportSubmissionSuccess: false
             };
         case 'REQUEST_PASSWORD_SUCCESS':
             return {
@@ -124,7 +138,9 @@ const userActionMenuReducer = (state, action) => {
                 showRequestPassword: false,
                 showRequestPasswordSuccess: true,
                 showDeleteAccount: false,
-                showDeleteAccountSuccess: false
+                showDeleteAccountSuccess: false,
+                showReportSubmission: false,
+                showReportSubmissionSuccess: false
             };
         case 'DELETE_ACCOUNT':
             return {
@@ -138,7 +154,9 @@ const userActionMenuReducer = (state, action) => {
                 showRequestPassword: false,
                 showRequestPasswordSuccess: false,
                 showDeleteAccount: true,
-                showDeleteAccountSuccess: false
+                showDeleteAccountSuccess: false,
+                showReportSubmission: false,
+                showReportSubmissionSuccess: false
             };
         case 'DELETE_ACCOUNT_SUCCESS':
             return {
@@ -152,7 +170,41 @@ const userActionMenuReducer = (state, action) => {
                 showRequestPassword: false,
                 showRequestPasswordSuccess: false,
                 showDeleteAccount: false,
-                showDeleteAccountSuccess: true
+                showDeleteAccountSuccess: true,
+                showReportSubmission: false,
+                showReportSubmissionSuccess: false
+            };
+        case 'REPORT_SUBMISSION':
+            return {
+                showSignIn: false,
+                showSignUp: false,
+                showSignUpSuccess: false,
+                showChangePassword: false,
+                showChangePasswordSuccess: false,
+                showResetPassword: false,
+                showResetPasswordSuccess: false,
+                showRequestPassword: false,
+                showRequestPasswordSuccess: false,
+                showDeleteAccount: false,
+                showDeleteAccountSuccess: false,
+                showReportSubmission: true,
+                showReportSubmissionSuccess: false
+            };
+        case 'REPORT_SUBMISSION_SUCCESS':
+            return {
+                showSignIn: false,
+                showSignUp: false,
+                showSignUpSuccess: false,
+                showChangePassword: false,
+                showChangePasswordSuccess: false,
+                showResetPassword: false,
+                showResetPasswordSuccess: false,
+                showRequestPassword: false,
+                showRequestPasswordSuccess: false,
+                showDeleteAccount: false,
+                showDeleteAccountSuccess: false,
+                showReportSubmission: false,
+                showReportSubmissionSuccess: true
             };
         case 'CLOSE':
             return {
@@ -166,7 +218,9 @@ const userActionMenuReducer = (state, action) => {
                 showRequestPassword: false,
                 showRequestPasswordSuccess: false,
                 showDeleteAccount: false,
-                showDeleteAccountSuccess: false
+                showDeleteAccountSuccess: false,
+                showReportSubmission: false,
+                showReportSubmissionSuccess: false
             };
         default:
             return state;
