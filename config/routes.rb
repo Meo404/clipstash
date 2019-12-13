@@ -42,6 +42,8 @@ Rails.application.routes.draw do
       delete 'favorite_submissions', to: 'favorite_submissions#destroy'
       # Submission History
       get 'submission_history', to: 'history#index'
+      # Submission Reports
+      post 'report_submission', to: 'submission_reports#create'
     end
   end
 

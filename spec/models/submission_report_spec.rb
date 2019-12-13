@@ -29,6 +29,7 @@ describe SubmissionReport do
     context 'when was created' do
       subject { build :submission_report }
       it { should validate_presence_of(:reason) }
+      it { is_expected.to validate_uniqueness_of(:submission_fullname).scoped_to(:user_id) }
     end
   end
 end

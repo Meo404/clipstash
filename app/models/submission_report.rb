@@ -27,4 +27,5 @@ class SubmissionReport < ApplicationRecord
   belongs_to :user
 
   validates :reason, presence: true
+  validates :submission_fullname, uniqueness: { scope: :user_id }
 end
