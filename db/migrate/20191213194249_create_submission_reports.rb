@@ -9,6 +9,6 @@ class CreateSubmissionReports < ActiveRecord::Migration[5.2]
       t.timestamps
     end
 
-    add_index :submission_reports, :submission_fullname, unique: true
+    add_index :submission_reports, :submission_fullname
   end
 end
