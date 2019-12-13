@@ -22,7 +22,13 @@ module UserHistory
                                    .map { |event| event.properties["submission_fullname"] }
                                    .uniq
 
-        Submission.where(reddit_fullname: submission_fullnames).page(page).per(max_results)
+        # Order clause will preserve the order of the submission_fullnames array items using
+        # the POSITION() function of postgres.
+        Submission
+            .where(reddit_fullname: submission_fullnames)
+            .order(Arel.sql("position(reddit_fullname::text in '#{submission_fullnames.join(',')}')"))
+            .page(page)
+            .per(max_results)
       end
   end
 end
