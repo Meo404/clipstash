@@ -216,7 +216,8 @@ const userActionMenuReducer = (state, action) => {
                 showDeleteAccount: false,
                 showDeleteAccountSuccess: false,
                 showReportSubmission: false,
-                showReportSubmissionSuccess: true
+                showReportSubmissionSuccess: true,
+                reportSubmissionFullname: null
             };
         case 'CLOSE':
             return {
