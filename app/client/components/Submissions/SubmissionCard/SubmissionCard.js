@@ -27,7 +27,11 @@ import {
 import useStyles from './Styles';
 
 export default function SubmissionListCard(props) {
-    const { saveButtonHandler, submission } = props;
+    const { 
+        reportButtonHandler,
+        saveButtonHandler,
+        submission
+    } = props;
     const [, dispatch] = useContext(UserActionMenuContext);
     const [anchorEl, setAnchorEl] = useState(null);
     const classes = useStyles();
@@ -49,10 +53,7 @@ export default function SubmissionListCard(props) {
     };
 
     const handleReportClick = () => {
-        dispatch({ 
-            type: 'REPORT_SUBMISSION',
-            submissionFullname: submission.reddit_fullname 
-        });
+        reportButtonHandler();
         setAnchorEl(null);
     }
 

@@ -60,9 +60,25 @@ export default function ReportSubmissionModal(props) {
             })
             .catch((error) => {
                 if (error.response.status == 400 && error.response.data.errors.submission_fullname) {
-                    setFormData({ ...formData, error: 'Content was already reported by your account', hasErrors: true, isSubmitting: false });
+                    setFormData({
+                        ...formData,
+                        error: 'Content was already reported by your account',
+                        hasErrors: true,
+                        isSubmitting: false
+                    });
                     return;
                 }
+
+                if (error.response.status == 401) {
+                    setFormData({ 
+                        ...formData,
+                        error: 'You need to have an account and be logged in to report content',
+                        hasErrors: true,
+                        isSubmitting: false
+                    });
+                    return;
+                }
+                
                 setFormData({ ...formData, error: 'An error occured, please try again', hasErrors: true, isSubmitting: false });
             })
     }

@@ -57,6 +57,19 @@ export default function Submission() {
         }
     }
 
+    function reportButtonHandler() {
+        if(isLoggedIn) {
+            dispatch({ 
+                type: 'REPORT_SUBMISSION',
+                submissionFullname: data.submission.reddit_fullname 
+            });
+            return;
+        }
+
+        dispatch({ type: 'SIGN_UP' });
+        return;
+    }
+
     async function addToSavedVideos() {
         const params = { submission_fullname: data.submission.reddit_fullname }
         await client.post("/api/v1/favorite_submissions", params).then(() => {
@@ -86,6 +99,7 @@ export default function Submission() {
                     <Grid>
                         <SubmissionCard 
                             submission={data.submission}
+                            reportButtonHandler={reportButtonHandler}
                             saveButtonHandler={saveButtonHandler} 
                         />
                         <SubmissionCardLinks submission={data.submission} />
