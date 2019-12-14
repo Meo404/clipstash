@@ -59,6 +59,10 @@ export default function ReportSubmissionModal(props) {
                 setFormData(INITIAL_STATE);
             })
             .catch((error) => {
+                if (error.response.status == 400 && error.response.data.errors.submission_fullname) {
+                    setFormData({ ...formData, error: 'Content was already reported by your account', hasErrors: true, isSubmitting: false });
+                    return;
+                }
                 setFormData({ ...formData, error: 'An error occured, please try again', hasErrors: true, isSubmitting: false });
             })
     }

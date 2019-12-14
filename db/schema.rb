@@ -101,7 +101,7 @@ ActiveRecord::Schema.define(version: 2019_12_13_194249) do
     t.integer "status_cd"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["submission_fullname"], name: "index_submission_reports_on_submission_fullname", unique: true
+    t.index ["submission_fullname"], name: "index_submission_reports_on_submission_fullname"
     t.index ["user_id"], name: "index_submission_reports_on_user_id"
   end
 

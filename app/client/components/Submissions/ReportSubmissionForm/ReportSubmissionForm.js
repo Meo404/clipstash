@@ -21,10 +21,10 @@ export default function ReportSubmissionForm(props) {
         <Container maxWidth="xs">
             <div className={classes.reportSubmissionContainer}>
                 <Typography component="h1" variant="h5" className={classes.formTitle}>
-                    Report Submission
+                    Report Content
                </Typography>
                <Typography component="p" variant="body2" className={classes.instructionText}>
-                    Please state the reason why you are reporting the submission!
+                    Please explain why this content should be removed from Clipstash.
                </Typography>
                 <form className={classes.reportSubmissionForm} onSubmit={submitHandler} noValidate>
                     <Grid container spacing={2}>
@@ -57,7 +57,7 @@ export default function ReportSubmissionForm(props) {
                         color="primary"
                         className={classes.submit}
                     >
-                        Report Submission
+                        Submit Report
                     </Button>
                 </form>
             </div>

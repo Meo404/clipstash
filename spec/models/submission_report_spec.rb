@@ -12,7 +12,7 @@
 #
 # Indexes
 #
-#  index_submission_reports_on_submission_fullname  (submission_fullname) UNIQUE
+#  index_submission_reports_on_submission_fullname  (submission_fullname)
 #  index_submission_reports_on_user_id              (user_id)
 #
 # Foreign Keys
