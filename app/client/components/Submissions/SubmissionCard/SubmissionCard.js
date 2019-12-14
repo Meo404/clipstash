@@ -19,6 +19,7 @@ import {
     BookmarkBorderOutlined as BookmarkBorderOutlinedIcon,
     BookmarkOutlined as BookmarkOutlinedIcon,
     MoreHoriz as MoreHorizIcon,
+    Report as ReportIcon,
     Share as ShareIcon,
     SwapVerticalCircleOutlined as SwapVerticalCircleOutlinedIcon
 } from "@material-ui/icons";
@@ -135,8 +136,13 @@ export default function SubmissionListCard(props) {
                             open={Boolean(anchorEl)}
                             onClose={handleMenuClose}
                         >
-                            <MenuItem onClick={handleReportClick}>Report</MenuItem>
-                            <MenuItem onClick={handleMenuClose}>Close</MenuItem>
+                            <MenuItem 
+                                onClick={handleReportClick}
+                                className={classes.actionButton}
+                            >
+                                <ReportIcon classes={{ root: classes.actionButtonIcon }} />
+                                Report
+                            </MenuItem>
                         </Menu>
                     </div>
                 </CardActions>
