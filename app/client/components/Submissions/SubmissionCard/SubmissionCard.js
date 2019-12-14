@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useContext } from "react";
+import UserActionMenuContext from 'contexts/UserActionMenuContext';
 import {
     Button,
     Card,
@@ -9,6 +10,8 @@ import {
     Grid,
     Hidden,
     IconButton,
+    Menu,
+    MenuItem,
     Tooltip
 } from "@material-ui/core";
 import {
@@ -16,21 +19,41 @@ import {
     BookmarkBorderOutlined as BookmarkBorderOutlinedIcon,
     BookmarkOutlined as BookmarkOutlinedIcon,
     MoreHoriz as MoreHorizIcon,
+    Report as ReportIcon,
     Share as ShareIcon,
     SwapVerticalCircleOutlined as SwapVerticalCircleOutlinedIcon
 } from "@material-ui/icons";
+
 import useStyles from './Styles';
 
 export default function SubmissionListCard(props) {
     const { saveButtonHandler, submission } = props;
+    const [, dispatch] = useContext(UserActionMenuContext);
+    const [anchorEl, setAnchorEl] = useState(null);
     const classes = useStyles();
 
     const selectSaveIcon = () => {
-        if (submission.is_favorite) { 
+        if (submission.is_favorite) {
             return <BookmarkOutlinedIcon classes={{ root: classes.actionButtonIcon }} />
         }
-        
+
         return <BookmarkBorderOutlinedIcon classes={{ root: classes.actionButtonIcon }} />
+    }
+
+    const handleMenuClick = event => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleMenuClose = () => {
+        setAnchorEl(null);
+    };
+
+    const handleReportClick = () => {
+        dispatch({ 
+            type: 'REPORT_SUBMISSION',
+            submissionFullname: submission.reddit_fullname 
+        });
+        setAnchorEl(null);
     }
 
     return (
@@ -101,9 +124,26 @@ export default function SubmissionListCard(props) {
                             </Hidden>
                             </Button>
                         </Tooltip>
-                        <IconButton aria-label="more actions" size="small" className={classes.actionButton}>
+                        <IconButton
+                            aria-label="more actions"
+                            size="small"
+                            className={classes.actionButton}
+                            onClick={handleMenuClick}>
                             <MoreHorizIcon />
                         </IconButton>
+                        <Menu
+                            anchorEl={anchorEl}
+                            open={Boolean(anchorEl)}
+                            onClose={handleMenuClose}
+                        >
+                            <MenuItem 
+                                onClick={handleReportClick}
+                                className={classes.actionButton}
+                            >
+                                <ReportIcon classes={{ root: classes.actionButtonIcon }} />
+                                Report
+                            </MenuItem>
+                        </Menu>
                     </div>
                 </CardActions>
             </Card>

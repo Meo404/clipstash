@@ -11,6 +11,7 @@ export {
 
 export {
     RecommendedSubmissions,
+    ReportSubmissionForm,
     SubmissionCard,
     SubmissionCardLinks,
     SubmissionList,

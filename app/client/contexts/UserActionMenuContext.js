@@ -13,7 +13,10 @@ const initialState = {
     showRequestPassword: false,
     showRequestPasswordSuccess: false,
     showDeleteAccount: false,
-    showDeleteAccountSuccess: false
+    showDeleteAccountSuccess: false,
+    showReportSubmission: false,
+    showReportSubmissionSuccess: false,
+    reportSubmissionFullname: null
 }
 
 export const UserActionMenuProvider = ({ children }) => {

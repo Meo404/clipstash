@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_11_160013) do
+ActiveRecord::Schema.define(version: 2019_12_13_194249) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,6 +94,17 @@ ActiveRecord::Schema.define(version: 2019_12_11_160013) do
     t.string "base_embed_url"
   end
 
+  create_table "submission_reports", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "submission_fullname"
+    t.text "reason"
+    t.integer "status_cd"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["submission_fullname"], name: "index_submission_reports_on_submission_fullname"
+    t.index ["user_id"], name: "index_submission_reports_on_user_id"
+  end
+
   create_table "submissions", id: false, force: :cascade do |t|
     t.bigint "subreddit_id"
     t.string "reddit_fullname"
@@ -162,5 +173,6 @@ ActiveRecord::Schema.define(version: 2019_12_11_160013) do
   end
 
   add_foreign_key "media", "media_providers"
+  add_foreign_key "submission_reports", "users"
   add_foreign_key "submissions", "subreddits"
 end
