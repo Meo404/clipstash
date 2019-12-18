@@ -106,6 +106,7 @@ GEM
     concurrent-ruby (1.1.5)
     connection_pool (2.2.2)
     content_disposition (1.0.0)
+    cookieconsent (0.1.0)
     crass (1.0.4)
     device_detector (1.0.2)
     devise (4.7.1)
@@ -390,6 +391,7 @@ DEPENDENCIES
   better_errors
   bootsnap (>= 1.1.0)
   byebug
+  cookieconsent
   devise
   devise_token_auth
   factory_bot_rails

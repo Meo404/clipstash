@@ -33,6 +33,7 @@ gem 'whenever'
 gem 'devise'
 gem 'devise_token_auth'
 gem 'ahoy_matey'
+gem 'cookieconsent'
 
 group :development, :test do
   gem 'factory_bot_rails'
