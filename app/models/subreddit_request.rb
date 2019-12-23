@@ -25,6 +25,15 @@ class SubredditRequest < ApplicationRecord
 
   belongs_to :user, dependent: :destroy
 
+  validate :subreddit_existance
   validates :reddit_fullname, presence: true, uniqueness: { scope: :user_id }
   validates :display_name, presence: true
+
+  private
+
+    def subreddit_existance
+      if Subreddit.find_by_reddit_fullname(reddit_fullname)
+        errors.add(:reddit_fullname, "Subreddit already exists")
+      end
+    end
 end

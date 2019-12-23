@@ -30,6 +30,14 @@ describe SubredditRequest do
       it { should validate_presence_of(:reddit_fullname) }
       it { should validate_presence_of(:display_name) }
       it { is_expected.to validate_uniqueness_of(:reddit_fullname).scoped_to(:user_id) }
+
+      it 'validates that subreddit does not already exists' do
+        subreddit = create(:subreddit)
+        subreddit_request = build(:subreddit_request, reddit_fullname: subreddit.reddit_fullname)
+
+        expect(subreddit_request).to be_invalid
+        expect(subreddit_request.errors[:reddit_fullname]).to include('Subreddit already exists')
+      end
     end
   end
 end
