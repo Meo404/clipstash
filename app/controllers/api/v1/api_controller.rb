@@ -19,6 +19,10 @@ module Api
 
       private
 
+        def set_user
+          @user = current_api_v1_user
+        end
+
         def render_error(exception)
           raise exception if Rails.env.test?
 

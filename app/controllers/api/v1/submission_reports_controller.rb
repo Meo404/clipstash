@@ -10,10 +10,4 @@ class Api::V1::SubmissionReportsController < Api::V1::ApiController
 
     render json: { success: true }
   end
-
-  private
-
-    def set_user
-      @user = current_api_v1_user
-    end
 end

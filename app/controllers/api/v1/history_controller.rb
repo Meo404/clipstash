@@ -12,10 +12,5 @@ class Api::V1::HistoryController < Api::V1::ApiController
     submissions = UserHistory::FindSubmissions.call(@user.id, params[:page], params[:max_results])
     render json: submissions, include: [], meta: pagination_dict(submissions)
   end
-
-  private
-
-    def set_user
-      @user = current_api_v1_user
-    end
 end
+
