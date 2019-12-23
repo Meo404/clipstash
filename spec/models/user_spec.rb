@@ -33,6 +33,7 @@ describe User do
 
     it { should have_many(:favorite_submissions) }
     it { should have_many(:submissions) }
+    it { should have_many(:subreddit_requests) }
 
     context 'when was created' do
       subject { build :user }

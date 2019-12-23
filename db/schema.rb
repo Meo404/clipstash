@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_13_194249) do
+ActiveRecord::Schema.define(version: 2019_12_23_131918) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -127,6 +127,17 @@ ActiveRecord::Schema.define(version: 2019_12_13_194249) do
     t.index ["subreddit_id"], name: "index_submissions_on_subreddit_id"
   end
 
+  create_table "subreddit_requests", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "reddit_fullname"
+    t.string "display_name"
+    t.text "comment"
+    t.integer "status_cd"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_subreddit_requests_on_user_id"
+  end
+
   create_table "subreddits", force: :cascade do |t|
     t.string "reddit_fullname"
     t.string "display_name"
@@ -175,4 +186,5 @@ ActiveRecord::Schema.define(version: 2019_12_13_194249) do
   add_foreign_key "media", "media_providers"
   add_foreign_key "submission_reports", "users"
   add_foreign_key "submissions", "subreddits"
+  add_foreign_key "subreddit_requests", "users"
 end
