@@ -63,7 +63,7 @@ export default function Home() {
     return (
         <React.Fragment>
             <Helmet>
-                <title>ProjectFree - Gaming Videos from Reddit</title>
+                <title>Clipstash - Gaming Videos from Reddit</title>
             </Helmet>
             <MaxWidthContainer>
                 <LoadingIndicator show={submissions.isLoading} />
