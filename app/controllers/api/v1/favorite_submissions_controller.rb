@@ -24,10 +24,4 @@ class Api::V1::FavoriteSubmissionsController < Api::V1::ApiController
     FavoriteSubmission.where(user: @user, submission_fullname: params[:submission_fullname]).destroy_all
     render json: { success: true }
   end
-
-  private
-
-    def set_user
-      @user = current_api_v1_user
-    end
 end

@@ -44,6 +44,8 @@ Rails.application.routes.draw do
       get 'submission_history', to: 'history#index'
       # Submission Reports
       post 'report_submission', to: 'submission_reports#create'
+      # Subreddit Requests
+      post 'request_subreddit', to: 'subreddit_requests#create'
     end
   end
 

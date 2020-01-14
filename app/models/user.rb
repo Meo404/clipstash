@@ -35,6 +35,7 @@ class User < ApplicationRecord
 
   has_many :favorite_submissions, dependent: :destroy
   has_many :submissions, through: :favorite_submissions
+  has_many :subreddit_requests
 
   before_validation :init_uid
 
