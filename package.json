@@ -20,7 +20,7 @@
     "react-infinite-scroller": "^1.2.4",
     "react-router-dom": "^5.1.2",
     "react_ujs": "^2.6.0",
-    "simple-crypto-js": "^2.2.0"
+    "simple-crypto-js": "^2.3.0"
   },
   "devDependencies": {
     "webpack-dev-server": "^3.9.0"
