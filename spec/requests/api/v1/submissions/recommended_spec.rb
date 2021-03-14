@@ -1,7 +1,7 @@
 describe 'GET api/v1/submissions/recommended', type: :request do
   # API CONFIG uses low amounts for testing purposes
   # Check config/api_config.yml for adjustments
-  let(:default_results) { Rails.configuration.api_config["submissions"]["recommended"]["default_results"].to_i }
+  let(:default_results) { Rails.configuration.api_config.dig(:submissions, :recommended, :default_results).to_i }
 
   before :each do
     media_provider = create(:media_provider)

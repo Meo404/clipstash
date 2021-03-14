@@ -5,18 +5,18 @@ ruby '2.7.1'
 
 gem 'sass-rails'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.1'
+gem 'rails', '~> 6.1'
 # Use postgresql as the database for Active Record
-gem 'pg', '>= 0.18', '< 2.0'
+gem 'pg'
 # Use Puma as the app server
-gem 'puma', '~> 3.12'
+gem 'puma'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 gem 'bootsnap', '>= 1.1.0', require: false
 
-gem 'active_model_serializers', '~> 0.10.0'
+gem 'active_model_serializers'
 gem 'activerecord-import'
 gem 'annotate'
 gem 'webpacker'
@@ -26,9 +26,9 @@ gem 'simple_enum'
 gem 'validate_url'
 gem 'kaminari'
 gem "shrine"
-gem "image_processing", "~> 1.0"
-gem "aws-sdk-s3", "~> 1.2"
-gem 'friendly_id', '~> 5.2.4'
+gem "image_processing"
+gem "aws-sdk-s3"
+gem 'friendly_id'
 gem 'sidekiq'
 gem 'whenever'
 gem 'devise'
@@ -54,7 +54,7 @@ group :development do
   gem 'better_errors'
   gem 'guard-rails'
   gem 'guard-rspec'
-  gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'listen'
   gem 'rails_layout'
   gem 'rb-fchange', :require=>false
   gem 'rb-fsevent', :require=>false
@@ -71,6 +71,3 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
-# Another Gem for windows development
-gem 'wdm', '>= 0.1.0' if Gem.win_platform?
