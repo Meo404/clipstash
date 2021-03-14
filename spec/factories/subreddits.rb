@@ -29,17 +29,17 @@
 
 FactoryBot.define do
   factory :subreddit do
-    reddit_fullname { "t5_" + Faker::Alphanumeric.alphanumeric(5) }
+    reddit_fullname { "t5_" + Faker::Alphanumeric.alphanumeric(number: 5) }
     sequence(:display_name) { |n| "#{Faker::Lorem.word}#{n}" }
     sequence(:display_name_prefixed) { |n| "r/" + self.display_name + "#{n}" }
     public_description { Faker::Lorem.paragraph }
-    subscribers { Faker::Number.between(0, 10000000) }
+    subscribers { Faker::Number.between(from: 0, to: 10000000) }
     reddit_icon { [nil, Faker::Placeholdit.image].sample }
     reddit_icon_size { [250 , 250] }
     reddit_banner { [nil, Faker::Placeholdit.image].sample }
     reddit_banner_size { [1280, 720] }
     over18 { [true, false].sample }
-    created_utc { Faker::Time.between(DateTime.now - 100, DateTime.now) }
+    created_utc { Faker::Time.between(from: 100.days.ago, to: DateTime.now) }
     url { "http://www.reddit.com/" + self.display_name_prefixed }
     status_cd { [0, 1].sample }
   end

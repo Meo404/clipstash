@@ -31,9 +31,9 @@ class SubredditRequest < ApplicationRecord
 
   private
 
-    def subreddit_existance
-      if Subreddit.find_by_reddit_fullname(reddit_fullname)
-        errors.add(:reddit_fullname, "Subreddit already exists")
-      end
+  def subreddit_existance
+    if Subreddit.find_by_reddit_fullname(reddit_fullname)
+      errors.add(:reddit_fullname, "Subreddit already exists")
     end
+  end
 end

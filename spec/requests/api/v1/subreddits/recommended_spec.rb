@@ -10,7 +10,7 @@ describe 'GET api/v1/subreddits/recommended', type: :request do
       subreddit = create(:subreddit, status_cd: 1)
       submission = create(:submission,
                           subreddit: subreddit,
-                          created_utc: Faker::Time.between(DateTime.now - 25, DateTime.now))
+                          created_utc: Faker::Time.between(from: 25.days.ago, to: DateTime.now))
       create(:medium, submission: submission, media_provider: media_provider)
     end
   end

@@ -18,7 +18,7 @@ describe 'GET api/v1/submission_history', type: :request do
           name: 'submission_view',
           properties: {
               submission_fullname: submission.reddit_fullname,
-              time: Faker::Time.between(DateTime.now - 100, DateTime.now)
+              time: Faker::Time.between(from: 100.days.ago, to: DateTime.now)
           })
     end
   end

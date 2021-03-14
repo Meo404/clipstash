@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.3'
+ruby '2.7.1'
 
 gem 'sass-rails'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -44,6 +44,8 @@ group :development, :test do
   gem 'rb-readline'
   gem 'rspec-rails'
   gem 'rubocop', require: false
+  gem "rubocop-performance", require: false
+  gem "rubocop-rails", require: false
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end

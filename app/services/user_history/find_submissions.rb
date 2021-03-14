@@ -13,22 +13,22 @@ module UserHistory
 
     private
 
-      attr_reader :user_id, :page, :max_results
+    attr_reader :user_id, :page, :max_results
 
-      def retrieve_submissions
-        submission_fullnames = Ahoy::Event
-                                   .where(name: "submission_view", user_id: user_id)
-                                   .order(time: :desc)
-                                   .map { |event| event.properties["submission_fullname"] }
-                                   .uniq
+    def retrieve_submissions
+      submission_fullnames = Ahoy::Event
+                                 .where(name: "submission_view", user_id: user_id)
+                                 .order(time: :desc)
+                                 .map { |event| event.properties["submission_fullname"] }
+                                 .uniq
 
-        # Order clause will preserve the order of the submission_fullnames array items using
-        # the POSITION() function of postgres.
-        Submission
-            .where(reddit_fullname: submission_fullnames)
-            .order(Arel.sql("position(reddit_fullname::text in '#{submission_fullnames.join(',')}')"))
-            .page(page)
-            .per(max_results)
-      end
+      # Order clause will preserve the order of the submission_fullnames array items using
+      # the POSITION() function of postgres.
+      Submission
+          .where(reddit_fullname: submission_fullnames)
+          .order(Arel.sql("position(reddit_fullname::text in '#{submission_fullnames.join(',')}')"))
+          .page(page)
+          .per(max_results)
+    end
   end
 end

@@ -10,13 +10,13 @@ module ReddWrapper
 
     private
 
-      def initialize_session
-        Redd.it(
-          user_agent: Rails.application.credentials[Rails.env.to_sym][:reddit][:user_agent],
-          client_id: Rails.application.credentials[Rails.env.to_sym][:reddit][:client_id],
-          secret: Rails.application.credentials[Rails.env.to_sym][:reddit][:secret],
-          redirect_url: "http://localhost:3000"
-        )
-      end
+    def initialize_session
+      Redd.it(
+        user_agent: Rails.application.credentials[Rails.env.to_sym][:reddit][:user_agent],
+        client_id: Rails.application.credentials[Rails.env.to_sym][:reddit][:client_id],
+        secret: Rails.application.credentials[Rails.env.to_sym][:reddit][:secret],
+        redirect_url: "http://localhost:3000"
+      )
+    end
   end
 end

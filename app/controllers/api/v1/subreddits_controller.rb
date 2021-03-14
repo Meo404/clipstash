@@ -58,19 +58,19 @@ class Api::V1::SubredditsController < Api::V1::ApiController
   end
 
   private
-    # Returns a subset of subreddits based on
-    #   params[:q]    - Search query
-    #   params[:sort] - Sort order
-    def filtered_subreddits
-      search_query = params[:q]
-      sort_method = params[:sort]
+  # Returns a subset of subreddits based on
+  #   params[:q]    - Search query
+  #   params[:sort] - Sort order
+  def filtered_subreddits
+    search_query = params[:q]
+    sort_method = params[:sort]
 
-      if sort_method == "name"
-        return Subreddit.alphabetically if search_query.blank?
-        Subreddit.where("LOWER(display_name) LIKE ?", "#{search_query.downcase}%").alphabetically
-      else
-        return Subreddit.popular if search_query.blank?
-        Subreddit.where("LOWER(display_name) LIKE ?", "#{search_query.downcase}%").popular
-      end
+    if sort_method == "name"
+      return Subreddit.alphabetically if search_query.blank?
+      Subreddit.where("LOWER(display_name) LIKE ?", "#{search_query.downcase}%").alphabetically
+    else
+      return Subreddit.popular if search_query.blank?
+      Subreddit.where("LOWER(display_name) LIKE ?", "#{search_query.downcase}%").popular
     end
+  end
 end

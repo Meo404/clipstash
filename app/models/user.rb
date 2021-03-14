@@ -49,7 +49,7 @@ class User < ApplicationRecord
 
   private
 
-    def init_uid
-      self.uid = email if uid.blank? && provider == "email"
-    end
+  def init_uid
+    self.uid = email if uid.blank? && provider == "email"
+  end
 end

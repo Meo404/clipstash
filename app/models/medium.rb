@@ -40,11 +40,11 @@ class Medium < ApplicationRecord
 
   private
 
-    def author_url?
-      self.author_url.present?
-    end
+  def author_url?
+    self.author_url.present?
+  end
 
-    def thumbnail?
-      self.thumbnail.present?
-    end
+  def thumbnail?
+    self.thumbnail.present?
+  end
 end

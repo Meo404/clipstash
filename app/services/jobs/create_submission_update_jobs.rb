@@ -18,8 +18,8 @@ module Jobs
 
     private
 
-      def select_queue
-        PRIORITY_UPDATES.include?(@search_method) ? "priority_updates" : "regular_updates"
-      end
+    def select_queue
+      PRIORITY_UPDATES.include?(@search_method) ? "priority_updates" : "regular_updates"
+    end
   end
 end

@@ -33,7 +33,7 @@ FactoryBot.define do
     media_provider { nil }
     author { Faker::Lorem.word }
     author_url { Faker::Internet.url }
-    external_id { Faker::Alphanumeric.alphanumeric(5) }
+    external_id { Faker::Alphanumeric.alphanumeric(number: 5) }
     thumbnail { Faker::Internet.url }
     thumbnail_size { [200, 200] }
     size { [1024, 768] }
