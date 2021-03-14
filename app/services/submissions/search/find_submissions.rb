@@ -12,18 +12,18 @@ module Submissions
 
       private
 
-        def filtered_submissions
-          Submission.by_subreddit(@subreddit_id).has_medium
-        end
+      def filtered_submissions
+        Submission.by_subreddit(@subreddit_id).has_medium
+      end
 
-        def hot_submissions
-          filtered_submissions.hot
-        end
+      def hot_submissions
+        filtered_submissions.hot
+      end
 
-        def top_submissions
-          return filtered_submissions.top if @sort_param == "top_all"
-          filtered_submissions.created_after(extract_date(@sort_param)).top
-        end
+      def top_submissions
+        return filtered_submissions.top if @sort_param == "top_all"
+        filtered_submissions.created_after(extract_date(@sort_param)).top
+      end
     end
   end
 end

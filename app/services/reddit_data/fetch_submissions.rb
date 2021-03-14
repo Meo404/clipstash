@@ -14,17 +14,17 @@ module RedditData
     end
 
     private
-      # Recursively moves through the pages of the reddit listing
-      # and returns an array of all submissions.
-      #
-      #   @param current_results - Holds the current results for recursion
-      #   @param after_value - Reddit API after value
-      #   @return current_results - Array of submissions
-      def retrieve_results(current_results, after_value)
-        results = @api_session.search(@query, @search_options.merge(after: after_value))
-        current_results.push(*results.to_a)
+    # Recursively moves through the pages of the reddit listing
+    # and returns an array of all submissions.
+    #
+    #   @param current_results - Holds the current results for recursion
+    #   @param after_value - Reddit API after value
+    #   @return current_results - Array of submissions
+    def retrieve_results(current_results, after_value)
+      results = @api_session.search(@query, @search_options.merge(after: after_value))
+      current_results.push(*results.to_a)
 
-        results.after ? retrieve_results(current_results, results.after) : current_results
-      end
+      results.after ? retrieve_results(current_results, results.after) : current_results
+    end
   end
 end

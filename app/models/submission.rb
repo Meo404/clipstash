@@ -88,7 +88,7 @@ class Submission < ApplicationRecord
 
   private
 
-    def candidate_validation?
-      candidate_validation
-    end
+  def candidate_validation?
+    candidate_validation
+  end
 end

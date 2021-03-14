@@ -51,11 +51,11 @@ class Api::V1::SubmissionsController < Api::V1::ApiController
 
   private
 
-    def subreddit_id
-      Subreddit.find_by_display_name!(params[:display_name]).id
-    end
+  def subreddit_id
+    Subreddit.find_by_display_name!(params[:display_name]).id
+  end
 
-    def set_user_id
-      @user_id = current_api_v1_user ? current_api_v1_user.id : nil
-    end
+  def set_user_id
+    @user_id = current_api_v1_user ? current_api_v1_user.id : nil
+  end
 end

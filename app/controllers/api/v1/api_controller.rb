@@ -19,37 +19,37 @@ module Api
 
       private
 
-        def set_user
-          @user = current_api_v1_user
-        end
+      def set_user
+        @user = current_api_v1_user
+      end
 
-        def render_error(exception)
-          raise exception if Rails.env.test?
+      def render_error(exception)
+        raise exception if Rails.env.test?
 
-          # To properly handle RecordNotFound errors in views
-          return render_not_found(exception) if exception.cause.is_a?(ActiveRecord::RecordNotFound)
+        # To properly handle RecordNotFound errors in views
+        return render_not_found(exception) if exception.cause.is_a?(ActiveRecord::RecordNotFound)
 
-          logger.error(exception) # Report to your error managment tool here
+        logger.error(exception) # Report to your error managment tool here
 
-          return if performed?
+        return if performed?
 
-          render json: { error: I18n.t("api.errors.server") }, status: :internal_server_error
-        end
+        render json: { error: I18n.t("api.errors.server") }, status: :internal_server_error
+      end
 
-        def render_not_found(exception)
-          logger.info(exception) # for logging
-          render json: { error: I18n.t("api.errors.not_found") }, status: :not_found
-        end
+      def render_not_found(exception)
+        logger.info(exception) # for logging
+        render json: { error: I18n.t("api.errors.not_found") }, status: :not_found
+      end
 
-        def render_record_invalid(exception)
-          logger.info(exception) # for logging
-          render json: { errors: exception.record.errors.as_json }, status: :bad_request
-        end
+      def render_record_invalid(exception)
+        logger.info(exception) # for logging
+        render json: { errors: exception.record.errors.as_json }, status: :bad_request
+      end
 
-        def render_parameter_missing(exception)
-          logger.info(exception) # for logging
-          render json: { error: I18n.t("api.errors.missing_param") }, status: :unprocessable_entity
-        end
+      def render_parameter_missing(exception)
+        logger.info(exception) # for logging
+        render json: { error: I18n.t("api.errors.missing_param") }, status: :unprocessable_entity
+      end
     end
   end
 end

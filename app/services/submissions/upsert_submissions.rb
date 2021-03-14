@@ -16,21 +16,21 @@ module Submissions
     end
 
     private
-      # Upsert Submissions only
-      def import_submissions
-        Submission.import @submissions,
-                          validate: true,
-                          batch_size: 100,
-                          on_duplicate_key_update: { conflict_target: [:reddit_fullname],
-                                                    columns: [:comment_count, :hot_score, :over18, :score, :title] }
-      end
+    # Upsert Submissions only
+    def import_submissions
+      Submission.import @submissions,
+                        validate: true,
+                        batch_size: 100,
+                        on_duplicate_key_update: { conflict_target: [:reddit_fullname],
+                                                  columns: [:comment_count, :hot_score, :over18, :score, :title] }
+    end
 
-      # Upserts Media only
-      def import_media
-        Medium.import @media,
-                      validate: true,
-                      batch_size: 100,
-                      on_duplicate_key_ignore: true
-      end
+    # Upserts Media only
+    def import_media
+      Medium.import @media,
+                    validate: true,
+                    batch_size: 100,
+                    on_duplicate_key_ignore: true
+    end
   end
 end

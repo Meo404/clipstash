@@ -23,7 +23,7 @@
 FactoryBot.define do
   factory :subreddit_request do
     user { create(:user) }
-    reddit_fullname { "t7_" + Faker::Alphanumeric.alphanumeric(5) }
+    reddit_fullname { "t7_" + Faker::Alphanumeric.alphanumeric(number: 5) }
     sequence(:display_name) { |n| "#{Faker::Lorem.word}#{n}" }
     comment { Faker::Lorem.paragraph }
     status_cd { 1 }

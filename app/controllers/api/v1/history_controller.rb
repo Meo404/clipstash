@@ -13,4 +13,3 @@ class Api::V1::HistoryController < Api::V1::ApiController
     render json: submissions, include: [], meta: pagination_dict(submissions)
   end
 end
-

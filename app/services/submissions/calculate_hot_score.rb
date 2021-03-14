@@ -17,25 +17,25 @@ module Submissions
 
     private
 
-      def calculate_score
-        displacement = Math.log([@score.abs, 1].max, 10)
-        sign = sign_value(@score)
+    def calculate_score
+      displacement = Math.log([@score.abs, 1].max, 10)
+      sign = sign_value(@score)
 
-        (displacement * sign.to_f) + (epoch_seconds(@created_at) / 45000)
-      end
+      (displacement * sign.to_f) + (epoch_seconds(@created_at) / 45000)
+    end
 
-      def epoch_seconds(t)
-        (t.to_i - EPOCH.to_i).to_f
-      end
+    def epoch_seconds(t)
+      (t.to_i - EPOCH.to_i).to_f
+    end
 
-      def sign_value(score)
-        if score > 0
-          1
-        elsif score < 0
-          -1
-        else
-          0
-        end
+    def sign_value(score)
+      if score > 0
+        1
+      elsif score < 0
+        -1
+      else
+        0
       end
+    end
   end
 end

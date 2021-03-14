@@ -76,15 +76,15 @@ class Subreddit < ApplicationRecord
 
   private
 
-    def build_url
-      self.url = "https://www.reddit.com/#{self.display_name_prefixed}"
-    end
+  def build_url
+    self.url = "https://www.reddit.com/#{self.display_name_prefixed}"
+  end
 
-    def icon_image?
-      self.reddit_icon.present?
-    end
+  def icon_image?
+    self.reddit_icon.present?
+  end
 
-    def banner_image?
-      self.reddit_banner.present?
-    end
+  def banner_image?
+    self.reddit_banner.present?
+  end
 end
