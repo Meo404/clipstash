@@ -53,7 +53,7 @@ describe 'POST api/v1/auth/sign_in', type: :request do
 
   context 'with unconfirmed account' do
     it 'returns an error' do
-      user.update_attributes(confirmed_at: nil)
+      user.update_attribute(:confirmed_at, nil)
       params = {
           user:
               {
