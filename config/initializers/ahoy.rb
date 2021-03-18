@@ -3,7 +3,7 @@ end
 
 # Ensure the correct method for retrieving the current user is used.
 Ahoy.user_method = -> (controller) do
-  if controller.class.parent == Api::V1
+  if controller.class.ancestors.include?(Api::V1::ApiController)
     return controller.current_api_v1_user
   end
 
