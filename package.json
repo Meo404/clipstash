@@ -10,7 +10,7 @@
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
     "email-validator": "^2.0.4",
     "js-cookie": "^2.2.1",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "notistack": "^0.9.6",
     "prop-types": "^15.7.2",
     "query-string": "^6.9.0",
